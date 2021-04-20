@@ -3,10 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
-
-  // task list:
-  // captcha in registrasi
-
   public function __construct()
   {
     parent::__construct();
@@ -15,11 +11,31 @@ class Admin extends CI_Controller
     }
     $this->load->model('User_model');
     $this->load->model('Token_model');
-    $this->load->helper('captcha');
   }
-  // edit fungsi untuk daftar koperasi
 
   public function index()
   {
+    // dashboard
+  }
+  public function sekolah()
+  {
+    // Input data sekolah
+  }
+  public function guru()
+  {
+    // Input data guru
+    //  dapat otomatis menambah user baru dengan nip guru dan password default
+  }
+  public function siswa()
+  {
+    // Input data siswa
+  }
+  public function kelas()
+  {
+    // Input data kelas
+  }
+  public function mataPelajaran()
+  {
+    // Input data mata pelajaran
   }
 }

@@ -4,9 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Guru extends CI_Controller
 {
 
-  // task list:
-  // captcha in registrasi
-
   public function __construct()
   {
     parent::__construct();
@@ -15,11 +12,30 @@ class Guru extends CI_Controller
     }
     $this->load->model('User_model');
     $this->load->model('Token_model');
-    $this->load->helper('captcha');
   }
-  // edit fungsi untuk daftar koperasi
 
   public function index()
   {
+    // dashboard
+  }
+  public function soal()
+  {
+    // Input data soal
+  }
+  public function nilai()
+  {
+    // Input Nilai per ujian siwa
+  }
+  public function skor()
+  {
+    // Input skor soal
+  }
+  public function jawaban()
+  {
+    // Input distribusi jawaban siswa
+  }
+  public function kunciJawaban()
+  {
+    // Input Kunci jawaban siswa
   }
 }
