@@ -44,49 +44,17 @@ class Admin extends CI_Controller
   {
     // Input data guru
     //  dapat otomatis menambah user baru dengan nip guru dan password default
-    $data['title'] = 'pending';
-    $data['subtitle'] = 'Resi Yang masih berada di customer/pengirim';
-    $data['user'] = $this->User_model->getUserByusername($this->session->userdata['email']);
-  
-    $this->load->view('templates/admin_header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('admin/sekolah', $data);
-    $this->load->view('templates/admin_footer');
   }
   public function siswa()
   {
     // Input data siswa
-    $data['title'] = 'pending';
-    $data['subtitle'] = 'Resi Yang masih berada di customer/pengirim';
-    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-  
-    $this->load->view('templates/admin_header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('admin/sekolah', $data);
-    $this->load->view('templates/admin_footer');
   }
   public function kelas()
   {
     // Input data kelas
-    $data['title'] = 'pending';
-    $data['subtitle'] = 'Resi Yang masih berada di customer/pengirim';
-    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-  
-    $this->load->view('templates/admin_header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('admin/sekolah', $data);
-    $this->load->view('templates/admin_footer');
   }
   public function mataPelajaran()
   {
     // Input data mata pelajaran
-    $data['title'] = 'pending';
-    $data['subtitle'] = 'Resi Yang masih berada di customer/pengirim';
-    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-  
-    $this->load->view('templates/admin_header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('admin/sekolah', $data);
-    $this->load->view('templates/admin_footer');
   }
 }
