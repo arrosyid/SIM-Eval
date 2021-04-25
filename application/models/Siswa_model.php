@@ -3,14 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Siswa_model extends CI_Model
 {
-  // mengambil semua soal
-  public function getAllSoal()
+  // mengambil semua Siswa
+  public function getAllSiswa()
   {
     return $this->db->get('tb_siswa');
   }
 
-  // mengambil data soal berdasarkan tipe id
-  public function getSoalByType($id, $type)
+  // mengambil data Siswa berdasarkan tipe id
+  public function getSiswaByType($id, $type)
   {
     // berdasarkan idSiswa
     if ($type == 'id_siswa') {
@@ -31,16 +31,16 @@ class Siswa_model extends CI_Model
     }
   }
 
-  // update soal dari id
-  public function upadateSoalById($idSiswa, $data)
+  // update Siswa dari id
+  public function upadateSiswaById($idSiswa, $data)
   {
     return $this->db->update('tb_siswa', $data, ['id_siswa' => $idSiswa]);
   }
 
-  // delete soal
-  public function deleteSoalByType($id, $type)
+  // delete Siswa
+  public function deleteSiswaByType($id, $type)
   {
-    // berdasarkan id soal
+    // berdasarkan id Siswa
     if ($type == 'id_siswa')
       return $this->db->delete('tb_siswa', ['id_siswa' => $id]);
 
