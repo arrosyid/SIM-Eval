@@ -4,9 +4,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class User_model extends CI_Model
 {
   // mengambil user berdasarkan email
-  public function getUserByEmail($email)
+  public function getUserByUsername($username)
   {
-    return $this->db->get_where('tb_user', ['email' => $email])->row_array();
+    return $this->db->get_where('tb_user', ['username' => $username])->row_array();
   }
   // mengambil user berdasarkan id
   public function getUserById($id)

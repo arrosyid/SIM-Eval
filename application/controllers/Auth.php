@@ -5,7 +5,8 @@ class Auth extends CI_Controller
 {
 
   // task list:
-  // captcha in registrasi
+  // pake email atau tidak
+  // 
 
   public function __construct()
   {
@@ -26,7 +27,7 @@ class Auth extends CI_Controller
     $this->form_validation->set_rules('password', 'Password', 'trim|min_length[8]|required');
 
     if ($this->form_validation->run() == FALSE) {
-      $data['title'] = 'Login Kurir';
+      $data['tittle'] = 'Login Kurir';
 
       $this->load->view('templates/auth_header', $data);
       $this->load->view('auth/login');
@@ -42,7 +43,7 @@ class Auth extends CI_Controller
 
     $email = $this->input->post('email');
     $password = $this->input->post('password');
-    $user = $this->User_model->getUserByEmail($email);
+    $user = $this->User_model->getUserByUsername($email);
 
     if ($user) {
       if ($user['is_active'] == 1) {
@@ -101,7 +102,7 @@ class Auth extends CI_Controller
 
 
     if ($this->form_validation->run() == FALSE) {
-      $data['title'] = 'Regristrasi Kurir';
+      $data['tittle'] = 'Regristrasi guru';
 
       $this->load->view('templates/auth_header', $data);
       $this->load->view('auth/registrasi');
@@ -112,15 +113,15 @@ class Auth extends CI_Controller
       $data_user = [
         // // mendapatkan id koperasi
         // 'id_koperasi' => htmlspecialchars($this->input->post('koperasi', TRUE)),
-        'username' => $this->input->post('name', TRUE),
+        'username' => htmlspecialchars($this->input->post('name', TRUE)),
         'password' => password_hash(
           $this->input->post('password1'),
           PASSWORD_DEFAULT
         ),
-        'email' => htmlspecialchars($email),
+        // 'email' => htmlspecialchars($email),
         'level' => 2,
-        'is_active' => 0,
-        'date_create' => time()
+        'status' => 0,
+        'date_created' => time()
       ];
       // membuat token
       $token = uniqid(true);
@@ -146,6 +147,7 @@ class Auth extends CI_Controller
 
       // cek if email activation has sent
       if ($this->_sendEmail($email, $data)) {
+      // if ($this->db->insert('tb_user', $data_user)) {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-info alert-dismissible">

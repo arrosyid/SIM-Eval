@@ -1,7 +1,7 @@
 <div class="card-body">
-  <p class="login-box-msg">Daftar Anggota Kurir baru</p>
+  <p class="login-box-msg">Daftar guru baru</p>
   <?= $this->session->flashdata('message') ?>
-  <form action="<?= base_url() ?>auth/registrasi" method="post">
+  <form action="" method="post">
 
     <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
     <div class="input-group mb-3">
