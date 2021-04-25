@@ -222,6 +222,154 @@ class Auth extends CI_Controller
     }
   }
 
+  public function forgot()
+  {
+    // untuk memverifikasi sesi login
+    (new Ionauth)->verified_access(true);
+    $data['title'] = 'Lupa Password';
+
+    // validation forms                
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+
+    if ($this->form_validation->run() == FALSE) {
+      // load view forgot password dengan template auth
+      $this->load->view('templates/auth_header', $data);
+      $this->load->view('auth/forgot_pass');
+      $this->load->view('templates/auth_footer');
+    } else {
+      $email = htmlspecialchars($this->input->post('email', true));
+
+      // get data user
+      $data_user = $this->Login_model->getUserByEmail($email);
+
+      // jika ada data user
+      if ($data_user) {
+        // generate token
+        $token = uniqid(true);
+        // var_dump($token);
+        // die;
+
+        // data untuk di insert
+        $data_token = [
+          'email' => $email,
+          'token' => $token,
+          'date_created' => time(),
+        ];
+
+        // mendaftarkan token
+        $this->Token_model->registerNewToken($data_token);
+
+        // data untuk ditampilkan pada email
+        $data['title'] = 'Recovery Password Akun Dinas Koperasi';
+        $data['heading'] = 'Recovery Password Akun Dinas Koperasi';
+        $data['body'] = 'Silahkan klik tombol dibawah untuk mereset password akun anda yang terdaftar dengan email: ' . $email . '.';
+        $data['url'] = base_url('index.php/auth/') . 'recover?email=' . $email . '&token=' . $token;
+        $data['button'] = 'Recover Password';
+
+        // cek hika berhasil mengirim email aktivasi
+        if ($this->_sendEmail($email, $data)) {
+          $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-info alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					Email untuk melakukan recovery password telah dikirim ke ' . $email . '.</div>'
+          );
+
+          redirect('auth/forgot');
+        } else {
+          $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-danger alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					Gagal mengirim Email.</div>'
+          );
+
+          redirect('auth/forgot');
+        }
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				Email tidak terdaftar.</div>'
+        );
+
+        redirect('auth/forgot');
+      }
+    }
+  }
+
+  // endpoint untuk recover password
+  public function recover()
+  {
+    // untuk memverifikasi sesi login
+    (new Ionauth)->verified_access(true);
+    $email = $this->input->get('email');
+    $token = $this->input->get('token');
+
+    $data['title'] = 'pulihkan password';
+    $data['email'] = $email;
+
+    // validation forms        
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+    $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]');
+    $this->form_validation->set_rules('password2', 'Confirmation Password', 'required|trim|matches[password1]');
+
+    if ($this->form_validation->run() == FALSE) {
+      // get data user dan token
+      $data_user = $this->Login_model->getUserByEmail($email);
+      $data_token = $this->Token_model->getTokenByToken($token);
+      // jika tidak ada email dan token valid maka tampil pesan error
+      if (!$data_user) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				Email tidak terdaftar.</div>'
+        );
+
+        redirect('Auth');
+      }
+
+      if (!$data_token) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				Token tidak valid.</div>'
+        );
+
+        redirect('Auth');
+      }
+      // load view recover password dengan template auth
+      $this->load->view('templates/auth_header', $data);
+      $this->load->view('auth/recover_pass');
+      $this->load->view('templates/auth_footer');
+    } else {
+      $email = htmlspecialchars($this->input->post('email', true));
+      $password = password_hash(htmlspecialchars($this->input->post('password1', true)), PASSWORD_DEFAULT);
+
+      // data untuk update password user
+      $data_user = [
+        'password' => $password,
+      ];
+
+      // update password user
+      if ($this->Login_model->updateUserByEmail($email, $data_user)) {
+        // menghapus token
+        $this->Token_model->deleteTokenByToken($token);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Berhasil memperbarui password dari akun: ' . $email . '.</div>');
+
+        redirect('Auth');
+      } else {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Gagal memperbarui password. Terjadi kesalahan.</div>');
+
+        redirect('Auth');
+      }
+    }
+  }
+
   // fungsi proses send email
   private function _sendEmail($email, $data)
   {
