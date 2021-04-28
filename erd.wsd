@@ -1,0 +1,187 @@
+@startuml ERD
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "user" as tb_user {
+  *id_user : int(11) <<PK>>
+  --
+  *id_guru : int(11) <<FK>>
+  username : varchar(255)
+  password : varchar(255)
+  level : int(1)
+  picture : varchar(128)
+  status : int(1)
+  date_created : int(11)
+}
+
+entity "token" as tb_token {
+  *id_token : int(11) <<PK>>
+  --
+  token : varchar(128)
+  email : varchar(255)
+  date_created : int(11)
+}
+
+entity "soal" as tb_soal {
+  *id_soal : int(11) <<PK>>
+  --
+  *id_mapel : int(11) <<FK>>
+  *id_kelas : int(11) <<FK>>
+  jml_soal : int(2)
+  jenis_soal : varchar(125)
+  kd : varchar(11)
+  kkm : int(3)
+  tgl_ujian : int(11)
+  skor_max : int(3)
+}
+entity "siswa" as tb_siswa{
+  *id_siswa : int(11) <<PK>>
+  --
+  *id_kelas : int(11) <<FK>>
+  nm_siswa : varchar(255)
+  nis : int(15)
+}
+entity "sekolah" as tb_sekolah {
+  *id_sekolah : int(11) <<PK>>
+  --
+  nm_sekolah : varchar(255)
+  nm_kepsek : varchar(255)
+  nm_admin : varchar(255)
+  akreditasi : varchar(10)
+  kurikulum : (128)
+  alamat : varchar(255)
+  npsn : int(15)
+  bentuk_pendidikan : varchar(128)
+  sk_pendirian : varchar(128)
+  tgl_sk_pendirian : int(11)
+  sk_izin : varchar(128)
+  tgl_sk_izin : int(11)
+  telfon : int(13)
+  website : varchar(128)
+  email :  varchar(128)
+}
+entity "record login" as tb_record_login {
+  *id_record : int(11) <<PK>>
+  --
+  *id_user : int(11) <<FK>>
+  date_created : int(11)
+}
+entity "mata pelajaran" as tb_mapel {
+  *id_mapel : int(11) <<PK>>
+  --
+  *id_kelas : int(11) <<FK>>
+  *id_sekolah : int(11) <<FK>>
+  mata_pelajaran : varchar(128)
+  semester : int(1)
+  thn_pelajaran : varchar(10)
+}
+entity "kelas" as tb_kelas {
+  *id_kelas : int(11) <<PK>>
+  --
+  *id_guru : int(11) <<FK>>
+  kelas : varchar(3)
+  bidang : varchar(128)
+  nomor_kelas : int(3)
+  jml_siswa : int(3)
+  jml_mapel : int(3)
+}
+entity "guru" as tb_guru {
+  *id_guru : int(11) <<PK>>
+  --
+  *id_mapel : int(11) <<FK>>
+  nip : varchar(20)
+  nm_guru : varchar(255)
+}
+entity "distribusi nilai" as tb_dist_nilai {
+  *id_skor : int(11) <<PK>>
+  --
+  *id_pg : int(11) <<FK>>
+  *id_uraian : int(11) <<FK>>
+  *id_mapel : int(11) <<FK>>
+  *id_siswa : int(11) <<FK>>
+  jml_skor : int(3)
+  nilai_ujian : int(3)
+  ranking : int(3)
+  kelompok : varchar(3)
+  tuntas_belajar : int(1)
+  tindak_lanjut : varchar(128)
+}
+entity "distribusi Jawaban pilihan ganda" as tb_dist_jwbpg {
+  *id_pg : int(11) <<PK>>
+  --
+  *id_soal : int(11) <<FK>>
+  kunci : varchar(1)
+  no_1 : varchar(1)
+  ...
+  no_50 : varchar(1)
+}
+entity "distribusi Jawaban uraian" as tb_dist_jwbuo {
+  *id_uraian : int(11) <<PK>>
+  --
+  *id_soal : int(11) <<FK>>
+  no_1 : int(2)
+  ...
+  no_20 : int(2)
+}
+entity "analisis soal pilihan ganda" as tb_analis_soalpg {
+  *id_analispg : int(11) <<PK>>
+  --
+  *id_pg : int(11) <<FK>>
+  *id_soal : int(11) <<FK>>
+  pengecoh_a : varchar(11)
+  pengecoh_b : varchar(11)
+  pengecoh_c : varchar(11)
+  pengecoh_d : varchar(11)
+  pengecoh_e : varchar(11)
+  tingkat_kesukaran : varchar(11)
+  daya_pembeda : varchar(11)
+  ket_soal : varchar(255)
+  no_soal : int(3)
+}
+entity "analisis soal uraian" as tb_analis_soaluo {
+  *id_analisuo : int(11) <<PK>>
+  --
+  *id_uraian : int(11) <<FK>>
+  *id_soal : int(11) <<FK>>
+  rerata_skor : varchar(11)
+  rerata_skorats : varchar(11)
+  rerata_skorbwh : varchar(11)
+  tingkat_kesukaran : varchar(11)
+  daya_pembeda : varchar(11)
+  ket_soal : varchar(255)
+  no_soal : int(3)
+}
+entity "evaluasi hasil pembelajaran" as tb_eval {
+  *id_eval : int(11) <<PK>>
+  --
+  *id_skor : int(11) <<FK>>
+  tindak_lanjut : varchar(255)
+  jenis_tindak_lanjut : varchar(255)
+  jenis_tugas : varchar(255)
+  nilai_akhir : int(3)
+}
+
+tb_siswa }|--|| tb_kelas
+tb_kelas ||--|| tb_guru
+tb_guru ||--|| tb_mapel
+tb_record_login }o-left-|| tb_user
+tb_mapel }|--|| tb_kelas
+tb_mapel }|--|| tb_sekolah
+tb_user |o--|| tb_guru
+tb_soal }|-up-|| tb_mapel
+tb_soal }|--|| tb_kelas
+tb_dist_jwbpg ||--|| tb_soal
+tb_dist_jwbuo ||--|| tb_soal
+tb_dist_nilai ||-down-|| tb_dist_jwbpg
+tb_dist_nilai ||-down-|| tb_dist_jwbuo
+tb_dist_nilai }|-up-|| tb_mapel
+tb_dist_nilai }|-up-|| tb_siswa
+tb_analis_soalpg ||--|| tb_dist_jwbpg
+tb_analis_soalpg ||--|| tb_soal
+tb_analis_soaluo ||--|| tb_dist_jwbuo
+tb_analis_soaluo ||--|| tb_soal
+tb_eval ||--|| tb_dist_nilai
+@enduml
