@@ -41,12 +41,12 @@ class Auth extends CI_Controller
   private function _login()
   {
 
-    $email = $this->input->post('email');
-    $password = $this->input->post('password');
-    $user = $this->User_model->getUserByUsername($email);
+    $email = $this->input->post('email', true);
+    $password = $this->input->post('password', true);
+    $user = $this->User_model->getUserByEmail($email);
 
     if ($user) {
-      if ($user['is_active'] == 1) {
+      if ($user['status'] == 1) {
         //cek password
         if (password_verify($password, $user['password'])) {
           //menyiapkan data pada session
@@ -60,7 +60,7 @@ class Auth extends CI_Controller
           if ($user['level'] == '1') {
             redirect('admin');
           } else {
-            redirect('kurir');
+            redirect('guru');
           }
         } else {
           $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible">
@@ -90,7 +90,7 @@ class Auth extends CI_Controller
 
     //validation rules
     $this->form_validation->set_rules('name', 'Name', 'required|trim');
-    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
       'valid_email' => 'email tidak cocok',
       'is_unique' => 'email sudah digunakan'
     ]);
@@ -118,11 +118,12 @@ class Auth extends CI_Controller
           $this->input->post('password1'),
           PASSWORD_DEFAULT
         ),
-        // 'email' => htmlspecialchars($email),
+        'email' => htmlspecialchars($email),
         'level' => 2,
         'status' => 0,
         'date_created' => time()
       ];
+
       // membuat token
       $token = uniqid(true);
       // input token
@@ -131,23 +132,23 @@ class Auth extends CI_Controller
         'token' => $token,
         'date_created' => time(),
       ];
-      // view activation email
-      $data['title'] = 'verify Password Akun Kurir Anda';
-      $data['heading'] = 'Verifikasi Akun Kurir Anda';
-      $data['body'] = 'Silahkan klik tombol dibawah untuk mendaftar akun anda yang terdaftar dengan email: ' . $email . '.';
-      $data['url'] = base_url('index.php/auth/') . 'verify?email=' . $email . '&token=' . $token;
-      $data['button'] = 'verify akun';
+      // // view activation email
+      // $data['title'] = 'verify Password Akun Kurir Anda';
+      // $data['heading'] = 'Verifikasi Akun Kurir Anda';
+      // $data['body'] = 'Silahkan klik tombol dibawah untuk mendaftar akun anda yang terdaftar dengan email: ' . $email . '.';
+      // $data['url'] = base_url('index.php/auth/') . 'verify?email=' . $email . '&token=' . $token;
+      // $data['button'] = 'verify akun';
 
-      // input data to database
-      $this->db->insert('user', $data_user);
-      $this->db->insert('token', $user_token);
+      // // input data to database
+      // $this->db->insert('tb_user', $data_user);
+      // $this->db->insert('tb_token', $user_token);
 
-      // send email activation
+      // // send email activation
       // $this->_sendEmail($email, $data);
 
       // cek if email activation has sent
-      if ($this->_sendEmail($email, $data)) {
-      // if ($this->db->insert('tb_user', $data_user)) {
+      // if ($this->_sendEmail($email, $data)) {
+      if ($this->db->insert('tb_user', $data_user)) {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-info alert-dismissible">

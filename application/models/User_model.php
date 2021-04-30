@@ -8,6 +8,11 @@ class User_model extends CI_Model
   {
     return $this->db->get_where('tb_user', ['username' => $username])->row_array();
   }
+  // mengambil user berdasarkan email
+  public function getUserByEmail($email)
+  {
+    return $this->db->get_where('tb_user', ['email' => $email])->row_array();
+  }
   // mengambil user berdasarkan id
   public function getUserById($id)
   {
@@ -39,20 +44,10 @@ class User_model extends CI_Model
       return $this->db->delete('tb_user', ['id_user' => $param]);
     }
 
-    // if ($type == 'id_guru') {
-    //   return $this->db->delete('tb_user', ['id_guru' => $param]);
-    // }
+    if ($type == 'id_guru') {
+      return $this->db->delete('tb_user', ['id_guru' => $param]);
+    }
   }
-
-  // // get latest login with LIMIT
-  // public function getAllUserActivation($aktif)
-  // {
-  //   $this->db->select("user.*, tb_guru.nm_guru , FROM_UNIXTIME(login.created_at, '%Y %M %d %H:%i') AS login_time");
-  //   $this->db->from('tb_user');
-  //   $this->db->join('tb_user', 'user.id_guru = tb_guru.id_guru');
-  //   $this->db->where('tb_user', ['is_active' => $aktif]);
-  //   $this->db->order_by('login.created_at', 'DESC');
-  // }
 
   // update user by email
   public function updateUserByEmail($email, $data)
