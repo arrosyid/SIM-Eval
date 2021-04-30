@@ -16,77 +16,81 @@ class Admin extends CI_Controller
   public function index()
   {
     // dashboard
-    $data['title'] = 'Dashboard';
-    $data['subtitle'] = 'Dashboard Admin';
-    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-    // if ($this->input->post(['search'])) {
-    //   $data['resi'] =  $this->Pesanan_model->getPesananByKeyword($this->input->post('keyword'));
-    // }
-
-    $this->load->view('templates/admin_header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('admin/dashboard');
-    $this->load->view('templates/admin_footer');
+    echo 'selamat datang admin';
+    echo '<a href="' . base_url('auth/logout') . '"> keluar </a>';
   }
-  public function sekolah()
+  public function analisis()
   {
-    // Input data sekolah
-    $data['title'] = 'pending';
-    $data['subtitle'] = 'Resi Yang masih berada di customer/pengirim';
-    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-
-    $this->load->view('templates/admin_header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('admin/sekolah', $data);
-    $this->load->view('templates/admin_footer');
+    // read data analisis
+    $data['tittle'] = 'Hasil Analisis';
   }
-  public function guru()
+  public function guruSiswa()
   {
-    // Input data guru
-    //  dapat otomatis menambah user baru dengan nip guru dan password default
-    $data['title'] = 'pending';
-    $data['subtitle'] = 'Resi Yang masih berada di customer/pengirim';
-    $data['user'] = $this->User_model->getUserByusername($this->session->userdata['email']);
-  
-    $this->load->view('templates/admin_header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('admin/sekolah', $data);
-    $this->load->view('templates/admin_footer');
+    // Read Data Guru dan Siswa
+    $data['tittle'] = 'Daftar Guru dan Siswa';
   }
-  public function siswa()
+  public function mapel()
   {
-    // Input data siswa
-    $data['title'] = 'pending';
-    $data['subtitle'] = 'Resi Yang masih berada di customer/pengirim';
-    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-  
-    $this->load->view('templates/admin_header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('admin/sekolah', $data);
-    $this->load->view('templates/admin_footer');
+    // Read Data Mapel
+    $data['tittle'] = 'Daftar Mata Pelajaran';
   }
   public function kelas()
   {
-    // Input data kelas
-    $data['title'] = 'pending';
-    $data['subtitle'] = 'Resi Yang masih berada di customer/pengirim';
-    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-  
-    $this->load->view('templates/admin_header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('admin/sekolah', $data);
-    $this->load->view('templates/admin_footer');
+    // Read Data Kelas
+    $data['tittle'] = 'Daftar Kelas';
   }
-  public function mataPelajaran()
+  public function soal()
+  {
+    // Read data soal
+    $data['tittle'] = 'Daftar Soal';
+  }
+  public function nilai()
+  {
+    // Read Nilai per ujian siwa
+  }
+  public function skor()
+  {
+    // Input skor soal Uraian
+  }
+  public function jawaban()
+  {
+    // Read distribusi jawaban siswa dan kunci jawaban
+    $data['tittle'] = 'Distribusi Jawaban';
+  }
+  public function myProfile()
+  {
+    // read profile guru
+    $data['tittle'] = 'Profile Anda';
+  }
+  public function profileSekolah()
+  {
+    // read profile sekolah
+    $data['tittle'] = 'Profile Sekolah';
+  }
+  public function editProfile()
+  {
+    // edit profile guru
+    $data['tittle'] = 'Edit Profile Anda';
+  }
+  public function editSekolah()
+  {
+    // edit & Input data sekolah
+  }
+  public function tambahGuru()
+  {
+    // Input data guru
+    //  dapat otomatis menambah user baru dengan nip guru dan password default
+  }
+  public function tambahSiswa()
+  {
+    // Input data siswa
+  }
+  public function tambahKelas()
+  {
+    // Input data Kelas
+  }
+  public function tambahMapel()
   {
     // Input data mata pelajaran
-    $data['title'] = 'pending';
-    $data['subtitle'] = 'Resi Yang masih berada di customer/pengirim';
-    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-  
-    $this->load->view('templates/admin_header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('admin/sekolah', $data);
-    $this->load->view('templates/admin_footer');
   }
 }

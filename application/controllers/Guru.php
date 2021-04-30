@@ -19,6 +19,7 @@ class Guru extends CI_Controller
     // dashboard
     $data['tittle'] = 'Dashboard';
     echo 'selamat datang guru';
+    echo '<a href="' . base_url('auth/logout') . '"> keluar </a>';
   }
   public function analisis()
   {
