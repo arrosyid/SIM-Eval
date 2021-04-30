@@ -7,7 +7,7 @@ class Admin extends CI_Controller
   {
     parent::__construct();
     if ($this->session->userdata('level') != 1) {
-      (new Ionauth)->verified_access(false);
+      (new IonAuth)->verified_access(false);
     }
     $this->load->model('User_model');
     $this->load->model('Token_model');

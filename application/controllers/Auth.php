@@ -20,7 +20,7 @@ class Auth extends CI_Controller
   public function index()
   {
     //untuk memverifikasi sesi login
-    (new Ionauth)->verified_access(true);
+    (new IonAuth)->verified_access(true);
 
     //validation rules
     $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
@@ -86,7 +86,7 @@ class Auth extends CI_Controller
   public function registrasi()
   {
     //untuk memverifikasi sesi login
-    (new Ionauth)->verified_access(true);
+    (new IonAuth)->verified_access(true);
 
     //validation rules
     $this->form_validation->set_rules('name', 'Name', 'required|trim');
@@ -226,7 +226,7 @@ class Auth extends CI_Controller
   public function forgot()
   {
     // untuk memverifikasi sesi login
-    (new Ionauth)->verified_access(true);
+    (new IonAuth)->verified_access(true);
     $data['title'] = 'Lupa Password';
 
     // validation forms                
@@ -304,7 +304,7 @@ class Auth extends CI_Controller
   public function recover()
   {
     // untuk memverifikasi sesi login
-    (new Ionauth)->verified_access(true);
+    (new IonAuth)->verified_access(true);
     $email = $this->input->get('email');
     $token = $this->input->get('token');
 

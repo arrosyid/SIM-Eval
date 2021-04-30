@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 if (!function_exists('test_method')) {
-  class Ionauth
+  class IonAuth
   {
     public function verified_access($public = false)
     {
@@ -20,7 +20,7 @@ if (!function_exists('test_method')) {
 
       // jika level 2 diarahkan ke user
       if ($level == 2) {
-        redirect('kurir');
+        redirect('guru');
       }
 
       // jika level null/kosong/belum login
