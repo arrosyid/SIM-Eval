@@ -91,6 +91,16 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-8">
+              capthca
+            </div>
+            <!-- /.col -->
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary btn-block">Tambah Kelas</button>
+            </div>
+            <!-- /.col -->
+          </div>
         </form>
       </div>
     </div>
