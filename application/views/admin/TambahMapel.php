@@ -1,5 +1,6 @@
 <section class="content">
   <div class="container-fluid">
+    <?= $this->session->flashdata('message'); ?>
     <div class="card card-primary">
       <!-- /.card-header -->
       <div class="card-header">
@@ -13,7 +14,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="mapel" id="mapel" placeholder="Isi Nama Mata Pelajaran" value="">
+                <input type="text" class="form-control" name="mapel" id="mapel" placeholder="Isi Nama Mata Pelajaran" value="<?= set_value('mapel') ?>">
               </div>
             </div>
           </div>

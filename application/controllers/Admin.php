@@ -11,6 +11,7 @@ class Admin extends CI_Controller
     }
     $this->load->model('User_model');
     $this->load->model('Token_model');
+    $this->load->model('Mapel_model');
   }
 
   public function index()
@@ -163,5 +164,35 @@ class Admin extends CI_Controller
   public function tambahMapel()
   {
     // Input data mata pelajaran
+    $data['tittle'] = 'Tambah Mata Pelajaran';
+    $data['subtittle'] = 'Tambah Mata Pelajaran Baru';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+
+    $this->form_validation->set_rules('mapel', 'Mata Pelajaran', 'required|trim');
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/TambahMapel');
+      $this->load->view('templates/admin_footer');
+    } else {
+      $data_mapel = [
+        'mapel' => htmlspecialchars($this->input->post('mapel'))
+      ];
+      if ($this->db->insert('tb_mapel', $data_mapel)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Berhasil menginputkan data Mata Pelajaran</div>'
+        );
+        redirect('admin/tambahMapel');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Gagal menginputkan data Mata Pelajaran</div>'
+        );
+        redirect('admin/tambahMapel');
+      }
+    }
   }
 }
