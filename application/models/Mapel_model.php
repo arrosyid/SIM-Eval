@@ -6,7 +6,7 @@ class Mapel_model extends CI_Model
   // mengambil semua Mapel
   public function getAllMapel()
   {
-    return $this->db->get('tb_mapel');
+    return $this->db->get('tb_mapel')->result_array();
   }
 
   // mengambil data Mapel berdasarkan tipe id
@@ -18,7 +18,7 @@ class Mapel_model extends CI_Model
         ->from('tb_mapel')
         ->where(['id_mapel' => $id])
         ->join('tb_sekolah.id_sekolah = tb_mapel.id_sekolah, tb_kelas.id_kelas = tb_mapel.id_kelas');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
 
     // berdasarkan id_sekolah
@@ -27,7 +27,7 @@ class Mapel_model extends CI_Model
         ->from('tb_mapel')
         ->where(['id_sekolah' => $id])
         ->join('tb_sekolah.id_sekolah = tb_mapel.id_sekolah, tb_kelas.id_kelas = tb_mapel.id_kelas');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
 
     // berdasarkan id_kelas
@@ -36,7 +36,7 @@ class Mapel_model extends CI_Model
         ->from('tb_mapel')
         ->where(['id_kelas' => $id])
         ->join('tb_sekolah.id_sekolah = tb_mapel.id_sekolah, tb_kelas.id_kelas = tb_mapel.id_kelas');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
   }
 

@@ -37,9 +37,9 @@
               <div class="form-group">
                 <select class="form-control" name="id_mapel" id="id_mapel">
                   <option value="">PILIH MATA PELAJARAN</option>
-                  <?php foreach ($mapel as $M) {
-                    echo `<option value="$M->id_mapel">$M->nm_mapel</option>`;
-                  } ?>
+                  <?php foreach ($mapel as $M) { ?>
+                    <option value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>;
+                  <?php } ?>
                 </select>
               </div>
             </div>
@@ -47,7 +47,7 @@
           <!-- jika di centang maka muncul yg dibawahnya -->
           <div class="icheck-primary">
             <label for="akun">Buat Akun Guru?</label>
-            <input class="ml-3" type="checkbox" id="akun" name="akun" value="iya"> iya
+            <input class="ml-3" type="checkbox" id="akun" name="akun" value="1"> iya
           </div>
           <div class="row">
             <div class="col-sm-2">

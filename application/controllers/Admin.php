@@ -91,13 +91,13 @@ class Admin extends CI_Controller
     $data['tittle'] = 'tambah guru';
     $data['subtittle'] = 'Tambah Guru Baru';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-    $data['mapel'] = $this->mapel_model->getAllMapel();
+    $data['mapel'] = $this->Mapel_model->getAllMapel();
 
     $akun = $this->input->post('akun', true);
     $this->form_validation->set_rules('nm_guru', 'Nama Guru', 'required|trim');
     $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
     $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
-    if ($akun != null) {
+    if ($akun == 1) {
       $this->form_validation->set_rules('email', 'Email', 'required|trim');
       $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
         'min_length' => 'password terlalu pendek!',
