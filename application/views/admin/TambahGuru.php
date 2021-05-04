@@ -1,5 +1,7 @@
 <section class="content">
   <div class="container-fluid">
+    <?= $this->session->flashdata('message'); ?>
+    <?= $this->session->flashdata('message1'); ?>
     <div class="card card-primary">
       <!-- /.card-header -->
       <div class="card-header">
@@ -13,7 +15,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="nm_guru" id="nm_guru" placeholder="Isi Nama Guru" value="">
+                <input type="text" class="form-control" name="nm_guru" id="nm_guru" placeholder="Isi Nama Guru" value="<?= set_value('nm_guru') ?>">
               </div>
             </div>
           </div>
@@ -23,7 +25,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="nip" id="nip" placeholder="Isi Nomor Identitas Pegawai Negeri Sipil" value="">
+                <input type="text" class="form-control" name="nip" id="nip" placeholder="Isi Nomor Identitas Pegawai Negeri Sipil" value="<?= set_value('nip') ?>">
               </div>
             </div>
           </div>
@@ -35,16 +37,17 @@
               <div class="form-group">
                 <select class="form-control" name="id_mapel" id="id_mapel">
                   <option value="">PILIH MATA PELAJARAN</option>
-                  <option value=""></option>
-
+                  <?php foreach ($mapel as $M) {
+                    echo `<option value="$M->id_mapel">$M->nm_mapel</option>`;
+                  } ?>
                 </select>
               </div>
             </div>
           </div>
           <!-- jika di centang maka muncul yg dibawahnya -->
           <div class="icheck-primary">
-            <label for="agreeTerms">Buat Akun Guru?</label>
-            <input class="ml-3" type="checkbox" id="agreeTerms" name="terms" value="agree"> iya
+            <label for="akun">Buat Akun Guru?</label>
+            <input class="ml-3" type="checkbox" id="akun" name="akun" value="iya"> iya
           </div>
           <div class="row">
             <div class="col-sm-2">
@@ -69,7 +72,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="email" id="email" placeholder="Isi Email" value="">
+                <input type="text" class="form-control" name="email" id="email" placeholder="Isi Email" value="<?= set_value('email') ?>">
               </div>
             </div>
           </div>
