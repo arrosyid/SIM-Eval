@@ -12,6 +12,7 @@ class Admin extends CI_Controller
     $this->load->model('User_model');
     $this->load->model('Token_model');
     $this->load->model('Mapel_model');
+    $this->load->model('Guru_model');
   }
 
   public function index()
@@ -160,6 +161,48 @@ class Admin extends CI_Controller
   public function tambahKelas()
   {
     // Input data Kelas
+    $data['tittle'] = 'Tambah Kelas';
+    $data['subtittle'] = 'Tambah Kelas Baru';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['guru'] = $this->Guru_model->getAllGuru();
+
+    $this->form_validation->set_rules('kelas', 'Kelas', 'required|trim');
+    $this->form_validation->set_rules('bidang', 'Bidang', 'required|trim');
+    $this->form_validation->set_rules('nomor_kelas', 'Nomor Kelas', 'required|trim');
+    $this->form_validation->set_rules('id_guru', 'Wali Kelas', 'required|trim');
+    $this->form_validation->set_rules('jml_siswa', 'Jumlah Siswa', 'required|trim');
+    $this->form_validation->set_rules('jml_mapel', 'Jumlah Mata Pelajaran', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/TambahKelas');
+      $this->load->view('templates/admin_footer');
+    } else {
+      $data_kelas = [
+        'kelas' => htmlspecialchars($this->input->post('kelas')),
+        'bidang' => htmlspecialchars($this->input->post('bidang')),
+        'nomor_kelas' => htmlspecialchars($this->input->post('nomor_kelas')),
+        'id_guru' => htmlspecialchars($this->input->post('id_guru')),
+        'jml_siswa' => htmlspecialchars($this->input->post('jml_siswa')),
+        'jml_mapel' => htmlspecialchars($this->input->post('jml_mapel'))
+      ];
+      if ($this->db->insert('tb_kelas', $data_kelas)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Berhasil menginputkan data Kelas</div>'
+        );
+        redirect('admin/tambahKelas');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Gagal menginputkan data Kelas</div>'
+        );
+        redirect('admin/tambahKelas');
+      }
+    }
   }
   public function tambahMapel()
   {

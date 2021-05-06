@@ -1,5 +1,6 @@
 <section class="content">
   <div class="container-fluid">
+    <?= $this->session->flashdata('massage') ?>
     <div class="card card-primary">
       <!-- /.card-header -->
       <div class="card-header">
@@ -49,24 +50,15 @@
           </div>
           <div class="row">
             <div class="col-sm-2">
-              <label>Jumlah Soal</label>
-            </div>
-            <div class="col-sm-10">
-              <div class="form-group">
-                <input type="text" class="form-control" name="jml_soal" id="jml_soal" placeholder="Isi Jumlah Soal" value="">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2">
               <label>Wali Kelas</label>
             </div>
             <div class="col-sm-10">
               <div class="form-group">
                 <select class="form-control" name="id_guru" id="id_guru">
                   <option value="">PILIH WALI KELAS</option>
-                  <option value="">guru a</option>
-                  <option value="">guru b</option>
+                  <?php foreach ($guru as $G) { ?>
+                    <option value="<?= $G['id_guru'] ?>"><?= $G['nm_guru'] ?></option>;
+                  <?php } ?>
                 </select>
               </div>
             </div>
