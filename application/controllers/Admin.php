@@ -157,6 +157,43 @@ class Admin extends CI_Controller
   public function tambahSiswa()
   {
     // Input data siswa
+    $data['tittle'] = 'Tambah Siswa';
+    $data['subtittle'] = 'Tambah Siswa Baru';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+
+    $this->form_validation->set_rules('nm_siswa', 'Nama Siswa', 'required|trim');
+    $this->form_validation->set_rules('nis', 'Nomor Induk Siswa', 'required|trim');
+    // $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/TambahSiswa');
+      $this->load->view('templates/admin_footer');
+    } else {
+      $data_siswa = [
+        'nm_siswa' => htmlspecialchars($this->input->post('nm_siswa')),
+        'nis' => htmlspecialchars($this->input->post('nis')),
+        'id_kelas' => htmlspecialchars($this->input->post('id_kelas')),
+      ];
+      // var_dump($data_siswa);
+      // die;
+      if ($this->db->insert('tb_siswa', $data_siswa)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Berhasil menginputkan data Kelas</div>'
+        );
+        redirect('admin/TambahSiswa');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Gagal menginputkan data Kelas</div>'
+        );
+        redirect('admin/TambahSiswa');
+      }
+    }
   }
   public function tambahKelas()
   {
