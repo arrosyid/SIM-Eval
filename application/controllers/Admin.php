@@ -13,6 +13,8 @@ class Admin extends CI_Controller
     $this->load->model('Token_model');
     $this->load->model('Mapel_model');
     $this->load->model('Guru_model');
+    $this->load->model('Siswa_model');
+    $this->load->model('Kelas_model');
   }
 
   public function index()
@@ -93,6 +95,8 @@ class Admin extends CI_Controller
     $data['subtittle'] = 'Tambah Guru Baru';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['mapel'] = $this->Mapel_model->getAllMapel();
+    // var_dump($data['mapel']);
+    // die;
 
     $akun = $this->input->post('akun', true);
     $this->form_validation->set_rules('nm_guru', 'Nama Guru', 'required|trim');
@@ -154,12 +158,14 @@ class Admin extends CI_Controller
       }
     }
   }
-  public function tambahSiswa()
+  public function daftarSiswa()
   {
     // Input data siswa
     $data['tittle'] = 'Tambah Siswa';
     $data['subtittle'] = 'Tambah Siswa Baru';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['siswa'] = $this->Siswa_model->getAllSiswa();
+    $data['kelas'] = $this->Kelas_model->getAllKelas();
 
     $this->form_validation->set_rules('nm_siswa', 'Nama Siswa', 'required|trim');
     $this->form_validation->set_rules('nis', 'Nomor Induk Siswa', 'required|trim');
@@ -168,7 +174,7 @@ class Admin extends CI_Controller
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/admin_header', $data);
       $this->load->view('templates/sidebar', $data);
-      $this->load->view('admin/TambahSiswa');
+      $this->load->view('admin/DaftarSiswa');
       $this->load->view('templates/admin_footer');
     } else {
       $data_siswa = [
@@ -184,14 +190,14 @@ class Admin extends CI_Controller
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         Berhasil menginputkan data Kelas</div>'
         );
-        redirect('admin/TambahSiswa');
+        redirect('admin/daftarSiswa');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         Gagal menginputkan data Kelas</div>'
         );
-        redirect('admin/TambahSiswa');
+        redirect('admin/daftarSiswa');
       }
     }
   }
@@ -274,5 +280,25 @@ class Admin extends CI_Controller
         redirect('admin/tambahMapel');
       }
     }
+  }
+  // fungsi untuk ajax
+  public function ajax()
+  {
+    $ajax_menu = $this->input->post('ajax_menu');
+
+    // ajax edit SISWA
+    if ($ajax_menu == 'get_siswa') {
+      $id_siswa = $this->input->post('id_siswa');
+      $data['siswa'] = $this->Siswa_model->getSiswaByType($id_siswa, 'id_siswa');
+      $data['kelas'] = $this->Kelas_model->getKelasByType($data['siswa']['id_kelas'], 'id_kelas');
+      $this->load->view('admin/ajax/ajax_editSiswa', $data);
+    }
+
+    // // ajax edit SISWA
+    // if ($ajax_menu == 'get_siswa') {
+    //   $id_siswa = $this->input->post('id_siswa');
+    //   $data['editSiswa'] = $this->Pemodalan_model->getPemodalanById('id_modal', $id_siswa);
+    //   $this->load->view('admin/ajax/ajax_editSiswa', $data);
+    // }
   }
 }

@@ -95,6 +95,25 @@
     });
   });
 </script>
+<script>
+  $('.view-data').on('click', function() {
+    var id_siswa = $(this).attr('id');
+    console.log(id_siswa);
+
+    $.ajax({
+      url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
+      method: "post",
+      data: {
+        ajax_menu: 'get_siswa',
+        id_siswa: id_siswa
+      },
+      success: function(data) {
+        $('#detailSiswa').html(data);
+        $('#editSiswa').modal();
+      }
+    });
+  });
+</script>
 </body>
 
 </html>
