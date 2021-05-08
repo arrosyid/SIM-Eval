@@ -6,11 +6,11 @@ class Eval_model extends CI_Model
   // mengambil semua Eval
   public function getAllEval()
   {
-    return $this->db->get('tb_analis_eval');
+    return $this->db->get('tb_analis_eval')->result_array();
   }
 
   // mengambil data Eval berdasarkan tipe id
-  public function getEvalByType($id, $type)
+  public function getEvalByType($type, $id)
   {
     // berdasarkan idEval
     if ($type == 'id_eval') {
@@ -18,7 +18,7 @@ class Eval_model extends CI_Model
         ->from('tb_analis_eval')
         ->where(['id_eval' => $id])
         ->join('tb_dist_nilai.id_skor = tb_analis_eval.id_skor');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
 
     // berdasarkan id_pg
@@ -27,7 +27,7 @@ class Eval_model extends CI_Model
         ->from('tb_analis_eval')
         ->where(['id_pg' => $id])
         ->join('tb_dist_nilai.id_skor = tb_analis_eval.id_skor');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
     // berdasarkan id_skor
     if ($type == 'id_skor') {
@@ -35,7 +35,7 @@ class Eval_model extends CI_Model
         ->from('tb_analis_eval')
         ->where(['id_skor' => $id])
         ->join('tb_dist_nilai.id_skor = tb_analis_eval.id_skor');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
   }
 

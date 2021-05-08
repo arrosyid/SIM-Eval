@@ -6,7 +6,7 @@ class Pg_model extends CI_Model
   // mengambil semua Pg
   public function getAllPg()
   {
-    return $this->db->get('tb_dist_jwbpg');
+    return $this->db->get('tb_dist_jwbpg')->result_array();
   }
 
   // mengambil data Pg berdasarkan tipe id
@@ -18,7 +18,7 @@ class Pg_model extends CI_Model
         ->from('tb_dist_jwbpg')
         ->where(['id_pg' => $id])
         ->join('tb_soal.id_soal = tb_dist_jwbpg.id_soal');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
 
     // berdasarkan id_soal
@@ -27,7 +27,7 @@ class Pg_model extends CI_Model
         ->from('tb_dist_jwbpg')
         ->where(['id_soal' => $id])
         ->join('tb_soal.id_soal = tb_dist_jwbpg.id_soal');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
   }
 
