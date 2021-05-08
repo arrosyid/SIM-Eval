@@ -6,11 +6,11 @@ class Skor_model extends CI_Model
   // mengambil semua Skor
   public function getAllSkor()
   {
-    return $this->db->get('tb_dist_nilai');
+    return $this->db->get('tb_dist_nilai')->result_array();
   }
 
   // mengambil data Skor berdasarkan tipe id
-  public function getSkorByType($id, $type)
+  public function getSkorByType($type, $id)
   {
     // berdasarkan id Skor
     if ($type == 'id_skor') {
@@ -18,35 +18,35 @@ class Skor_model extends CI_Model
         ->from('tb_dist_nilai')
         ->where(['id_skor' => $id])
         ->join('tb_dist_nilai.id_pg = tb_dist_jwbpg.id_pg, tb_dist_nilai.id_uraian = tb_dist_jwbuo.id_uraian, tb_dist_nilai.id_mapel = tb_mapel.id_mapel, tb_dist_nilai.id_siswa = tb_siswa.id_siswa');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
     if ($type == 'id_pg') {
       $this->db->select('tb_dist_nilai.*, tb_dist_jwbpg.*, tb_dist_jwbuo.*, tb_mapel.*, tb_siswa')
         ->from('tb_dist_nilai')
         ->where(['id_pg' => $id])
         ->join('tb_dist_nilai.id_pg = tb_dist_jwbpg.id_pg, tb_dist_nilai.id_uraian = tb_dist_jwbuo.id_uraian, tb_dist_nilai.id_mapel = tb_mapel.id_mapel, tb_dist_nilai.id_siswa = tb_siswa.id_siswa');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
     if ($type == 'id_uraian') {
       $this->db->select('tb_dist_nilai.*, tb_dist_jwbpg.*, tb_dist_jwbuo.*, tb_mapel.*, tb_siswa')
         ->from('tb_dist_nilai')
         ->where(['id_uraian' => $id])
         ->join('tb_dist_nilai.id_pg = tb_dist_jwbpg.id_pg, tb_dist_nilai.id_uraian = tb_dist_jwbuo.id_uraian, tb_dist_nilai.id_mapel = tb_mapel.id_mapel, tb_dist_nilai.id_siswa = tb_siswa.id_siswa');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
     if ($type == 'id_mapel') {
       $this->db->select('tb_dist_nilai.*, tb_dist_jwbpg.*, tb_dist_jwbuo.*, tb_mapel.*, tb_siswa')
         ->from('tb_dist_nilai')
         ->where(['id_mapel' => $id])
         ->join('tb_dist_nilai.id_pg = tb_dist_jwbpg.id_pg, tb_dist_nilai.id_uraian = tb_dist_jwbuo.id_uraian, tb_dist_nilai.id_mapel = tb_mapel.id_mapel, tb_dist_nilai.id_siswa = tb_siswa.id_siswa');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
     if ($type == 'id_siswa') {
       $this->db->select('tb_dist_nilai.*, tb_dist_jwbpg.*, tb_dist_jwbuo.*, tb_mapel.*, tb_siswa')
         ->from('tb_dist_nilai')
         ->where(['id_siswa' => $id])
         ->join('tb_dist_nilai.id_pg = tb_dist_jwbpg.id_pg, tb_dist_nilai.id_uraian = tb_dist_jwbuo.id_uraian, tb_dist_nilai.id_mapel = tb_mapel.id_mapel, tb_dist_nilai.id_siswa = tb_siswa.id_siswa');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
   }
 
