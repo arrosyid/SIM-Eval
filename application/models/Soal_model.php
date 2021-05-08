@@ -6,11 +6,11 @@ class soal_model extends CI_Model
   // mengambil semua soal
   public function getAllSoal()
   {
-    return $this->db->get('tb_soal');
+    return $this->db->get('tb_soal')->result_array();
   }
 
   // mengambil data soal berdasarkan tipe id
-  public function getSoalByType($id, $type)
+  public function getSoalByType($type, $id)
   {
     // berdasarkan idsoal
     if ($type == 'id_soal') {
@@ -18,7 +18,7 @@ class soal_model extends CI_Model
         ->from('tb_soal')
         ->where(['id_soal' => $id])
         ->join('tb_mapel.id_mapel = tb_soal.id_mapel, tb_kelas.id_kelas = tb_soal.id_kelas');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
 
     // berdasarkan id_mapel
@@ -27,7 +27,7 @@ class soal_model extends CI_Model
         ->from('tb_soal')
         ->where(['id_mapel' => $id])
         ->join('tb_mapel.id_mapel = tb_soal.id_mapel, tb_kelas.id_kelas = tb_soal.id_kelas');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
 
     // berdasarkan id_kelas
@@ -36,7 +36,7 @@ class soal_model extends CI_Model
         ->from('tb_soal')
         ->where(['id_kelas' => $id])
         ->join('tb_mapel.id_mapel = tb_soal.id_mapel, tb_kelas.id_kelas = tb_soal.id_kelas');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
   }
 

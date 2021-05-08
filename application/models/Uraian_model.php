@@ -6,7 +6,7 @@ class Uraian_model extends CI_Model
   // mengambil semua Uraian
   public function getAllUraian()
   {
-    return $this->db->get('tb_dist_jwbuo');
+    return $this->db->get('tb_dist_jwbuo')->result_array();
   }
 
   // mengambil data Uraian berdasarkan tipe id
@@ -18,7 +18,7 @@ class Uraian_model extends CI_Model
         ->from('tb_dist_jwbuo')
         ->where(['id_uraian' => $id])
         ->join('tb_soal.id_soal = tb_dist_jwbuo.id_soal');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
 
     // berdasarkan id_soal
@@ -27,7 +27,7 @@ class Uraian_model extends CI_Model
         ->from('tb_dist_jwbuo')
         ->where(['id_soal' => $id])
         ->join('tb_soal.id_soal = tb_dist_jwbuo.id_soal');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
   }
 
