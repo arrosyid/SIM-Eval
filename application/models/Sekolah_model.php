@@ -6,14 +6,14 @@ class Sekolah_model extends CI_Model
   // mengambil semua Sekolah
   public function getAllSekolah()
   {
-    return $this->db->get('tb_sekolah');
+    return $this->db->get('tb_sekolah')->result_array();
   }
 
   // mengambil data Sekolah berdasarkan tipe id
   public function getSekolahByid($id)
   {
     // berdasarkan id sekolah
-    return $this->db->get_where('tb_sekolah', ['id_sekolah' => $id]);
+    return $this->db->get_where('tb_sekolah', ['id_sekolah' => $id])->row_array();
   }
 
   // update Sekolah dari id
