@@ -7,7 +7,7 @@ class Kelas_model extends CI_Model
   // mengambil semua Kelas
   public function getAllKelas()
   {
-    return $this->db->get('tb_kelas');
+    return $this->db->get('tb_kelas')->result_array();
   }
 
   // mengambil data Kelas berdasarkan tipe id
@@ -19,7 +19,7 @@ class Kelas_model extends CI_Model
         ->from('tb_kelas')
         ->where(['id_kelas' => $id])
         ->join('tb_kelas.id_guru = tb_guru.id_guru');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
 
     // berdasarkan id guru
@@ -28,7 +28,7 @@ class Kelas_model extends CI_Model
         ->from('tb_kelas')
         ->where(['id_guru' => $id])
         ->join('tb_kelas.id_guru = tb_guru.id_guru');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
   }
 

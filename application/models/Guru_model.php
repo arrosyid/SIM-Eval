@@ -6,11 +6,11 @@ class Guru_model extends CI_Model
   // mengambil semua Guru
   public function getAllGuru()
   {
-    return $this->db->get('tb_guru');
+    return $this->db->get('tb_guru')->result_array();
   }
 
   // mengambil data Guru berdasarkan tipe id
-  public function getGuruByType($id, $type)
+  public function getGuruByType($type, $id)
   {
     // berdasarkan id Guru
     if ($type == 'id_guru') {
@@ -18,7 +18,7 @@ class Guru_model extends CI_Model
         ->from('tb_guru')
         ->where(['id_guru' => $id])
         ->join('tb_guru.di_mapel = tb_mapel.di_mapel');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
 
     // berdasarkan id mapel
@@ -27,7 +27,7 @@ class Guru_model extends CI_Model
         ->from('tb_guru')
         ->where(['id_mapel' => $id])
         ->join('tb_guru.di_mapel = tb_mapel.di_mapel');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
   }
 
