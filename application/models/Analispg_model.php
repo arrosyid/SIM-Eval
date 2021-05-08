@@ -6,7 +6,7 @@ class Analispg_model extends CI_Model
   // mengambil semua Analispg
   public function getAllAnalispg()
   {
-    return $this->db->get('tb_analis_soalpg');
+    return $this->db->get('tb_analis_soalpg')->result_array();
   }
 
   // mengambil data Analispg berdasarkan tipe id
@@ -18,7 +18,7 @@ class Analispg_model extends CI_Model
         ->from('tb_analis_soalpg')
         ->where(['id_analispg' => $id])
         ->join('tb_soal.id_soal = tb_analis_soalpg.id_soal, tb_analis_soalpg.id_pg = tb_dist_jwbpg.id_pg');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
 
     // berdasarkan id_pg
@@ -27,7 +27,7 @@ class Analispg_model extends CI_Model
         ->from('tb_analis_soalpg')
         ->where(['id_pg' => $id])
         ->join('tb_soal.id_soal = tb_analis_soalpg.id_soal, tb_analis_soalpg.id_pg = tb_dist_jwbpg.id_pg');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
     // berdasarkan id_soal
     if ($type == 'id_soal') {
@@ -35,7 +35,7 @@ class Analispg_model extends CI_Model
         ->from('tb_analis_soalpg')
         ->where(['id_soal' => $id])
         ->join('tb_soal.id_soal = tb_analis_soalpg.id_soal, tb_analis_soalpg.id_pg = tb_dist_jwbpg.id_pg');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
   }
 

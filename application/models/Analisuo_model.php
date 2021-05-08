@@ -6,11 +6,11 @@ class Analisuo_model extends CI_Model
   // mengambil semua Analisuo
   public function getAllAnalisuo()
   {
-    return $this->db->get('tb_analis_soaluo');
+    return $this->db->get('tb_analis_soaluo')->result_array();
   }
 
   // mengambil data Analisuo berdasarkan tipe id
-  public function getAnalisuoByType($id, $type)
+  public function getAnalisuoByType($type, $id)
   {
     // berdasarkan idAnalisuo
     if ($type == 'id_analisuo') {
@@ -18,7 +18,7 @@ class Analisuo_model extends CI_Model
         ->from('tb_analis_soaluo')
         ->where(['id_analisuo' => $id])
         ->join('tb_soal.id_soal = tb_analis_soaluo.id_soal, tb_analis_soaluo.id_uraian = tb_dist_jwbpg.id_uraian');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
 
     // berdasarkan id_uraian
@@ -27,7 +27,7 @@ class Analisuo_model extends CI_Model
         ->from('tb_analis_soaluo')
         ->where(['id_uraian' => $id])
         ->join('tb_soal.id_soal = tb_analis_soaluo.id_soal, tb_analis_soaluo.id_uraian = tb_dist_jwbpg.id_uraian');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
     // berdasarkan id_soal
     if ($type == 'id_soal') {
@@ -35,7 +35,7 @@ class Analisuo_model extends CI_Model
         ->from('tb_analis_soaluo')
         ->where(['id_soal' => $id])
         ->join('tb_soal.id_soal = tb_analis_soaluo.id_soal, tb_analis_soaluo.id_uraian = tb_dist_jwbpg.id_uraian');
-      return $this->db->get();
+      return $this->db->get()->row_array();
     }
   }
 
