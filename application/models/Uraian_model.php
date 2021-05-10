@@ -6,6 +6,9 @@ class Uraian_model extends CI_Model
   // mengambil semua Uraian
   public function getAllUraian()
   {
+    $this->db->select('tb_dist_jwbuo.*, tb_soal.*')
+      ->from('tb_dist_jwbuo')
+      ->join('tb_soal', 'tb_soal.id_soal = tb_dist_jwbuo.id_soal');
     return $this->db->get('tb_dist_jwbuo')->result_array();
   }
 
@@ -17,7 +20,7 @@ class Uraian_model extends CI_Model
       $this->db->select('tb_dist_jwbuo.*, tb_soal.*')
         ->from('tb_dist_jwbuo')
         ->where(['id_uraian' => $id])
-        ->join('tb_soal.id_soal = tb_dist_jwbuo.id_soal');
+        ->join('tb_soal', 'tb_soal.id_soal = tb_dist_jwbuo.id_soal');
       return $this->db->get()->row_array();
     }
 
@@ -26,7 +29,7 @@ class Uraian_model extends CI_Model
       $this->db->select('tb_dist_jwbuo.*, tb_soal.*')
         ->from('tb_dist_jwbuo')
         ->where(['id_soal' => $id])
-        ->join('tb_soal.id_soal = tb_dist_jwbuo.id_soal');
+        ->join('tb_soal', 'tb_soal.id_soal = tb_dist_jwbuo.id_soal');
       return $this->db->get()->row_array();
     }
   }
