@@ -6,7 +6,10 @@ class Siswa_model extends CI_Model
   // mengambil semua Siswa
   public function getAllSiswa()
   {
-    return $this->db->get('tb_siswa')->result_array();
+    $this->db->select('tb_siswa.*, tb_kelas.*')
+      ->from('tb_siswa')
+      ->join('tb_kelas', 'tb_kelas.id_kelas = tb_siswa.id_kelas');
+    return $this->db->get()->result_array();
   }
 
   // mengambil data Siswa berdasarkan tipe id
@@ -17,7 +20,7 @@ class Siswa_model extends CI_Model
       $this->db->select('tb_siswa.*, tb_kelas.*')
         ->from('tb_siswa')
         ->where(['id_siswa' => $id])
-        ->join('tb_kelas.id_kelas = tb_siswa.id_kelas');
+        ->join('tb_kelas', 'tb_kelas.id_kelas = tb_siswa.id_kelas');
       return $this->db->get()->row_array();
     }
 
@@ -26,7 +29,7 @@ class Siswa_model extends CI_Model
       $this->db->select('tb_siswa.*, tb_kelas.*')
         ->from('tb_siswa')
         ->where(['id_kelas' => $id])
-        ->join('tb_kelas.id_kelas = tb_siswa.id_kelas');
+        ->join('tb_kelas', 'tb_kelas.id_kelas = tb_siswa.id_kelas');
       return $this->db->get()->row_array();
     }
   }

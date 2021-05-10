@@ -6,7 +6,17 @@ class Record_model extends CI_Model
   // mengambil semua Record
   public function getAllRecord()
   {
-    return $this->db->get('tb_record_login')->result_array();
+    $this->db->select('tb_record_login.*, tb_user.*')
+      ->from('tb_record_login')
+      ->join('tb_user', 'tb_user.id_user = tb_record_login.id_user');
+    return $this->db->get()->result_array();
+  }
+  public function getAllRecordLimit()
+  {
+    $this->db->select('tb_record_login.*, tb_user.*')
+      ->from('tb_record_login')
+      ->join('tb_user', 'tb_user.id_user = tb_record_login.id_user');
+    return $this->db->get(6)->result_array();
   }
 
   // mengambil data Record berdasarkan tipe id
@@ -17,7 +27,7 @@ class Record_model extends CI_Model
       $this->db->select('tb_record_login.*, tb_user.*')
         ->from('tb_record_login')
         ->where(['id_record' => $id])
-        ->join('tb_user.id_user = tb_record_login.id_user');
+        ->join('tb_user', 'tb_user.id_user = tb_record_login.id_user');
       return $this->db->get()->row_array();
     }
 
@@ -26,7 +36,7 @@ class Record_model extends CI_Model
       $this->db->select('tb_record_login.*, tb_user.*')
         ->from('tb_record_login')
         ->where(['id_user' => $id])
-        ->join('tb_user.id_user = tb_record_login.id_user');
+        ->join('tb_user', 'tb_user.id_user = tb_record_login.id_user');
       return $this->db->get()->row_array();
     }
   }

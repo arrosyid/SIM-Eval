@@ -6,7 +6,11 @@ class soal_model extends CI_Model
   // mengambil semua soal
   public function getAllSoal()
   {
-    return $this->db->get('tb_soal')->result_array();
+
+    $this->db->select('tb_soal.*, tb_mapel.*, tb_kelas.*')
+      ->from('tb_soal')
+      ->join('tb_mapel, tb_kelas', 'tb_mapel.id_mapel = tb_soal.id_mapel, tb_kelas.id_kelas = tb_soal.id_kelas');
+    return $this->db->get()->result_array();
   }
 
   // mengambil data soal berdasarkan tipe id
@@ -17,7 +21,7 @@ class soal_model extends CI_Model
       $this->db->select('tb_soal.*, tb_mapel.*, tb_kelas.*')
         ->from('tb_soal')
         ->where(['id_soal' => $id])
-        ->join('tb_mapel.id_mapel = tb_soal.id_mapel, tb_kelas.id_kelas = tb_soal.id_kelas');
+        ->join('tb_mapel, tb_kelas', 'tb_mapel.id_mapel = tb_soal.id_mapel, tb_kelas.id_kelas = tb_soal.id_kelas');
       return $this->db->get()->row_array();
     }
 
@@ -26,7 +30,7 @@ class soal_model extends CI_Model
       $this->db->select('tb_soal.*, tb_mapel.*, tb_kelas.*')
         ->from('tb_soal')
         ->where(['id_mapel' => $id])
-        ->join('tb_mapel.id_mapel = tb_soal.id_mapel, tb_kelas.id_kelas = tb_soal.id_kelas');
+        ->join('tb_mapel, tb_kelas', 'tb_mapel.id_mapel = tb_soal.id_mapel, tb_kelas.id_kelas = tb_soal.id_kelas');
       return $this->db->get()->row_array();
     }
 
@@ -35,7 +39,7 @@ class soal_model extends CI_Model
       $this->db->select('tb_soal.*, tb_mapel.*, tb_kelas.*')
         ->from('tb_soal')
         ->where(['id_kelas' => $id])
-        ->join('tb_mapel.id_mapel = tb_soal.id_mapel, tb_kelas.id_kelas = tb_soal.id_kelas');
+        ->join('tb_mapel, tb_kelas', 'tb_mapel.id_mapel = tb_soal.id_mapel, tb_kelas.id_kelas = tb_soal.id_kelas');
       return $this->db->get()->row_array();
     }
   }
