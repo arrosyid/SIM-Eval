@@ -20,24 +20,24 @@
             </tr>
           </thead>
           <tbody>
-            <?php //if ($siswa != null) {
-            //echo "<tr>Data Tidak Di Temukan</tr>";
-            //} else {
-            $i = 1; ?>
-            <?php foreach ($siswa as $S) : ?>
-              <tr>
-                <td><?= $i; ?></td>
-                <td><?= $S['nm_siswa'] ?></td>
-                <td><?= $S['nis'] ?></td>
-                <td><?= $S['kelas'] . ' ' . $S['bidang'] . ' ' . $S['nomor_kelas'] ?></td>
-                <td>
-                  <a href="" data-toggle="modal" data-target="#editSiswa" id="<?= $S['id_siswa'] ?>" class="badge badge-success view-data">edit</a>
-                  <a href="<?= base_url('index.php/admin/delete/siswa/') . $S['id_siswa'] ?>" class="badge badge-danger">hapus</a>
-                </td>
-              </tr>
-              <?php $i++; ?>
+            <?php if ($siswa == null) {
+              echo '<tr><td colspan="5">Data Tidak Di Temukan</td></tr>';
+            } else {
+              $i = 1; ?>
+              <?php foreach ($siswa as $S) : ?>
+                <tr>
+                  <td><?= $i; ?></td>
+                  <td><?= $S['nm_siswa'] ?></td>
+                  <td><?= $S['nis'] ?></td>
+                  <td><?= $S['kelas'] . ' ' . $S['bidang'] . ' ' . $S['nomor_kelas'] ?></td>
+                  <td>
+                    <a href="" data-toggle="modal" data-target="#editSiswa" id="<?= $S['id_siswa'] ?>" class="badge badge-success view-data">edit</a>
+                    <a href="<?= base_url('index.php/admin/delete/siswa/') . $S['id_siswa'] ?>" class="badge badge-danger">hapus</a>
+                  </td>
+                </tr>
+                <?php $i++; ?>
             <?php endforeach;
-            //} 
+            }
             ?>
           </tbody>
           <tfoot>
@@ -114,6 +114,7 @@
         </div>
       </div>
     </div>
+
     <!-- Mengubah data sesuai dengan data yang dipilih -->
     <div class="modal fade" id="editSiswa" tabindex="-1" aria-labelledby="edit_SiswaLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">

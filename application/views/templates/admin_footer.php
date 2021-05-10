@@ -47,9 +47,20 @@
 <script src="<?= base_url() ?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <!-- overlayScrollbar -->
 <script>
-  $(function() {
-    //The passed argument has to be at least a empty object or a object with your desired options
-    $("body").overlayScrollbars({});
+  // $(function() {
+  //   //The passed argument has to be at least a empty object or a object with your desired options
+  //   $("body").overlayScrollbars({});
+  // });
+  var osInstance = $('body').overlayScrollbars({}).overlayScrollbars();
+
+  $('body').on('show.bs.modal', function() {
+    setTimeout(function() {
+      var osContentElm = $(osInstance.getElements().content);
+      var backdropElms = $('body > .modal-backdrop');
+      backdropElms.each(function(index, elm) {
+        osContentElm.append(elm);
+      });
+    }, 1);
   });
 </script>
 <!-- ajax live search jQuery-->
