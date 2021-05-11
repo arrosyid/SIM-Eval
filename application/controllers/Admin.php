@@ -15,6 +15,7 @@ class Admin extends CI_Controller
     $this->load->model('Guru_model');
     $this->load->model('Siswa_model');
     $this->load->model('Kelas_model');
+    $this->load->model('Sekolah_model');
   }
 
   public function index()
@@ -83,9 +84,70 @@ class Admin extends CI_Controller
     // edit profile guru
     $data['tittle'] = 'Edit Profile Anda';
   }
-  public function editSekolah()
+  public function editSekolah($id_sekolah = 1)
   {
     // edit & Input data sekolah
+    $data['tittle'] = 'Edit Profile';
+    $data['subtittle'] = 'Edit Profile Sekolah';
+    $data['sekolah'] = $this->Sekolah_model->getSekolahByid($id_sekolah);
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+
+    $this->form_validation->set_rules('nm_sekolah', 'Nama Sekolah', 'required|trim');
+    $this->form_validation->set_rules('npsn', 'NPSN', 'required|trim');
+    $this->form_validation->set_rules('nm_kepsek', 'Nama Kepala Sekolah', 'required|trim');
+    $this->form_validation->set_rules('nm_admin', 'Nama Admin Sekolah', 'required|trim');
+    $this->form_validation->set_rules('telfon', 'Nomor Telfon', 'required|trim');
+    $this->form_validation->set_rules('website', 'Website', 'required|trim');
+    $this->form_validation->set_rules('email', 'Email', 'required|trim');
+    $this->form_validation->set_rules('akreditasi', 'Akreditasi', 'required|trim');
+    $this->form_validation->set_rules('kurikulum', 'Kurikulum', 'required|trim');
+    $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
+    $this->form_validation->set_rules('bentuk_pendidikan', 'Bentuk Pendidikan', 'required|trim');
+    $this->form_validation->set_rules('sk_pendirian', 'SK Pendirian Sekolah', 'required|trim');
+    $this->form_validation->set_rules('tgl_sk_pendirian', 'Tanggal SK Pendirian Sekolah', 'required|trim');
+    $this->form_validation->set_rules('sk_izin', 'SK Izin Sekolah', 'required|trim');
+    $this->form_validation->set_rules('tgl_sk_izin', 'Tanggal SK Izin Sekolah', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/EditSekolah');
+      $this->load->view('templates/admin_footer');
+    } else {
+      $data_sekolah = [
+        'nm_sekolah' => htmlspecialchars($this->input->post('nm_sekolah')),
+        'npsn' => htmlspecialchars($this->input->post('npsn')),
+        'nm_kepsek' => htmlspecialchars($this->input->post('nm_kepsek')),
+        'nm_admin' => htmlspecialchars($this->input->post('nm_admin')),
+        'telfon' => htmlspecialchars($this->input->post('telfon')),
+        'website' => htmlspecialchars($this->input->post('website')),
+        'email' => htmlspecialchars($this->input->post('email')),
+        'akreditasi' => htmlspecialchars($this->input->post('akreditasi')),
+        'kurikulum' => htmlspecialchars($this->input->post('kurikulum')),
+        'alamat' => htmlspecialchars($this->input->post('alamat')),
+        'bentuk_pendidikan' => htmlspecialchars($this->input->post('bentuk_pendidikan')),
+        'sk_pendirian' => htmlspecialchars($this->input->post('sk_pendirian')),
+        'tgl_sk_pendirian' => htmlspecialchars($this->input->post('tgl_sk_pendirian')),
+        'sk_izin' => htmlspecialchars($this->input->post('sk_izin')),
+        'tgl_sk_izin' => htmlspecialchars($this->input->post('tgl_sk_izin')),
+      ];
+      // var_dump($data_sekolah);
+      // die;
+
+      if ($this->Sekolah_model->upadateSekolahById($id_sekolah, $data_sekolah)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil Mengedit Data Sekolah</div>'
+        );
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal Mengedit Data Sekolah</div>'
+        );
+      }
+    }
   }
   public function tambahGuru()
   {

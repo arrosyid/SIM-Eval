@@ -1,5 +1,6 @@
 <section class="content">
   <div class="container-fluid">
+    <?= $this->session->flashdata('message'); ?>
     <div class="card card-primary">
       <!-- /.card-header -->
       <div class="card-header">
@@ -13,7 +14,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="nm_sekolah" id="nm_sekolah" placeholder="Isi Nama Sekolah" value="">
+                <input type="text" class="form-control" name="nm_sekolah" id="nm_sekolah" placeholder="Isi Nama Sekolah" value="<?= set_value('nm_sekolah') != null ? set_value('nm_sekolah') : $sekolah['nm_sekolah'] ?>">
               </div>
             </div>
           </div>
@@ -23,7 +24,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="npsn" id="npsn" placeholder="Isi Nomor Pokok Sekolah Nasional" value="">
+                <input type="text" class="form-control" name="npsn" id="npsn" placeholder="Isi Nomor Pokok Sekolah Nasional" value="<?= set_value('npsn') != null ? set_value('npsn') : $sekolah['npsn'] ?>">
               </div>
             </div>
           </div>
@@ -33,7 +34,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="nm_kepsek" id="nm_kepsek" placeholder="Isi Nama Kepala Sekolah" value="">
+                <input type="text" class="form-control" name="nm_kepsek" id="nm_kepsek" placeholder="Isi Nama Kepala Sekolah" value="<?= set_value('nm_kepsek') != null ? set_value('nm_kepsek') : $sekolah['nm_kepsek'] ?>">
               </div>
             </div>
           </div>
@@ -43,7 +44,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="nm_admin" id="nm_admin" placeholder="Isi Nama Admin Sekolah" value="">
+                <input type="text" class="form-control" name="nm_admin" id="nm_admin" placeholder="Isi Nama Admin Sekolah" value="<?= set_value('nm_admin') != null ? set_value('nm_admin') : $sekolah['nm_admin'] ?>">
               </div>
             </div>
           </div>
@@ -53,7 +54,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="telfon" id="telfon" placeholder="Isi Nomor Telfon Sekolah" value="">
+                <input type="text" class="form-control" name="telfon" id="telfon" placeholder="Isi Nomor Telfon Sekolah" value="<?= set_value('telfon') != null ? set_value('telfon') : $sekolah['telfon'] ?>">
               </div>
             </div>
           </div>
@@ -63,7 +64,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="website" id="website" placeholder="Isi Website Sekolah" value="">
+                <input type="text" class="form-control" name="website" id="website" placeholder="Isi Website Sekolah" value="<?= set_value('website') != null ? set_value('website') : $sekolah['website'] ?>">
               </div>
             </div>
           </div>
@@ -73,7 +74,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="email" id="email" placeholder="Isi Email Sekolah" value="">
+                <input type="text" class="form-control" name="email" id="email" placeholder="Isi Email Sekolah" value="<?= set_value('email') != null ? set_value('email') : $sekolah['email'] ?>">
               </div>
             </div>
           </div>
@@ -114,7 +115,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Isi Alamat Lengkap" value="">
+                <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Isi Alamat Lengkap" value="<?= set_value('alamat') != null ? set_value('alamat') : $sekolah['alamat'] ?>">
               </div>
             </div>
           </div>
@@ -126,7 +127,10 @@
               <div class="form-group">
                 <select class="form-control" name="bentuk_pendirikan" id="bentuk_pendirikan">
                   <option value="">PILIH BENTUK PENDIDIKAN</option>
-                  <option value=""></option>
+                  <option value="SD">SD</option>
+                  <option value="SMP">SMP</option>
+                  <option value="SMA">SMA</option>
+                  <option value="">Lainnya</option>
                 </select>
               </div>
             </div>
@@ -137,7 +141,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="sk_pendirian" id="sk_pendirian" placeholder="Isi SK Pendirian Sekolah" value="">
+                <input type="text" class="form-control" name="sk_pendirian" id="sk_pendirian" placeholder="Isi SK Pendirian Sekolah" value="<?= set_value('sk_pendirian') != null ? set_value('sk_pendirian') : $sekolah['sk_pendirian'] ?>">
               </div>
             </div>
           </div>
@@ -147,7 +151,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="date" class="form-control" name="tgl_sk_pendirian" id="tgl_sk_pendirian" placeholder="Isi Tanggal SK Pendirian Sekolah" value="">
+                <input type="date" class="form-control" name="tgl_sk_pendirian" id="tgl_sk_pendirian" placeholder="Isi Tanggal SK Pendirian Sekolah" value="<?= set_value('tgl_sk_pendirian') != null ? set_value('tgl_sk_pendirian') : $sekolah['tgl_sk_pendirian'] ?>">
               </div>
             </div>
           </div>
@@ -157,7 +161,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="sk_izin" id="sk_izin" placeholder="Isi SK Izin Operasional Sekolah" value="">
+                <input type="text" class="form-control" name="sk_izin" id="sk_izin" placeholder="Isi SK Izin Operasional Sekolah" value="<?= set_value('sk_izin') != null ? set_value('sk_izin') : $sekolah['sk_izin'] ?>">
               </div>
             </div>
           </div>
@@ -167,11 +171,11 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="date" class="form-control" name="tgl_sk_izin" id="tgl_sk_izin" placeholder="Isi Tanggal SK Izin Operasional Sekolah" value="">
+                <input type="date" class="form-control" name="tgl_sk_izin" id="tgl_sk_izin" placeholder="Isi Tanggal SK Izin Operasional Sekolah" value="<?= set_value('tgl_sk_izin') != null ? set_value('tgl_sk_izin') : $sekolah['tgl_sk_izin'] ?>">
               </div>
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-sm-2">
               <label>Status </label>
             </div>
@@ -187,7 +191,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="row">
             <div class="col-8">
               capthca
