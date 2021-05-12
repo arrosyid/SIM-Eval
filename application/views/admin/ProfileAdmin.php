@@ -1,6 +1,7 @@
 <section class="content">
   <div class="container-fluid">
     <?= $this->session->flashdata('message') ?>
+    <?= $this->session->flashdata('message1') ?>
     <div class="row">
       <div class="col-md-3">
         <!-- Profile Image -->

@@ -120,6 +120,60 @@ class Admin extends CI_Controller
   {
     // edit profile guru
     $data['tittle'] = 'Edit Profile Anda';
+    $data['subtittle'] = 'Edit Profile Anda';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['guru'] = $this->Guru_model->getGuruByType('id_guru', $data['user']['id_guru']);
+
+    $this->form_validation->set_rules('nm_guru', 'Nama Guru', 'required|trim');
+    $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
+    $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
+    $this->form_validation->set_rules('username', 'Username', 'required|trim');
+    $this->form_validation->set_rules('email', 'Email', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/EditProfileAdmin');
+      $this->load->view('templates/admin_footer');
+    } else {
+      $data_guru = [
+        'nm_guru' => htmlspecialchars($this->input->post('nm_guru')),
+        'nip' => htmlspecialchars($this->input->post('nip')),
+        'id_mapel' => htmlspecialchars($this->input->post('id_mapel'))
+      ];
+      $data_akunGuru = [
+        'username' => htmlspecialchars($this->input->post('username')),
+        'email' => htmlspecialchars($this->input->post('email')),
+      ];
+      if ($this->db->insert('tb_akun', $data_akunGuru)) {
+        $this->session->set_flashdata(
+          'message1',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil menginputkan data akun guru</div>'
+        );
+      } else {
+        $this->session->set_flashdata(
+          'message1',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal menginputkan data akun guru</div>'
+        );
+      }
+      if ($this->db->insert('tb_guru', $data_guru)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil menginputkan data guru</div>'
+        );
+        redirect('admin/profileAdmin');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal menginputkan data guru</div>'
+        );
+        redirect('admin/profileAdmin');
+      }
+    }
   }
   public function editSekolah($id_sekolah = 1)
   {

@@ -13,7 +13,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="nm_guru" id="nm_guru" placeholder="Isi Nama Guru" value="">
+                <input type="text" class="form-control" name="nm_guru" id="nm_guru" placeholder="Isi Nama Guru" value="<?= set_value('nm_guru') != null ? set_value('nm_guru') : $guru['nm_guru'] ?>">
               </div>
             </div>
           </div>
@@ -23,7 +23,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="nip" id="nip" placeholder="Isi Nomor Identitas Pegawai Negeri Sipil" value="">
+                <input type="text" class="form-control" name="nip" id="nip" placeholder="Isi Nomor Identitas Pegawai Negeri Sipil" value="<?= set_value('nip') != null ? set_value('nip') : $guru['nip'] ?>">
               </div>
             </div>
           </div>
@@ -35,7 +35,9 @@
               <div class="form-group">
                 <select class="form-control" name="id_mapel" id="id_mapel">
                   <option value="">PILIH MATA PELAJARAN</option>
-                  <option value="">Mapel a</option>
+                  <?php foreach ($mapel as $M) { ?>
+                    <option value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>;
+                  <?php } ?>
                 </select>
               </div>
             </div>
@@ -47,7 +49,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="Username" id="Username" placeholder="Isi Username Anda" value="">
+                <input type="text" class="form-control" name="username" id="username" placeholder="Isi Username Anda" value="<?= set_value('username') != null ? set_value('username') : $user['username'] ?>">
               </div>
             </div>
           </div>
@@ -57,7 +59,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="email" id="email" placeholder="Isi Email Anda" value="">
+                <input type="text" class="form-control" name="email" id="email" placeholder="Isi Email Anda" value="<?= set_value('email') != null ? set_value('email') : $user['email'] ?>">
               </div>
             </div>
           </div>
