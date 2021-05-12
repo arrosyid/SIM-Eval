@@ -75,7 +75,9 @@ class Admin extends CI_Controller
     $data['tittle'] = 'Profile Anda';
     $data['subtittle'] = 'Profile Anda';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-
+    $data['guru'] = $this->Guru_model->getGuruByType('id_guru', $data['user']['id_guru']);
+    // var_dump($data['guru']);
+    // die;
     $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
       'min_length' => 'password terlalu pendek!',
       'matches' => 'password tidak sama!'

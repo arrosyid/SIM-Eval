@@ -17,7 +17,7 @@ class Guru_model extends CI_Model
       $this->db->select('tb_guru.*, tb_mapel.*')
         ->from('tb_guru')
         ->where(['id_guru' => $id])
-        ->join('tb_guru.di_mapel = tb_mapel.di_mapel');
+        ->join('tb_mapel', 'tb_guru.id_mapel = tb_mapel.id_mapel');
       return $this->db->get()->row_array();
     }
 
@@ -26,7 +26,7 @@ class Guru_model extends CI_Model
       $this->db->select('tb_guru.*, tb_mapel.*')
         ->from('tb_guru')
         ->where(['id_mapel' => $id])
-        ->join('tb_guru.di_mapel = tb_mapel.di_mapel');
+        ->join('tb_mapel', 'tb_guru.id_mapel = tb_mapel.id_mapel');
       return $this->db->get()->row_array();
     }
   }
