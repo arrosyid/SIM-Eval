@@ -10,9 +10,9 @@
             <h5 class="profile-username text-center">Akun Anda</h5>
             <p class="card-text">
             <ul class="list-group mb-3">
-              <lu>Username : <a class="float-right">jsdakj</a> <br></lu>
-              <lu>Email : <a class="float-right">jsdakj</a> <br></lu>
-              <lu>Tanggal Dibuat : <a class="float-right">jsdakj</a> <br></lu>
+              <lu>Username : <a class="float-right"><?= $user['username'] ?></a> <br></lu>
+              <lu>Email : <a class="float-right"><?= $user['email'] ?></a> <br></lu>
+              <lu>Tanggal Dibuat : <a class="float-right"><?= date('d-m-Y', $user['date_created']) ?></a> <br></lu>
             </ul>
             </p>
             <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editPass">
@@ -77,9 +77,9 @@
           <div class="card-body">
             <strong><i class="fas fa-book mr-1"></i>Profile Anda</strong>
             <ul class="text-muted">
-              <lu>Nama Guru : <a class="float-right">jsdakj</a> <br></lu>
-              <lu>Nomor Induk Kepegawaian : <a class="float-right">jsdak</a> <br></lu>
-              <lu>Mata pelajaran yang Diampu : <a class="float-right">jsdakj</a> <br></lu>
+              <lu>Nama Guru : <a class="float-right"><?= $guru['nm_guru'] ?></a> <br></lu>
+              <lu>Nomor Induk Kepegawaian : <a class="float-right"><?= $guru['nip'] ?></a> <br></lu>
+              <lu>Mata pelajaran yang Diampu : <a class="float-right"><?= $guru['mapel'] ?></a> <br></lu>
             </ul>
             <hr>
           </div>
