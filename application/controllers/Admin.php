@@ -128,7 +128,10 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
     $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
     $this->form_validation->set_rules('username', 'Username', 'required|trim');
-    $this->form_validation->set_rules('email', 'Email', 'required|trim');
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
+      'valid_email' => 'email tidak cocok',
+      'is_unique' => 'email sudah digunakan'
+    ]);
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/admin_header', $data);
@@ -189,7 +192,10 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('nm_admin', 'Nama Admin Sekolah', 'required|trim');
     $this->form_validation->set_rules('telfon', 'Nomor Telfon', 'required|trim');
     $this->form_validation->set_rules('website', 'Website', 'required|trim');
-    $this->form_validation->set_rules('email', 'Email', 'required|trim');
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
+      'valid_email' => 'email tidak cocok',
+      'is_unique' => 'email sudah digunakan'
+    ]);
     $this->form_validation->set_rules('akreditasi', 'Akreditasi', 'required|trim');
     $this->form_validation->set_rules('kurikulum', 'Kurikulum', 'required|trim');
     $this->form_validation->set_rules('alamat', 'Alamat', 'required|trim');
@@ -256,7 +262,10 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
     $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
     if ($akun == 1) {
-      $this->form_validation->set_rules('email', 'Email', 'required|trim');
+      $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
+        'valid_email' => 'email tidak cocok',
+        'is_unique' => 'email sudah digunakan'
+      ]);
       $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
         'min_length' => 'password terlalu pendek!',
         'matches' => 'password tidak sama!'
