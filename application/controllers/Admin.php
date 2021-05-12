@@ -100,13 +100,13 @@ class Admin extends CI_Controller
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil Mengedit Password atau Sata Sandi Anda</div>'
+                      Berhasil Mengedit Password atau Kata Sandi Anda</div>'
         );
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal Mengedit Password atau Sata Sandi Anda</div>'
+                      Gagal Mengedit Password atau Kata Sandi Anda</div>'
         );
       }
     }
@@ -137,39 +137,39 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_footer');
     } else {
       $data_guru = [
-        'nm_guru' => htmlspecialchars($this->input->post('nm_guru')),
-        'nip' => htmlspecialchars($this->input->post('nip')),
-        'id_mapel' => htmlspecialchars($this->input->post('id_mapel'))
+        'nm_guru' => htmlspecialchars($this->input->post('nm_guru', true)),
+        'nip' => htmlspecialchars($this->input->post('nip', true)),
+        'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true))
       ];
       $data_akunGuru = [
-        'username' => htmlspecialchars($this->input->post('username')),
-        'email' => htmlspecialchars($this->input->post('email')),
+        'username' => htmlspecialchars($this->input->post('username', true)),
+        'email' => htmlspecialchars($this->input->post('email', true)),
       ];
       if ($this->db->insert('tb_akun', $data_akunGuru)) {
         $this->session->set_flashdata(
           'message1',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil menginputkan data akun guru</div>'
+                      Berhasil menginputkan Data Akun Anda</div>'
         );
       } else {
         $this->session->set_flashdata(
           'message1',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal menginputkan data akun guru</div>'
+                      Gagal menginputkan Data Akun Anda</div>'
         );
       }
       if ($this->db->insert('tb_guru', $data_guru)) {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil menginputkan data guru</div>'
+                      Berhasil menginputkan Data Anda</div>'
         );
         redirect('admin/profileAdmin');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal menginputkan data guru</div>'
+                      Gagal menginputkan Data Anda</div>'
         );
         redirect('admin/profileAdmin');
       }
@@ -206,21 +206,21 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_footer');
     } else {
       $data_sekolah = [
-        'nm_sekolah' => htmlspecialchars($this->input->post('nm_sekolah')),
-        'npsn' => htmlspecialchars($this->input->post('npsn')),
-        'nm_kepsek' => htmlspecialchars($this->input->post('nm_kepsek')),
-        'nm_admin' => htmlspecialchars($this->input->post('nm_admin')),
-        'telfon' => htmlspecialchars($this->input->post('telfon')),
-        'website' => htmlspecialchars($this->input->post('website')),
-        'email' => htmlspecialchars($this->input->post('email')),
-        'akreditasi' => htmlspecialchars($this->input->post('akreditasi')),
-        'kurikulum' => htmlspecialchars($this->input->post('kurikulum')),
-        'alamat' => htmlspecialchars($this->input->post('alamat')),
-        'bentuk_pendidikan' => htmlspecialchars($this->input->post('bentuk_pendidikan')),
-        'sk_pendirian' => htmlspecialchars($this->input->post('sk_pendirian')),
-        'tgl_sk_pendirian' => htmlspecialchars($this->input->post('tgl_sk_pendirian')),
-        'sk_izin' => htmlspecialchars($this->input->post('sk_izin')),
-        'tgl_sk_izin' => htmlspecialchars($this->input->post('tgl_sk_izin')),
+        'nm_sekolah' => htmlspecialchars($this->input->post('nm_sekolah', true)),
+        'npsn' => htmlspecialchars($this->input->post('npsn', true)),
+        'nm_kepsek' => htmlspecialchars($this->input->post('nm_kepsek', true)),
+        'nm_admin' => htmlspecialchars($this->input->post('nm_admin', true)),
+        'telfon' => htmlspecialchars($this->input->post('telfon', true)),
+        'website' => htmlspecialchars($this->input->post('website', true)),
+        'email' => htmlspecialchars($this->input->post('email', true)),
+        'akreditasi' => htmlspecialchars($this->input->post('akreditasi', true)),
+        'kurikulum' => htmlspecialchars($this->input->post('kurikulum', true)),
+        'alamat' => htmlspecialchars($this->input->post('alamat', true)),
+        'bentuk_pendidikan' => htmlspecialchars($this->input->post('bentuk_pendidikan', true)),
+        'sk_pendirian' => htmlspecialchars($this->input->post('sk_pendirian', true)),
+        'tgl_sk_pendirian' => htmlspecialchars($this->input->post('tgl_sk_pendirian', true)),
+        'sk_izin' => htmlspecialchars($this->input->post('sk_izin', true)),
+        'tgl_sk_izin' => htmlspecialchars($this->input->post('tgl_sk_izin', true)),
       ];
       // var_dump($data_sekolah);
       // die;
@@ -271,15 +271,15 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_footer');
     } else {
       $data_guru = [
-        'nm_guru' => htmlspecialchars($this->input->post('nm_guru')),
-        'nip' => htmlspecialchars($this->input->post('nip')),
-        'id_mapel' => htmlspecialchars($this->input->post('id_mapel'))
+        'nm_guru' => htmlspecialchars($this->input->post('nm_guru', true)),
+        'nip' => htmlspecialchars($this->input->post('nip', true)),
+        'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
       ];
       $data_akunGuru = [
-        'username' => htmlspecialchars($this->input->post('nm_guru')),
-        'status' => htmlspecialchars($this->input->post('status')),
-        'email' => htmlspecialchars($this->input->post('email')),
-        'password' => htmlspecialchars($this->input->post('password')),
+        'username' => htmlspecialchars($this->input->post('nm_guru', true)),
+        'status' => htmlspecialchars($this->input->post('status', true)),
+        'email' => htmlspecialchars($this->input->post('email', true)),
+        'password' => htmlspecialchars($this->input->post('password', true)),
       ];
       if ($this->db->insert('tb_akun', $data_akunGuru)) {
         $this->session->set_flashdata(
@@ -331,9 +331,9 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_footer');
     } else {
       $data_siswa = [
-        'nm_siswa' => htmlspecialchars($this->input->post('nm_siswa')),
-        'nis' => htmlspecialchars($this->input->post('nis')),
-        'id_kelas' => htmlspecialchars($this->input->post('id_kelas')),
+        'nm_siswa' => htmlspecialchars($this->input->post('nm_siswa', true)),
+        'nis' => htmlspecialchars($this->input->post('nis', true)),
+        'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
       ];
       // var_dump($data_siswa);
       // die;
@@ -376,12 +376,12 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_footer');
     } else {
       $data_kelas = [
-        'kelas' => htmlspecialchars($this->input->post('kelas')),
-        'bidang' => htmlspecialchars($this->input->post('bidang')),
-        'nomor_kelas' => htmlspecialchars($this->input->post('nomor_kelas')),
-        'id_guru' => htmlspecialchars($this->input->post('id_guru')),
-        'jml_siswa' => htmlspecialchars($this->input->post('jml_siswa')),
-        'jml_mapel' => htmlspecialchars($this->input->post('jml_mapel'))
+        'kelas' => htmlspecialchars($this->input->post('kelas', true)),
+        'bidang' => htmlspecialchars($this->input->post('bidang', true)),
+        'nomor_kelas' => htmlspecialchars($this->input->post('nomor_kelas', true)),
+        'id_guru' => htmlspecialchars($this->input->post('id_guru', true)),
+        'jml_siswa' => htmlspecialchars($this->input->post('jml_siswa', true)),
+        'jml_mapel' => htmlspecialchars($this->input->post('jml_mapel', true)),
       ];
       if ($this->db->insert('tb_kelas', $data_kelas)) {
         $this->session->set_flashdata(
@@ -415,7 +415,7 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_footer');
     } else {
       $data_mapel = [
-        'mapel' => htmlspecialchars($this->input->post('mapel'))
+        'mapel' => htmlspecialchars($this->input->post('mapel', true))
       ];
       if ($this->db->insert('tb_mapel', $data_mapel)) {
         $this->session->set_flashdata(
@@ -437,11 +437,11 @@ class Admin extends CI_Controller
   // fungsi untuk ajax
   public function ajax()
   {
-    $ajax_menu = $this->input->post('ajax_menu');
+    $ajax_menu = $this->input->post('ajax_menu', true);
 
     // ajax edit SISWA
     if ($ajax_menu == 'get_siswa') {
-      $id_siswa = $this->input->post('id_siswa');
+      $id_siswa = $this->input->post('id_siswa', true);
       $data['siswa'] = $this->Siswa_model->getSiswaByType($id_siswa, 'id_siswa');
       $data['kelas'] = $this->Kelas_model->getKelasByType($data['siswa']['id_kelas'], 'id_kelas');
       $this->load->view('admin/ajax/ajax_editSiswa', $data);
@@ -449,7 +449,7 @@ class Admin extends CI_Controller
 
     // // ajax edit SISWA
     // if ($ajax_menu == 'get_siswa') {
-    //   $id_siswa = $this->input->post('id_siswa');
+    //   $id_siswa = $this->input->post('id_siswa', true);
     //   $data['editSiswa'] = $this->Pemodalan_model->getPemodalanById('id_modal', $id_siswa);
     //   $this->load->view('admin/ajax/ajax_editSiswa', $data);
     // }
