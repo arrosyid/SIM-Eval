@@ -69,10 +69,45 @@ class Admin extends CI_Controller
     // Read distribusi jawaban siswa dan kunci jawaban
     $data['tittle'] = 'Distribusi Jawaban';
   }
-  public function myProfile()
+  public function profileAdmin()
   {
     // read profile guru
     $data['tittle'] = 'Profile Anda';
+    $data['subtittle'] = 'Profile Anda';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+
+    $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
+      'min_length' => 'password terlalu pendek!',
+      'matches' => 'password tidak sama!'
+    ]);
+    $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/ProfileAdmin');
+      $this->load->view('templates/admin_footer');
+    } else {
+      $data_password = [
+        'password' => password_hash(
+          htmlspecialchars($this->input->post('password1', true)),
+          PASSWORD_DEFAULT
+        )
+      ];
+      if ($this->User_model->updateUserById($data_password, $data['user']['id_user'])) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil Mengedit Password atau Sata Sandi Anda</div>'
+        );
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal Mengedit Password atau Sata Sandi Anda</div>'
+        );
+      }
+    }
   }
   public function profileSekolah()
   {
@@ -87,7 +122,7 @@ class Admin extends CI_Controller
   public function editSekolah($id_sekolah = 1)
   {
     // edit & Input data sekolah
-    $data['tittle'] = 'Edit Profile';
+    $data['tittle'] = 'Edit Profile Sekolah';
     $data['subtittle'] = 'Edit Profile Sekolah';
     $data['sekolah'] = $this->Sekolah_model->getSekolahByid($id_sekolah);
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
