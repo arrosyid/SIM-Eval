@@ -107,20 +107,42 @@
   });
 </script>
 <script>
+  //------------------
+  //- Modal Edit Box -
+  //------------------
+
+  // $('.view-data').on('click', function() {
+  //   var id_siswa = $(this).attr('id');
+  //   console.log(id_siswa);
+
+  //   $.ajax({
+  //     url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
+  //     method: "post",
+  //     data: {
+  //       ajax_menu: 'get_siswa',
+  //       id_siswa: id_siswa
+  //     },
+  //     success: function(data) {
+  //       $('#detailSiswa').html(data);
+  //       $('#editSiswa').modal();
+  //     }
+  //   });
+  // });
+
   $('.view-data').on('click', function() {
-    var id_siswa = $(this).attr('id');
-    console.log(id_siswa);
+    var id_guru = $(this).attr('id');
+    console.log(id_guru);
 
     $.ajax({
       url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
       method: "post",
       data: {
-        ajax_menu: 'get_siswa',
-        id_siswa: id_siswa
+        ajax_menu: 'get_guru',
+        id_guru: id_guru
       },
       success: function(data) {
-        $('#detailSiswa').html(data);
-        $('#editSiswa').modal();
+        $('#detailGuru').html(data);
+        $('#editGuru').modal();
       }
     });
   });

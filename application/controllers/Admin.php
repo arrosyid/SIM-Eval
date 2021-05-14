@@ -31,44 +31,52 @@ class Admin extends CI_Controller
     echo '<a href="' . base_url('auth/logout') . '"> keluar </a>';
     $this->load->view('templates/admin_footer');
   }
+
   public function analisis()
   {
     // read data analisis
     $data['tittle'] = 'Hasil Analisis';
   }
+
   public function mapel()
   {
     // Read Data Mapel
     $data['tittle'] = 'Daftar Mata Pelajaran';
   }
+
   public function kelas()
   {
     // Read Data Kelas
     $data['tittle'] = 'Daftar Kelas';
   }
+
   public function soal()
   {
     // Read data soal
     $data['tittle'] = 'Daftar Soal';
   }
+
   public function nilai()
   {
     // Read Nilai per ujian siwa
   }
+
   public function skor()
   {
     // Input skor soal Uraian
   }
+
   public function jawaban()
   {
     // Read distribusi jawaban siswa dan kunci jawaban
     $data['tittle'] = 'Distribusi Jawaban';
   }
+
   public function daftarGuru()
   {
     // Read Data Guru
     $data['tittle'] = 'Daftar Guru';
-    $data['subtittle'] = 'Profile Anda';
+    $data['subtittle'] = 'Daftar Guru';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['guru'] = $this->Guru_model->getAllGuru();
     $data['mapel'] = $this->Mapel_model->getAllMapel();
@@ -81,10 +89,33 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('admin/DaftarGuru');
-      $this->load->view('templates/admin_footer');
+      $this->load->view('templates/admin_footer', $data);
     } else {
+      $data_guru = [
+        'nm_guru' => htmlspecialchars($this->input->post('nm_guru', true)),
+        'nip' => htmlspecialchars($this->input->post('nip', true)),
+        'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
+      ];
+      var_dump($data_guru);
+      die;
+      if ($this->db->insert('tb_guru', $data_guru)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil menginputkan data guru</div>'
+        );
+        redirect('admin/daftarGuru');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal menginputkan data guru</div>'
+        );
+        redirect('admin/daftarGuru');
+      }
     }
   }
+
   public function profileAdmin()
   {
     // read profile guru
@@ -127,6 +158,7 @@ class Admin extends CI_Controller
       }
     }
   }
+
   public function profileSekolah()
   {
     // read profile sekolah
@@ -140,6 +172,7 @@ class Admin extends CI_Controller
     $this->load->view('admin/ProfileSekolah');
     $this->load->view('templates/admin_footer');
   }
+
   public function editProfile()
   {
     // edit profile guru
@@ -202,6 +235,7 @@ class Admin extends CI_Controller
       }
     }
   }
+
   public function editSekolah($id_sekolah)
   {
     // edit & Input data sekolah
@@ -270,6 +304,7 @@ class Admin extends CI_Controller
       }
     }
   }
+
   public function tambahGuru()
   {
     // Input data guru
@@ -344,11 +379,12 @@ class Admin extends CI_Controller
       }
     }
   }
+
   public function daftarSiswa()
   {
     // Input data siswa
-    $data['tittle'] = 'Tambah Siswa';
-    $data['subtittle'] = 'Tambah Siswa Baru';
+    $data['tittle'] = 'Daftar Siswa';
+    $data['subtittle'] = 'Daftar Siswa Baru';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['siswa'] = $this->Siswa_model->getAllSiswa();
     $data['kelas'] = $this->Kelas_model->getAllKelas();
@@ -361,7 +397,7 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('admin/DaftarSiswa');
-      $this->load->view('templates/admin_footer');
+      $this->load->view('templates/admin_footer', $data);
     } else {
       $data_siswa = [
         'nm_siswa' => htmlspecialchars($this->input->post('nm_siswa', true)),
@@ -387,6 +423,7 @@ class Admin extends CI_Controller
       }
     }
   }
+
   public function tambahKelas()
   {
     // Input data Kelas
@@ -433,6 +470,7 @@ class Admin extends CI_Controller
       }
     }
   }
+
   public function tambahMapel()
   {
     // Input data mata pelajaran
@@ -467,6 +505,7 @@ class Admin extends CI_Controller
       }
     }
   }
+
   // fungsi untuk ajax
   public function ajax()
   {
@@ -480,11 +519,11 @@ class Admin extends CI_Controller
       $this->load->view('admin/ajax/ajax_editSiswa', $data);
     }
 
-    // // ajax edit SISWA
-    // if ($ajax_menu == 'get_siswa') {
-    //   $id_siswa = $this->input->post('id_siswa', true);
-    //   $data['editSiswa'] = $this->Pemodalan_model->getPemodalanById('id_modal', $id_siswa);
-    //   $this->load->view('admin/ajax/ajax_editSiswa', $data);
-    // }
+    // ajax edit GURU
+    if ($ajax_menu == 'get_guru') {
+      $id_guru = $this->input->post('id_guru', true);
+      $data['editGuru'] = $this->Pemodalan_model->getPemodalanById('id_modal', $id_guru);
+      $this->load->view('admin/ajax/ajax_editGuru', $data);
+    }
   }
 }
