@@ -110,41 +110,45 @@
   //------------------
   //- Modal Edit Box -
   //------------------
+  $(function() {
+    <?php if ($tittle == 'Daftar Siswa') : ?>
+      $('.view-data').on('click', function() {
+        var id_siswa = $(this).attr('id');
+        console.log(id_siswa);
 
-  // $('.view-data').on('click', function() {
-  //   var id_siswa = $(this).attr('id');
-  //   console.log(id_siswa);
+        $.ajax({
+          url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
+          method: "post",
+          data: {
+            ajax_menu: 'get_siswa',
+            id_siswa: id_siswa
+          },
+          success: function(data) {
+            $('#detailSiswa').html(data);
+            $('#editSiswa').modal();
+          }
+        });
+      });
 
-  //   $.ajax({
-  //     url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
-  //     method: "post",
-  //     data: {
-  //       ajax_menu: 'get_siswa',
-  //       id_siswa: id_siswa
-  //     },
-  //     success: function(data) {
-  //       $('#detailSiswa').html(data);
-  //       $('#editSiswa').modal();
-  //     }
-  //   });
-  // });
+    <?php elseif ($tittle == 'Daftar Guru') : ?>
+      $('.view-data').on('click', function() {
+        var id_guru = $(this).attr('id');
+        console.log(id_guru);
 
-  $('.view-data').on('click', function() {
-    var id_guru = $(this).attr('id');
-    console.log(id_guru);
-
-    $.ajax({
-      url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
-      method: "post",
-      data: {
-        ajax_menu: 'get_guru',
-        id_guru: id_guru
-      },
-      success: function(data) {
-        $('#detailGuru').html(data);
-        $('#editGuru').modal();
-      }
-    });
+        $.ajax({
+          url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
+          method: "post",
+          data: {
+            ajax_menu: 'get_guru',
+            id_guru: id_guru
+          },
+          success: function(data) {
+            $('#detailGuru').html(data);
+            $('#editGuru').modal();
+          }
+        });
+      });
+    <?php endif ?>
   });
 </script>
 </body>
