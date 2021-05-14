@@ -36,11 +36,6 @@ class Admin extends CI_Controller
     // read data analisis
     $data['tittle'] = 'Hasil Analisis';
   }
-  public function guruSiswa()
-  {
-    // Read Data Guru dan Siswa
-    $data['tittle'] = 'Daftar Guru dan Siswa';
-  }
   public function mapel()
   {
     // Read Data Mapel
@@ -68,6 +63,27 @@ class Admin extends CI_Controller
   {
     // Read distribusi jawaban siswa dan kunci jawaban
     $data['tittle'] = 'Distribusi Jawaban';
+  }
+  public function daftarGuru()
+  {
+    // Read Data Guru
+    $data['tittle'] = 'Daftar Guru';
+    $data['subtittle'] = 'Profile Anda';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['guru'] = $this->Guru_model->getAllGuru();
+    $data['mapel'] = $this->Mapel_model->getAllMapel();
+
+    $this->form_validation->set_rules('nm_guru', 'Nama Guru', 'required|trim');
+    $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
+    $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/DaftarGuru');
+      $this->load->view('templates/admin_footer');
+    } else {
+    }
   }
   public function profileAdmin()
   {

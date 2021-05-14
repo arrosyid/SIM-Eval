@@ -6,8 +6,9 @@
         <h3 class="card-title">Daftar Guru</h3>
       </div>
       <div class="card-body">
+        <?= $this->session->flashdata('message'); ?>
         <table id="Table" class="table table-bordered table-striped">
-          <a href="#" class="col-2 mb-4 btn btn-primary btn-block">
+          <a href="<?= base_url('admin/tambahGuru') ?>" class="col-2 mb-4 btn btn-primary btn-block">
             Tambah Guru</a>
           <thead>
             <tr>
@@ -19,16 +20,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Mustiani</td>
-              <td>123761876</td>
-              <td>Matematika</td>
-              <td>
-                <a href="" data-toggle="modal" data-target="#editGuru" id="" class="badge badge-success view-data">edit</a>
-                <a href="#" class="badge badge-danger">hapus</a>
-              </td>
-            </tr>
+            <?php if ($guru == null) {
+              echo '<tr><td colspan="5">Data Tidak Di Temukan</td></tr>';
+            } else {
+              $i = 1; ?>
+              <?php foreach ($guru as $G) : ?>
+                <tr>
+                  <td><?= $i; ?></td>
+                  <td><?= $G['nm_guru'] ?></td>
+                  <td><?= $G['nip'] ?></td>
+                  <td><?= $G['mapel'] ?></td>
+                  <td>
+                    <a href="" data-toggle="modal" data-target="#editGuru" id="<?= $G['id_guru'] ?>" class="badge badge-success view-data">edit</a>
+                    <a href="<?= base_url('admin/delete/guru/') . $G['id_guru'] ?>" class="badge badge-danger">hapus</a>
+                  </td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;
+            }
+            ?>
           </tbody>
           <tfoot>
             <tr>
