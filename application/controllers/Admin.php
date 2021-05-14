@@ -115,6 +115,14 @@ class Admin extends CI_Controller
   {
     // read profile sekolah
     $data['tittle'] = 'Profile Sekolah';
+    $data['subtittle'] = 'Profile Sekolah';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['sekolah'] = $this->Sekolah_model->getSekolahByid(1);
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('admin/ProfileSekolah');
+    $this->load->view('templates/admin_footer');
   }
   public function editProfile()
   {
@@ -178,7 +186,7 @@ class Admin extends CI_Controller
       }
     }
   }
-  public function editSekolah($id_sekolah = 1)
+  public function editSekolah($id_sekolah)
   {
     // edit & Input data sekolah
     $data['tittle'] = 'Edit Profile Sekolah';
