@@ -69,6 +69,8 @@ class Admin extends CI_Controller
     $data['subtittle'] = 'Daftar Semua Soal';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['soal'] = $this->Soal_model->getAllSoal();
+    // var_dump($data['soal']);
+    // die;
 
     $this->load->view('templates/admin_header', $data);
     $this->load->view('templates/sidebar', $data);
