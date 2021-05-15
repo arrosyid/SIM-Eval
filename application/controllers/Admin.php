@@ -16,6 +16,7 @@ class Admin extends CI_Controller
     $this->load->model('Siswa_model');
     $this->load->model('Kelas_model');
     $this->load->model('Sekolah_model');
+    $this->load->model('Soal_model');
   }
 
   public function index()
@@ -44,11 +45,6 @@ class Admin extends CI_Controller
     $data['tittle'] = 'Daftar Kelas';
   }
 
-  public function soal()
-  {
-    // Read data soal
-    $data['tittle'] = 'Daftar Soal';
-  }
 
   public function nilai()
   {
@@ -64,6 +60,20 @@ class Admin extends CI_Controller
   {
     // Read distribusi jawaban siswa dan kunci jawaban
     $data['tittle'] = 'Distribusi Jawaban';
+  }
+
+  public function daftarSoal()
+  {
+    // Read data soal
+    $data['tittle'] = 'Daftar Soal';
+    $data['subtittle'] = 'Daftar Semua Soal';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['soal'] = $this->Soal_model->getAllSoal();
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('admin/DaftarSoal');
+    $this->load->view('templates/admin_footer');
   }
 
   public function daftarMapel()
