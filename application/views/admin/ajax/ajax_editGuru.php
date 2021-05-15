@@ -8,7 +8,7 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
-        <input type="text" class="form-control" name="nm_guru" id="nm_guru" placeholder="Tambahkan Nama Guru">
+        <input type="text" class="form-control" name="nm_guru" id="nm_guru" placeholder="Tambahkan Nama Guru" value="<?= $guru['nm_guru'] ?>">
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
-        <input type="text" class="form-control" name="nip" id="nip" placeholder="Tambahkan Nomor Induk Guru">
+        <input type="text" class="form-control" name="nip" id="nip" placeholder="Tambahkan Nomor Induk Guru" value="<?= $guru['nip'] ?>">
       </div>
     </div>
   </div>

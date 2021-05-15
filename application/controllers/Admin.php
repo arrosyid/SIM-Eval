@@ -96,8 +96,8 @@ class Admin extends CI_Controller
         'nip' => htmlspecialchars($this->input->post('nip', true)),
         'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
       ];
-      var_dump($data_guru);
-      die;
+      // var_dump($data_guru);
+      // die;
       if ($this->db->insert('tb_guru', $data_guru)) {
         $this->session->set_flashdata(
           'message',
@@ -511,18 +511,20 @@ class Admin extends CI_Controller
   {
     $ajax_menu = $this->input->post('ajax_menu', true);
 
+
     // ajax edit SISWA
     if ($ajax_menu == 'get_siswa') {
       $id_siswa = $this->input->post('id_siswa', true);
-      $data['siswa'] = $this->Siswa_model->getSiswaByType($id_siswa, 'id_siswa');
-      $data['kelas'] = $this->Kelas_model->getKelasByType($data['siswa']['id_kelas'], 'id_kelas');
+      $data['siswa'] = $this->Siswa_model->getSiswaByType('id_siswa', $id_siswa);
+      $data['kelas'] = $this->Kelas_model->getAllKelas();
       $this->load->view('admin/ajax/ajax_editSiswa', $data);
     }
 
     // ajax edit GURU
     if ($ajax_menu == 'get_guru') {
       $id_guru = $this->input->post('id_guru', true);
-      $data['editGuru'] = $this->Pemodalan_model->getPemodalanById('id_modal', $id_guru);
+      $data['guru'] = $this->Guru_model->getGuruByType('id_guru', $id_guru);
+      $data['mapel'] = $this->Mapel_model->getAllMapel();
       $this->load->view('admin/ajax/ajax_editGuru', $data);
     }
   }
