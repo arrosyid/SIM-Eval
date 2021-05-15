@@ -6,7 +6,10 @@ class Guru_model extends CI_Model
   // mengambil semua Guru
   public function getAllGuru()
   {
-    return $this->db->get('tb_guru')->result_array();
+    $this->db->select('tb_guru.*, tb_mapel.*')
+      ->from('tb_guru')
+      ->join('tb_mapel', 'tb_guru.id_mapel = tb_mapel.id_mapel');
+    return $this->db->get()->result_array();
   }
 
   // mengambil data Guru berdasarkan tipe id
