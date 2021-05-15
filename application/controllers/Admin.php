@@ -547,5 +547,14 @@ class Admin extends CI_Controller
       $data['mapel'] = $this->Mapel_model->getAllMapel();
       $this->load->view('admin/ajax/ajax_editGuru', $data);
     }
+
+    // ajax edit Soal
+    if ($ajax_menu == 'get_soal') {
+      $id_soal = $this->input->post('id_soal', true);
+      $data['soal'] = $this->Soal_model->getSoalByType('id_soal', $id_soal);
+      $data['mapel'] = $this->Mapel_model->getAllMapel();
+      $data['kelas'] = $this->Kelas_model->getAllKelas();
+      $this->load->view('admin/ajax/ajax_editSoal', $data);
+    }
   }
 }

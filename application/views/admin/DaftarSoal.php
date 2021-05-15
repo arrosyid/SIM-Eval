@@ -19,7 +19,7 @@
               <th>Jumlah Soal</th>
               <th>KD</th>
               <th>KKM</th>
-              <th>Skor Maksimal</th>
+              <th>Nilai Maksimal</th>
               <th>Tanggal Ujian</th>
               <th>Action</th>
             </tr>
@@ -39,7 +39,7 @@
                   <td><?= $S['kd'] ?></td>
                   <td><?= $S['kkm'] ?></td>
                   <td><?= $S['skor_max'] ?></td>
-                  <td><?= $S['tgl_ujian'] ?></td>
+                  <td><?= date('d-m-Y', $S['jml_soal']) ?></td>
                   <td>
                     <a href="" data-toggle="modal" data-target="#editSoal" id="<?= $S['id_soal'] ?>" class="badge badge-success view-data">edit</a>
                     <a href="<?= base_url('admin/delete/soal/') . $S['id_soal'] ?>" class="badge badge-danger">hapus</a>
@@ -59,7 +59,7 @@
               <th>Jumlah Soal</th>
               <th>KD</th>
               <th>KKM</th>
-              <th>Skor Maksimal</th>
+              <th>Nilai Maksimal</th>
               <th>Tanggal Ujian</th>
               <th>Action</th>
             </tr>

@@ -148,6 +148,25 @@
           }
         });
       });
+
+    <?php elseif ($tittle == 'Daftar Soal') : ?>
+      $('.view-data').on('click', function() {
+        var id_soal = $(this).attr('id');
+        console.log(id_soal);
+
+        $.ajax({
+          url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
+          method: "post",
+          data: {
+            ajax_menu: 'get_soal',
+            id_soal: id_soal
+          },
+          success: function(data) {
+            $('#detailSoal').html(data);
+            $('#editSoal').modal();
+          }
+        });
+      });
     <?php endif ?>
   });
 </script>
