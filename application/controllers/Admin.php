@@ -38,12 +38,6 @@ class Admin extends CI_Controller
     $data['tittle'] = 'Hasil Analisis';
   }
 
-  public function mapel()
-  {
-    // Read Data Mapel
-    $data['tittle'] = 'Daftar Mata Pelajaran';
-  }
-
   public function kelas()
   {
     // Read Data Kelas
@@ -70,6 +64,20 @@ class Admin extends CI_Controller
   {
     // Read distribusi jawaban siswa dan kunci jawaban
     $data['tittle'] = 'Distribusi Jawaban';
+  }
+
+  public function daftarMapel()
+  {
+    // Read Data Mapel
+    $data['tittle'] = 'Daftar Mata Pelajaran';
+    $data['subtittle'] = 'Daftar Mata Pelajaran';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['mapel'] = $this->Mapel_model->getAllMapel();
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('admin/DaftarMapel');
+    $this->load->view('templates/admin_footer');
   }
 
   public function daftarGuru()
