@@ -35,14 +35,9 @@
       </div>
     </div>
     <hr>
-    <div class="row">
-      <div class="col-8">
-        capthca
+    <div class="form-group row">
+      <div class="offset-sm-2 col-sm-10">
+        <input type="submit" name="tambahModal" class="btn btn-danger" value="Submit">
       </div>
-      <!-- /.col -->
-      <div class="col-4">
-        <button type="submit" class="btn btn-primary btn-block">Tambah Sekolah</button>
-      </div>
-      <!-- /.col -->
     </div>
   </form>
