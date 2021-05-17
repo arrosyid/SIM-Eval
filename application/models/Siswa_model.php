@@ -41,7 +41,7 @@ class Siswa_model extends CI_Model
   }
 
   // delete Siswa
-  public function deleteSiswaByType($id, $type)
+  public function deleteSiswaByType($type, $id)
   {
     // berdasarkan id Siswa
     if ($type == 'id_siswa')

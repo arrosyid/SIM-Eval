@@ -55,7 +55,7 @@ class soal_model extends CI_Model
   }
 
   // delete soal
-  public function deleteSoalByType($id, $type)
+  public function deleteSoalByType($type, $id)
   {
     // berdasarkan id soal
     if ($type == 'id_soal')

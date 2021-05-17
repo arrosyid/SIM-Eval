@@ -13,7 +13,7 @@ class Uraian_model extends CI_Model
   }
 
   // mengambil data Uraian berdasarkan tipe id
-  public function getUraianByType($id, $type)
+  public function getUraianByType($type, $id)
   {
     // berdasarkan idUraian
     if ($type == 'id_uraian') {
@@ -41,7 +41,7 @@ class Uraian_model extends CI_Model
   }
 
   // delete Uraian
-  public function deleteUraianByType($id, $type)
+  public function deleteUraianByType($type, $id)
   {
     // berdasarkan id pilhan ganda
     if ($type == 'id_uraian')

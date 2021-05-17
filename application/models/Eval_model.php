@@ -46,7 +46,7 @@ class Eval_model extends CI_Model
   }
 
   // delete Eval
-  public function deleteEvalByType($id, $type)
+  public function deleteEvalByType($type, $id)
   {
     // berdasarkan id eval
     if ($type == 'id_eval')

@@ -15,7 +15,7 @@ class Pelajaran_model extends CI_Model
   }
 
   // mengambil data Pelajaran berdasarkan tipe id
-  public function getPelajaranByType($id, $type)
+  public function getPelajaranByType($type, $id)
   {
     // berdasarkan idMapel
     if ($type == 'id_mapel') {
@@ -58,7 +58,7 @@ class Pelajaran_model extends CI_Model
   }
 
   // delete Pelajaran
-  public function deletePelajaranByType($id, $type)
+  public function deletePelajaranByType($type, $id)
   {
     // berdasarkan id Mapel
     if ($type == 'id_mapel')

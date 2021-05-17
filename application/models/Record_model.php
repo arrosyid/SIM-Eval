@@ -48,7 +48,7 @@ class Record_model extends CI_Model
   }
 
   // delete Record
-  public function deleteRecordByType($id, $type)
+  public function deleteRecordByType($type, $id)
   {
     // berdasarkan id Record
     if ($type == 'id_record')

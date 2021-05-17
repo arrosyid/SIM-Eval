@@ -57,7 +57,7 @@ class Skor_model extends CI_Model
   }
 
   // delete Skor
-  public function deleteSkorByType($id, $type)
+  public function deleteSkorByType($type, $id)
   {
     // berdasarkan id Skor
     if ($type == 'id_skor')

@@ -14,7 +14,7 @@ class Kelas_model extends CI_Model
   }
 
   // mengambil data Kelas berdasarkan tipe id
-  public function getKelasByType($id, $type)
+  public function getKelasByType($type, $id)
   {
     // berdasarkan id Kelas
     if ($type == 'id_kelas') {
@@ -42,7 +42,7 @@ class Kelas_model extends CI_Model
   }
 
   // delete Kelas
-  public function deleteKelasByType($id, $type)
+  public function deleteKelasByType($type, $id)
   {
     // berdasarkan id Kelas
     if ($type == 'id_kelas')

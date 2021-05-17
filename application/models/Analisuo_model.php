@@ -46,7 +46,7 @@ class Analisuo_model extends CI_Model
   }
 
   // delete Analisuo
-  public function deleteAnalisuoByType($id, $type)
+  public function deleteAnalisuoByType($type, $id)
   {
     // berdasarkan id pilhan ganda
     if ($type == 'id_analisuo')

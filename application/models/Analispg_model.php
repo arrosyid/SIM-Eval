@@ -10,7 +10,7 @@ class Analispg_model extends CI_Model
   }
 
   // mengambil data Analispg berdasarkan tipe id
-  public function getAnalispgByType($id, $type)
+  public function getAnalispgByType($type, $id)
   {
     // berdasarkan idAnalispg
     if ($type == 'id_analispg') {
@@ -46,7 +46,7 @@ class Analispg_model extends CI_Model
   }
 
   // delete Analispg
-  public function deleteAnalispgByType($id, $type)
+  public function deleteAnalispgByType($type, $id)
   {
     // berdasarkan id pilhan ganda
     if ($type == 'id_analispg')

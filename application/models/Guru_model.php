@@ -41,7 +41,7 @@ class Guru_model extends CI_Model
   }
 
   // delete Guru
-  public function deleteGuruByType($id, $type)
+  public function deleteGuruByType($type, $id)
   {
     // berdasarkan id Guru
     if ($type == 'id_guru')

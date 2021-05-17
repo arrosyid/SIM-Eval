@@ -13,7 +13,7 @@ class Pg_model extends CI_Model
   }
 
   // mengambil data Pg berdasarkan tipe id
-  public function getPgByType($id, $type)
+  public function getPgByType($type, $id)
   {
     // berdasarkan idPg
     if ($type == 'id_pg') {
@@ -41,7 +41,7 @@ class Pg_model extends CI_Model
   }
 
   // delete Pg
-  public function deletePgByType($id, $type)
+  public function deletePgByType($type, $id)
   {
     // berdasarkan id pilhan ganda
     if ($type == 'id_pg')
