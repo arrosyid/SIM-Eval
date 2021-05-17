@@ -63,7 +63,7 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
-        <input type="text" class="form-control" name="KD" id="KD" placeholder="Isi Kompetensi Dasar" value="<?= $soal['kd'] ?>">
+        <input type="text" class="form-control" name="kd" id="kd" placeholder="Isi Kompetensi Dasar" value="<?= $soal['kd'] ?>">
       </div>
     </div>
   </div>
