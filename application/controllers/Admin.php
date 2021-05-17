@@ -39,13 +39,6 @@ class Admin extends CI_Controller
     $data['tittle'] = 'Hasil Analisis';
   }
 
-  public function kelas()
-  {
-    // Read Data Kelas
-    $data['tittle'] = 'Daftar Kelas';
-  }
-
-
   public function nilai()
   {
     // Read Nilai per ujian siwa
@@ -60,6 +53,20 @@ class Admin extends CI_Controller
   {
     // Read distribusi jawaban siswa dan kunci jawaban
     $data['tittle'] = 'Distribusi Jawaban';
+  }
+
+  public function daftarKelas()
+  {
+    // Read Data Kelas
+    $data['tittle'] = 'Daftar Kelas';
+    $data['subtittle'] = 'Daftar Semua Soal';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['kelas'] = $this->Kelas_model->getAllKelas();
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('admin/DaftarKelas');
+    $this->load->view('templates/admin_footer');
   }
 
   public function daftarSoal()

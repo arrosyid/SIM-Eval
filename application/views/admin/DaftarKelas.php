@@ -13,6 +13,7 @@
           <thead>
             <tr>
               <th>No</th>
+              <th>Wali Kelas</th>
               <th>Tahun/Kelas</th>
               <th>Bidang</th>
               <th>Nomor Kelas</th>
@@ -21,19 +22,21 @@
             </tr>
           </thead>
           <tbody>
-            <?php if ($guru == null) {
+            <?php if ($kelas == null) {
               echo '<tr><td colspan="5">Data Tidak Di Temukan</td></tr>';
             } else {
               $i = 1; ?>
-              <?php foreach ($guru as $G) : ?>
+              <?php foreach ($kelas as $K) : ?>
                 <tr>
                   <td><?= $i; ?></td>
-                  <td><?= $G['nm_guru'] ?></td>
-                  <td><?= $G['nip'] ?></td>
-                  <td><?= $G['mapel'] ?></td>
+                  <td><?= $K['nm_guru'] ?></td>
+                  <td><?= $K['kelas'] ?></td>
+                  <td><?= $K['bidang'] ?></td>
+                  <td><?= $K['nomor_kelas'] ?></td>
+                  <td><?= $K['jml_siswa'] ?></td>
                   <td>
-                    <a href="" data-toggle="modal" data-target="#editKelas" id="<?= $G['id_kelas'] ?>" class="badge badge-success view-data">edit</a>
-                    <a href="<?= base_url('admin/delete/Kelas/') . $G['id_kelas'] ?>" class="badge badge-danger">hapus</a>
+                    <a href="" data-toggle="modal" data-target="#editKelas" id="<?= $K['id_kelas'] ?>" class="badge badge-success view-data">edit</a>
+                    <a href="<?= base_url('admin/delete/Kelas/') . $K['id_kelas'] ?>" class="badge badge-danger">hapus</a>
                   </td>
                 </tr>
                 <?php $i++; ?>
@@ -44,6 +47,7 @@
           <tfoot>
             <tr>
               <th>No</th>
+              <th>Wali Kelas</th>
               <th>Tahun/Kelas</th>
               <th>Bidang</th>
               <th>Nomor Kelas</th>
