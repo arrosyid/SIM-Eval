@@ -167,6 +167,25 @@
           }
         });
       });
+
+    <?php elseif ($tittle == 'Daftar Kelas') : ?>
+      $('.view-data').on('click', function() {
+        var id_kelas = $(this).attr('id');
+        console.log(id_kelas);
+
+        $.ajax({
+          url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
+          method: "post",
+          data: {
+            ajax_menu: 'get_kelas',
+            id_kelas: id_kelas
+          },
+          success: function(data) {
+            $('#detailKelas').html(data);
+            $('#editKelas').modal();
+          }
+        });
+      });
     <?php endif ?>
   });
 </script>

@@ -6,7 +6,10 @@
     <div class="col-sm-5">
       <div class="form-group">
         <select class="form-control" name="id_guru" id="id_guru">
-          <option value="">PILIH KELAS</option>
+          <option value="">PILIH WALI KELAS</option>
+          <?php foreach ($guru as $G) { ?>
+            <option value="<?= $G['id_guru'] ?>"><?= $G['nm_guru'] ?></option>;
+          <?php } ?>
         </select>
       </div>
     </div>
@@ -32,7 +35,7 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
-        <input type="text" class="form-control" name="bidang" id="bidang" placeholder="Isi Bidang" value="<?= $siswa['bidang'] ?>">
+        <input type="text" class="form-control" name="bidang" id="bidang" placeholder="Isi Bidang" value="<?= $kelas['bidang'] ?>">
       </div>
     </div>
   </div>
@@ -42,7 +45,7 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
-        <input type="text" class="form-control" name="nomor_kelas" id="nomor_kelas" placeholder="Isi Nomor Kelas" value="<?= $siswa['nomor_kelas'] ?>">
+        <input type="text" class="form-control" name="nomor_kelas" id="nomor_kelas" placeholder="Isi Nomor Kelas" value="<?= $kelas['nomor_kelas'] ?>">
       </div>
     </div>
   </div>
@@ -52,7 +55,7 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
-        <input type="text" class="form-control" name="jml_siswa" id="jml_siswa" placeholder="Isi Jumlah Siswa" value="<?= $siswa['jml_siswa'] ?>">
+        <input type="text" class="form-control" name="jml_siswa" id="jml_siswa" placeholder="Isi Jumlah Siswa" value="<?= $kelas['jml_siswa'] ?>">
       </div>
     </div>
   </div>
