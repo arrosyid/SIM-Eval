@@ -87,14 +87,14 @@ class Admin extends CI_Controller
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil menginputkan data Kelas</div>'
+                      Berhasil Mengubah Data Kelas</div>'
         );
         redirect('admin/daftarKelas');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal menginputkan data Kelas</div>'
+                      Gagal Mengubah Data Kelas</div>'
         );
         redirect('admin/daftarKelas');
       }
@@ -161,14 +161,14 @@ class Admin extends CI_Controller
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil menginputkan data guru</div>'
+                      Berhasil Mengubah Data Guru</div>'
         );
         redirect('admin/daftarGuru');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal menginputkan data guru</div>'
+                      Gagal Mengubah Data Guru</div>'
         );
         redirect('admin/daftarGuru');
       }
@@ -206,13 +206,13 @@ class Admin extends CI_Controller
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil Mengedit Password atau Kata Sandi Anda</div>'
+                      Berhasil Mengubah Password atau Kata Sandi Anda</div>'
         );
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal Mengedit Password atau Kata Sandi Anda</div>'
+                      Gagal Mengubah Password atau Kata Sandi Anda</div>'
         );
       }
     }
@@ -268,27 +268,27 @@ class Admin extends CI_Controller
         $this->session->set_flashdata(
           'message1',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil menginputkan Data Akun Anda</div>'
+                      Berhasil Mengubah Data Akun Anda</div>'
         );
       } else {
         $this->session->set_flashdata(
           'message1',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal menginputkan Data Akun Anda</div>'
+                      Gagal Mengubah Data Akun Anda</div>'
         );
       }
       if ($this->db->insert('tb_guru', $data_guru)) {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil menginputkan Data Anda</div>'
+                      Berhasil Mengubah Data Anda</div>'
         );
         redirect('admin/profileAdmin');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal menginputkan Data Anda</div>'
+                      Gagal Mengubah Data Anda</div>'
         );
         redirect('admin/profileAdmin');
       }
@@ -352,13 +352,13 @@ class Admin extends CI_Controller
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil Mengedit Data Sekolah</div>'
+                      Berhasil Mengubah Data Sekolah</div>'
         );
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal Mengedit Data Sekolah</div>'
+                      Gagal Mengubah Data Sekolah</div>'
         );
       }
     }
@@ -412,27 +412,27 @@ class Admin extends CI_Controller
         $this->session->set_flashdata(
           'message1',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil menginputkan data akun guru</div>'
+                      Berhasil Menginputkan Data Akun Guru</div>'
         );
       } else {
         $this->session->set_flashdata(
           'message1',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal menginputkan data akun guru</div>'
+                      Gagal Menginputkan Data Akun Guru</div>'
         );
       }
       if ($this->db->insert('tb_guru', $data_guru)) {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil menginputkan data guru</div>'
+                      Berhasil Menginputkan Data Guru</div>'
         );
         redirect('admin/tambahGuru');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal menginputkan data guru</div>'
+                      Gagal Menginputkan Data Guru</div>'
         );
         redirect('admin/tambahGuru');
       }
@@ -469,14 +469,14 @@ class Admin extends CI_Controller
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Berhasil menginputkan data Kelas</div>'
+                        Berhasil Mengubah Data Kelas</div>'
         );
         redirect('admin/daftarSiswa');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Gagal menginputkan data Kelas</div>'
+                        Gagal Mengubah Data Kelas</div>'
         );
         redirect('admin/daftarSiswa');
       }
@@ -513,14 +513,14 @@ class Admin extends CI_Controller
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Berhasil menginputkan data Kelas</div>'
+                        Berhasil Menginputkan Data Kelas</div>'
         );
         redirect('admin/tambahKelas');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Gagal menginputkan data Kelas</div>'
+                        Gagal Menginputkan Data Kelas</div>'
         );
         redirect('admin/tambahKelas');
       }
@@ -548,14 +548,14 @@ class Admin extends CI_Controller
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Berhasil menginputkan data Mata Pelajaran</div>'
+                        Berhasil Menginputkan Data Mata Pelajaran</div>'
         );
         redirect('admin/tambahMapel');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Gagal menginputkan data Mata Pelajaran</div>'
+                        Gagal Menginputkan Data Mata Pelajaran</div>'
         );
         redirect('admin/tambahMapel');
       }
