@@ -492,11 +492,9 @@ class Admin extends CI_Controller
     $data['guru'] = $this->Guru_model->getAllGuru();
 
     $this->form_validation->set_rules('kelas', 'Kelas', 'required|trim');
-    $this->form_validation->set_rules('bidang', 'Bidang', 'required|trim');
     $this->form_validation->set_rules('nomor_kelas', 'Nomor Kelas', 'required|trim');
     $this->form_validation->set_rules('id_guru', 'Wali Kelas', 'required|trim');
     $this->form_validation->set_rules('jml_siswa', 'Jumlah Siswa', 'required|trim');
-    $this->form_validation->set_rules('jml_mapel', 'Jumlah Mata Pelajaran', 'required|trim');
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/admin_header', $data);
@@ -510,7 +508,6 @@ class Admin extends CI_Controller
         'nomor_kelas' => htmlspecialchars($this->input->post('nomor_kelas', true)),
         'id_guru' => htmlspecialchars($this->input->post('id_guru', true)),
         'jml_siswa' => htmlspecialchars($this->input->post('jml_siswa', true)),
-        'jml_mapel' => htmlspecialchars($this->input->post('jml_mapel', true)),
       ];
       if ($this->db->insert('tb_kelas', $data_kelas)) {
         $this->session->set_flashdata(
