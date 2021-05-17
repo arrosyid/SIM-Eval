@@ -10,34 +10,9 @@ class Mapel_model extends CI_Model
   }
 
   // mengambil data Mapel berdasarkan tipe id
-  public function getMapelByType($id, $type)
+  public function getMapelById($id)
   {
-    // berdasarkan idMapel
-    if ($type == 'id_mapel') {
-      $this->db->select('tb_mapel.*, tb_sekolah.*, tb_kelas.*')
-        ->from('tb_mapel')
-        ->where(['id_mapel' => $id])
-        ->join('tb_sekolah.id_sekolah = tb_mapel.id_sekolah, tb_kelas.id_kelas = tb_mapel.id_kelas');
-      return $this->db->get()->row_array();
-    }
-
-    // berdasarkan id_sekolah
-    if ($type == 'id_sekolah') {
-      $this->db->select('tb_mapel.*, tb_sekolah.*, tb_kelas.*')
-        ->from('tb_mapel')
-        ->where(['id_sekolah' => $id])
-        ->join('tb_sekolah.id_sekolah = tb_mapel.id_sekolah, tb_kelas.id_kelas = tb_mapel.id_kelas');
-      return $this->db->get()->row_array();
-    }
-
-    // berdasarkan id_kelas
-    if ($type == 'id_kelas') {
-      $this->db->select('tb_mapel.*, tb_sekolah.*, tb_kelas.*')
-        ->from('tb_mapel')
-        ->where(['id_kelas' => $id])
-        ->join('tb_sekolah.id_sekolah = tb_mapel.id_sekolah, tb_kelas.id_kelas = tb_mapel.id_kelas');
-      return $this->db->get()->row_array();
-    }
+    return $this->db->get_where('tb_mapel', [$id => 'id_mapel'])->row_array();
   }
 
   // update Mapel dari id
@@ -47,18 +22,8 @@ class Mapel_model extends CI_Model
   }
 
   // delete Mapel
-  public function deleteMapelByType($id, $type)
+  public function deleteMapelById($id)
   {
-    // berdasarkan id Mapel
-    if ($type == 'id_mapel')
-      return $this->db->delete('tb_mapel', ['id_mapel' => $id]);
-
-    // berdasarkan id sekolah
-    if ($type == 'id_sekolah')
-      return $this->db->delete('tb_mapel', ['id_sekolah' => $id]);
-
-    // berdasarkan id kelas
-    if ($type == 'id_kelas')
-      return $this->db->delete('tb_mapel', ['id_kelas' => $id]);
+    return $this->db->delete('tb_mapel', ['id_mapel' => $id]);
   }
 }
