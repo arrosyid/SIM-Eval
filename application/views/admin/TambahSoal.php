@@ -13,8 +13,11 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <select class="form-control" name="mapel" id="mapel">
+                <select class="form-control" name="id_mapel" id="id_mapel">
                   <option value="">PILIH MATA PELAJARAN</option>
+                  <?php foreach ($mapel as $M) { ?>
+                    <option value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>;
+                  <?php } ?>
                 </select>
               </div>
             </div>
@@ -43,8 +46,11 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <select class="form-control" name="kelas" id="kelas">
+                <select class="form-control" name="id_kelas" id="id_kelas">
                   <option value="">PILIH KELAS</option>
+                  <?php foreach ($kelas as $K) : ?>
+                    <option value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
+                  <?php endforeach ?>
                 </select>
               </div>
             </div>
@@ -55,7 +61,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="jml_soal" id="jml_soal" placeholder="Isi Jumlah Soal" value="">
+                <input type="text" class="form-control" name="jml_soal" id="jml_soal" placeholder="Isi Jumlah Soal" value="<?= set_value('jml_soal') ?>">
               </div>
             </div>
           </div>
@@ -65,7 +71,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="KD" id="KD" placeholder="Isi Kopetensi Dasar" value="">
+                <input type="text" class="form-control" name="kd" id="kd" placeholder="Isi Kopetensi Dasar" value="<?= set_value('kd') ?>">
               </div>
             </div>
           </div>
@@ -75,7 +81,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="kkm" id="kkm" placeholder="Isi  Kriteria Ketuntasan Minimal (KKM)" value="">
+                <input type="text" class="form-control" name="kkm" id="kkm" placeholder="Isi  Kriteria Ketuntasan Minimal (KKM)" value="<?= set_value('kkm') ?>">
               </div>
             </div>
           </div>
@@ -85,7 +91,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="skor_max" id="skor_max" placeholder="isi Nilai Maksimal" value="">
+                <input type="text" class="form-control" name="skor_max" id="skor_max" placeholder="isi Nilai Maksimal" value="<?= set_value('skor_max') ?>">
               </div>
             </div>
           </div>
@@ -95,7 +101,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="date" class="form-control" name="tgl_ujian" id="tgl_ujian" placeholder="isi Tanggal Ujian" value="">
+                <input type="date" class="form-control" name="tgl_ujian" id="tgl_ujian" placeholder="isi Tanggal Ujian" value="<?= set_value('tgl_ujian') ?>">
               </div>
             </div>
           </div>

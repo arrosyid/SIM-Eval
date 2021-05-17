@@ -483,6 +483,58 @@ class Admin extends CI_Controller
     }
   }
 
+  public function tambahSoal()
+  {
+    // Input data Soal
+    $data['tittle'] = 'Tambah Soal';
+    $data['subtittle'] = 'Tambah Soal Baru';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['kelas'] = $this->Kelas_model->getAllKelas();
+    $data['mapel'] = $this->Mapel_model->getAllMapel();
+
+    $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
+    $this->form_validation->set_rules('jenis_soal', 'Jenis Soal', 'required|trim');
+    $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
+    $this->form_validation->set_rules('jml_soal', 'Jumlah Soal', 'required|trim');
+    $this->form_validation->set_rules('kd', 'Kopempetensi Dasar', 'required|trim');
+    $this->form_validation->set_rules('kkm', 'KKM', 'required|trim');
+    $this->form_validation->set_rules('skor_max', 'Nilai Maksimal', 'required|trim');
+    $this->form_validation->set_rules('tgl_ujian', 'Tanggal Ujian', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/TambahSoal');
+      $this->load->view('templates/admin_footer');
+    } else {
+      $data_soal = [
+        'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
+        'jenis_soal' => htmlspecialchars($this->input->post('jenis_soal', true)),
+        'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
+        'jml_soal' => htmlspecialchars($this->input->post('jml_soal', true)),
+        'kd' => htmlspecialchars($this->input->post('kd', true)),
+        'kkm' => htmlspecialchars($this->input->post('kkm', true)),
+        'skor_max' => htmlspecialchars($this->input->post('skor_max', true)),
+        'tgl_ujian' => htmlspecialchars($this->input->post('tgl_ujian', true)),
+      ];
+      if ($this->db->insert('tb_soal', $data_soal)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Berhasil Menginputkan Data Soal</div>'
+        );
+        redirect('admin/tambahSoal');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Gagal Menginputkan Data Soal</div>'
+        );
+        redirect('admin/tambahSoal');
+      }
+    }
+  }
+
   public function tambahKelas()
   {
     // Input data Kelas
