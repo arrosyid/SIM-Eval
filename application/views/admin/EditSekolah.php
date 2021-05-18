@@ -1,6 +1,6 @@
 <section class="content">
   <div class="container-fluid">
-    <?= $this->session->flashdata('message'); ?>
+    <?= $this->session->flashdata('message') ?>
     <div class="card card-primary">
       <!-- /.card-header -->
       <div class="card-header">
@@ -84,12 +84,12 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <select class="form-control" name="Akreditasi" id="Akreditasi">
-                  <option value="">PILIH AKREDITASI</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="">LAINNYA</option>
+                <select class="form-control" name="akreditasi" id="akreditasi">
+                  <option <?= $sekolah['akreditasi'] == NULL ? 'selected' : '' ?> value="">PILIH AKREDITASI</option>
+                  <option <?= set_select('akreditasi') != null ? set_select('akreditasi', 'A') : ($sekolah['akreditasi'] == 'A' ? 'selected' : '') ?> value="A">A</option>
+                  <option <?= set_select('akreditasi') != null ? set_select('akreditasi', 'B') : ($sekolah['akreditasi'] == 'B' ? 'selected' : '') ?> value="B">B</option>
+                  <option <?= set_select('akreditasi') != null ? set_select('akreditasi', 'C') : ($sekolah['akreditasi'] == 'C' ? 'selected' : '') ?> value="C">C</option>
+                  <option <?= set_select('akreditasi', '') ?> value="">LAINNYA</option>
                 </select>
               </div>
             </div>
@@ -101,10 +101,10 @@
             <div class="col-sm-10">
               <div class="form-group">
                 <select class="form-control" name="kurikulum" id="kurikulum">
-                  <option value="">PILIH KURIKULUM</option>
-                  <option value="K13">K13</option>
-                  <option value="KTSP">KTSP</option>
-                  <option value="2004">2004</option>
+                  <option <?= $sekolah['kurikulum'] == NULL ? 'selected' : '' ?> value="">PILIH KURIKULUM</option>
+                  <option <?= set_select('kurikulum') != null ? set_select('kurikulum', 'K13') : ($sekolah['kurikulum'] == 'K13' ? 'selected' : '') ?> value="K13">K13</option>
+                  <option <?= set_select('kurikulum') != null ? set_select('kurikulum', 'KTSP') : ($sekolah['kurikulum'] == 'KTSP' ? 'selected' : '') ?> value="KTSP">KTSP</option>
+                  <option <?= set_select('kurikulum') != null ? set_select('kurikulum', '2004') : ($sekolah['kurikulum'] == '2004' ? 'selected' : '') ?> value="2004">2004</option>
                 </select>
               </div>
             </div>
@@ -125,12 +125,12 @@
             </div>
             <div class="col-sm-5">
               <div class="form-group">
-                <select class="form-control" name="bentuk_pendirikan" id="bentuk_pendirikan">
-                  <option value="">PILIH BENTUK PENDIDIKAN</option>
-                  <option value="SD">SD</option>
-                  <option value="SMP">SMP</option>
-                  <option value="SMA">SMA</option>
-                  <option value="">Lainnya</option>
+                <select class="form-control" name="bentuk_pendidikan" id="bentuk_pendidikan">
+                  <option <?= $sekolah['bentuk_pendidikan'] == NULL ? 'selected' : '' ?> value="">PILIH BENTUK PENDIDIKAN</option>
+                  <option <?= set_select('bentuk_pendidikan') != null ? set_select('bentuk_pendidikan', 'SD') : ($sekolah['bentuk_pendidikan'] == 'SD' ? 'selected' : '') ?> value="SD">SD</option>
+                  <option <?= set_select('bentuk_pendidikan') != null ? set_select('bentuk_pendidikan', 'SMP') : ($sekolah['bentuk_pendidikan'] == 'SMP' ? 'selected' : '') ?> value="SMP">SMP</option>
+                  <option <?= set_select('bentuk_pendidikan') != null ? set_select('bentuk_pendidikan', 'SMA') : ($sekolah['bentuk_pendidikan'] == 'SMA' ? 'selected' : '') ?> value="SMA">SMA</option>
+                  <option <?= set_select('bentuk_pendidikan') != null ? set_select('bentuk_pendidikan', 'Lainnya') : ($sekolah['bentuk_pendidikan'] == 'Lainnya' ? 'selected' : '') ?> value="Lainnya">Lainnya</option>
                 </select>
               </div>
             </div>
@@ -182,11 +182,11 @@
             <div class="col-sm-5">
               <div class="form-group">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="status" id="status" value="1">
+                  <input class="form-check-input" type="radio" name="status" id="status" value="1" <?= set_radio('status', '1') ?>>
                   <label class="form-check-label">Aktif</label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="status" id="status" value="0">
+                  <input class="form-check-input" type="radio" name="status" id="status" value="0" <?= set_radio('status', '0') ?>>
                   <label class="form-check-label">Tidak Aktif</label>
                 </div>
               </div>

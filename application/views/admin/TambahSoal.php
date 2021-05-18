@@ -16,7 +16,7 @@
                 <select class="form-control" name="id_mapel" id="id_mapel">
                   <option value="">PILIH MATA PELAJARAN</option>
                   <?php foreach ($mapel as $M) { ?>
-                    <option value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>;
+                    <option <?= set_select('id_mapel', $M['id_mapel']) ?> value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -30,12 +30,12 @@
               <div class="form-group">
                 <select class="form-control" name="jenis_soal" id="jenis_soal">
                   <option value="">PILIH SOAL</option>
-                  <option value="Pilihan Ganda UH">Pilihan Ganda UH</option>
-                  <option value="Uraian UH">Uraian UH</option>
-                  <option value="Pilihan Ganda PTS">Pilihan Ganda PTS</option>
-                  <option value="Uraian PTS">Uraian PTS</option>
-                  <option value="Pilihan Ganda PAS">Pilihan Ganda PAS</option>
-                  <option value="Uraian PAS">Uraian PAS</option>
+                  <option <?= set_select('jenis_soal', 'Pilihan Ganda UH') ?> value="Pilihan Ganda UH">Pilihan Ganda UH</option>
+                  <option <?= set_select('jenis_soal', 'Uraian UH') ?> value="Uraian UH">Uraian UH</option>
+                  <option <?= set_select('jenis_soal', 'Pilihan Ganda PTS') ?> value="Pilihan Ganda PTS">Pilihan Ganda PTS</option>
+                  <option <?= set_select('jenis_soal', 'Uraian PTS') ?> value="Uraian PTS">Uraian PTS</option>
+                  <option <?= set_select('jenis_soal', 'Pilihan Ganda PAS') ?> value="Pilihan Ganda PAS">Pilihan Ganda PAS</option>
+                  <option <?= set_select('jenis_soal', 'Uraian PAS') ?> value="Uraian PAS">Uraian PAS</option>
                 </select>
               </div>
             </div>
@@ -49,7 +49,7 @@
                 <select class="form-control" name="id_kelas" id="id_kelas">
                   <option value="">PILIH KELAS</option>
                   <?php foreach ($kelas as $K) : ?>
-                    <option value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
+                    <option <?= set_select('id_kelas', $K['id_kelas']) ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
                   <?php endforeach ?>
                 </select>
               </div>

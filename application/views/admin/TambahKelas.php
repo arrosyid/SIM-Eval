@@ -16,9 +16,9 @@
               <div class="form-group">
                 <select class="form-control" name="kelas" id="kelas">
                   <option value="">PILIH KELAS</option>
-                  <option value="X">X</option>
-                  <option value="XI">XI</option>
-                  <option value="XII">XII</option>
+                  <option <?= set_select('kelas', 'VII') ?> value="VII">VII</option>
+                  <option <?= set_select('kelas', 'VIII') ?> value="VIII">VIII</option>
+                  <option <?= set_select('kelas', 'IX') ?> value="IX">IX</option>
                 </select>
               </div>
             </div>
@@ -31,9 +31,9 @@
               <div class="form-group">
                 <select class="form-control" name="bidang" id="bidang">
                   <option value="">PILIH BIDANG</option>
-                  <option value="IPA">IPA</option>
-                  <option value="IPS">IPS</option>
-                  <option value="BAHASA">BAHASA</option>
+                  <option <?= set_select('bidang', 'IPA') ?> value="IPA">IPA</option>
+                  <option <?= set_select('bidang', 'IPS') ?> value="IPS">IPS</option>
+                  <option <?= set_select('bidang', 'BAHASA') ?> value="BAHASA">BAHASA</option>
                 </select>
               </div>
             </div>
@@ -57,7 +57,7 @@
                 <select class="form-control" name="id_guru" id="id_guru">
                   <option value="">PILIH WALI KELAS</option>
                   <?php foreach ($guru as $G) { ?>
-                    <option value="<?= $G['id_guru'] ?>"><?= $G['nm_guru'] ?></option>;
+                    <option <?= set_select('id_guru', $G['id_guru']) ?> value="<?= $G['id_guru'] ?>"><?= $G['nm_guru'] ?></option>
                   <?php } ?>
                 </select>
               </div>

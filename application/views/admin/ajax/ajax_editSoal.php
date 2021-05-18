@@ -8,7 +8,7 @@
         <select class="form-control" name="id_mapel" id="id_mapel">
           <option value="">PILIH MATA PELAJARAN</option>
           <?php foreach ($mapel as $M) { ?>
-            <option <?= $M['mapel'] == $soal['mapel'] ? 'selected' : ''; ?> value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>;
+            <option <?= set_select('id_kelas') != null ? set_select('id_kelas', $K['id_kelas']) : ($M['mapel'] == $soal['mapel'] ? 'selected' : '') ?> value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>
           <?php } ?>
         </select>
       </div>
@@ -22,12 +22,12 @@
       <div class="form-group">
         <select class="form-control" name="jenis_soal" id="jenis_soal">
           <option value="">PILIH SOAL</option>
-          <option value="Pilihan Ganda UH">Pilihan Ganda UH</option>
-          <option value="Uraian UH">Uraian UH</option>
-          <option value="Pilihan Ganda PTS">Pilihan Ganda PTS</option>
-          <option value="Uraian PTS">Uraian PTS</option>
-          <option value="Pilihan Ganda PAS">Pilihan Ganda PAS</option>
-          <option value="Uraian PAS">Uraian PAS</option>
+          <option <?= set_select('jenis_soal') != null ? set_select('jenis_soal', 'Pilihan Ganda UH') : ($sekolah['jenis_soal'] == 'Pilihan Ganda UH' ? 'selected' : '') ?> value="Pilihan Ganda UH">Pilihan Ganda UH</option>
+          <option <?= set_select('jenis_soal') != null ? set_select('jenis_soal', 'Uraian UH') : ($sekolah['jenis_soal'] == 'Uraian UH' ? 'selected' : '') ?> value="Uraian UH">Uraian UH</option>
+          <option <?= set_select('jenis_soal') != null ? set_select('jenis_soal', 'Pilihan Ganda PTS') : ($sekolah['jenis_soal'] == 'Pilihan Ganda PTS' ? 'selected' : '') ?> value="Pilihan Ganda PTS">Pilihan Ganda PTS</option>
+          <option <?= set_select('jenis_soal') != null ? set_select('jenis_soal', 'Uraian PTS') : ($sekolah['jenis_soal'] == 'Uraian PTS' ? 'selected' : '') ?> value="Uraian PTS">Uraian PTS</option>
+          <option <?= set_select('jenis_soal') != null ? set_select('jenis_soal', 'Pilihan Ganda PAS') : ($sekolah['jenis_soal'] == 'Pilihan Ganda PAS' ? 'selected' : '') ?> value="Pilihan Ganda PAS">Pilihan Ganda PAS</option>
+          <option <?= set_select('jenis_soal') != null ? set_select('jenis_soal', 'Uraian PAS') : ($sekolah['jenis_soal'] == 'Uraian PAS' ? 'selected' : '') ?> value="Uraian PAS">Uraian PAS</option>
         </select>
       </div>
     </div>
@@ -41,7 +41,7 @@
         <select class="form-control" name="id_kelas" id="id_kelas">
           <option value="">PILIH KELAS</option>
           <?php foreach ($kelas as $K) : ?>
-            <option <?= $K['id_kelas'] == $soal['id_kelas'] ? 'selected' : ''; ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
+            <option <?= set_select('id_kelas') != null ? set_select('id_kelas', $K['id_kelas']) : ($K['id_kelas'] == $soal['id_kelas'] ? 'selected' : '') ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
           <?php endforeach ?>
         </select>
       </div>

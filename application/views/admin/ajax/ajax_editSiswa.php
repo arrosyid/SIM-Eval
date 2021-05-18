@@ -28,7 +28,7 @@
           <select class="form-control" name="id_kelas" id="id_kelas">
             <option value="">PILIH KELAS</option>
             <?php foreach ($kelas as $K) : ?>
-              <option <?= $K['id_kelas'] == $siswa['id_kelas'] ? 'selected' : ''; ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
+              <option <?= set_select('id_kelas') != null ? set_select('id_kelas', $K['id_kelas']) : ($K['id_kelas'] == $siswa['id_kelas'] ? 'selected' : '') ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
             <?php endforeach ?>
           </select>
         </div>

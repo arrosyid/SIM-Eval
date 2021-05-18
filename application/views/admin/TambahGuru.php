@@ -38,7 +38,7 @@
                 <select class="form-control" name="id_mapel" id="id_mapel">
                   <option value="">PILIH MATA PELAJARAN</option>
                   <?php foreach ($mapel as $M) { ?>
-                    <option value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>;
+                    <option <?= set_select('id_mapel', $M['id_mapel']) ?> value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>
                   <?php } ?>
                 </select>
               </div>
@@ -56,11 +56,11 @@
             <div class="col-sm-5">
               <div class="form-group">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="status" id="status" value="1">
+                  <input class="form-check-input" type="radio" name="status" id="status" value="1" <?= set_radio('status', '1') ?>>
                   <label class="form-check-label">Aktif</label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="status" id="status" value="0">
+                  <input class="form-check-input" type="radio" name="status" id="status" value="0" <?= set_radio('status', '0') ?>>
                   <label class="form-check-label">Tidak Aktif</label>
                 </div>
               </div>

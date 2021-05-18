@@ -8,7 +8,7 @@
         <select class="form-control" name="id_guru" id="id_guru">
           <option value="">PILIH WALI KELAS</option>
           <?php foreach ($guru as $G) { ?>
-            <option <?= $G['nm_guru'] == $kelas['nm_guru'] ? 'selected' : ''; ?> value="<?= $G['id_guru'] ?>"><?= $G['nm_guru'] ?></option>;
+            <option <?= set_select('id_kelas') != null ? set_select('id_kelas', $G['id_kelas']) : ($G['nm_guru'] == $kelas['nm_guru'] ? 'selected' : '') ?> value="<?= $G['id_guru'] ?>"><?= $G['nm_guru'] ?></option>
           <?php } ?>
         </select>
       </div>
@@ -21,10 +21,10 @@
     <div class="col-sm-5">
       <div class="form-group">
         <select class="form-control" name="kelas" id="kelas">
-          <option <?= $kelas['mapel'] == '' ? 'selected' : ''; ?> value="">PILIH KELAS</option>
-          <option <?= $kelas['mapel'] == 'VII' ? 'selected' : ''; ?> value="VII">VII</option>
-          <option <?= $kelas['mapel'] == 'VIII' ? 'selected' : ''; ?> value="VIII">VIII</option>
-          <option <?= $kelas['mapel'] == 'IX' ? 'selected' : ''; ?> value="IX">IX</option>
+          <option <?= set_select('kelas') != null ? set_select('kelas', $kelas['kelas']) : ($kelas['mapel'] == '' ? 'selected' : '') ?> value="">PILIH KELAS</option>
+          <option <?= set_select('kelas') != null ? set_select('kelas', $kelas['kelas']) : ($kelas['mapel'] == 'VII' ? 'selected' : '') ?> value="VII">VII</option>
+          <option <?= set_select('kelas') != null ? set_select('kelas', $kelas['kelas']) : ($kelas['mapel'] == 'VIII' ? 'selected' : '') ?> value="VIII">VIII</option>
+          <option <?= set_select('kelas') != null ? set_select('kelas', $kelas['kelas']) : ($kelas['mapel'] == 'IX' ? 'selected' : '') ?> value="IX">IX</option>
         </select>
       </div>
     </div>

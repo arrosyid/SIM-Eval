@@ -45,10 +45,10 @@
               <div class="form-group">
                 <select class="form-control" name="akreditasi" id="akreditasi">
                   <option value="">PILIH AKREDITASI</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="">Lainnya</option>
+                  <option <?= set_select('akreditasi', 'A') ?> value="A">A</option>
+                  <option <?= set_select('akreditasi', 'B') ?> value="B">B</option>
+                  <option <?= set_select('akreditasi', 'C') ?> value="C">C</option>
+                  <option <?= set_select('akreditasi', '') ?> value="">Lainnya</option>
                 </select>
               </div>
             </div>
@@ -61,9 +61,9 @@
               <div class="form-group">
                 <select class="form-control" name="kurikulum" id="kurikulum">
                   <option value="">PILIH KURIKULUM</option>
-                  <option value="K13">K13</option>
-                  <option value="KTSP">KTSP</option>
-                  <option value="">Lainnya</option>
+                  <option <?= set_select('kurikulum', 'K13') ?> value="K13">K13</option>
+                  <option <?= set_select('kurikulum', 'KTSP') ?> value="KTSP">KTSP</option>
+                  <option <?= set_select('kurikulum', '') ?> value="">Lainnya</option>
                 </select>
               </div>
             </div>
@@ -96,9 +96,9 @@
               <div class="form-group">
                 <select class="form-control" name="bentuk_pendidikan" id="bentuk_pendidikan">
                   <option value="">PILIH BENTUK PENDIDIKAN</option>
-                  <option value="negeri">negeri</option>
-                  <option value="swasta">swasta</option>
-                  <option value="">Lainnya</option>
+                  <option <?= set_select('bentuk_soal', 'negeri') ?> value="negeri">negeri</option>
+                  <option <?= set_select('bentuk_soal', 'swasta') ?> value="swasta">swasta</option>
+                  <option <?= set_select('bentuk_soal', '') ?> value="">Lainnya</option>
                 </select>
               </div>
             </div>
