@@ -44,7 +44,7 @@
                   </div>
                   <div class="col-sm-10">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="password1" id="password1" placeholder="Masukkan Password Baru Anda">
+                      <input type="text" class="form-control" name="password1" id="password1" placeholder="Masukkan Password Baru Anda" value="<?= set_value('password1') ?>">
                     </div>
                   </div>
                 </div>

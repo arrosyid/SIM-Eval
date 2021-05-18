@@ -8,7 +8,7 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
-        <input type="text" class="form-control" name="nm_guru" id="nm_guru" placeholder="Tambahkan Nama Guru" value="<?= $guru['nm_guru'] ?>">
+        <input type="text" class="form-control" name="nm_guru" id="nm_guru" placeholder="Tambahkan Nama Guru" value="<?= set_value('nm_guru') != null ? set_value('nm_guru') : $guru['nm_guru'] ?>">
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
-        <input type="text" class="form-control" name="nip" id="nip" placeholder="Tambahkan Nomor Induk Guru" value="<?= $guru['nip'] ?>">
+        <input type="text" class="form-control" name="nip" id="nip" placeholder="Tambahkan Nomor Induk Guru" value="<?= set_value('nip') != null ? set_value('nip') : $guru['nip'] ?>">
       </div>
     </div>
   </div>
@@ -31,7 +31,7 @@
         <select class="form-control" name="id_mapel" id="id_mapel">
           <option value="">PILIH MATA PELAJARAN</option>
           <?php foreach ($mapel as $M) { ?>
-            <option value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>;
+            <option <?= $M['mapel'] == $guru['mapel'] ? 'selected' : ''; ?> value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>;
           <?php } ?>
         </select>
       </div>

@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <input type="text" class="form-control" name="nm_siswa" id="nm_siswa" placeholder="Tambahkan Nama Siswa">
+                    <input type="text" class="form-control" name="nm_siswa" id="nm_siswa" placeholder="Tambahkan Nama Siswa" value="<?= set_value('nm_siswa') ?>">
                   </div>
                 </div>
               </div>
@@ -85,7 +85,7 @@
                 </div>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <input type="text" class="form-control" name="nis" id="nis" placeholder="Tambahkan Nomor Induk Siswa">
+                    <input type="text" class="form-control" name="nis" id="nis" placeholder="Tambahkan Nomor Induk Siswa" value="<?= set_value('nis') ?>">
                   </div>
                 </div>
               </div>

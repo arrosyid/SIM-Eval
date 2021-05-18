@@ -5,7 +5,7 @@
       </div>
       <div class="col-sm-10">
         <div class="form-group">
-          <input type="text" class="form-control" name="nm_siswa" id="nm_siswa" placeholder="Isi Nama Siswa" value="<?= $siswa['nm_siswa'] ?>">
+          <input type="text" class="form-control" name="nm_siswa" id="nm_siswa" placeholder="Isi Nama Siswa" value="<?= set_value('nm_siswa') != null ? set_value('nm_siswa') : $siswa['nm_siswa'] ?>">
         </div>
       </div>
     </div>
@@ -15,7 +15,7 @@
       </div>
       <div class="col-sm-10">
         <div class="form-group">
-          <input type="text" class="form-control" name="nis" id="nis" placeholder="Isi Nomor Induk Siswa" value="<?= $siswa['nis'] ?>">
+          <input type="text" class="form-control" name="nis" id="nis" placeholder="Isi Nomor Induk Siswa" value="<?= set_value('nis') != null ? set_value('nis') : $siswa['nis'] ?>">
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
           <select class="form-control" name="id_kelas" id="id_kelas">
             <option value="">PILIH KELAS</option>
             <?php foreach ($kelas as $K) : ?>
-              <option value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
+              <option <?= $K['id_kelas'] == $siswa['id_kelas'] ? 'selected' : ''; ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
             <?php endforeach ?>
           </select>
         </div>

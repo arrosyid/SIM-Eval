@@ -44,7 +44,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="nomor_kelas" id="nomor_kelas" placeholder="Isi Nomor Kelas" value="">
+                <input type="text" class="form-control" name="nomor_kelas" id="nomor_kelas" placeholder="Isi Nomor Kelas" value="<?= set_value('nomor_kelas') ?>">
               </div>
             </div>
           </div>
@@ -69,7 +69,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="jml_siswa" id="jml_siswa" placeholder="Isi Jumlah Siswa" value="">
+                <input type="text" class="form-control" name="jml_siswa" id="jml_siswa" placeholder="Isi Jumlah Siswa" value="<?= set_value('jml_siswa') ?>">
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="jml_mapel" id="jml_mapel" placeholder="Isi Jumlah Mapel" value="">
+                <input type="text" class="form-control" name="jml_mapel" id="jml_mapel" placeholder="Isi Jumlah Mapel" value="<?= set_value('jml_mapel') ?>">
               </div>
             </div>
           </div>

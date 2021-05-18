@@ -36,7 +36,7 @@
                 <select class="form-control" name="id_mapel" id="id_mapel">
                   <option value="">PILIH MATA PELAJARAN</option>
                   <?php foreach ($mapel as $M) { ?>
-                    <option value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>;
+                    <option <?= $M['mapel'] == $guru['mapel'] ? 'selected' : ''; ?> value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>;
                   <?php } ?>
                 </select>
               </div>
