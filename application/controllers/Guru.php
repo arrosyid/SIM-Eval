@@ -357,4 +357,60 @@ class Guru extends CI_Controller
       }
     }
   }
+  public function delete($type, $id)
+  {
+    if ($type == 'siswa') {
+      // tabel terkait -> skor, pg/uraian, eval, analisis pg/uraian
+      if ($this->siswa_model->deleteSiswaByType('id_siswa', $id)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Berhasil Menghapus Data Siswa</div>'
+        );
+        redirect('guru/daftarSiswa');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Gagal Menghapus Data Siswa</div>'
+        );
+        redirect('guru/daftarSiswa');
+      }
+    }
+    if ($type == 'soal') {
+      // tabel terkait -> pg/uraian, eval, analisis pg/uraian
+      if ($this->Soal_model->deleteSoalByType('id_soal', $id)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Berhasil Menghapus Data Soal</div>'
+        );
+        redirect('guru/daftarSoal');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Gagal Menghapus Data Soal</div>'
+        );
+        redirect('guru/daftarSoal');
+      }
+    }
+    if ($type == 'pelajaran') {
+      if ($this->pelajaran_model->deletePelajaranByType('id_pelajaran', $id)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Berhasil Menghapus Data Pelajaran</div>'
+        );
+        redirect('guru/daftarSkor');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Gagal Menghapus Data Pelajaran</div>'
+        );
+        redirect('guru/daftarSkor');
+      }
+    }
+  }
 }
