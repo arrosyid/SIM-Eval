@@ -5,7 +5,8 @@
       </div>
       <div class="col-sm-10">
         <div class="form-group">
-          <input type="text" class="form-control" name="nm_siswa" id="nm_siswa" placeholder="Isi Nama Siswa" value="<?= set_value('nm_siswa') != null ? set_value('nm_siswa') : $siswa['nm_siswa'] ?>">
+          <input type="text" class="form-control <?= form_error('nm_siswa') != null ? "is-invalid" : "" ?>" name="nm_siswa" id="nm_siswa" placeholder="Isi Nama Siswa" value="<?= set_value('nm_siswa') != null ? set_value('nm_siswa') : $siswa['nm_siswa'] ?>">
+          <?= form_error('nm_siswa') != null ? "is-invalid" : "" ?>
         </div>
       </div>
     </div>
@@ -15,7 +16,8 @@
       </div>
       <div class="col-sm-10">
         <div class="form-group">
-          <input type="text" class="form-control" name="nis" id="nis" placeholder="Isi Nomor Induk Siswa" value="<?= set_value('nis') != null ? set_value('nis') : $siswa['nis'] ?>">
+          <input type="text" class="form-control <?= form_error('nis') != null ? "is-invalid" : "" ?>" name="nis" id="nis" placeholder="Isi Nomor Induk Siswa" value="<?= set_value('nis') != null ? set_value('nis') : $siswa['nis'] ?>">
+          <?= form_error('nis') != null ? "is-invalid" : "" ?>
         </div>
       </div>
     </div>
@@ -25,12 +27,13 @@
       </div>
       <div class="col-sm-5">
         <div class="form-group">
-          <select class="form-control" name="id_kelas" id="id_kelas">
+          <select class="form-control <?= form_error('id_kelas') != null ? "is-invalid" : "" ?>" name="id_kelas" id="id_kelas">
             <option value="">PILIH KELAS</option>
             <?php foreach ($kelas as $K) : ?>
               <option <?= set_select('id_kelas') != null ? set_select('id_kelas', $K['id_kelas']) : ($K['id_kelas'] == $siswa['id_kelas'] ? 'selected' : '') ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
             <?php endforeach ?>
           </select>
+          <?= form_error('id_kelas') != null ? "is-invalid" : "" ?>
         </div>
       </div>
     </div>

@@ -44,7 +44,8 @@
                   </div>
                   <div class="col-sm-10">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="password1" id="password1" placeholder="Masukkan Password Baru Anda" value="<?= set_value('password1') ?>">
+                      <input type="text" class="form-control <?= form_error('password1') != null ? "is-invalid" : "" ?>" name="password1" id="password1" placeholder="Masukkan Password Baru Anda" value="<?= set_value('password1') ?>">
+                      <?= form_error('password1', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                   </div>
                 </div>
@@ -54,7 +55,8 @@
                   </div>
                   <div class="col-sm-10">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="password2" id="password2" placeholder="Konfirmasi Password Baru Anda">
+                      <input type="text" class="form-control<?= form_error('password2') != null ? "is-invalid" : "" ?>" name="password2" id="password2" placeholder="Konfirmasi Password Baru Anda">
+                      <?= form_error('password2', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                   </div>
                 </div>

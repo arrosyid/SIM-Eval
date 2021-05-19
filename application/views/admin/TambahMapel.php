@@ -14,7 +14,8 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="mapel" id="mapel" placeholder="Isi Nama Mata Pelajaran" value="<?= set_value('mapel') ?>">
+                <input type="text" class="form-control <?= form_error('mapel') != null ? "is-invalid" : "" ?>" name="mapel" id="mapel" placeholder="Isi Nama Mata Pelajaran" value="<?= set_value('mapel') ?>">
+                <?= form_error('mapel', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
             </div>
           </div>

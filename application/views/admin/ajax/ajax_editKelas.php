@@ -5,12 +5,13 @@
     </div>
     <div class="col-sm-5">
       <div class="form-group">
-        <select class="form-control" name="id_guru" id="id_guru">
+        <select class="form-control <?= form_error('id_kelas') != null ? "is-invalid" : "" ?>" name="id_guru" id="id_guru">
           <option value="">PILIH WALI KELAS</option>
           <?php foreach ($guru as $G) { ?>
             <option <?= set_select('id_kelas') != null ? set_select('id_kelas', $G['id_kelas']) : ($G['nm_guru'] == $kelas['nm_guru'] ? 'selected' : '') ?> value="<?= $G['id_guru'] ?>"><?= $G['nm_guru'] ?></option>
           <?php } ?>
         </select>
+        <?= form_error('id_kelas', '<small class="text-danger pl-3">', '</small>'); ?>
       </div>
     </div>
   </div>
@@ -20,12 +21,13 @@
     </div>
     <div class="col-sm-5">
       <div class="form-group">
-        <select class="form-control" name="kelas" id="kelas">
-          <option <?= set_select('kelas') != null ? set_select('kelas', $kelas['kelas']) : ($kelas['mapel'] == '' ? 'selected' : '') ?> value="">PILIH KELAS</option>
-          <option <?= set_select('kelas') != null ? set_select('kelas', $kelas['kelas']) : ($kelas['mapel'] == 'VII' ? 'selected' : '') ?> value="VII">VII</option>
-          <option <?= set_select('kelas') != null ? set_select('kelas', $kelas['kelas']) : ($kelas['mapel'] == 'VIII' ? 'selected' : '') ?> value="VIII">VIII</option>
-          <option <?= set_select('kelas') != null ? set_select('kelas', $kelas['kelas']) : ($kelas['mapel'] == 'IX' ? 'selected' : '') ?> value="IX">IX</option>
+        <select class="form-control <?= form_error('kelas') != null ? "is-invalid" : "" ?>" name="kelas" id="kelas">
+          <option <?= $kelas['kelas'] == '' ? 'selected' : '' ?> value="">PILIH KELAS</option>
+          <option <?= set_select('kelas') != null ? set_select('kelas', $kelas['kelas']) : ($kelas['kelas'] == 'VII' ? 'selected' : '') ?> value="VII">VII</option>
+          <option <?= set_select('kelas') != null ? set_select('kelas', $kelas['kelas']) : ($kelas['kelas'] == 'VIII' ? 'selected' : '') ?> value="VIII">VIII</option>
+          <option <?= set_select('kelas') != null ? set_select('kelas', $kelas['kelas']) : ($kelas['kelas'] == 'IX' ? 'selected' : '') ?> value="IX">IX</option>
         </select>
+        <?= form_error('kelas', '<small class="text-danger pl-3">', '</small>'); ?>
       </div>
     </div>
   </div>
@@ -35,7 +37,8 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
-        <input type="text" class="form-control" name="bidang" id="bidang" placeholder="Isi Bidang" value="<?= set_value('bidang') != null ? set_value('bidang') : $kelas['bidang'] ?>">
+        <input type="text" class="form-control <?= form_error('bidang') != null ? "is-invalid" : "" ?>" name="bidang" id="bidang" placeholder="Isi Bidang" value="<?= set_value('bidang') != null ? set_value('bidang') : $kelas['bidang'] ?>">
+        <?= form_error('bidang', '<small class="text-danger pl-3">', '</small>'); ?>
       </div>
     </div>
   </div>
@@ -45,7 +48,8 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
-        <input type="text" class="form-control" name="nomor_kelas" id="nomor_kelas" placeholder="Isi Nomor Kelas" value="<?= set_value('nomor_kelas') != null ? set_value('nomor_kelas') : $kelas['nomor_kelas'] ?>">
+        <input type="text" class="form-control <?= form_error('nomor_kelas') != null ? "is-invalid" : "" ?>" name="nomor_kelas" id="nomor_kelas" placeholder="Isi Nomor Kelas" value="<?= set_value('nomor_kelas') != null ? set_value('nomor_kelas') : $kelas['nomor_kelas'] ?>">
+        <?= form_error('nomor_kelas', '<small class="text-danger pl-3">', '</small>'); ?>
       </div>
     </div>
   </div>
@@ -55,7 +59,8 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
-        <input type="text" class="form-control" name="jml_siswa" id="jml_siswa" placeholder="Isi Jumlah Siswa" value="<?= set_value('jml_siswa') != null ? set_value('jml_siswa') : $kelas['jml_siswa'] ?>">
+        <input type="text" class="form-control <?= form_error('jml_siswa') != null ? "is-invalid" : "" ?>" name="jml_siswa" id="jml_siswa" placeholder="Isi Jumlah Siswa" value="<?= set_value('jml_siswa') != null ? set_value('jml_siswa') : $kelas['jml_siswa'] ?>">
+        <?= form_error('jml_siswa', '<small class="text-danger pl-3">', '</small>'); ?>
       </div>
     </div>
   </div>

@@ -15,8 +15,9 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="nm_guru" id="nm_guru" placeholder="Isi Nama Guru" value="<?= set_value('nm_guru') ?>">
+                <input type="text" class="form-control <?= form_error('nm_guru') != null ? "is-invalid" : "" ?>" name="nm_guru" id="nm_guru" placeholder="Isi Nama Guru" value="<?= set_value('nm_guru') ?>">
               </div>
+              <?= form_error('nm_guru', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
           </div>
           <div class="row">
@@ -25,8 +26,9 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="nip" id="nip" placeholder="Isi Nomor Identitas Pegawai Negeri Sipil" value="<?= set_value('nip') ?>">
+                <input type="text" class="form-control <?= form_error('nip') != null ? "is-invalid" : "" ?>" name="nip" id="nip" placeholder="Isi Nomor Identitas Pegawai Negeri Sipil" value="<?= set_value('nip') ?>">
               </div>
+              <?= form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?>
             </div>
           </div>
           <div class="row">
@@ -35,12 +37,13 @@
             </div>
             <div class="col-sm-5">
               <div class="form-group">
-                <select class="form-control" name="id_mapel" id="id_mapel">
+                <select class="form-control <?= form_error('id_mapel') != null ? "is-invalid" : "" ?>" name="id_mapel" id="id_mapel">
                   <option value="">PILIH MATA PELAJARAN</option>
                   <?php foreach ($mapel as $M) { ?>
                     <option <?= set_select('id_mapel', $M['id_mapel']) ?> value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>
                   <?php } ?>
                 </select>
+                <?= form_error('id_mapel', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
             </div>
           </div>
@@ -54,7 +57,7 @@
               <label>Status </label>
             </div>
             <div class="col-sm-5">
-              <div class="form-group">
+              <div class="form-group <?= form_error('status') != null ? "is-invalid" : "" ?>">
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="status" id="status" value="1" <?= set_radio('status', '1') ?>>
                   <label class="form-check-label">Aktif</label>
@@ -63,6 +66,7 @@
                   <input class="form-check-input" type="radio" name="status" id="status" value="0" <?= set_radio('status', '0') ?>>
                   <label class="form-check-label">Tidak Aktif</label>
                 </div>
+                <?= form_error('status', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
             </div>
           </div>
@@ -72,7 +76,8 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control" name="email" id="email" placeholder="Isi Email" value="<?= set_value('email') ?>">
+                <input type="text" class="form-control <?= form_error('email') != null ? "is-invalid" : "" ?>" name="email" id="email" placeholder="Isi Email" value="<?= set_value('email') ?>">
+                <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
             </div>
           </div>
@@ -82,7 +87,8 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="password" class="form-control" name="password1" id="password1" placeholder="Isi Kata Sandi Akun Guru" value="">
+                <input type="password" class="form-control <?= form_error('password1') != null ? "is-invalid" : "" ?>" name="password1" id="password1" placeholder="Isi Kata Sandi Akun Guru" value="">
+                <?= form_error('password1', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
             </div>
           </div>
@@ -92,7 +98,8 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="password" class="form-control" name="password2" id="password2" placeholder="Isi Konfirmasi Kata Sandi Akun Guru" value="">
+                <input type="password" class="form-control <?= form_error('password2') != null ? "is-invalid" : "" ?>" name="password2" id="password2" placeholder="Isi Konfirmasi Kata Sandi Akun Guru" value="">
+                <?= form_error('password2', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
             </div>
           </div>
