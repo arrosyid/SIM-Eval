@@ -19,7 +19,7 @@
           </thead>
           <tbody>
             <?php if ($mapel == null) {
-              echo '<tr><td colspan="5">Data Tidak Di Temukan</td></tr>';
+              echo '<tr><td colspan="3">Data Tidak Di Temukan</td></tr>';
             } else {
               $i = 1; ?>
               <?php foreach ($mapel as $M) : ?>

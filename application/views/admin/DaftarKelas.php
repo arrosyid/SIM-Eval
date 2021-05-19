@@ -23,7 +23,7 @@
           </thead>
           <tbody>
             <?php if ($kelas == null) {
-              echo '<tr><td colspan="5">Data Tidak Di Temukan</td></tr>';
+              echo '<tr><td colspan="7">Data Tidak Di Temukan</td></tr>';
             } else {
               $i = 1; ?>
               <?php foreach ($kelas as $K) : ?>
