@@ -51,6 +51,20 @@ class Guru extends CI_Controller
     $data['tittle'] = 'Distribusi Jawaban';
   }
 
+  public function daftarMapel()
+  {
+    // Read Data Mapel
+    $data['tittle'] = 'Daftar Mapel';
+    $data['subtittle'] = 'Daftar Mata Pelajaran';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['mapel'] = $this->Mapel_model->getAllMapel();
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('admin/DaftarMapel');
+    $this->load->view('templates/admin_footer');
+  }
+
   public function daftarKelas()
   {
     // Read Data Kelas
