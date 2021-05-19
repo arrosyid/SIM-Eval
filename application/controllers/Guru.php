@@ -11,7 +11,12 @@ class Guru extends CI_Controller
       (new IonAuth)->verified_access(false);
     }
     $this->load->model('User_model');
-    $this->load->model('Token_model');
+    $this->load->model('Mapel_model');
+    $this->load->model('Guru_model');
+    $this->load->model('Siswa_model');
+    $this->load->model('Kelas_model');
+    $this->load->model('Sekolah_model');
+    $this->load->model('Soal_model');
   }
 
   public function index()
