@@ -37,11 +37,6 @@ class Guru extends CI_Controller
     // Read Data Kelas
     $data['tittle'] = 'Daftar Kelas';
   }
-  public function soal()
-  {
-    // Read & Input data soal
-    $data['tittle'] = 'Daftar Soal';
-  }
   public function nilai()
   {
     // Read & Input Nilai per ujian siwa
@@ -54,6 +49,52 @@ class Guru extends CI_Controller
   {
     // Read & Input distribusi jawaban siswa dan kunci jawaban
     $data['tittle'] = 'Distribusi Jawaban';
+  }
+
+  public function daftarKelas()
+  {
+    // Read Data Kelas
+    $data['tittle'] = 'Daftar Kelas';
+    $data['subtittle'] = 'Daftar Semua Kelas';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['kelas'] = $this->Kelas_model->getAllKelas();
+
+    $this->form_validation->set_rules('kelas', 'Kelas', 'required|trim');
+    $this->form_validation->set_rules('nomor_kelas', 'Nomor Kelas', 'required|trim');
+    $this->form_validation->set_rules('id_guru', 'Wali Kelas', 'required|trim');
+    $this->form_validation->set_rules('jml_siswa', 'Jumlah Siswa', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('guru/DaftarKelas');
+      $this->load->view('templates/admin_footer');
+    } else {
+      $data_kelas = [
+        'kelas' => htmlspecialchars($this->input->post('kelas', true)),
+        'bidang' => htmlspecialchars($this->input->post('bidang', true)),
+        'nomor_kelas' => htmlspecialchars($this->input->post('nomor_kelas', true)),
+        'id_guru' => htmlspecialchars($this->input->post('id_guru', true)),
+        'jml_siswa' => htmlspecialchars($this->input->post('jml_siswa', true)),
+      ];
+      // var_dump($data_kelas);
+      // die;
+      if ($this->db->insert('tb_kelas', $data_kelas)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil Mengubah Data Kelas</div>'
+        );
+        redirect('guru/daftarKelas');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal Mengubah Data Kelas</div>'
+        );
+        redirect('guru/daftarKelas');
+      }
+    }
   }
 
   public function daftarSoal()
