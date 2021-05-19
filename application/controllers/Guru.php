@@ -92,14 +92,58 @@ class Guru extends CI_Controller
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         Berhasil Mengubah Data Kelas</div>'
         );
-        redirect('admin/daftarSiswa');
+        redirect('guru/daftarSiswa');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         Gagal Mengubah Data Kelas</div>'
         );
-        redirect('admin/daftarSiswa');
+        redirect('guru/daftarSiswa');
+      }
+    }
+  }
+
+  public function daftarGuru()
+  {
+    // Read Data Guru
+    $data['tittle'] = 'Daftar Guru';
+    $data['subtittle'] = 'Daftar Guru';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['guru'] = $this->Guru_model->getAllGuru();
+    $data['mapel'] = $this->Mapel_model->getAllMapel();
+
+    $this->form_validation->set_rules('nm_guru', 'Nama Guru', 'required|trim');
+    $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
+    $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('guru/DaftarGuru');
+      $this->load->view('templates/admin_footer', $data);
+    } else {
+      $data_guru = [
+        'nm_guru' => htmlspecialchars($this->input->post('nm_guru', true)),
+        'nip' => htmlspecialchars($this->input->post('nip', true)),
+        'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
+      ];
+      // var_dump($data_guru);
+      // die;
+      if ($this->db->insert('tb_guru', $data_guru)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil Mengubah Data Guru</div>'
+        );
+        redirect('guru/daftarGuru');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal Mengubah Data Guru</div>'
+        );
+        redirect('guru/daftarGuru');
       }
     }
   }
@@ -212,14 +256,14 @@ class Guru extends CI_Controller
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Berhasil Mengubah Data Anda</div>'
         );
-        redirect('admin/profileAdmin');
+        redirect('guru/profileAdmin');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Gagal Mengubah Data Anda</div>'
         );
-        redirect('admin/profileAdmin');
+        redirect('guru/profileAdmin');
       }
     }
   }
