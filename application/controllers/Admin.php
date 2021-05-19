@@ -125,14 +125,14 @@ class Admin extends CI_Controller
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Berhasil Menginputkan Data Mata Pelajaran</div>'
         );
-        redirect('admin/tambahMapel');
+        redirect('admin/daftarMapel');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Gagal Menginputkan Data Mata Pelajaran</div>'
         );
-        redirect('admin/tambahMapel');
+        redirect('admin/daftarMapel');
       }
     }
   }
@@ -237,7 +237,7 @@ class Admin extends CI_Controller
   public function profileAdmin()
   {
     // read profile guru
-    $data['tittle'] = 'Profile Anda';
+    $data['tittle'] = 'Profile Admin';
     $data['subtittle'] = 'Profile Anda';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['guru'] = $this->Guru_model->getGuruByType('id_guru', $data['user']['id_guru']);
@@ -293,7 +293,8 @@ class Admin extends CI_Controller
 
   public function editProfile()
   {
-    // edit profile guru
+    // edit profile Admin
+    // tambahin edit profile guru
     $data['tittle'] = 'Edit Profile Anda';
     $data['subtittle'] = 'Edit Profile Anda';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
