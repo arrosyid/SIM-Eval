@@ -27,16 +27,6 @@ class Guru extends CI_Controller
     $data['tittle'] = 'Hasil Analisis';
   }
 
-  public function mapel()
-  {
-    // Read Data Mapel
-    $data['tittle'] = 'Daftar Mata Pelajaran';
-  }
-  public function kelas()
-  {
-    // Read Data Kelas
-    $data['tittle'] = 'Daftar Kelas';
-  }
   public function nilai()
   {
     // Read & Input Nilai per ujian siwa
@@ -73,42 +63,10 @@ class Guru extends CI_Controller
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['kelas'] = $this->Kelas_model->getAllKelas();
 
-    $this->form_validation->set_rules('kelas', 'Kelas', 'required|trim');
-    $this->form_validation->set_rules('nomor_kelas', 'Nomor Kelas', 'required|trim');
-    $this->form_validation->set_rules('id_guru', 'Wali Kelas', 'required|trim');
-    $this->form_validation->set_rules('jml_siswa', 'Jumlah Siswa', 'required|trim');
-
-    if ($this->form_validation->run() == false) {
-      $this->load->view('templates/admin_header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('guru/DaftarKelas');
-      $this->load->view('templates/admin_footer');
-    } else {
-      $data_kelas = [
-        'kelas' => htmlspecialchars($this->input->post('kelas', true)),
-        'bidang' => htmlspecialchars($this->input->post('bidang', true)),
-        'nomor_kelas' => htmlspecialchars($this->input->post('nomor_kelas', true)),
-        'id_guru' => htmlspecialchars($this->input->post('id_guru', true)),
-        'jml_siswa' => htmlspecialchars($this->input->post('jml_siswa', true)),
-      ];
-      // var_dump($data_kelas);
-      // die;
-      if ($this->db->insert('tb_kelas', $data_kelas)) {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil Mengubah Data Kelas</div>'
-        );
-        redirect('guru/daftarKelas');
-      } else {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal Mengubah Data Kelas</div>'
-        );
-        redirect('guru/daftarKelas');
-      }
-    }
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('guru/DaftarKelas');
+    $this->load->view('templates/admin_footer');
   }
 
   public function daftarSoal()
@@ -217,39 +175,10 @@ class Guru extends CI_Controller
     $data['guru'] = $this->Guru_model->getAllGuru();
     $data['mapel'] = $this->Mapel_model->getAllMapel();
 
-    $this->form_validation->set_rules('nm_guru', 'Nama Guru', 'required|trim');
-    $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
-    $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
-
-    if ($this->form_validation->run() == false) {
-      $this->load->view('templates/admin_header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('guru/DaftarGuru');
-      $this->load->view('templates/admin_footer', $data);
-    } else {
-      $data_guru = [
-        'nm_guru' => htmlspecialchars($this->input->post('nm_guru', true)),
-        'nip' => htmlspecialchars($this->input->post('nip', true)),
-        'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
-      ];
-      // var_dump($data_guru);
-      // die;
-      if ($this->db->insert('tb_guru', $data_guru)) {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil Mengubah Data Guru</div>'
-        );
-        redirect('guru/daftarGuru');
-      } else {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal Mengubah Data Guru</div>'
-        );
-        redirect('guru/daftarGuru');
-      }
-    }
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('guru/DaftarGuru');
+    $this->load->view('templates/admin_footer', $data);
   }
 
   public function myProfile()
