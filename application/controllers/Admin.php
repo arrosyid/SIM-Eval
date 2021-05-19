@@ -109,10 +109,32 @@ class Admin extends CI_Controller
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['mapel'] = $this->Mapel_model->getAllMapel();
 
-    $this->load->view('templates/admin_header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('admin/DaftarMapel');
-    $this->load->view('templates/admin_footer');
+    $this->form_validation->set_rules('mapel', 'Mata Pelajaran', 'required|trim');
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/DaftarMapel');
+      $this->load->view('templates/admin_footer');
+    } else {
+      $data_mapel = [
+        'mapel' => htmlspecialchars($this->input->post('mapel', true))
+      ];
+      if ($this->db->insert('tb_mapel', $data_mapel)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil Menginputkan Data Mata Pelajaran</div>'
+        );
+        redirect('admin/tambahMapel');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal Menginputkan Data Mata Pelajaran</div>'
+        );
+        redirect('admin/tambahMapel');
+      }
+    }
   }
 
   public function daftarSoal()
@@ -612,41 +634,6 @@ class Admin extends CI_Controller
                         Gagal Menginputkan Data Kelas</div>'
         );
         redirect('admin/tambahKelas');
-      }
-    }
-  }
-
-  public function tambahMapel()
-  {
-    // Input data mata pelajaran
-    $data['tittle'] = 'Tambah Mata Pelajaran';
-    $data['subtittle'] = 'Tambah Mata Pelajaran Baru';
-    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-
-    $this->form_validation->set_rules('mapel', 'Mata Pelajaran', 'required|trim');
-    if ($this->form_validation->run() == false) {
-      $this->load->view('templates/admin_header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('admin/TambahMapel');
-      $this->load->view('templates/admin_footer');
-    } else {
-      $data_mapel = [
-        'mapel' => htmlspecialchars($this->input->post('mapel', true))
-      ];
-      if ($this->db->insert('tb_mapel', $data_mapel)) {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Berhasil Menginputkan Data Mata Pelajaran</div>'
-        );
-        redirect('admin/tambahMapel');
-      } else {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Gagal Menginputkan Data Mata Pelajaran</div>'
-        );
-        redirect('admin/tambahMapel');
       }
     }
   }
