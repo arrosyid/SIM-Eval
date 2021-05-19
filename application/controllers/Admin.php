@@ -59,7 +59,7 @@ class Admin extends CI_Controller
   {
     // Read Data Kelas
     $data['tittle'] = 'Daftar Kelas';
-    $data['subtittle'] = 'Daftar Semua Soal';
+    $data['subtittle'] = 'Daftar Semua Kelas';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['kelas'] = $this->Kelas_model->getAllKelas();
 
@@ -104,7 +104,7 @@ class Admin extends CI_Controller
   public function daftarMapel()
   {
     // Read Data Mapel
-    $data['tittle'] = 'Daftar Mata Pelajaran';
+    $data['tittle'] = 'Daftar Mapel';
     $data['subtittle'] = 'Daftar Mata Pelajaran';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['mapel'] = $this->Mapel_model->getAllMapel();
@@ -401,6 +401,50 @@ class Admin extends CI_Controller
     }
   }
 
+  public function daftarSiswa()
+  {
+    // Input data siswa
+    $data['tittle'] = 'Daftar Siswa';
+    $data['subtittle'] = 'Daftar Siswa Baru';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['siswa'] = $this->Siswa_model->getAllSiswa();
+    $data['kelas'] = $this->Kelas_model->getAllKelas();
+
+    $this->form_validation->set_rules('nm_siswa', 'Nama Siswa', 'required|trim');
+    $this->form_validation->set_rules('nis', 'Nomor Induk Siswa', 'required|trim');
+    // $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/DaftarSiswa');
+      $this->load->view('templates/admin_footer', $data);
+    } else {
+      $data_siswa = [
+        'nm_siswa' => htmlspecialchars($this->input->post('nm_siswa', true)),
+        'nis' => htmlspecialchars($this->input->post('nis', true)),
+        'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
+      ];
+      // var_dump($data_siswa);
+      // die;
+      if ($this->db->insert('tb_siswa', $data_siswa)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Berhasil Mengubah Data Kelas</div>'
+        );
+        redirect('admin/daftarSiswa');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Gagal Mengubah Data Kelas</div>'
+        );
+        redirect('admin/daftarSiswa');
+      }
+    }
+  }
+
   public function tambahGuru()
   {
     // Input data guru
@@ -472,50 +516,6 @@ class Admin extends CI_Controller
                       Gagal Menginputkan Data Guru</div>'
         );
         redirect('admin/tambahGuru');
-      }
-    }
-  }
-
-  public function daftarSiswa()
-  {
-    // Input data siswa
-    $data['tittle'] = 'Daftar Siswa';
-    $data['subtittle'] = 'Daftar Siswa Baru';
-    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-    $data['siswa'] = $this->Siswa_model->getAllSiswa();
-    $data['kelas'] = $this->Kelas_model->getAllKelas();
-
-    $this->form_validation->set_rules('nm_siswa', 'Nama Siswa', 'required|trim');
-    $this->form_validation->set_rules('nis', 'Nomor Induk Siswa', 'required|trim');
-    // $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
-
-    if ($this->form_validation->run() == false) {
-      $this->load->view('templates/admin_header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('admin/DaftarSiswa');
-      $this->load->view('templates/admin_footer', $data);
-    } else {
-      $data_siswa = [
-        'nm_siswa' => htmlspecialchars($this->input->post('nm_siswa', true)),
-        'nis' => htmlspecialchars($this->input->post('nis', true)),
-        'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
-      ];
-      // var_dump($data_siswa);
-      // die;
-      if ($this->db->insert('tb_siswa', $data_siswa)) {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Berhasil Mengubah Data Kelas</div>'
-        );
-        redirect('admin/daftarSiswa');
-      } else {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Gagal Mengubah Data Kelas</div>'
-        );
-        redirect('admin/daftarSiswa');
       }
     }
   }
