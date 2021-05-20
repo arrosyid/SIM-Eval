@@ -1,5 +1,7 @@
 <section class="content">
   <div class="container-fluid">
+    <?= $this->session->flashdata('message') ?>
+    <?= $this->session->flashdata('message1') ?>
     <div class="row">
       <div class="col-md-3">
         <!-- Profile Image -->
@@ -9,9 +11,9 @@
             <h5 class="profile-username text-center">Akun Anda</h5>
             <p class="card-text">
             <ul class="list-group mb-3">
-              <lu>Username : <a class="float-right">jsdakj</a> <br></lu>
-              <lu>Email : <a class="float-right">jsdakj</a> <br></lu>
-              <lu>Tanggal Dibuat : <a class="float-right">jsdakj</a> <br></lu>
+              <lu>Username : <a class="float-right"><?= $user['username'] ?></a> <br></lu>
+              <lu>Email : <a class="float-right"><?= $user['email'] ?></a> <br></lu>
+              <lu>Tanggal Dibuat : <a class="float-right"><?= date('d-m-Y', $user['date_created']) ?></a> <br></lu>
             </ul>
             </p>
             <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#editPass">
@@ -42,7 +44,8 @@
                   </div>
                   <div class="col-sm-10">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="password1" id="password1" placeholder="Masukkan Password Baru Anda">
+                      <input type="text" class="form-control <?= form_error('password1') != null ? "is-invalid" : "" ?>" name="password1" id="password1" placeholder="Masukkan Password Baru Anda" value="<?= set_value('password1') ?>">
+                      <?= form_error('password1', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                   </div>
                 </div>
@@ -52,7 +55,8 @@
                   </div>
                   <div class="col-sm-10">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="password2" id="password2" placeholder="Konfirmasi Password Baru Anda">
+                      <input type="text" class="form-control<?= form_error('password2') != null ? "is-invalid" : "" ?>" name="password2" id="password2" placeholder="Konfirmasi Password Baru Anda">
+                      <?= form_error('password2', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                   </div>
                 </div>
@@ -76,9 +80,9 @@
           <div class="card-body">
             <strong><i class="fas fa-book mr-1"></i>Profile Anda</strong>
             <ul class="text-muted">
-              <lu>Nama Guru : <a class="float-right">jsdakj</a> <br></lu>
-              <lu>Nomor Induk Kepegawaian : <a class="float-right">jsdak</a> <br></lu>
-              <lu>Mata pelajaran yang Diampu : <a class="float-right">jsdakj</a> <br></lu>
+              <lu>Nama Guru : <a class="float-right"><?= $guru['nm_guru'] ?></a> <br></lu>
+              <lu>Nomor Induk Kepegawaian : <a class="float-right"><?= $guru['nip'] ?></a> <br></lu>
+              <lu>Mata pelajaran yang Diampu : <a class="float-right"><?= $guru['mapel'] ?></a> <br></lu>
             </ul>
             <hr>
           </div>

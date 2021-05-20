@@ -74,7 +74,7 @@
             </div>
             <!-- /.col -->
             <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Tambah Guru</button>
+              <button type="submit" class="btn btn-primary btn-block">Edit Akun Guru</button>
             </div>
             <!-- /.col -->
           </div>
