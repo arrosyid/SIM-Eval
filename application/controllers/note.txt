@@ -1,0 +1,14 @@
+kekurangan controller admin :
+  pelajaran tiap kelas 
+    -> dataTable dikasih dropdown(ajax) untuk ganti ganti pelajaran(filter)
+    -> dropdown berupa kelas, semester dan tahun
+  fungsi delete
+    - skor
+    - pg
+    - uraian
+    - analisis pg
+    - analisis uraian
+    - evaliasi
+  convert to sql
+  alert delete
+  lainnya(dropdown form)

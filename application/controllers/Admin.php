@@ -178,14 +178,14 @@ class Admin extends CI_Controller
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Berhasil Menginputkan Data Soal</div>'
         );
-        redirect('admin/tambahSoal');
+        redirect('admin/daftarSoal');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Gagal Menginputkan Data Soal</div>'
         );
-        redirect('admin/tambahSoal');
+        redirect('admin/daftarSoal');
       }
     }
   }
@@ -784,7 +784,6 @@ class Admin extends CI_Controller
   public function ajax()
   {
     $ajax_menu = $this->input->post('ajax_menu', true);
-
 
     // ajax edit SISWA
     if ($ajax_menu == 'get_siswa') {
