@@ -413,4 +413,17 @@ class Guru extends CI_Controller
       }
     }
   }
+  // fungsi untuk ajax
+  public function ajax()
+  {
+    $ajax_menu = $this->input->post('ajax_menu', true);
+
+    // ajax edit SISWA
+    if ($ajax_menu == 'get_siswa') {
+      $id_siswa = $this->input->post('id_siswa', true);
+      $data['siswa'] = $this->Siswa_model->getSiswaByType('id_siswa', $id_siswa);
+      $data['kelas'] = $this->Kelas_model->getAllKelas();
+      $this->load->view('admin/ajax/ajax_editSiswa', $data);
+    }
+  }
 }
