@@ -869,5 +869,14 @@ class Admin extends CI_Controller
       $data['guru'] = $this->Guru_model->getAllGuru();
       $this->load->view('admin/ajax/ajax_editKelas', $data);
     }
+
+    // ajax edit Pelajaran
+    if ($ajax_menu == 'get_pelajaran') {
+      $id_pelajaran = $this->input->post('id_pelajaran', true);
+      $data['pelajaran'] = $this->Pelajaran_model->getPelajaranByType('id_pelajaran', $id_pelajaran);
+      $data['mapel'] = $this->Mapel_model->getAllMapel();
+      $data['kelasAll'] = $this->Kelas_model->getAllKelas();
+      $this->load->view('admin/ajax/ajax_editPelajaran', $data);
+    }
   }
 }

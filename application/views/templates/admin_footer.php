@@ -186,6 +186,25 @@
           }
         });
       });
+
+    <?php elseif ($tittle == 'Daftar Pelajaran') : ?>
+      $('.view-data').on('click', function() {
+        var id_pelajaran = $(this).attr('id');
+        console.log(id_pelajaran);
+
+        $.ajax({
+          url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
+          method: "post",
+          data: {
+            ajax_menu: 'get_pelajaran',
+            id_pelajaran: id_pelajaran
+          },
+          success: function(data) {
+            $('#detailPelajaran').html(data);
+            $('#editPelajaran').modal();
+          }
+        });
+      });
     <?php endif ?>
   });
 </script>
