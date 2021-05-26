@@ -15,9 +15,11 @@
             <div class="col-sm-6"></div>
             <div class="col-sm-3">
               <div class="form-grup">
-                <select class="form-control" name="id_kelas" id="id_kelas">
-                  <option value="1">1</option>
-                  <option value="a">a</option>
+                <select class="form-control" name="kelas" id="kelas">
+                  <option value="">PILIH KELAS</option>
+                  <?php foreach ($kelasAll as $K) : ?>
+                    <option value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
+                  <?php endforeach ?>
                 </select>
               </div>
             </div>
@@ -33,17 +35,26 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>VII 2</td>
-              <td>Bahasa Indonesia</td>
-              <td>Genap</td>
-              <td>2019/2020</td>
-              <td>
-                <a href="" data-toggle="modal" data-target="#editPelajaran" id="<?= $S['id_guru'] ?>" class="badge badge-success view-data">edit</a>
-                <a href="#" class="badge badge-danger">hapus</a>
-              </td>
-            </tr>
+            <?php if ($kelas == null) {
+              echo '<tr><td colspan="6">Data Tidak Di Temukan, Silahkan pilih Kelas diatas</td></tr>';
+            } else {
+              $i = 1; ?>
+              <?php foreach ($kelas as $K) : ?>
+                <tr>
+                  <td><?= $i; ?></td>
+                  <td><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></td>
+                  <td><?= $K['mapel'] ?></td>
+                  <td><?= $K['semeter'] ?></td>
+                  <td><?= $K['thn_pelajaran'] ?></td>
+                  <td>
+                    <a href="" data-toggle="modal" data-target="#tambahPelajaran" id="<?= $S['id_guru'] ?>" class="badge badge-success view-data">edit</a>
+                    <a href="#" class="badge badge-danger">hapus</a>
+                  </td>
+                </tr>
+                <?php $i++; ?>
+            <?php endforeach;
+            }
+            ?>
           </tbody>
           <tfoot>
             <tr>
@@ -82,9 +93,13 @@
                 </div>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <select class="form-control" name="id_kelas" id="id_kelas">
+                    <select class="form-control <?= form_error('id_kelas') != null ? "is-invalid" : "" ?>" name="id_kelas" id="id_kelas">
                       <option value="">PILIH KELAS</option>
+                      <?php foreach ($kelasAll as $K) : ?>
+                        <option <?= set_select('id_kelas', $K['id_kelas']) ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
+                      <?php endforeach ?>
                     </select>
+                    <?= form_error('id_kelas', '<small class="text-danger pl-3">', '</small>'); ?>
                   </div>
                 </div>
               </div>
@@ -94,9 +109,13 @@
                 </div>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <select class="form-control" name="id_mapel" id="id_mapel">
-                      <option value="">PILIH MAPEL</option>
+                    <select class="form-control <?= form_error('id_mapel') != null ? "is-invalid" : "" ?>" name="id_mapel" id="id_mapel">
+                      <option value="">PILIH MATA PELAJARAN</option>
+                      <?php foreach ($mapel as $M) { ?>
+                        <option <?= set_select('id_mapel', $M['id_mapel']) ?> value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>
+                      <?php } ?>
                     </select>
+                    <?= form_error('id_mapel', '<small class="text-danger pl-3">', '</small>'); ?>
                   </div>
                 </div>
               </div>
@@ -106,9 +125,12 @@
                 </div>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <select class="form-control" name="semester" id="semester">
+                    <select class="form-control <?= form_error('semester') != null ? "is-invalid" : "" ?>" name="semester" id="semester">
                       <option value="">PILIH SEMESTER</option>
+                      <option <?= set_select('id_mapel', "GANJIL") ?> value="GANJIL">GANJIL</option>
+                      <option <?= set_select('id_mapel', "GENAP") ?> value="GENAP">GENAP</option>
                     </select>
+                    <?= form_error('semester', '<small class="text-danger pl-3">', '</small>'); ?>
                   </div>
                 </div>
               </div>
@@ -118,7 +140,8 @@
                 </div>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <input type="text" class="form-control" name="thn_pelajaran" id="thn_pelajaran" placeholder="Tambahkan Tahun Pelajaran">
+                    <input type="text" class="form-control <?= form_error('thn_pelajaran') != null ? "is-invalid" : "" ?>" name="thn_pelajaran" id="thn_pelajaran" placeholder="Tambahkan Tahun Pelajaran" value=" <?= set_value('thn_pelajaran') ?> ">
+                    <?= form_error('thn_pelajaran', '<small class="text-danger pl-3">', '</small>'); ?>
                   </div>
                 </div>
               </div>

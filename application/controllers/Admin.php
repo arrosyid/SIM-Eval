@@ -17,6 +17,7 @@ class Admin extends CI_Controller
     $this->load->model('Kelas_model');
     $this->load->model('Sekolah_model');
     $this->load->model('Soal_model');
+    $this->load->model('Pelajaran_model');
   }
 
   public function index()
@@ -55,6 +56,57 @@ class Admin extends CI_Controller
     $data['tittle'] = 'Distribusi Jawaban';
   }
 
+  public function daftarPelajaran($id_kelas = null)
+  {
+    // Read Data Pelajaran
+    $data['tittle'] = 'Daftar Pelajaran';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    if ($id_kelas == null) {
+      $data['kelas'] = null;
+      $data['subtittle'] = 'Daftar Pelajaan Kelas';
+    } else {
+      $data['kelas'] = $this->Kelas_model->getKelasByType('id_kelas', $id_kelas);
+      $data['subtittle'] = 'Daftar Pelajaan Kelas ' . $data['kelas']['kelas'];
+    }
+    $data['kelasAll'] = $this->Kelas_model->getAllKelas();
+    $data['mapel'] = $this->Mapel_model->getAllMapel();
+
+    $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
+    $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
+    $this->form_validation->set_rules('semester', 'Semester', 'required|trim');
+    $this->form_validation->set_rules('thn_pelajaran', 'Jumlah Siswa', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/DaftarPelajaran', $data);
+      $this->load->view('templates/admin_footer');
+    } else {
+      $data_pelajaran = [
+        'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
+        'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
+        'semester' => htmlspecialchars($this->input->post('semester', true)),
+        'thn_pelajaran' => htmlspecialchars($this->input->post('thn_pelajaran', true)),
+      ];
+      var_dump($data_pelajaran);
+      die;
+      if ($this->db->insert('r_pelajaran', $data_pelajaran)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil Mengubah Data Pelajaran</div>'
+        );
+        redirect('admin/daftarPelajaran');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal Mengubah Data Pelajaran</div>'
+        );
+        redirect('admin/daftarPelajaran');
+      }
+    }
+  }
   public function daftarKelas()
   {
     // Read Data Kelas
