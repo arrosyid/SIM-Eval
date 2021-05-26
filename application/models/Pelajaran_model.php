@@ -6,10 +6,9 @@ class Pelajaran_model extends CI_Model
   // mengambil semua Pelajaran
   public function getAllPelajaran()
   {
-    $this->db->select('r_pelajaran.*, tb_mapel.mapel, tb_sekolah.*, tb_kelas.*')
+    $this->db->select('r_pelajaran.*, tb_mapel.mapel, tb_kelas.*')
       ->from('r_pelajaran')
       ->join('tb_mapel', 'tb_mapel.id_mapel = r_pelajaran.id_mapel')
-      ->join('tb_sekolah', 'tb_sekolah.id_sekolah = r_pelajaran.id_sekolah')
       ->join('tb_kelas', 'tb_kelas.id_kelas = r_pelajaran.id_kelas');
     return $this->db->get()->result_array();
   }
@@ -19,33 +18,30 @@ class Pelajaran_model extends CI_Model
   {
     // berdasarkan idMapel
     if ($type == 'id_mapel') {
-      $this->db->select('r_pelajaran.*,tb_mapel.mapel, tb_sekolah.*, tb_kelas.*')
+      $this->db->select('r_pelajaran.*,tb_mapel.mapel, tb_kelas.*')
         ->from('r_pelajaran')
         ->where(['id_mapel' => $id])
         ->join('tb_mapel', 'tb_mapel.id_mapel = r_pelajaran.id_mapel')
-        ->join('tb_sekolah', 'tb_sekolah.id_sekolah = r_pelajaran.id_sekolah')
         ->join('tb_kelas', 'tb_kelas.id_kelas = r_pelajaran.id_kelas');
       return $this->db->get()->row_array();
     }
 
-    // berdasarkan id_sekolah
-    if ($type == 'id_sekolah') {
-      $this->db->select('r_pelajaran.*,tb_mapel.mapel, tb_sekolah.*, tb_kelas.*')
+    // berdasarkan id_pelajaran
+    if ($type == 'id_pelajaran') {
+      $this->db->select('r_pelajaran.*,tb_mapel.mapel, tb_kelas.*')
         ->from('r_pelajaran')
-        ->where(['id_sekolah' => $id])
+        ->where(['id_pelajaran' => $id])
         ->join('tb_mapel', 'tb_mapel.id_mapel = r_pelajaran.id_mapel')
-        ->join('tb_sekolah', 'tb_sekolah.id_sekolah = r_pelajaran.id_sekolah')
         ->join('tb_kelas', 'tb_kelas.id_kelas = r_pelajaran.id_kelas');
       return $this->db->get()->row_array();
     }
 
     // berdasarkan id_kelas
     if ($type == 'id_kelas') {
-      $this->db->select('r_pelajaran.*,tb_mapel.mapel, tb_sekolah.*, tb_kelas.*')
+      $this->db->select('r_pelajaran.*,tb_mapel.mapel, tb_kelas.*')
         ->from('r_pelajaran')
         ->where(['id_kelas' => $id])
         ->join('tb_mapel', 'tb_mapel.id_mapel = r_pelajaran.id_mapel')
-        ->join('tb_sekolah', 'tb_sekolah.id_sekolah = r_pelajaran.id_sekolah')
         ->join('tb_kelas', 'tb_kelas.id_kelas = r_pelajaran.id_kelas');
       return $this->db->get()->row_array();
     }
@@ -60,13 +56,13 @@ class Pelajaran_model extends CI_Model
   // delete Pelajaran
   public function deletePelajaranByType($type, $id)
   {
+    // berdasarkan id pelajaran
+    if ($type == 'id_pelajaran')
+      return $this->db->delete('r_pelajaran', ['id_pelajaran' => $id]);
+
     // berdasarkan id Mapel
     if ($type == 'id_mapel')
       return $this->db->delete('r_pelajaran', ['id_mapel' => $id]);
-
-    // berdasarkan id sekolah
-    if ($type == 'id_sekolah')
-      return $this->db->delete('r_pelajaran', ['id_sekolah' => $id]);
 
     // berdasarkan id kelas
     if ($type == 'id_kelas')
