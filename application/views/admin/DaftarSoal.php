@@ -7,7 +7,7 @@
       </div>
       <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
-        <table id="Table" class="table table-bordered table-striped">
+        <table id="Tables" class="table table-bordered table-striped">
           <a href="<?= base_url('admin/tambahSoal') ?>" class="col-2 mb-4 btn btn-primary btn-block">
             Tambah Soal</a>
           <thead>

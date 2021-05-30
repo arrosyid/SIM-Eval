@@ -7,7 +7,7 @@
       </div>
       <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
-        <table id="Table" class="table table-bordered table-striped">
+        <table id="Tables" class="table table-bordered table-striped">
           <thead>
             <tr>
               <th>No</th>

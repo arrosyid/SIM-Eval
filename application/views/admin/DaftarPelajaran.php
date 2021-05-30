@@ -6,7 +6,7 @@
         <h3 class="card-title">Daftar Mata Pelajaran Kelas IX 2</h3>
       </div>
       <div class="card-body">
-        <table id="Table" class="table table-bordered table-striped">
+        <table id="Tables" class="table table-bordered table-striped">
           <div class="row mb-4">
             <div class="col-sm-3">
               <a href="" data-toggle="modal" data-target="#tambahPelajaran" class="btn btn-primary btn-block">
