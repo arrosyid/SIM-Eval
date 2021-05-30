@@ -40,7 +40,7 @@
     <hr>
     <div class="form-group row">
       <div class="offset-sm-2 col-sm-10">
-        <input type="submit" name="tambahModal" class="btn btn-danger" value="Submit">
+        <input type="submit" name="editSiswa" class="btn btn-danger" value="Submit">
       </div>
     </div>
   </form>

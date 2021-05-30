@@ -495,27 +495,54 @@ class Admin extends CI_Controller
       $this->load->view('admin/DaftarSiswa');
       $this->load->view('templates/admin_footer', $data);
     } else {
+      $tambahSiswa = $this->input->post('tambahSiswa');
+      $editSiswa = $this->input->post('editSiswa');
+      if ($tambahSiswa)
+        $id_siswa = '';
+      else if ($editSiswa)
+        $id_siswa = htmlspecialchars($this->input->post('id_siswa', TRUE));
+
       $data_siswa = [
+        'id_siswa' => $id_siswa,
         'nm_siswa' => htmlspecialchars($this->input->post('nm_siswa', true)),
         'nis' => htmlspecialchars($this->input->post('nis', true)),
         'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
       ];
       // var_dump($data_siswa);
       // die;
-      if ($this->db->insert('tb_siswa', $data_siswa)) {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Berhasil Mengubah Data Kelas</div>'
-        );
-        redirect('admin/daftarSiswa');
-      } else {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Gagal Mengubah Data Kelas</div>'
-        );
-        redirect('admin/daftarSiswa');
+      if ($tambahSiswa) {
+        if ($this->db->insert('tb_siswa', $data_siswa)) {
+          $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Berhasil Menambah Data Kelas</div>'
+          );
+          redirect('admin/daftarSiswa');
+        } else {
+          $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Gagal Menambah Data Kelas</div>'
+          );
+          redirect('admin/daftarSiswa');
+        }
+      }
+      if ($editSiswa) {
+        if ($this->Siswa_model->upadateSiswaById($id_siswa, $data_siswa)) {
+          $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Berhasil Mengubah Data Kelas</div>'
+          );
+          redirect('admin/daftarSiswa');
+        } else {
+          $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Gagal Mengubah Data Kelas</div>'
+          );
+          redirect('admin/daftarSiswa');
+        }
       }
     }
   }
