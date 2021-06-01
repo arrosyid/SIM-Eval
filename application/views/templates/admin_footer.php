@@ -188,8 +188,6 @@
       });
 
     <?php elseif ($tittle == 'Daftar Pelajaran') : ?>
-      // tambahkan fungsi get id untuk filter
-
       $('#kelas').on('change', function() {
         var id_kelas = $('#kelas').val();
         console.log(id_kelas);

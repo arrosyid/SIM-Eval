@@ -161,7 +161,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body" id="DetailPelajaran">
+          <div class="modal-body" id="detailPelajaran">
 
           </div>
         </div>

@@ -1,6 +1,6 @@
 <form action="" method="POST">
   <div class="mb-3">
-    <strong>Tambah Mata Pelajaran</strong>
+    <strong>Edit Mata Pelajaran</strong>
   </div>
   <div class="row">
     <div class="col-sm-2">
