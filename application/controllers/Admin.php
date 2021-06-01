@@ -70,6 +70,7 @@ class Admin extends CI_Controller
     }
     $data['kelasAll'] = $this->Kelas_model->getAllKelas();
     $data['mapel'] = $this->Mapel_model->getAllMapel();
+    $data['pelajaran'] = $this->Pelajaran_model->getAllPelajaran();
 
     $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
     $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
@@ -904,6 +905,16 @@ class Admin extends CI_Controller
       $data['mapel'] = $this->Mapel_model->getAllMapel();
       $data['kelasAll'] = $this->Kelas_model->getAllKelas();
       $this->load->view('admin/ajax/ajax_editPelajaran', $data);
+    }
+    // ajax view Pelajaran
+    if ($ajax_menu == 'get_Allpelajaran') {
+      $id_kelas = $this->input->post('id_kelas', true);
+      if ($id_kelas == null) {
+        $data['pelajaran'] = $this->Pelajaran_model->getAllPelajaran();
+      } else {
+        $data['pelajaran'] = $this->Pelajaran_model->getPelajaranByType('id_kelas', $id_kelas);
+      }
+      $this->load->view('admin/ajax/ajax_tablePelajaran', $data);
     }
   }
 }

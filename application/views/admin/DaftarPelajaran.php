@@ -34,27 +34,22 @@
               <th>action</th>
             </tr>
           </thead>
-          <tbody>
-            <?php if ($kelas == null) {
-              echo '<tr><td colspan="6">Data Tidak Di Temukan, Silahkan pilih Kelas diatas</td></tr>';
-            } else {
-              $i = 1; ?>
-              <?php foreach ($kelas as $K) : ?>
-                <tr>
-                  <td><?= $i; ?></td>
-                  <td><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></td>
-                  <td><?= $K['mapel'] ?></td>
-                  <td><?= $K['semeter'] ?></td>
-                  <td><?= $K['thn_pelajaran'] ?></td>
-                  <td>
-                    <a href="" data-toggle="modal" data-target="#tambahPelajaran" id="<?= $S['id_guru'] ?>" class="badge badge-success view-data">edit</a>
-                    <a href="#" class="badge badge-danger">hapus</a>
-                  </td>
-                </tr>
-                <?php $i++; ?>
-            <?php endforeach;
-            }
-            ?>
+          <tbody id="table-data">
+            <?php $i = 1; ?>
+            <?php foreach ($pelajaran as $P) : ?>
+              <tr>
+                <td><?= $i; ?></td>
+                <td><?= $P['kelas'] . ' ' . $P['bidang'] . ' ' . $P['nomor_kelas'] ?></td>
+                <td><?= $P['mapel'] ?></td>
+                <td><?= $P['semester'] ?></td>
+                <td><?= $P['thn_pelajaran'] ?></td>
+                <td>
+                  <a href="" data-toggle="modal" data-target="#editPelajaran" id="<?= $P['id_pelajaran'] ?>" class="badge badge-success view-data">edit</a>
+                  <a href="#" class="badge badge-danger">hapus</a>
+                </td>
+              </tr>
+              <?php $i++; ?>
+            <?php endforeach; ?>
           </tbody>
           <tfoot>
             <tr>

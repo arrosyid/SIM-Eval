@@ -188,6 +188,25 @@
       });
 
     <?php elseif ($tittle == 'Daftar Pelajaran') : ?>
+      // tambahkan fungsi get id untuk filter
+
+      $('#kelas').on('change', function() {
+        var id_kelas = $('#kelas').val();
+        console.log(id_kelas);
+        $.ajax({
+          url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
+          method: "post",
+          data: {
+            ajax_menu: 'get_Allpelajaran',
+            id_kelas: id_kelas
+          },
+          success: function(data) {
+            console.log('editable success');
+            $('#table-data').html(data);
+          }
+        });
+      });
+
       $('.view-data').on('click', function() {
         var id_pelajaran = $(this).attr('id');
         console.log(id_pelajaran);
