@@ -28,9 +28,9 @@ class Pg_model extends CI_Model
     if ($type == 'id_soal') {
       $this->db->select('tb_dist_jwbpg.*, tb_soal.*')
         ->from('tb_dist_jwbpg')
-        ->where(['id_soal' => $id])
+        ->where(['tb_soal.id_soal' => $id])
         ->join('tb_soal', 'tb_soal.id_soal = tb_dist_jwbpg.id_soal');
-      return $this->db->get()->row_array();
+      return $this->db->get()->result_array();
     }
   }
 

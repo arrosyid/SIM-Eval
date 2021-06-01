@@ -31,20 +31,20 @@ class soal_model extends CI_Model
     if ($type == 'id_mapel') {
       $this->db->select('tb_soal.*, tb_mapel.*, tb_kelas.*')
         ->from('tb_soal')
-        ->where(['id_mapel' => $id])
+        ->where(['tb_mapel.id_mapel' => $id])
         ->join('tb_mapel', 'tb_mapel.id_mapel = tb_soal.id_mapel')
         ->join('tb_kelas', 'tb_kelas.id_kelas = tb_soal.id_kelas');
-      return $this->db->get()->row_array();
+      return $this->db->get()->result_array();
     }
 
     // berdasarkan id_kelas
     if ($type == 'id_kelas') {
       $this->db->select('tb_soal.*, tb_mapel.*, tb_kelas.*')
         ->from('tb_soal')
-        ->where(['id_kelas' => $id])
+        ->where(['tb_kelas.id_kelas' => $id])
         ->join('tb_mapel', 'tb_mapel.id_mapel = tb_soal.id_mapel')
         ->join('tb_kelas', 'tb_kelas.id_kelas = tb_soal.id_kelas');
-      return $this->db->get()->row_array();
+      return $this->db->get()->result_array();
     }
   }
 
