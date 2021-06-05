@@ -1,23 +1,23 @@
 <?php 
-  $identitas = array(
-    array("Nama Sekolah", $sekolah['nm_sekolah']),
-    array("NPSN",  $sekolah['npsn']),
-    array("Nama Kepala Sekolah", $sekolah['nm_kepsek']),
-    array("Akreditasi", $sekolah['akreditasi']),
-    array("Kurikulum", $sekolah['kurikulum']),
-    array("Alamat", $sekolah['alamat']),
-    array("Bentuk Pendidikan", $sekolah['bentuk_pendidikan']),
-    array("SK Pendirian Sekolah", $sekolah['sk_pendirian']),
-    array("Tanggal SK Pendirian Sekolah", $sekolah['sk_pendirian']),
-    array("SK Izin Sekolah", $sekolah['sk_izin']),
-    array("Tanggal SK Izin Sekolah", $sekolah['tgl_sk_izin']),
-  );
+  $identitas = [
+    ["Nama Sekolah", $sekolah['nm_sekolah']],
+    ["NPSN",  $sekolah['npsn']],
+    ["Nama Kepala Sekolah", $sekolah['nm_kepsek']],
+    ["Akreditasi", $sekolah['akreditasi']],
+    ["Kurikulum", $sekolah['kurikulum']],
+    ["Alamat", $sekolah['alamat']],
+    ["Bentuk Pendidikan", $sekolah['bentuk_pendidikan']],
+    ["SK Pendirian Sekolah", $sekolah['sk_pendirian']],
+    ["Tanggal SK Pendirian Sekolah", $sekolah['sk_pendirian']],
+    ["SK Izin Sekolah", $sekolah['sk_izin']],
+    ["Tanggal SK Izin Sekolah", $sekolah['tgl_sk_izin']],
+  ];
 
-  $kontak = array(
-    array("Nomer Telepon", $sekolah['telfon']),
-    array("Website", $sekolah['website']),
-    array("Email", $sekolah['email'] )
-  );
+  $kontak = [
+    ["Nomer Telepon", $sekolah['telfon']],
+    ["Website", $sekolah['website']],
+    ["Email", $sekolah['email'] ]
+  ];
 
 ?>
 
@@ -25,7 +25,7 @@
   <div class="container-fluid">
 
     <!-- HEADER -->
-    <div class="jumbotron jumbotron-fluid text-white">
+    <div class="jumbotron jumbotron-fluid jumbotron-bg text-white">
       <div class="container">
         <h1 class="display-4 font-weight-bold">SMP NEGERI 2 SUGIO</h1>
       </div>
@@ -100,15 +100,5 @@
       </div>
     </div>
     <!-- END CONTENT -->
-    
-
   </div>
-  <!-- Stylesheet -->
-  <style>
-    .jumbotron {
-      background: url("https://images.unsplash.com/photo-1553526777-5ffa3b3248d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"), linear-gradient(to bottom, #ADB2B6, #ABAEB3);
-      background-size: cover;
-      background-position: bottom;
-    }
-  </style>
 </section>

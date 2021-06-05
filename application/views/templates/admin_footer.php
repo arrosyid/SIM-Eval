@@ -18,6 +18,15 @@
 </div>
 <!-- /.wraper -->
 
+<!-- Stylesheet -->
+<style>
+  /* Jumbotron for ProfileSekolah.php & ProfileAdmin.php */
+  .jumbotron-bg {
+    background: url("https://images.unsplash.com/photo-1553526777-5ffa3b3248d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"), linear-gradient(to bottom, #ADB2B6, #ABAEB3);
+    background-size: cover;
+    background-position: bottom;
+  }
+</style>
 
 <!-- jQuery -->
 <script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>

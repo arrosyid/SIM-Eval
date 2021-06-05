@@ -2,7 +2,7 @@
   <div class="container-fluid">
 
     <!-- HEADER -->
-    <div class="jumbotron jumbotron-fluid text-white">
+    <div class="jumbotron jumbotron-fluid jumbotron-bg text-white">
       <div class="container">
         <h1 class="display-4 font-weight-bold">SMP NEGERI 2 SUGIO</h1>
       </div>
@@ -132,13 +132,4 @@
 
 
   </div>
-
-  <!-- Stylesheet -->
-  <style>
-    .jumbotron {
-      background: url("https://images.unsplash.com/photo-1553526777-5ffa3b3248d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"), linear-gradient(to bottom, #ADB2B6, #ABAEB3);
-      background-size: cover;
-      background-position: bottom;
-    }
-  </style>
 </section>
