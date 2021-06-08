@@ -234,6 +234,33 @@
     <?php endif ?>
   });
 </script>
+
+<!-- Sweet Alert -->
+<script src="<?= base_url() ?>assets/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+const displayAlert = (deleteUrl) => {
+  Swal.fire({
+    title: 'Apakah anda yakin?',
+    text: "Data yang sudah di hapus tidak bisa di kembalikan lagi",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Ya, hapus!',
+    cancelButtonText: 'Batal'
+  }).then((result) => {
+    if (result.value) {
+      window.location.href = deleteUrl;
+    }
+  })
+}
+
+// Delete Mapel Alert
+$('.delete-mapel-btn').on('click', function(e) {
+    displayAlert($(this).data('url'));
+});
+</script>
 </body>
 
 </html>
