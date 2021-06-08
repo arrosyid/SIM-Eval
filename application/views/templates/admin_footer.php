@@ -260,6 +260,11 @@ const displayAlert = (deleteUrl) => {
 $('.delete-mapel-btn').on('click', function(e) {
     displayAlert($(this).data('url'));
 });
+
+// Delete Daftar Soal Alert
+$('.delete-daftar-soal').on('click', function(e) {
+    displayAlert($(this).data('url'));
+});
 </script>
 </body>
 
