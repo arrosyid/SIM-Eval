@@ -256,6 +256,11 @@
     })
   }
 
+  // Delete Daftar Guru Alert
+  $('.delete-daftar-guru').on('click', function(e) {
+      displayAlert($(this).data('url'));
+  });
+
   // Delete Mapel Alert
   $('.delete-mapel-btn').on('click', function(e) {
       displayAlert($(this).data('url'));
@@ -265,6 +270,8 @@
   $('.delete-daftar-soal').on('click', function(e) {
       displayAlert($(this).data('url'));
   });
+
+  
 </script>
 </body>
 
