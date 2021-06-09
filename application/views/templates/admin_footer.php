@@ -239,7 +239,7 @@
 <script src="<?= base_url() ?>assets/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
 <script>
-  const displayAlert = (deleteUrl) => {
+  function displayAlert(deleteUrl) {
     Swal.fire({
       title: 'Apakah anda yakin?',
       text: "Data yang sudah di hapus tidak bisa di kembalikan lagi",
@@ -256,33 +256,23 @@
     })
   }
 
-  // Delete Daftar Guru Alert
-  $('.delete-daftar-guru').on('click', function(e) {
-      displayAlert($(this).data('url'));
-  });
+  const deleteButtons = [
+    '.delete-daftar-guru', 
+    '.delete-daftar-siswa', 
+    '.delete-mapel-btn', 
+    '.delete-daftar-kelas',
+    '.delete-daftar-soal'
+  ]
 
-  // Delete Daftar Siswa Alert
-  $('.delete-daftar-siswa').on('click', function(e) {
+  for (const btn of deleteButtons) {
+    $(btn).on('click', function(e) {
       displayAlert($(this).data('url'));
-  });
-
-  // Delete Mapel Alert
-  $('.delete-mapel-btn').on('click', function(e) {
-      displayAlert($(this).data('url'));
-  });
-
-  // Delete Daftar Kelas Alert
-  $('.delete-daftar-kelas').on('click', function(e) {
-      displayAlert($(this).data('url'));
-  });
-
-  // Delete Daftar Soal Alert
-  $('.delete-daftar-soal').on('click', function(e) {
-      displayAlert($(this).data('url'));
-  });
-
+    });
+  }
   
 </script>
+<!-- End Sweet Alert -->
+
 </body>
 
 </html>
