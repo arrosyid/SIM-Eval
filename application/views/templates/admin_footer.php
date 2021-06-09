@@ -271,6 +271,11 @@
       displayAlert($(this).data('url'));
   });
 
+  // Delete Daftar Kelas Alert
+  $('.delete-daftar-kelas').on('click', function(e) {
+      displayAlert($(this).data('url'));
+  });
+
   // Delete Daftar Soal Alert
   $('.delete-daftar-soal').on('click', function(e) {
       displayAlert($(this).data('url'));
