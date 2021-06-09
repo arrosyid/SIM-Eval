@@ -261,6 +261,11 @@
       displayAlert($(this).data('url'));
   });
 
+  // Delete Daftar Siswa Alert
+  $('.delete-daftar-siswa').on('click', function(e) {
+      displayAlert($(this).data('url'));
+  });
+
   // Delete Mapel Alert
   $('.delete-mapel-btn').on('click', function(e) {
       displayAlert($(this).data('url'));
