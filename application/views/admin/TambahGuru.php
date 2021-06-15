@@ -42,8 +42,14 @@
                   <?php foreach ($mapel as $M) { ?>
                     <option <?= set_select('id_mapel', $M['id_mapel']) ?> value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>
                   <?php } ?>
+                  <option value="Lainnya">Lainnya</option>
                 </select>
                 <?= form_error('id_mapel', '<small class="text-danger pl-3">', '</small>'); ?>
+              </div>
+            </div>
+            <div class="col-sm-5" id="mapel_lainnya">
+              <div class="form-group">
+                <input type="text" class="form-control" name="" placeholder="Isi Nama Mata Pelajaran">
               </div>
             </div>
           </div>
