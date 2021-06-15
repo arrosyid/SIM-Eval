@@ -273,6 +273,20 @@
 </script>
 <!-- End Sweet Alert -->
 
+<!-- Input Lainnya -->
+<script>
+  $('#mapel_lainnya').hide();
+  $("#id_mapel").change(function() {
+    if ($(this).val() == "Lainnya") {
+      $('#mapel_lainnya').show();
+    } else {
+      $('#mapel_lainnya').hide();
+    }
+  })
+</script>
+<!-- End Input Lainnya -->
+
+
 </body>
 
 </html>
