@@ -292,6 +292,33 @@
       $('#kelas_lainnya').hide();
     }
   })
+
+  $('#kelas_wali_lainnya').hide();
+  $("#id_guru").change(function() {
+    if ($(this).val() == "Lainnya") {
+      $('#kelas_wali_lainnya').show();
+    } else {
+      $('#kelas_wali_lainnya').hide();
+    }
+  })
+
+  $('#kelas_bidang_lainnya').hide();
+  $("#bidang").change(function() {
+    if ($(this).val() == "Lainnya") {
+      $('#kelas_bidang_lainnya').show();
+    } else {
+      $('#kelas_bidang_lainnya').hide();
+    }
+  })
+
+  $('#kelas_kelas_lainnya').hide();
+  $("#kelas").change(function() {
+    if ($(this).val() == "Lainnya") {
+      $('#kelas_kelas_lainnya').show();
+    } else {
+      $('#kelas_kelas_lainnya').hide();
+    }
+  })
 </script>
 <!-- End Input Lainnya -->
 
