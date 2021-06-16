@@ -283,6 +283,15 @@
       $('#mapel_lainnya').hide();
     }
   })
+
+  $('#kelas_lainnya').hide();
+  $("#id_kelas").change(function() {
+    if ($(this).val() == "Lainnya") {
+      $('#kelas_lainnya').show();
+    } else {
+      $('#kelas_lainnya').hide();
+    }
+  })
 </script>
 <!-- End Input Lainnya -->
 
