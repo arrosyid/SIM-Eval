@@ -275,50 +275,25 @@
 
 <!-- Input Lainnya -->
 <script>
-  $('#mapel_lainnya').hide();
-  $("#id_mapel").change(function() {
+  const forms = [
+    {input: '#mapel_lainnya', select: "#id_mapel"},
+    {input: '#kelas_lainnya', select: "#id_kelas"},
+    {input: '#kelas_wali_lainnya', select: "#id_guru"},
+    {input: '#kelas_bidang_lainnya', select: "#bidang"},
+    {input: '#kelas_kelas_lainnya', select: "#kelas"}
+  ]
+
+  forms.forEach(i => {
+    $(i.input).hide();
+    $(i.select).change(function() {
     if ($(this).val() == "Lainnya") {
-      $('#mapel_lainnya').show();
+      $(i.input).show();
     } else {
-      $('#mapel_lainnya').hide();
+      $(i.input).hide();
     }
+    })
   })
 
-  $('#kelas_lainnya').hide();
-  $("#id_kelas").change(function() {
-    if ($(this).val() == "Lainnya") {
-      $('#kelas_lainnya').show();
-    } else {
-      $('#kelas_lainnya').hide();
-    }
-  })
-
-  $('#kelas_wali_lainnya').hide();
-  $("#id_guru").change(function() {
-    if ($(this).val() == "Lainnya") {
-      $('#kelas_wali_lainnya').show();
-    } else {
-      $('#kelas_wali_lainnya').hide();
-    }
-  })
-
-  $('#kelas_bidang_lainnya').hide();
-  $("#bidang").change(function() {
-    if ($(this).val() == "Lainnya") {
-      $('#kelas_bidang_lainnya').show();
-    } else {
-      $('#kelas_bidang_lainnya').hide();
-    }
-  })
-
-  $('#kelas_kelas_lainnya').hide();
-  $("#kelas").change(function() {
-    if ($(this).val() == "Lainnya") {
-      $('#kelas_kelas_lainnya').show();
-    } else {
-      $('#kelas_kelas_lainnya').hide();
-    }
-  })
 </script>
 <!-- End Input Lainnya -->
 
