@@ -36,7 +36,7 @@
                   <td><?= $K['jml_siswa'] ?></td>
                   <td>
                     <a href="" data-toggle="modal" data-target="#editKelas" id="<?= $K['id_kelas'] ?>" class="badge badge-success view-data">edit</a>
-                    <a href="<?= base_url('admin/delete/Kelas/') . $K['id_kelas'] ?>" class="badge badge-danger">hapus</a>
+                    <a href="#" data-url="<?= base_url('admin/delete/Kelas/') . $K['id_kelas'] ?>" class="delete-daftar-kelas badge badge-danger">hapus</a>
                   </td>
                 </tr>
                 <?php $i++; ?>

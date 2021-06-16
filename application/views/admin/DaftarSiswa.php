@@ -32,7 +32,7 @@
                   <td><?= $S['kelas'] . ' ' . $S['bidang'] . ' ' . $S['nomor_kelas'] ?></td>
                   <td>
                     <a href="" data-toggle="modal" data-target="#editSiswa" id="<?= $S['id_siswa'] ?>" class="badge badge-success view-data">edit</a>
-                    <a href="<?= base_url('index.php/admin/delete/siswa/') . $S['id_siswa'] ?>" class="badge badge-danger">hapus</a>
+                    <a href="#" data-url="<?= base_url('index.php/admin/delete/siswa/') . $S['id_siswa'] ?>" class="delete-daftar-siswa badge badge-danger">hapus</a>
                   </td>
                 </tr>
                 <?php $i++; ?>
@@ -95,15 +95,21 @@
                 <div class="col-sm-2">
                   <label>Kelas</label>
                 </div>
-                <div class="col-sm-10">
+                <div class="col-sm-5">
                   <div class="form-group">
                     <select class="form-control <?= form_error('id_kelas') != null ? "is-invalid" : "" ?>" name="id_kelas" id="id_kelas">
                       <option value="">PILIH KELAS</option>
                       <?php foreach ($kelas as $K) : ?>
                         <option <?= set_select('id_kelas', $K['id_kelas']) ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
                       <?php endforeach ?>
+                      <option value="Lainnya">Lainnya</option>
                     </select>
                     <?= form_error('id_kelas', '<small class="text-danger pl-3">', '</small>'); ?>
+                  </div>
+                </div>
+                <div class="col-sm-5" id="kelas_lainnya">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="" placeholder="Isi Nama Kelas">
                   </div>
                 </div>
               </div>

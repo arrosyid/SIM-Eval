@@ -27,7 +27,7 @@
                   <td><?= $i; ?></td>
                   <td><?= $M['mapel'] ?></td>
                   <td>
-                    <a href="<?= base_url('admin/delete/mapel/') . $M['id_mapel'] ?>" class="badge badge-danger">hapus</a>
+                    <a href="#" data-url="<?= base_url('admin/delete/mapel/') . $M['id_mapel'] ?>" class="delete-mapel-btn badge badge-danger">hapus</a>
                   </td>
                 </tr>
                 <?php $i++; ?>

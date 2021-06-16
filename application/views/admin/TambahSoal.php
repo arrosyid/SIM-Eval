@@ -11,15 +11,21 @@
             <div class="col-sm-2">
               <label>Mata Pelajaran</label>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               <div class="form-group">
                 <select class="form-control <?= form_error('id_mapel') != null ? "is-invalid" : "" ?>" name="id_mapel" id="id_mapel">
                   <option value="">PILIH MATA PELAJARAN</option>
                   <?php foreach ($mapel as $M) { ?>
                     <option <?= set_select('id_mapel', $M['id_mapel']) ?> value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>
                   <?php } ?>
+                  <option value="Lainnya">Lainnya</option>
                 </select>
                 <?= form_error('id_mapel', '<small class="text-danger pl-3">', '</small>'); ?>
+              </div>
+            </div>
+            <div class="col-sm-5" id="soal_mapel_lainnya">
+              <div class="form-group">
+                <input type="text" class="form-control" name="" placeholder="Isi Nama Mata Pelajaran">
               </div>
             </div>
           </div>
@@ -27,7 +33,7 @@
             <div class="col-sm-2">
               <label>Jenis Soal</label>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               <div class="form-group">
                 <select class="form-control <?= form_error('jenis_soal') != null ? "is-invalid" : "" ?>" name="jenis_soal" id="jenis_soal">
                   <option value="">PILIH SOAL</option>
@@ -37,8 +43,14 @@
                   <option <?= set_select('jenis_soal', 'Uraian PTS') ?> value="Uraian PTS">Uraian PTS</option>
                   <option <?= set_select('jenis_soal', 'Pilihan Ganda PAS') ?> value="Pilihan Ganda PAS">Pilihan Ganda PAS</option>
                   <option <?= set_select('jenis_soal', 'Uraian PAS') ?> value="Uraian PAS">Uraian PAS</option>
+                  <option value="Lainnya">Lainnya</option>
                 </select>
                 <?= form_error('jenis_soal', '<small class="text-danger pl-3">', '</small>'); ?>
+              </div>
+            </div>
+            <div class="col-sm-5" id="soal_jenis_lainnya">
+              <div class="form-group">
+                <input type="text" class="form-control" name="" placeholder="Isi Nama Soal">
               </div>
             </div>
           </div>
@@ -46,15 +58,21 @@
             <div class="col-sm-2">
               <label>Kelas</label>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               <div class="form-group">
                 <select class="form-control <?= form_error('id_kelas') != null ? "is-invalid" : "" ?>" name="id_kelas" id="id_kelas">
                   <option value="">PILIH KELAS</option>
                   <?php foreach ($kelas as $K) : ?>
                     <option <?= set_select('id_kelas', $K['id_kelas']) ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
                   <?php endforeach ?>
+                  <option value="Lainnya">Lainnya</option>
                 </select>
                 <?= form_error('id_kelas', '<small class="text-danger pl-3">', '</small>'); ?>
+              </div>
+            </div>
+            <div class="col-sm-5" id="soal_kelas_lainnya">
+              <div class="form-group">
+                <input type="text" class="form-control" name="" placeholder="Isi Nama Kelas">
               </div>
             </div>
           </div>
