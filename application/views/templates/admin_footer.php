@@ -234,6 +234,73 @@
     <?php endif ?>
   });
 </script>
+
+<!-- Sweet Alert -->
+<script src="<?= base_url() ?>assets/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+  function displayAlert(deleteUrl) {
+    Swal.fire({
+      title: 'Apakah anda yakin?',
+      text: "Data yang sudah di hapus tidak bisa di kembalikan lagi",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.value) {
+        window.location.href = deleteUrl;
+      }
+    })
+  }
+
+  const deleteButtons = [
+    '.delete-daftar-guru', 
+    '.delete-daftar-siswa', 
+    '.delete-mapel-btn', 
+    '.delete-daftar-kelas',
+    '.delete-daftar-soal'
+  ]
+
+  for (const btn of deleteButtons) {
+    $(btn).on('click', function(e) {
+      displayAlert($(this).data('url'));
+    });
+  }
+  
+</script>
+<!-- End Sweet Alert -->
+
+<!-- Input Lainnya -->
+<script>
+  const forms = [
+    {input: '#mapel_lainnya', select: "#id_mapel"},
+    {input: '#kelas_lainnya', select: "#id_kelas"},
+    {input: '#kelas_wali_lainnya', select: "#id_guru"},
+    {input: '#kelas_bidang_lainnya', select: "#bidang"},
+    {input: '#kelas_kelas_lainnya', select: "#kelas"},
+    {input: '#soal_mapel_lainnya', select: "#id_mapel"},
+    {input: '#soal_jenis_lainnya', select: "#jenis_soal"},
+    {input: '#soal_kelas_lainnya', select: "#id_kelas"},
+  ]
+
+  forms.forEach(i => {
+    $(i.input).hide();
+    $(i.select).change(function() {
+    if ($(this).val() == "Lainnya") {
+      $(i.input).show();
+    } else {
+      $(i.input).hide();
+    }
+    })
+  })
+
+</script>
+<!-- End Input Lainnya -->
+
+
 </body>
 
 </html>

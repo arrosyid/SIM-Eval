@@ -12,15 +12,21 @@
             <div class="col-sm-2">
               <label>Kelas</label>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               <div class="form-group">
                 <select class="form-control <?= form_error('kelas') != null ? "is-invalid" : "" ?>" name="kelas" id="kelas">
                   <option value="">PILIH KELAS</option>
                   <option <?= set_select('kelas', 'VII') ?> value="VII">VII</option>
                   <option <?= set_select('kelas', 'VIII') ?> value="VIII">VIII</option>
                   <option <?= set_select('kelas', 'IX') ?> value="IX">IX</option>
+                  <option value="Lainnya">Lainnya</option>
                 </select>
                 <?= form_error('kelas', '<small class="text-danger pl-3">', '</small>'); ?>
+              </div>
+            </div>
+            <div class="col-sm-5" id="kelas_kelas_lainnya">
+              <div class="form-group">
+                <input type="text" class="form-control" name="" placeholder="Isi Nama Kelas">
               </div>
             </div>
           </div>
@@ -28,15 +34,21 @@
             <div class="col-sm-2">
               <label>Bidang</label>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               <div class="form-group">
                 <select class="form-control <?= form_error('bidang') != null ? "is-invalid" : "" ?>" name="bidang" id="bidang">
                   <option value="">PILIH BIDANG</option>
                   <option <?= set_select('bidang', 'IPA') ?> value="IPA">IPA</option>
                   <option <?= set_select('bidang', 'IPS') ?> value="IPS">IPS</option>
                   <option <?= set_select('bidang', 'BAHASA') ?> value="BAHASA">BAHASA</option>
+                  <option value="Lainnya">Lainnya</option>
                 </select>
                 <?= form_error('bidang', '<small class="text-danger pl-3">', '</small>'); ?>
+              </div>
+            </div>
+            <div class="col-sm-5" id="kelas_bidang_lainnya">
+              <div class="form-group">
+                <input type="text" class="form-control" name="" placeholder="Isi Nama Bidang">
               </div>
             </div>
           </div>
@@ -55,15 +67,21 @@
             <div class="col-sm-2">
               <label>Wali Kelas</label>
             </div>
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               <div class="form-group">
                 <select class="form-control <?= form_error('id_guru') != null ? "is-invalid" : "" ?>" name="id_guru" id="id_guru">
                   <option value="">PILIH WALI KELAS</option>
                   <?php foreach ($guru as $G) { ?>
                     <option <?= set_select('id_guru', $G['id_guru']) ?> value="<?= $G['id_guru'] ?>"><?= $G['nm_guru'] ?></option>
                   <?php } ?>
+                  <option value="Lainnya">Lainnya</option>
                 </select>
                 <?= form_error('id_guru', '<small class="text-danger pl-3">', '</small>'); ?>
+              </div>
+            </div>
+            <div class="col-sm-5" id="kelas_wali_lainnya">
+              <div class="form-group">
+                <input type="text" class="form-control" name="" placeholder="Isi Nama Wali Kelas">
               </div>
             </div>
           </div>

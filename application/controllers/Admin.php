@@ -917,4 +917,21 @@ class Admin extends CI_Controller
       $this->load->view('admin/ajax/ajax_tablePelajaran', $data);
     }
   }
+
+  public function error()
+  {
+    // Input data Kelas
+    $data['tittle'] = 'Error Page';
+    $data['subtittle'] = 'Error';
+    $data["error_msg"] = "Oops.. Halaman Tidak Ditemukan";
+    $data["error_desc"] = "Halaman yang anda cari tidak ditemukan atau telah dihapus oleh pengguna";
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/Error');
+      $this->load->view('templates/admin_footer');
+    }
+  }
 }
