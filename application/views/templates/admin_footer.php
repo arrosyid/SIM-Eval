@@ -280,7 +280,10 @@
     {input: '#kelas_lainnya', select: "#id_kelas"},
     {input: '#kelas_wali_lainnya', select: "#id_guru"},
     {input: '#kelas_bidang_lainnya', select: "#bidang"},
-    {input: '#kelas_kelas_lainnya', select: "#kelas"}
+    {input: '#kelas_kelas_lainnya', select: "#kelas"},
+    {input: '#soal_mapel_lainnya', select: "#id_mapel"},
+    {input: '#soal_jenis_lainnya', select: "#jenis_soal"},
+    {input: '#soal_kelas_lainnya', select: "#id_kelas"},
   ]
 
   forms.forEach(i => {
