@@ -319,6 +319,78 @@
 </script>
 <!-- End Input Lainnya -->
 
+<!-- Import Chart -->
+<script src="<?= base_url() ?>assets/plugins/chart.js/Chart.js"></script>
+
+<!-- Chart Kelompok Atas Bawah -->
+<script>
+var ctx = document.getElementById('chartKelompok').getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'pie',
+  data: {
+    labels: ['Kelompok Bawah', 'Kelompok Atas'],
+    datasets: [{
+      label: 'Kelompok',
+      data: [30, 70],
+      backgroundColor: [
+        '#FB8832',
+        '#007AFF'
+      ]
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    },
+    legend: {
+      position: "bottom",
+      labels: {
+        usePointStyle: true,
+        boxWidth: 6
+      }
+    }
+  }
+});
+</script>
+<!-- Chart Kelompok Atas Bawah -->
+
+<!-- Chart Program Perbaikan -->
+<script>
+var cty = document.getElementById('chartProgram').getContext('2d');
+var myChart = new Chart(cty, {
+  type: 'pie',
+  data: {
+    labels: ['PK1', 'PK2', 'PB1', 'PB2'],
+    datasets: [{
+      label: '# of Votes',
+      data: [40,20,30,10],
+      backgroundColor: [
+        '#FB8832',
+        '#007AFF',
+        '#9B51E0',
+        '#E6E5E6'
+      ]
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    },
+    legend: {
+      position: "bottom",
+      labels: {
+        usePointStyle: true,
+        boxWidth: 6
+      }
+    }
+  }
+});
+</script>
+<!-- Chart Program Perbaikan -->
 
 </body>
 

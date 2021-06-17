@@ -1,6 +1,8 @@
 <!-- Main content -->
 <div class="content">
   <div class="container-fluid">
+
+    <!-- JUMLAH STATS -->
     <div class="row">
       <div class="col-md-3 my-2">
         <div>
@@ -57,26 +59,45 @@
         </div>
       </div>
     </div>
+    <!-- END JUMLAH STATS -->
 
+    <!-- PROFILE AND PIE CHART -->
     <div class="row my-3">
-      <!-- 1ST CARD -->
       <div class="col-md-6">
         <div class="card">
           <div class="card-header py-3">
             <h2 class="text-center">SMP NEGERI 2 SUGIO</h2>
           </div>
           <div class="card-body">
-            <!-- COLUMN -->
             <div class="row">
               <div class="col-sm-4">NPSN</div>
               <div class="col-sm-8 text-secondary">20506377</div>
             </div>
-            <!-- END COLUMN -->
           </div>
         </div>
       </div>
-      <!-- END 1ST CARD -->
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header py-3">
+            <h4 class="card-title">Kelompok Atas Bawah</h4>
+          </div>
+          <div class="card-body">
+            <canvas id="chartKelompok" width="100%" height="100%"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header py-3">
+            <h4 class="card-title">Program Perbaikan dan Pengayaan</h4>
+          </div>
+          <div class="card-body">
+            <canvas id="chartProgram" width="100%" height="100%"></canvas>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- END PROFILE AND PIE CHART -->
 
   </div>
 </div>
