@@ -24,11 +24,12 @@ class Admin extends CI_Controller
   {
     // dashboard
     $data['tittle'] = 'dashboard';
-    $data['subtittle'] = 'Tambah Guru Baru';
+    $data['subtittle'] = 'Dashboard';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
 
     $this->load->view('templates/admin_header', $data);
     $this->load->view('templates/sidebar', $data);
+    $this->load->view('admin/IndexDashboard', $data);
     echo 'selamat datang admin';
     echo '<a href="' . base_url('auth/logout') . '"> keluar </a>';
     $this->load->view('templates/admin_footer');

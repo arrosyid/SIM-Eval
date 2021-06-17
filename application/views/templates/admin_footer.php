@@ -20,6 +20,25 @@
 
 <!-- Stylesheet -->
 <style>
+  /* Dashboard */
+  .dashboard-card {
+    box-shadow: 0px 8px 5px rgba(0, 0, 0, 0.03);
+    border-radius: 5px;
+    padding: 1.5rem 1rem;
+  }
+  .card-orange {
+    background: linear-gradient(113.02deg, rgba(255, 77, 0, 0.63) 1.33%, rgba(255, 122, 0, 0.63) 54.21%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(255, 214, 0, 0.63) 99.24%);
+  }
+  .card-blue {
+    background: linear-gradient(113.02deg, rgba(86, 59, 255, 0.63) 1.33%, rgba(9, 175, 246, 0.63) 54.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(30, 215, 215, 0.63) 99.24%);
+  }
+  .card-gray {
+    background: linear-gradient(113.02deg, rgba(77, 88, 103, 0.63) 1.33%, rgba(158, 172, 179, 0.63) 54.21%, rgba(180, 191, 191, 0.63) 99.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(137, 137, 137, 0.63) 99.24%);
+  }
+  .card-purple {
+    background: linear-gradient(113.02deg, rgba(173, 0, 255, 0.63) 1.33%, rgba(207, 76, 209, 0.63) 54.21%, rgba(208, 99, 255, 0.63) 99.2%, rgba(180, 191, 191, 0.63) 99.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(237, 42, 241, 0.63) 99.24%);
+  }
+
   /* Jumbotron for ProfileSekolah.php & ProfileAdmin.php */
   .jumbotron-bg {
     background: url("https://images.unsplash.com/photo-1553526777-5ffa3b3248d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"), linear-gradient(to bottom, #ADB2B6, #ABAEB3);
