@@ -2,7 +2,7 @@
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-3 my-2">
         <div>
           <div class="dashboard-card card-orange">
             <div class="d-flex align-items-center">
@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 my-2">
         <div class="dashboard-card card-blue">
           <div class="d-flex align-items-center">
             <svg width="39" height="29" viewBox="0 0 39 29" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 my-2">
         <div class="dashboard-card card-gray">
           <div class="d-flex align-items-center">
             <svg width="39" height="29" viewBox="0 0 39 29" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -43,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 my-2">
         <div class="dashboard-card card-purple">
           <div class="d-flex align-items-center">
             <svg width="39" height="29" viewBox="0 0 39 29" fill="none" xmlns="http://www.w3.org/2000/svg">
