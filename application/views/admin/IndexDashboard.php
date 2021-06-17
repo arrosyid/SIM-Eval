@@ -57,5 +57,26 @@
         </div>
       </div>
     </div>
+
+    <div class="row my-3">
+      <!-- 1ST CARD -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header py-3">
+            <h2 class="text-center">SMP NEGERI 2 SUGIO</h2>
+          </div>
+          <div class="card-body">
+            <!-- COLUMN -->
+            <div class="row">
+              <div class="col-sm-4">NPSN</div>
+              <div class="col-sm-8 text-secondary">20506377</div>
+            </div>
+            <!-- END COLUMN -->
+          </div>
+        </div>
+      </div>
+      <!-- END 1ST CARD -->
+    </div>
+
   </div>
 </div>
