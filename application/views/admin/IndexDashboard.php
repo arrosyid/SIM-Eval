@@ -107,9 +107,22 @@
             <p class="card-title">Activity Monitor</p>
           </div>
           <div class="card-body">
-            <div class="row">
-              <div class="col-sm-4">NPSN</div>
-              <div class="col-sm-8 text-secondary">20506377</div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex flex-row">
+                <div class="ms-2">
+                  <p class="mb-0">Admin</p> <span class="text-secondary">1 days ago</span>
+                </div>
+              </div>
+              <div class="badge badge-green d-flex justify-content-center align-items-center"><i class="fas fa-arrow-up text-white"></i></div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex flex-row">
+                <div class="ms-2">
+                  <p class="mb-0">John Cena</p> <span class="text-secondary">1 days ago</span>
+                </div>
+              </div>
+              <div class="badge badge-red d-flex justify-content-center align-items-center"><i class="fas fa-arrow-down text-white"></i></div>
             </div>
           </div>
         </div>

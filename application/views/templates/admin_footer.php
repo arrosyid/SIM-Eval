@@ -45,6 +45,19 @@
     background-size: cover;
     background-position: bottom;
   }
+
+  /* Dashbord Activity Monitor */
+  .badge {
+    width: 1.5rem;
+    height:1.5rem;
+    border-radius: 50%;
+  }
+  .badge-green {
+    background-color: #51CF66;
+  }
+  .badge-red {
+    background-color: #D45151;
+  }
 </style>
 
 <!-- jQuery -->
