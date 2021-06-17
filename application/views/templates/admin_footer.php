@@ -19,14 +19,16 @@
 <!-- /.wraper -->
 
 <!-- Stylesheet -->
-<style>
-  /* Jumbotron for ProfileSekolah.php & ProfileAdmin.php */
-  .jumbotron-bg {
-    background: url("https://images.unsplash.com/photo-1553526777-5ffa3b3248d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"), linear-gradient(to bottom, #ADB2B6, #ABAEB3);
-    background-size: cover;
-    background-position: bottom;
-  }
-</style>
+<?php if ($tittle == 'Daftar Siswa') : ?>
+  <style>
+    /* Jumbotron for ProfileSekolah.php & ProfileAdmin.php */
+    .jumbotron-bg {
+      background: url("https://images.unsplash.com/photo-1553526777-5ffa3b3248d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"), linear-gradient(to bottom, #ADB2B6, #ABAEB3);
+      background-size: cover;
+      background-position: bottom;
+    }
+  </style>
+<?php endif ?>
 
 <!-- jQuery -->
 <script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
@@ -241,8 +243,8 @@
 <script>
   function displayAlert(deleteUrl) {
     Swal.fire({
-      title: 'Apakah anda yakin?',
-      text: "Data yang sudah di hapus tidak bisa di kembalikan lagi",
+      title: <?= $tittle_sweets ?>,
+      text: <?= $text_sweets ?>,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -257,9 +259,9 @@
   }
 
   const deleteButtons = [
-    '.delete-daftar-guru', 
-    '.delete-daftar-siswa', 
-    '.delete-mapel-btn', 
+    '.delete-daftar-guru',
+    '.delete-daftar-siswa',
+    '.delete-mapel-btn',
     '.delete-daftar-kelas',
     '.delete-daftar-soal'
   ]
@@ -269,34 +271,55 @@
       displayAlert($(this).data('url'));
     });
   }
-  
 </script>
 <!-- End Sweet Alert -->
 
 <!-- Input Lainnya -->
 <script>
-  const forms = [
-    {input: '#mapel_lainnya', select: "#id_mapel"},
-    {input: '#kelas_lainnya', select: "#id_kelas"},
-    {input: '#kelas_wali_lainnya', select: "#id_guru"},
-    {input: '#kelas_bidang_lainnya', select: "#bidang"},
-    {input: '#kelas_kelas_lainnya', select: "#kelas"},
-    {input: '#soal_mapel_lainnya', select: "#id_mapel"},
-    {input: '#soal_jenis_lainnya', select: "#jenis_soal"},
-    {input: '#soal_kelas_lainnya', select: "#id_kelas"},
+  const forms = [{
+      input: '#mapel_lainnya',
+      select: "#id_mapel"
+    },
+    {
+      input: '#kelas_lainnya',
+      select: "#id_kelas"
+    },
+    {
+      input: '#kelas_wali_lainnya',
+      select: "#id_guru"
+    },
+    {
+      input: '#kelas_bidang_lainnya',
+      select: "#bidang"
+    },
+    {
+      input: '#kelas_kelas_lainnya',
+      select: "#kelas"
+    },
+    {
+      input: '#soal_mapel_lainnya',
+      select: "#id_mapel"
+    },
+    {
+      input: '#soal_jenis_lainnya',
+      select: "#jenis_soal"
+    },
+    {
+      input: '#soal_kelas_lainnya',
+      select: "#id_kelas"
+    },
   ]
 
   forms.forEach(i => {
     $(i.input).hide();
     $(i.select).change(function() {
-    if ($(this).val() == "Lainnya") {
-      $(i.input).show();
-    } else {
-      $(i.input).hide();
-    }
+      if ($(this).val() == "Lainnya") {
+        $(i.input).show();
+      } else {
+        $(i.input).hide();
+      }
     })
   })
-
 </script>
 <!-- End Input Lainnya -->
 

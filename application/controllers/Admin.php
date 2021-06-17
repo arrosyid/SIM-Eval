@@ -60,6 +60,8 @@ class Admin extends CI_Controller
   {
     // Read Data Pelajaran
     $data['tittle'] = 'Daftar Pelajaran';
+    $data['tittle_sweets'] = 'Apakah anda yakin menghapus data pelajaran?';
+    $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data pelajaran';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     if ($id_kelas == null) {
       $data['kelas'] = null;
@@ -81,7 +83,7 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('admin/DaftarPelajaran', $data);
-      $this->load->view('templates/admin_footer');
+      $this->load->view('templates/admin_footer', $data);
     } else {
       $data_pelajaran = [
         'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
@@ -113,6 +115,8 @@ class Admin extends CI_Controller
     // Read Data Kelas
     $data['tittle'] = 'Daftar Kelas';
     $data['subtittle'] = 'Daftar Semua Kelas';
+    $data['tittle_sweets'] = 'Apakah anda yakin menghapus data Kelas?';
+    $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data Kelas, data siswa satu kelas, dan data lain yg terkait dengan siswa';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['kelas'] = $this->Kelas_model->getAllKelas();
 
@@ -125,7 +129,7 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('admin/DaftarKelas');
-      $this->load->view('templates/admin_footer');
+      $this->load->view('templates/admin_footer', $data);
     } else {
       $data_kelas = [
         'kelas' => htmlspecialchars($this->input->post('kelas', true)),
@@ -159,6 +163,8 @@ class Admin extends CI_Controller
     // Read Data Mapel
     $data['tittle'] = 'Daftar Mapel';
     $data['subtittle'] = 'Daftar Mata Pelajaran';
+    $data['tittle_sweets'] = 'Apakah anda yakin menghapus data Kelas?';
+    $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data mata pelajaran, data guru, data soal, data pelajaran, dan data lain yg terkait dengan soal';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['mapel'] = $this->Mapel_model->getAllMapel();
 
@@ -167,7 +173,7 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('admin/DaftarMapel');
-      $this->load->view('templates/admin_footer');
+      $this->load->view('templates/admin_footer', $data);
     } else {
       $data_mapel = [
         'mapel' => htmlspecialchars($this->input->post('mapel', true))
@@ -195,6 +201,8 @@ class Admin extends CI_Controller
     // Read data soal
     $data['tittle'] = 'Daftar Soal';
     $data['subtittle'] = 'Daftar Semua Soal';
+    $data['tittle_sweets'] = 'Apakah anda yakin menghapus data soal?';
+    $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data soal, data analisis soal dan data lain yg terkait';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['soal'] = $this->Soal_model->getAllSoal();
     // var_dump($data['soal']);
@@ -213,7 +221,7 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('admin/DaftarSoal');
-      $this->load->view('templates/admin_footer');
+      $this->load->view('templates/admin_footer', $data);
     } else {
       $data_soal = [
         'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
@@ -248,6 +256,8 @@ class Admin extends CI_Controller
     // Read Data Guru
     $data['tittle'] = 'Daftar Guru';
     $data['subtittle'] = 'Daftar Guru';
+    $data['tittle_sweets'] = 'Apakah anda yakin menghapus data guru?';
+    $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data guru dan data akun guru';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['guru'] = $this->Guru_model->getAllGuru();
     $data['mapel'] = $this->Mapel_model->getAllMapel();
@@ -482,6 +492,8 @@ class Admin extends CI_Controller
     // Input data siswa
     $data['tittle'] = 'Daftar Siswa';
     $data['subtittle'] = 'Daftar Siswa Baru';
+    $data['tittle_sweets'] = 'Apakah anda yakin menghapus data siswa?';
+    $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data siswa, data nilai dan data lain yg terkait dengan nilai';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['siswa'] = $this->Siswa_model->getAllSiswa();
     $data['kelas'] = $this->Kelas_model->getAllKelas();
@@ -915,23 +927,6 @@ class Admin extends CI_Controller
         $data['pelajaran'] = $this->Pelajaran_model->getPelajaranByType('id_kelas', $id_kelas);
       }
       $this->load->view('admin/ajax/ajax_tablePelajaran', $data);
-    }
-  }
-
-  public function error()
-  {
-    // Input data Kelas
-    $data['tittle'] = 'Error Page';
-    $data['subtittle'] = 'Error';
-    $data["error_msg"] = "Oops.. Halaman Tidak Ditemukan";
-    $data["error_desc"] = "Halaman yang anda cari tidak ditemukan atau telah dihapus oleh pengguna";
-    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-
-    if ($this->form_validation->run() == false) {
-      $this->load->view('templates/admin_header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('admin/Error');
-      $this->load->view('templates/admin_footer');
     }
   }
 }
