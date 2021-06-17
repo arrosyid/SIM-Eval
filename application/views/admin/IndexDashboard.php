@@ -99,5 +99,33 @@
     </div>
     <!-- END PROFILE AND PIE CHART -->
 
+    <!-- ACTIVITY AND GRAPH CHART -->
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header py-3">
+            <p class="card-title">Activity Monitor</p>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-4">NPSN</div>
+              <div class="col-sm-8 text-secondary">20506377</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header py-3">
+            <p class="card-title">Grafik Ketuntasan Belajar Siswa</p>
+          </div>
+          <div class="card-body">
+            <canvas id="chartKetuntasan" width="100%" height="50px"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END ACTIVITY AND GRAPH CHART -->
+
   </div>
 </div>

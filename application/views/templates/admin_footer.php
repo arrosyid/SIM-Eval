@@ -392,6 +392,49 @@ var myChart = new Chart(cty, {
 </script>
 <!-- Chart Program Perbaikan -->
 
+<!-- Chart Program Perbaikan -->
+<script>
+var cty = document.getElementById('chartKetuntasan').getContext('2d');
+var myChart = new Chart(cty, {
+  type: 'line',
+  data: {
+    labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+    datasets: [{ 
+        data: [86,114,1060,106,1007,111,4033,221,783,2478],
+        label: "Ketuntasan Belajar",
+        borderColor: "#3e95cd",
+        fill: false
+      }, { 
+        data: [282,350,3411,502,635,2809,947,1402,3700,5267],
+        label: "Rata-rata Nilai",
+        borderColor: "#8e5ea2",
+        fill: false
+      }, { 
+        data: [168,170,2178,190,203,3276,408,547,675,734],
+        label: "Rata-rata Skor",
+        borderColor: "#3cba9f",
+        fill: false
+      }, { 
+        data: [40,20,4410,16,2324,38,74,167,508,784],
+        label: "Rata-rata Nilai Akhir",
+        borderColor: "#e8c3b9",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    legend: {
+      position: "right",
+      labels: {
+        usePointStyle: true,
+        boxWidth: 6
+      }
+    }
+  }
+});
+</script>
+<!-- Chart Program Perbaikan -->
+
 </body>
 
 </html>
