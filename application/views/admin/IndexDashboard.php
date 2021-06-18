@@ -1,3 +1,13 @@
+<?php 
+  $identitas = [
+    ["NPSN",  $sekolah['npsn']],
+    ["Nama Kepala Sekolah", $sekolah['nm_kepsek']],
+    ["Akreditasi", $sekolah['akreditasi']],
+    ["Kurikulum", $sekolah['kurikulum']],
+    ["Alamat", $sekolah['alamat']],
+  ];
+?>
+
 <!-- Main content -->
 <div class="content">
   <div class="container-fluid">
@@ -69,10 +79,21 @@
             <h2 class="text-center">SMP NEGERI 2 SUGIO</h2>
           </div>
           <div class="card-body">
-            <div class="row">
-              <div class="col-sm-4">NPSN</div>
-              <div class="col-sm-8 text-secondary">20506377</div>
-            </div>
+            <!-- COLUMN -->
+            <?php for ($i = 0; $i < count($identitas); $i++) { ?>  
+              <div class="row">
+                <div class="col-sm-4"><?= $identitas[$i][0] ?></div>
+                <div class="col-sm-8 text-secondary">
+                  <?= $identitas[$i][1] ?>
+                </div>
+              </div>
+
+              <?php if ($i < count($identitas) - 1) {
+                echo "<hr>";
+              }
+              ?>
+            <?php } ?>
+            <!-- END COLUMN -->
           </div>
         </div>
       </div>

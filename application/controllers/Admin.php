@@ -26,6 +26,7 @@ class Admin extends CI_Controller
     $data['tittle'] = 'dashboard';
     $data['subtittle'] = 'Dashboard';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['sekolah'] = $this->Sekolah_model->getSekolahByid(1);
 
     $this->load->view('templates/admin_header', $data);
     $this->load->view('templates/sidebar', $data);
