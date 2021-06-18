@@ -28,11 +28,22 @@ class Admin extends CI_Controller
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['sekolah'] = $this->Sekolah_model->getSekolahByid(1);
 
+    // GRAPH DATA
+    $data['kelompokTitle'] = ['Kelompok Atas', 'Kelompok Bawah'];
+    $data['kelompokData'] = [87, 13];
+
+    $data['programTitle'] = ['PK1', 'PK2', 'PK3', 'PK4', 'PK5', 'PK6'];
+    $data['programData'] = [5, 20, 30, 10, 25, 10];
+
+    $data['grafikTitle'] = ["", "VII","VIII","IX"];
+    $data['grafikKetuntasanBelajar'] = [0, 60, 75, 59];
+    $data['grafikRataRataNilai'] = [0, 55, 75, 89];
+    $data['grafikRataRataSkor'] = [0, 75, 99, 79];
+    $data['grafikRataRataNilaiAkhir'] = [0, 36, 68, 33];
+
     $this->load->view('templates/admin_header', $data);
     $this->load->view('templates/sidebar', $data);
     $this->load->view('admin/IndexDashboard', $data);
-    echo 'selamat datang admin';
-    echo '<a href="' . base_url('auth/logout') . '"> keluar </a>';
     $this->load->view('templates/admin_footer');
   }
 

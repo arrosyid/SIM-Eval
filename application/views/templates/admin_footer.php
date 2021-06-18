@@ -341,10 +341,10 @@ var ctx = document.getElementById('chartKelompok').getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'pie',
   data: {
-    labels: ['Kelompok Bawah', 'Kelompok Atas'],
+    labels: <?php echo json_encode($kelompokTitle); ?>,
     datasets: [{
       label: 'Kelompok',
-      data: [30, 70],
+      data: <?php echo json_encode($kelompokData); ?>,
       backgroundColor: [
         '#FB8832',
         '#007AFF'
@@ -375,10 +375,10 @@ var cty = document.getElementById('chartProgram').getContext('2d');
 var myChart = new Chart(cty, {
   type: 'pie',
   data: {
-    labels: ['PK1', 'PK2', 'PK3', 'PB1', 'PB2', 'PB3'],
+    labels: <?php echo json_encode($programTitle); ?>,
     datasets: [{
       label: '# of Votes',
-      data: [5,20,30,10, 25, 10],
+      data: <?php echo json_encode($programData); ?>,
       backgroundColor: [
         '#FB8832',
         '#007AFF',
@@ -413,24 +413,24 @@ var cty = document.getElementById('chartKetuntasan').getContext('2d');
 var myChart = new Chart(cty, {
   type: 'line',
   data: {
-    labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+    labels: <?php echo json_encode($grafikTitle); ?>,
     datasets: [{ 
-        data: [86,114,1060,106,1007,111,4033,221,783,2478],
+        data: <?php echo json_encode($grafikKetuntasanBelajar); ?>,
         label: "Ketuntasan Belajar",
         borderColor: "#3e95cd",
         fill: false
       }, { 
-        data: [282,350,3411,502,635,2809,947,1402,3700,5267],
+        data: <?php echo json_encode($grafikRataRataNilai); ?>,
         label: "Rata-rata Nilai",
         borderColor: "#8e5ea2",
         fill: false
       }, { 
-        data: [168,170,2178,190,203,3276,408,547,675,734],
+        data: <?php echo json_encode($grafikRataRataSkor); ?>,
         label: "Rata-rata Skor",
         borderColor: "#3cba9f",
         fill: false
       }, { 
-        data: [40,20,4410,16,2324,38,74,167,508,784],
+        data: <?php echo json_encode($grafikRataRataNilaiAkhir); ?>,
         label: "Rata-rata Nilai Akhir",
         borderColor: "#e8c3b9",
         fill: false
