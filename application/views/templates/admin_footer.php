@@ -375,15 +375,17 @@ var cty = document.getElementById('chartProgram').getContext('2d');
 var myChart = new Chart(cty, {
   type: 'pie',
   data: {
-    labels: ['PK1', 'PK2', 'PB1', 'PB2'],
+    labels: ['PK1', 'PK2', 'PK3', 'PB1', 'PB2', 'PB3'],
     datasets: [{
       label: '# of Votes',
-      data: [40,20,30,10],
+      data: [5,20,30,10, 25, 10],
       backgroundColor: [
         '#FB8832',
         '#007AFF',
         '#9B51E0',
-        '#E6E5E6'
+        '#E6E5E6',
+        '#EC6363',
+        '#65DC71'
       ]
     }]
   },
