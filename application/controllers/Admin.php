@@ -51,6 +51,46 @@ class Admin extends CI_Controller
   {
     // read data analisis
     $data['tittle'] = 'Hasil Analisis';
+    $data['subtittle'] = 'Hasil Analisis';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['sekolah'] = $this->Sekolah_model->getSekolahByid(1);
+
+    // GRAPH DATA
+    $data['analisisKelompokTitle'] = ['Kelompok Atas', 'Kelompok Bawah', 'Kelompok Tengah'];
+    $data['analisisKelompokData'] = [60, 10, 30];
+
+    $data['analisisNilaiTitle'] = ['PK1', 'PK2', 'PK3', 'PK4', 'PK5', 'PK6'];
+    $data['analisisNilaiData'] = [5, 20, 30, 10, 25, 10];
+
+    $data['tingkatKesukaranTitle'] = ["", "VII","VIII","IX"];
+    $data['tingkatKesukaranKetuntasanBelajar'] = [0, 60, 75, 59];
+    $data['tingkatKesukaranRataRataNilai'] = [0, 55, 75, 89];
+    $data['tingkatKesukaranRataRataSkor'] = [0, 75, 99, 79];
+    $data['tingkatKesukaranRataRataNilaiAkhir'] = [0, 36, 68, 33];
+    
+    $data['dayaPembedaTitle'] = ["", "VII","VIII","IX"];
+    $data['dayaPembedaKetuntasanBelajar'] = [0, 60, 75, 59];
+    $data['dayaPembedaRataRataNilai'] = [0, 55, 75, 89];
+    $data['dayaPembedaRataRataSkor'] = [0, 75, 99, 79];
+    $data['dayaPembedaRataRataNilaiAkhir'] = [0, 36, 68, 33];
+
+    // Distribusi
+    $data['distribusiKelompokTitle'] = ['Kelompok Atas', 'Kelompok Bawah', 'Kelompok Tengah'];
+    $data['distribusiKelompokData'] = [60, 10, 30];
+
+    $data['distribusiNilaiTitle'] = ['PK1', 'PK2', 'PK3', 'PK4', 'PK5', 'PK6'];
+    $data['distribusiNilaiData'] = [5, 20, 30, 10, 25, 10];
+
+    $data['distribusiKetuntasanTitle'] = ['PK1', 'PK2', 'PK3', 'PK4', 'PK5', 'PK6'];
+    $data['distribusiKetuntasanData'] = [5, 20, 30, 10, 25, 10];
+
+    $data['distribusiTindakLanjutTitle'] = ['PK1', 'PK2', 'PK3', 'PK4', 'PK5', 'PK6'];
+    $data['distribusiTindakLanjutData'] = [5, 20, 30, 10, 25, 10];
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('admin/Analisis', $data);
+    $this->load->view('templates/admin_footer');
   }
 
   public function nilai()

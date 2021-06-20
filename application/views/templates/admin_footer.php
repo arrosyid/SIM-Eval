@@ -335,120 +335,395 @@
 <!-- Import Chart -->
 <script src="<?= base_url() ?>assets/plugins/chart.js/Chart.js"></script>
 
-<!-- Chart Kelompok Atas Bawah -->
+<!-- Chart Dashboard -->
 <script>
-var ctx = document.getElementById('chartKelompok').getContext('2d');
-var myChart = new Chart(ctx, {
-  type: 'pie',
-  data: {
-    labels: <?php echo json_encode($kelompokTitle); ?>,
-    datasets: [{
-      label: 'Kelompok',
-      data: <?php echo json_encode($kelompokData); ?>,
-      backgroundColor: [
-        '#FB8832',
-        '#007AFF'
-      ]
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
+  var chartKelompok = document.getElementById('chartKelompok').getContext('2d');
+  var myChart = new Chart(chartKelompok, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($kelompokTitle); ?>,
+      datasets: [{
+        label: 'Kelompok',
+        data: <?php echo json_encode($kelompokData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF'
+        ]
+      }]
     },
-    legend: {
-      position: "bottom",
-      labels: {
-        usePointStyle: true,
-        boxWidth: 6
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
       }
     }
-  }
-});
-</script>
-<!-- Chart Kelompok Atas Bawah -->
+  });
 
-<!-- Chart Program Perbaikan -->
-<script>
-var cty = document.getElementById('chartProgram').getContext('2d');
-var myChart = new Chart(cty, {
-  type: 'pie',
-  data: {
-    labels: <?php echo json_encode($programTitle); ?>,
-    datasets: [{
-      label: '# of Votes',
-      data: <?php echo json_encode($programData); ?>,
-      backgroundColor: [
-        '#FB8832',
-        '#007AFF',
-        '#9B51E0',
-        '#E6E5E6',
-        '#EC6363',
-        '#65DC71'
-      ]
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
+  var chartProgram = document.getElementById('chartProgram').getContext('2d');
+  var myChart = new Chart(chartProgram, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($programTitle); ?>,
+      datasets: [{
+        label: '# of Votes',
+        data: <?php echo json_encode($programData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF',
+          '#9B51E0',
+          '#E6E5E6',
+          '#EC6363',
+          '#65DC71'
+        ]
+      }]
     },
-    legend: {
-      position: "bottom",
-      labels: {
-        usePointStyle: true,
-        boxWidth: 6
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
       }
     }
-  }
-});
-</script>
-<!-- Chart Program Perbaikan -->
+  });
 
-<!-- Chart Program Perbaikan -->
-<script>
-var cty = document.getElementById('chartKetuntasan').getContext('2d');
-var myChart = new Chart(cty, {
-  type: 'line',
-  data: {
-    labels: <?php echo json_encode($grafikTitle); ?>,
-    datasets: [{ 
-        data: <?php echo json_encode($grafikKetuntasanBelajar); ?>,
-        label: "Ketuntasan Belajar",
-        borderColor: "#3e95cd",
-        fill: false
-      }, { 
-        data: <?php echo json_encode($grafikRataRataNilai); ?>,
-        label: "Rata-rata Nilai",
-        borderColor: "#8e5ea2",
-        fill: false
-      }, { 
-        data: <?php echo json_encode($grafikRataRataSkor); ?>,
-        label: "Rata-rata Skor",
-        borderColor: "#3cba9f",
-        fill: false
-      }, { 
-        data: <?php echo json_encode($grafikRataRataNilaiAkhir); ?>,
-        label: "Rata-rata Nilai Akhir",
-        borderColor: "#e8c3b9",
-        fill: false
-      }
-    ]
-  },
-  options: {
-    legend: {
-      position: "right",
-      labels: {
-        usePointStyle: true,
-        boxWidth: 6
+  var chartKetuntasan = document.getElementById('chartKetuntasan').getContext('2d');
+  var myChart = new Chart(chartKetuntasan, {
+    type: 'line',
+    data: {
+      labels: <?php echo json_encode($grafikTitle); ?>,
+      datasets: [{ 
+          data: <?php echo json_encode($grafikKetuntasanBelajar); ?>,
+          label: "Ketuntasan Belajar",
+          borderColor: "#3e95cd",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($grafikRataRataNilai); ?>,
+          label: "Rata-rata Nilai",
+          borderColor: "#8e5ea2",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($grafikRataRataSkor); ?>,
+          label: "Rata-rata Skor",
+          borderColor: "#3cba9f",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($grafikRataRataNilaiAkhir); ?>,
+          label: "Rata-rata Nilai Akhir",
+          borderColor: "#e8c3b9",
+          fill: false
+        }
+      ]
+    },
+    options: {
+      legend: {
+        position: "right",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
       }
     }
-  }
-});
+  });
 </script>
-<!-- Chart Program Perbaikan -->
+<!-- End Chart Dashboard -->
+
+<!-- Chart Dashboard -->
+<script>
+
+  var chartTingkatKesukaran = document.getElementById('chartTingkatKesukaran').getContext('2d');
+  var myChart = new Chart(chartTingkatKesukaran, {
+    type: 'line',
+    data: {
+      labels: <?php echo json_encode($tingkatKesukaranTitle); ?>,
+      datasets: [{ 
+          data: <?php echo json_encode($tingkatKesukaranKetuntasanBelajar); ?>,
+          label: "Ketuntasan Belajar",
+          borderColor: "#3e95cd",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($tingkatKesukaranRataRataNilai); ?>,
+          label: "Rata-rata Nilai",
+          borderColor: "#8e5ea2",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($tingkatKesukaranRataRataSkor); ?>,
+          label: "Rata-rata Skor",
+          borderColor: "#3cba9f",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($tingkatKesukaranRataRataNilaiAkhir); ?>,
+          label: "Rata-rata Nilai Akhir",
+          borderColor: "#e8c3b9",
+          fill: false
+        }
+      ]
+    },
+    options: {
+      legend: {
+        position: "right",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartDayaPembeda = document.getElementById('chartDayaPembeda').getContext('2d');
+  var myChart = new Chart(chartDayaPembeda, {
+    type: 'line',
+    data: {
+      labels: <?php echo json_encode($dayaPembedaTitle); ?>,
+      datasets: [{ 
+          data: <?php echo json_encode($dayaPembedaKetuntasanBelajar); ?>,
+          label: "Ketuntasan Belajar",
+          borderColor: "#3e95cd",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($dayaPembedaRataRataNilai); ?>,
+          label: "Rata-rata Nilai",
+          borderColor: "#8e5ea2",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($dayaPembedaRataRataSkor); ?>,
+          label: "Rata-rata Skor",
+          borderColor: "#3cba9f",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($dayaPembedaRataRataNilaiAkhir); ?>,
+          label: "Rata-rata Nilai Akhir",
+          borderColor: "#e8c3b9",
+          fill: false
+        }
+      ]
+    },
+    options: {
+      legend: {
+        position: "right",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartAnalisisKelompok = document.getElementById('chartAnalisisKelompok').getContext('2d');
+  var myChart = new Chart(chartAnalisisKelompok, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($analisisKelompokTitle); ?>,
+      datasets: [{
+        label: 'Kelompok',
+        data: <?php echo json_encode($analisisKelompokData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartAnalisisNilai = document.getElementById('chartAnalisisNilai').getContext('2d');
+  var myChart = new Chart(chartAnalisisNilai, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($analisisNilaiTitle); ?>,
+      datasets: [{
+        label: '# of Votes',
+        data: <?php echo json_encode($analisisNilaiData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF',
+          '#9B51E0',
+          '#E6E5E6',
+          '#EC6363',
+          '#65DC71'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  // Distribusi 
+
+  var chartDistribusiKelompok = document.getElementById('chartDistribusiKelompok').getContext('2d');
+  var myChart = new Chart(chartDistribusiKelompok, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($distribusiKelompokTitle); ?>,
+      datasets: [{
+        label: 'Kelompok',
+        data: <?php echo json_encode($distribusiKelompokData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartDistribusiNilai = document.getElementById('chartDistribusiNilai').getContext('2d');
+  var myChart = new Chart(chartDistribusiNilai, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($distribusiNilaiTitle); ?>,
+      datasets: [{
+        label: '# of Votes',
+        data: <?php echo json_encode($distribusiNilaiData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF',
+          '#9B51E0',
+          '#E6E5E6',
+          '#EC6363',
+          '#65DC71'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartDistribusiKetuntasan = document.getElementById('chartDistribusiKetuntasan').getContext('2d');
+  var myChart = new Chart(chartDistribusiKetuntasan, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($distribusiKetuntasanTitle); ?>,
+      datasets: [{
+        label: '# of Votes',
+        data: <?php echo json_encode($distribusiKetuntasanData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF',
+          '#9B51E0',
+          '#E6E5E6',
+          '#EC6363',
+          '#65DC71'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartDistribusiTindakLanjut = document.getElementById('chartDistribusiTindakLanjut').getContext('2d');
+  var myChart = new Chart(chartDistribusiTindakLanjut, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($distribusiTindakLanjutTitle); ?>,
+      datasets: [{
+        label: '# of Votes',
+        data: <?php echo json_encode($distribusiTindakLanjutData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF',
+          '#9B51E0',
+          '#E6E5E6',
+          '#EC6363',
+          '#65DC71'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+
+</script>
+<!-- End Chart Dashboard -->
 
 </body>
 
