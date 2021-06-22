@@ -19,16 +19,46 @@
 <!-- /.wraper -->
 
 <!-- Stylesheet -->
-<?php if ($tittle == 'Daftar Siswa') : ?>
-  <style>
-    /* Jumbotron for ProfileSekolah.php & ProfileAdmin.php */
-    .jumbotron-bg {
-      background: url("https://images.unsplash.com/photo-1553526777-5ffa3b3248d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"), linear-gradient(to bottom, #ADB2B6, #ABAEB3);
-      background-size: cover;
-      background-position: bottom;
-    }
-  </style>
-<?php endif ?>
+<style>
+  /* Dashboard */
+  .dashboard-card {
+    box-shadow: 0px 8px 5px rgba(0, 0, 0, 0.03);
+    border-radius: 5px;
+    padding: 1.5rem 1rem;
+  }
+  .card-orange {
+    background: linear-gradient(113.02deg, rgba(255, 77, 0, 0.63) 1.33%, rgba(255, 122, 0, 0.63) 54.21%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(255, 214, 0, 0.63) 99.24%);
+  }
+  .card-blue {
+    background: linear-gradient(113.02deg, rgba(86, 59, 255, 0.63) 1.33%, rgba(9, 175, 246, 0.63) 54.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(30, 215, 215, 0.63) 99.24%);
+  }
+  .card-gray {
+    background: linear-gradient(113.02deg, rgba(77, 88, 103, 0.63) 1.33%, rgba(158, 172, 179, 0.63) 54.21%, rgba(180, 191, 191, 0.63) 99.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(137, 137, 137, 0.63) 99.24%);
+  }
+  .card-purple {
+    background: linear-gradient(113.02deg, rgba(173, 0, 255, 0.63) 1.33%, rgba(207, 76, 209, 0.63) 54.21%, rgba(208, 99, 255, 0.63) 99.2%, rgba(180, 191, 191, 0.63) 99.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(237, 42, 241, 0.63) 99.24%);
+  }
+
+  /* Jumbotron for ProfileSekolah.php & ProfileAdmin.php */
+  .jumbotron-bg {
+    background: url("https://images.unsplash.com/photo-1553526777-5ffa3b3248d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"), linear-gradient(to bottom, #ADB2B6, #ABAEB3);
+    background-size: cover;
+    background-position: bottom;
+  }
+
+  /* Dashbord Activity Monitor */
+  .badge {
+    width: 1.5rem;
+    height:1.5rem;
+    border-radius: 50%;
+  }
+  .badge-green {
+    background-color: #51CF66;
+  }
+  .badge-red {
+    background-color: #D45151;
+  }
+</style>
 
 <!-- jQuery -->
 <script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
@@ -323,6 +353,398 @@
 </script>
 <!-- End Input Lainnya -->
 
+<!-- Import Chart -->
+<script src="<?= base_url() ?>assets/plugins/chart.js/Chart.js"></script>
+
+<!-- Chart Dashboard -->
+<script>
+  var chartKelompok = document.getElementById('chartKelompok').getContext('2d');
+  var myChart = new Chart(chartKelompok, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($kelompokTitle); ?>,
+      datasets: [{
+        label: 'Kelompok',
+        data: <?php echo json_encode($kelompokData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartProgram = document.getElementById('chartProgram').getContext('2d');
+  var myChart = new Chart(chartProgram, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($programTitle); ?>,
+      datasets: [{
+        label: '# of Votes',
+        data: <?php echo json_encode($programData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF',
+          '#9B51E0',
+          '#E6E5E6',
+          '#EC6363',
+          '#65DC71'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartKetuntasan = document.getElementById('chartKetuntasan').getContext('2d');
+  var myChart = new Chart(chartKetuntasan, {
+    type: 'line',
+    data: {
+      labels: <?php echo json_encode($grafikTitle); ?>,
+      datasets: [{ 
+          data: <?php echo json_encode($grafikKetuntasanBelajar); ?>,
+          label: "Ketuntasan Belajar",
+          borderColor: "#3e95cd",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($grafikRataRataNilai); ?>,
+          label: "Rata-rata Nilai",
+          borderColor: "#8e5ea2",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($grafikRataRataSkor); ?>,
+          label: "Rata-rata Skor",
+          borderColor: "#3cba9f",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($grafikRataRataNilaiAkhir); ?>,
+          label: "Rata-rata Nilai Akhir",
+          borderColor: "#e8c3b9",
+          fill: false
+        }
+      ]
+    },
+    options: {
+      legend: {
+        position: "right",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+</script>
+<!-- End Chart Dashboard -->
+
+<!-- Chart Dashboard -->
+<script>
+
+  var chartTingkatKesukaran = document.getElementById('chartTingkatKesukaran').getContext('2d');
+  var myChart = new Chart(chartTingkatKesukaran, {
+    type: 'line',
+    data: {
+      labels: <?php echo json_encode($tingkatKesukaranTitle); ?>,
+      datasets: [{ 
+          data: <?php echo json_encode($tingkatKesukaranKetuntasanBelajar); ?>,
+          label: "Ketuntasan Belajar",
+          borderColor: "#3e95cd",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($tingkatKesukaranRataRataNilai); ?>,
+          label: "Rata-rata Nilai",
+          borderColor: "#8e5ea2",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($tingkatKesukaranRataRataSkor); ?>,
+          label: "Rata-rata Skor",
+          borderColor: "#3cba9f",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($tingkatKesukaranRataRataNilaiAkhir); ?>,
+          label: "Rata-rata Nilai Akhir",
+          borderColor: "#e8c3b9",
+          fill: false
+        }
+      ]
+    },
+    options: {
+      legend: {
+        position: "right",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartDayaPembeda = document.getElementById('chartDayaPembeda').getContext('2d');
+  var myChart = new Chart(chartDayaPembeda, {
+    type: 'line',
+    data: {
+      labels: <?php echo json_encode($dayaPembedaTitle); ?>,
+      datasets: [{ 
+          data: <?php echo json_encode($dayaPembedaKetuntasanBelajar); ?>,
+          label: "Ketuntasan Belajar",
+          borderColor: "#3e95cd",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($dayaPembedaRataRataNilai); ?>,
+          label: "Rata-rata Nilai",
+          borderColor: "#8e5ea2",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($dayaPembedaRataRataSkor); ?>,
+          label: "Rata-rata Skor",
+          borderColor: "#3cba9f",
+          fill: false
+        }, { 
+          data: <?php echo json_encode($dayaPembedaRataRataNilaiAkhir); ?>,
+          label: "Rata-rata Nilai Akhir",
+          borderColor: "#e8c3b9",
+          fill: false
+        }
+      ]
+    },
+    options: {
+      legend: {
+        position: "right",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartAnalisisKelompok = document.getElementById('chartAnalisisKelompok').getContext('2d');
+  var myChart = new Chart(chartAnalisisKelompok, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($analisisKelompokTitle); ?>,
+      datasets: [{
+        label: 'Kelompok',
+        data: <?php echo json_encode($analisisKelompokData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartAnalisisNilai = document.getElementById('chartAnalisisNilai').getContext('2d');
+  var myChart = new Chart(chartAnalisisNilai, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($analisisNilaiTitle); ?>,
+      datasets: [{
+        label: '# of Votes',
+        data: <?php echo json_encode($analisisNilaiData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF',
+          '#9B51E0',
+          '#E6E5E6',
+          '#EC6363',
+          '#65DC71'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  // Distribusi 
+
+  var chartDistribusiKelompok = document.getElementById('chartDistribusiKelompok').getContext('2d');
+  var myChart = new Chart(chartDistribusiKelompok, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($distribusiKelompokTitle); ?>,
+      datasets: [{
+        label: 'Kelompok',
+        data: <?php echo json_encode($distribusiKelompokData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartDistribusiNilai = document.getElementById('chartDistribusiNilai').getContext('2d');
+  var myChart = new Chart(chartDistribusiNilai, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($distribusiNilaiTitle); ?>,
+      datasets: [{
+        label: '# of Votes',
+        data: <?php echo json_encode($distribusiNilaiData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF',
+          '#9B51E0',
+          '#E6E5E6',
+          '#EC6363',
+          '#65DC71'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartDistribusiKetuntasan = document.getElementById('chartDistribusiKetuntasan').getContext('2d');
+  var myChart = new Chart(chartDistribusiKetuntasan, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($distribusiKetuntasanTitle); ?>,
+      datasets: [{
+        label: '# of Votes',
+        data: <?php echo json_encode($distribusiKetuntasanData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF',
+          '#9B51E0',
+          '#E6E5E6',
+          '#EC6363',
+          '#65DC71'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+  var chartDistribusiTindakLanjut = document.getElementById('chartDistribusiTindakLanjut').getContext('2d');
+  var myChart = new Chart(chartDistribusiTindakLanjut, {
+    type: 'pie',
+    data: {
+      labels: <?php echo json_encode($distribusiTindakLanjutTitle); ?>,
+      datasets: [{
+        label: '# of Votes',
+        data: <?php echo json_encode($distribusiTindakLanjutData); ?>,
+        backgroundColor: [
+          '#FB8832',
+          '#007AFF',
+          '#9B51E0',
+          '#E6E5E6',
+          '#EC6363',
+          '#65DC71'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      legend: {
+        position: "bottom",
+        labels: {
+          usePointStyle: true,
+          boxWidth: 6
+        }
+      }
+    }
+  });
+
+
+</script>
+<!-- End Chart Dashboard -->
 
 </body>
 
