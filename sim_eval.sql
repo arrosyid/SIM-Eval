@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Bulan Mei 2021 pada 03.52
+-- Waktu pembuatan: 04 Jun 2021 pada 07.39
 -- Versi server: 10.4.18-MariaDB
 -- Versi PHP: 8.0.3
 
@@ -31,9 +31,20 @@ CREATE TABLE `r_pelajaran` (
   `id_pelajaran` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_mapel` int(11) NOT NULL,
-  `semester` int(11) NOT NULL,
-  `thn_pelajaran` int(11) NOT NULL
+  `semester` varchar(7) NOT NULL,
+  `thn_pelajaran` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `r_pelajaran`
+--
+
+INSERT INTO `r_pelajaran` (`id_pelajaran`, `id_kelas`, `id_mapel`, `semester`, `thn_pelajaran`) VALUES
+(1, 3, 1, 'GANJIL', '2020/2021'),
+(2, 1, 1, 'GENAP', '2020/2021'),
+(3, 4, 1, 'GANJIL', '2020/2021'),
+(4, 2, 1, 'GENAP', '2020/2021'),
+(5, 3, 3, 'GANJIL', '2020/2021\r\n');
 
 -- --------------------------------------------------------
 
@@ -58,7 +69,6 @@ CREATE TABLE `tb_analis_eval` (
 
 CREATE TABLE `tb_analis_soalpg` (
   `id_analispg` int(11) NOT NULL,
-  `id_pg` int(11) NOT NULL,
   `id_soal` int(11) NOT NULL,
   `pengecoh_a` varchar(11) NOT NULL,
   `pengecoh_b` varchar(11) NOT NULL,
@@ -81,13 +91,13 @@ CREATE TABLE `tb_analis_soaluo` (
   `id_analisuo` int(11) NOT NULL,
   `id_uraian` int(11) NOT NULL,
   `id_soal` int(11) NOT NULL,
+  `no_soal` int(3) NOT NULL,
   `rerata_skor` varchar(11) NOT NULL,
   `rerata_skorats` varchar(11) NOT NULL,
   `rerata_skorbwh` varchar(11) NOT NULL,
   `tingkat_kesukaran` varchar(11) NOT NULL,
   `daya_pembeda` varchar(11) NOT NULL,
-  `ket_soal` varchar(255) NOT NULL,
-  `no_soal` int(3) NOT NULL
+  `ket_soal` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -99,6 +109,7 @@ CREATE TABLE `tb_analis_soaluo` (
 CREATE TABLE `tb_dist_jwbpg` (
   `id_pg` int(11) NOT NULL,
   `id_soal` int(11) NOT NULL,
+  `id_siswa` int(11) NOT NULL,
   `kunci` int(1) NOT NULL,
   `no_1` varchar(1) NOT NULL,
   `no_2` varchar(1) NOT NULL,
@@ -161,6 +172,7 @@ CREATE TABLE `tb_dist_jwbpg` (
 CREATE TABLE `tb_dist_jwbuo` (
   `id_uraian` int(11) NOT NULL,
   `id_soal` int(11) NOT NULL,
+  `id_siswa` int(11) NOT NULL,
   `no_1` int(2) NOT NULL,
   `no_2` int(2) NOT NULL,
   `no_3` int(2) NOT NULL,
@@ -191,9 +203,7 @@ CREATE TABLE `tb_dist_jwbuo` (
 
 CREATE TABLE `tb_dist_nilai` (
   `id_skor` int(11) NOT NULL,
-  `id_pg` int(11) NOT NULL,
-  `id_uraian` int(11) NOT NULL,
-  `id_mapel` int(11) NOT NULL,
+  `id_soal` int(11) NOT NULL,
   `id_siswa` int(11) NOT NULL,
   `jmlh_skor` int(3) NOT NULL,
   `nilai_ujian` int(3) NOT NULL,
@@ -423,7 +433,6 @@ ALTER TABLE `tb_analis_eval`
 --
 ALTER TABLE `tb_analis_soalpg`
   ADD PRIMARY KEY (`id_analispg`),
-  ADD KEY `id_pg` (`id_pg`),
   ADD KEY `id_soal` (`id_soal`);
 
 --
@@ -439,24 +448,24 @@ ALTER TABLE `tb_analis_soaluo`
 --
 ALTER TABLE `tb_dist_jwbpg`
   ADD PRIMARY KEY (`id_pg`),
-  ADD KEY `id_soal` (`id_soal`);
+  ADD KEY `id_soal` (`id_soal`),
+  ADD KEY `id_siswa` (`id_siswa`);
 
 --
 -- Indeks untuk tabel `tb_dist_jwbuo`
 --
 ALTER TABLE `tb_dist_jwbuo`
   ADD PRIMARY KEY (`id_uraian`),
-  ADD KEY `id_soal` (`id_soal`);
+  ADD KEY `id_soal` (`id_soal`),
+  ADD KEY `id_siswa` (`id_siswa`);
 
 --
 -- Indeks untuk tabel `tb_dist_nilai`
 --
 ALTER TABLE `tb_dist_nilai`
   ADD PRIMARY KEY (`id_skor`),
-  ADD KEY `id_pg` (`id_pg`),
-  ADD KEY `id_mapel` (`id_mapel`),
-  ADD KEY `id_uraian` (`id_uraian`),
-  ADD KEY `id_siswa` (`id_siswa`);
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `id_soal` (`id_soal`);
 
 --
 -- Indeks untuk tabel `tb_guru`
@@ -527,7 +536,7 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT untuk tabel `r_pelajaran`
 --
 ALTER TABLE `r_pelajaran`
-  MODIFY `id_pelajaran` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelajaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_analis_eval`
@@ -640,7 +649,6 @@ ALTER TABLE `tb_analis_eval`
 -- Ketidakleluasaan untuk tabel `tb_analis_soalpg`
 --
 ALTER TABLE `tb_analis_soalpg`
-  ADD CONSTRAINT `tb_analis_soalpg_ibfk_1` FOREIGN KEY (`id_pg`) REFERENCES `tb_dist_jwbpg` (`id_pg`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tb_analis_soalpg_ibfk_2` FOREIGN KEY (`id_soal`) REFERENCES `tb_soal` (`id_soal`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -654,22 +662,22 @@ ALTER TABLE `tb_analis_soaluo`
 -- Ketidakleluasaan untuk tabel `tb_dist_jwbpg`
 --
 ALTER TABLE `tb_dist_jwbpg`
-  ADD CONSTRAINT `tb_dist_jwbpg_ibfk_1` FOREIGN KEY (`id_soal`) REFERENCES `tb_soal` (`id_soal`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tb_dist_jwbpg_ibfk_1` FOREIGN KEY (`id_soal`) REFERENCES `tb_soal` (`id_soal`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_dist_jwbpg_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `tb_siswa` (`id_siswa`) ON DELETE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tb_dist_jwbuo`
 --
 ALTER TABLE `tb_dist_jwbuo`
-  ADD CONSTRAINT `tb_dist_jwbuo_ibfk_1` FOREIGN KEY (`id_soal`) REFERENCES `tb_soal` (`id_soal`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tb_dist_jwbuo_ibfk_1` FOREIGN KEY (`id_soal`) REFERENCES `tb_soal` (`id_soal`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_dist_jwbuo_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `tb_siswa` (`id_siswa`) ON DELETE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tb_dist_nilai`
 --
 ALTER TABLE `tb_dist_nilai`
-  ADD CONSTRAINT `tb_dist_nilai_ibfk_1` FOREIGN KEY (`id_pg`) REFERENCES `tb_dist_jwbpg` (`id_pg`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tb_dist_nilai_ibfk_2` FOREIGN KEY (`id_uraian`) REFERENCES `tb_dist_jwbuo` (`id_uraian`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tb_dist_nilai_ibfk_3` FOREIGN KEY (`id_mapel`) REFERENCES `tb_mapel` (`id_mapel`),
-  ADD CONSTRAINT `tb_dist_nilai_ibfk_4` FOREIGN KEY (`id_siswa`) REFERENCES `tb_siswa` (`id_siswa`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tb_dist_nilai_ibfk_4` FOREIGN KEY (`id_siswa`) REFERENCES `tb_siswa` (`id_siswa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_dist_nilai_ibfk_5` FOREIGN KEY (`id_soal`) REFERENCES `tb_soal` (`id_soal`) ON DELETE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tb_guru`
