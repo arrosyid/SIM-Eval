@@ -30,7 +30,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="<?= $user['level'] == 1 ? base_url('admin') : base_url('guru/analisis') ?>" class="nav-link
+              <a href="<?= $user['level'] == 1 ? base_url('admin/analisis') : base_url('guru/analisis') ?>" class="nav-link
                         <?php if ($tittle == 'Hasil Analisis') echo 'active'; ?>">
                 <i class="fas fa-chart-line nav-icon"></i>
                 <p>Hasil Analisis</p>
