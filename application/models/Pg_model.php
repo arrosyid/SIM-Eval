@@ -57,14 +57,15 @@ class Pg_model extends CI_Model
   {
     $pg = $this->db->get_where('tb_dist_jwbpg', ['id_soal' => $id_soal] && ['kunci' => 0])->result_array();
     $kunci = $this->db->get_where('tb_dist_jwbpg', ['id_soal' => $id_soal] && ['kunci' => 1])->row_array();
-    $skor = $this->db->get_where('tb_soal', ['id_soal' => $id_soal]);
+    $data_soal = $this->db->get_where('tb_soal', ['id_soal' => $id_soal]);
     $count = count($pg);
     for ($j = 0; $j < $count; $j++) {
+      // diganti, data/nilai skor dimasukkan kedalam tabel masing2
       $nilai = [
         'jml_skor' => 0,
         'nilai' => 0
       ];
-      for ($i = 0; $i < $skor['jml_soal']; $i++) {
+      for ($i = 0; $i < $data_soal['jml_soal']; $i++) {
         if ($pg[$j][$i] == $kunci[$i]) {
           $pg["no_$i"] = 3;
           $nilai['jml_skor'] += 3;
@@ -72,7 +73,7 @@ class Pg_model extends CI_Model
           $pg["no_$i"] = 0;
         }
       }
-      $nilai['nilai'] = (int) round(($nilai['jml_skor'] / $skor['skor_max']) * 100);
+      $nilai['nilai'] = (int) round(($nilai['jml_skor'] / $data_soal['skor_max']) * 100);
       $id = [
         'id_pg' => $pg[$j]['id_pg'],
         'id_siswa' => $pg[$j]['id_siswa']

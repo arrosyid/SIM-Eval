@@ -60,6 +60,7 @@ class Uraian_model extends CI_Model
     $data_kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $data_soal['id_kelas']])->row_array();
 
     for ($i = 0; $i < $data_kelas['jml_siswa']; $i++) {
+      // diganti, data skor/nilai dimasukkan kedalam tabel masing2
       $nilai = [
         'jml_skor' => 0,
         'nilai' => 0,
