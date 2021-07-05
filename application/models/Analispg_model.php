@@ -6,6 +6,9 @@ class Analispg_model extends CI_Model
   // mengambil semua Analispg
   public function getAllAnalispg()
   {
+    $this->db->select('tb_analis_soalpg.*, tb_ujian.*')
+      ->from('tb_analis_soalpg')
+      ->join('tb_ujian', 'tb_ujian.id_ujian = tb_analis_soalpg.id_ujian');
     return $this->db->get('tb_analis_soalpg')->result_array();
   }
 
@@ -14,27 +17,19 @@ class Analispg_model extends CI_Model
   {
     // berdasarkan idAnalispg
     if ($type == 'id_analispg') {
-      $this->db->select('tb_analis_soalpg.*, tb_soal.*, tb_dist_jwbpg.*')
+      $this->db->select('tb_analis_soalpg.*, tb_ujian.*')
         ->from('tb_analis_soalpg')
-        ->where(['id_analispg' => $id])
-        ->join('tb_soal.id_soal = tb_analis_soalpg.id_soal, tb_analis_soalpg.id_pg = tb_dist_jwbpg.id_pg');
+        ->where(['tb_analis_soalpg.id_analispg' => $id])
+        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_analis_soalpg.id_ujian');
       return $this->db->get()->row_array();
     }
 
-    // berdasarkan id_pg
-    if ($type == 'id_pg') {
-      $this->db->select('tb_analis_soalpg.*, tb_soal.*, tb_dist_jwbpg.*')
+    // berdasarkan id_ujian
+    if ($type == 'id_ujian') {
+      $this->db->select('tb_analis_soalpg.*, tb_ujian.*')
         ->from('tb_analis_soalpg')
-        ->where(['id_pg' => $id])
-        ->join('tb_soal.id_soal = tb_analis_soalpg.id_soal, tb_analis_soalpg.id_pg = tb_dist_jwbpg.id_pg');
-      return $this->db->get()->row_array();
-    }
-    // berdasarkan id_soal
-    if ($type == 'id_soal') {
-      $this->db->select('tb_analis_soalpg.*, tb_soal.*, tb_dist_jwbpg.*')
-        ->from('tb_analis_soalpg')
-        ->where(['id_soal' => $id])
-        ->join('tb_soal.id_soal = tb_analis_soalpg.id_soal, tb_analis_soalpg.id_pg = tb_dist_jwbpg.id_pg');
+        ->where(['tb_analis_soalpg.id_ujian' => $id])
+        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_analis_soalpg.id_ujian');
       return $this->db->get()->row_array();
     }
   }
@@ -52,25 +47,31 @@ class Analispg_model extends CI_Model
     if ($type == 'id_analispg')
       return $this->db->delete('tb_analis_soalpg', ['id_analispg' => $id]);
 
-    // bersasarkan id pilihan ganda
-    if ($type == 'id_pg')
-      return $this->db->delete('tb_analis_soalpg', ['id_pg' => $id]);
-
-    // bersasarkan id soal
-    if ($type == 'id_soal')
-      return $this->db->delete('tb_analis_soalpg', ['id_soal' => $id]);
+    // bersasarkan id_ujian
+    if ($type == 'id_ujian')
+      return $this->db->delete('tb_analis_soalpg', ['id_ujian' => $id]);
   }
 
-  public function analisButirSoalPg($id_soal)
+  public function analisButirSoalPg($id_ujian)
   {
     // yang diambil => id_soal, id kelas
-    $data_soal = $this->db->get_where('tb_soal', ['id_soal' => $id_soal])->row_array();
-    $data_jwb = $this->db->get_where('tb_dist_jwbpg', ['id_soal' => $id_soal] && ['kunci' => 0])->result_array();
-    $kunci = $this->db->get_where('tb_dist_jwbpg', ['id_soal' => $id_soal] && ['kunci' => 1])->row_array();
-    $data_kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $data_soal['id_kelas']])->row_array();
+    $data_ujian = $this->db->get_where('tb_ujian', ['id_ujian' => $id_ujian])->row_array();
+    $data_jwb = $this->db->select('tb_soal.*, tb_dist_jwb.*')
+      ->from('tb_soal')
+      ->where(['id_ujian' => $id_ujian] && ['jenis_soal' => 'PILIHAN GANDA'])
+      ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_ujian')->get()->result_array();
+    // $soal = $this->db->get_where('tb_soal', ['id_ujian' => $id_ujian])->result_array();
+    // foreach ($soal as $S => $value) {
+    //   $data_jwb[$S] = $this->db->get_where('tb_dist_jwb', ['id_jawab' => $value['id_jawab']])->row_array();
+    // }
+    // $data_jwb = $this->db->get_where('tb_dist_jwb', ['id_ujian' => $id_ujian] && ['kunci' => 0])->result_array();
+    $kunci = $this->db->get_where('tb_dist_jwb', ['id_ujian' => $id_ujian] && ['kunci' => 1])->row_array();
+    $data_kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $data_ujian['id_kelas']])->row_array();
+
+    // [0] => {id_soal, id_siswa, id_jawab, id_ujian, jenis_soal, kelompok, jml_skor, nilai}
 
     // fungsi for sudah berhasil dan menampilkan jumlah jawaban persoal
-    for ($j = 1; $j <= $data_soal['jml_soal']; $j++) {
+    for ($j = 1; $j <= $data_ujian['jml_soalpg']; $j++) {
       $data_jmlJwb = [
         'jml_jwbBenar' => 0,
         'jml_jwbA' => 0,
@@ -136,8 +137,7 @@ class Analispg_model extends CI_Model
       // $data_jmlJwb['tingkat_kesukaran'] = $t_sukar;
       // $data_jmlJwb['daya_pembeda'] = $d_beda;
       $kriteria =  [
-        'id_soal' => $id_soal,
-        'id_pg' => $data_jwb['id_pg'],
+        'id_ujian' => $id_ujian,
         'ket_soal' => "$kriteriaTK, $kriteriaDP",
         'tingkat_kesukaran' => $t_sukar,
         'daya_pembeda' => $d_beda,

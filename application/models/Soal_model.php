@@ -6,11 +6,11 @@ class soal_model extends CI_Model
   // mengambil semua soal
   public function getAllSoal()
   {
-
-    $this->db->select('tb_soal.*, tb_mapel.*, tb_kelas.*')
+    $this->db->select('tb_soal.*, tb_siswa.*, tb_jawab.*, tb_ujian.*')
       ->from('tb_soal')
-      ->join('tb_mapel', 'tb_mapel.id_mapel = tb_soal.id_mapel')
-      ->join('tb_kelas', 'tb_kelas.id_kelas = tb_soal.id_kelas');
+      ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
+      ->join('tb_jawab', 'tb_dist_jawab.id_jawab = tb_soal.id_jawab')
+      ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
     return $this->db->get()->result_array();
   }
 
@@ -19,31 +19,45 @@ class soal_model extends CI_Model
   {
     // berdasarkan idsoal
     if ($type == 'id_soal') {
-      $this->db->select('tb_soal.*, tb_mapel.*, tb_kelas.*')
+      $this->db->select('tb_soal.*, tb_siswa.*, tb_jawab.*, tb_ujian.*')
         ->from('tb_soal')
         ->where(['id_soal' => $id])
-        ->join('tb_mapel', 'tb_mapel.id_mapel = tb_soal.id_mapel')
-        ->join('tb_kelas', 'tb_kelas.id_kelas = tb_soal.id_kelas');
+        ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
+        ->join('tb_jawab', 'tb_dist_jawab.id_jawab = tb_soal.id_jawab')
+        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
       return $this->db->get()->row_array();
     }
 
-    // berdasarkan id_mapel
-    if ($type == 'id_mapel') {
-      $this->db->select('tb_soal.*, tb_mapel.*, tb_kelas.*')
+    // berdasarkan id_siswa
+    if ($type == 'id_siswa') {
+      $this->db->select('tb_soal.*, tb_siswa.*, tb_jawab.*, tb_ujian.*')
         ->from('tb_soal')
-        ->where(['tb_mapel.id_mapel' => $id])
-        ->join('tb_mapel', 'tb_mapel.id_mapel = tb_soal.id_mapel')
-        ->join('tb_kelas', 'tb_kelas.id_kelas = tb_soal.id_kelas');
+        ->where(['tb_siswa.id_siswa' => $id])
+        ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
+        ->join('tb_jawab', 'tb_dist_jawab.id_jawab = tb_soal.id_jawab')
+        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
       return $this->db->get()->result_array();
     }
 
-    // berdasarkan id_kelas
-    if ($type == 'id_kelas') {
-      $this->db->select('tb_soal.*, tb_mapel.*, tb_kelas.*')
+    // berdasarkan id_jawab
+    if ($type == 'id_jawab') {
+      $this->db->select('tb_soal.*, tb_siswa.*, tb_jawab.*, tb_ujian.*')
         ->from('tb_soal')
-        ->where(['tb_kelas.id_kelas' => $id])
-        ->join('tb_mapel', 'tb_mapel.id_mapel = tb_soal.id_mapel')
-        ->join('tb_kelas', 'tb_kelas.id_kelas = tb_soal.id_kelas');
+        ->where(['tb_dist_jawab.id_jawab' => $id])
+        ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
+        ->join('tb_jawab', 'tb_dist_jawab.id_jawab = tb_soal.id_jawab')
+        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
+      return $this->db->get()->result_array();
+    }
+
+    // berdasarkan id_ujian
+    if ($type == 'id_ujian') {
+      $this->db->select('tb_soal.*, tb_siswa.*, tb_jawab.*, tb_ujian.*')
+        ->from('tb_soal')
+        ->where(['tb_ujian.id_ujian' => $id])
+        ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
+        ->join('tb_jawab', 'tb_dist_jawab.id_jawab = tb_soal.id_jawab')
+        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
       return $this->db->get()->result_array();
     }
   }
@@ -61,11 +75,16 @@ class soal_model extends CI_Model
     if ($type == 'id_soal')
       return $this->db->delete('tb_soal', ['id_soal' => $id]);
 
-    // berdasarkan id_mapel
-    if ($type == 'id_mapel')
-      return $this->db->delete('tb_soal', ['id_mapel' => $id]);
+    // berdasarkan id_siswa
+    if ($type == 'id_siswa')
+      return $this->db->delete('tb_soal', ['id_siswa' => $id]);
 
-    if ($type == 'id_kelas')
-      return $this->db->delete('tb_soal', ['id_kelas' => $id]);
+    // berdasarkan id_jawab
+    if ($type == 'id_jawab')
+      return $this->db->delete('tb_soal', ['id_jawab' => $id]);
+
+    // berdasarkan id_ujian
+    if ($type == 'id_ujian')
+      return $this->db->delete('tb_soal', ['id_ujian' => $id]);
   }
 }

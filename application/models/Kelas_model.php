@@ -20,7 +20,7 @@ class Kelas_model extends CI_Model
     if ($type == 'id_kelas') {
       $this->db->select('tb_kelas.*, tb_guru.*')
         ->from('tb_kelas')
-        ->where(['id_kelas' => $id])
+        ->where(['tb_kelas.id_kelas' => $id])
         ->join('tb_guru', 'tb_kelas.id_guru = tb_guru.id_guru');
       return $this->db->get()->row_array();
     }
@@ -29,7 +29,7 @@ class Kelas_model extends CI_Model
     if ($type == 'id_guru') {
       $this->db->select('tb_kelas.*, tb_guru.*')
         ->from('tb_kelas')
-        ->where(['tb_guru.id_guru' => $id])
+        ->where(['tb_kelas.id_guru' => $id])
         ->join('tb_guru', 'tb_kelas.id_guru = tb_guru.id_guru');
       return $this->db->get()->result_array();
     }

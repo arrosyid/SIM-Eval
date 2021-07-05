@@ -6,7 +6,10 @@ class Analisuo_model extends CI_Model
   // mengambil semua Analisuo
   public function getAllAnalisuo()
   {
-    return $this->db->get('tb_analis_soaluo')->result_array();
+    $this->db->select('tb_analis_soaluo.*, tb_ujian.*')
+      ->from('tb_analis_soaluo')
+      ->join('tb_ujian', 'tb_ujian.id_ujian = tb_analis_soaluo.id_ujian');
+    return $this->db->get()->result_array();
   }
 
   // mengambil data Analisuo berdasarkan tipe id
@@ -14,27 +17,19 @@ class Analisuo_model extends CI_Model
   {
     // berdasarkan idAnalisuo
     if ($type == 'id_analisuo') {
-      $this->db->select('tb_analis_soaluo.*, tb_soal.*, tb_dist_jwbpg.*')
+      $this->db->select('tb_analis_soaluo.*, tb_soal.*')
         ->from('tb_analis_soaluo')
-        ->where(['id_analisuo' => $id])
-        ->join('tb_soal.id_soal = tb_analis_soaluo.id_soal, tb_analis_soaluo.id_uraian = tb_dist_jwbpg.id_uraian');
+        ->where(['tb_analis_soaluo.id_analisuo' => $id])
+        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_analis_soaluo.id_ujian');
       return $this->db->get()->row_array();
     }
 
-    // berdasarkan id_uraian
-    if ($type == 'id_uraian') {
-      $this->db->select('tb_analis_soaluo.*, tb_soal.*, tb_dist_jwbpg.*')
+    // berdasarkan id_ujian
+    if ($type == 'id_ujian') {
+      $this->db->select('tb_analis_soaluo.*, tb_soal.*')
         ->from('tb_analis_soaluo')
-        ->where(['id_uraian' => $id])
-        ->join('tb_soal.id_soal = tb_analis_soaluo.id_soal, tb_analis_soaluo.id_uraian = tb_dist_jwbpg.id_uraian');
-      return $this->db->get()->row_array();
-    }
-    // berdasarkan id_soal
-    if ($type == 'id_soal') {
-      $this->db->select('tb_analis_soaluo.*, tb_soal.*, tb_dist_jwbpg.*')
-        ->from('tb_analis_soaluo')
-        ->where(['id_soal' => $id])
-        ->join('tb_soal.id_soal = tb_analis_soaluo.id_soal, tb_analis_soaluo.id_uraian = tb_dist_jwbpg.id_uraian');
+        ->where(['tb_analis_soaluo.id_ujian' => $id])
+        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_analis_soaluo.id_ujian');
       return $this->db->get()->row_array();
     }
   }
@@ -52,24 +47,23 @@ class Analisuo_model extends CI_Model
     if ($type == 'id_analisuo')
       return $this->db->delete('tb_analis_soaluo', ['id_analisuo' => $id]);
 
-    // bersasarkan id uraian
-    if ($type == 'id_uraian')
-      return $this->db->delete('tb_analis_soaluo', ['id_uraian' => $id]);
-
-    // bersasarkan id soal
-    if ($type == 'id_soal')
-      return $this->db->delete('tb_analis_soaluo', ['id_soal' => $id]);
+    // bersasarkan id_ujian
+    if ($type == 'id_ujian')
+      return $this->db->delete('tb_analis_soaluo', ['id_ujian' => $id]);
   }
 
-  public function analisButirSoalUO($id_soal)
+  public function analisButirSoalUO($id_ujian)
   {
     // yang diambil => id_soal, id kelas
-    $uraian = $this->db->get_where('tb_dist_jwbuo', ['id_soal' => $id_soal])->result_array();
-    $data_soal = $this->db->get_where('tb_soal', ['id_soal' => $id_soal])->row_array();
-    $data_kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $data_soal['id_kelas']])->row_array();
+    $data_ujian = $this->db->get_where('tb_ujian', ['id_ujian' => $id_ujian])->row_array();
+    $data_jwb = $this->db->select('tb_soal.*, tb_dist_jwb.*')
+      ->from('tb_soal')
+      ->where(['tb_soal.id_ujian' => $id_ujian] && ['tb_soal.jenis_soal' => 'URAIAN'])
+      ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_ujian')->get()->result_array();
+    $data_kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $data_ujian['id_kelas']])->row_array();
 
     // fungsi for sudah berhasil dan menampilkan jumlah jawaban persoal
-    for ($j = 1; $j <= $data_soal['jml_soal']; $j++) {
+    for ($j = 1; $j <= $data_ujian['jml_soal']; $j++) {
       // for ($j = 0; $j < $countSoal; $j++) {
       $analis_uraian = [
         'rerata_skor' => 0,
@@ -78,9 +72,9 @@ class Analisuo_model extends CI_Model
       ];
       $rerata = 0;
       for ($i = 0; $i < $data_kelas['jml_siswa']; $i++) {
-        $rerata += $uraian[$i][$j];
+        $rerata += (int) $data_jwb[$i]["no_$j"];
       }
-      $analis_uraian['rerata_skor'] = round($rerata / $data_soal['skor_max'], 2);
+      $analis_uraian['rerata_skor'] = round($rerata / $data_ujian['skor_max'], 2);
       $t_sukar = round($analis_uraian['rerata_skor'] / $data_kelas['jml_siswa'], 2);
       $d_beda = round(($analis_uraian['rerata_skorAts'] - $analis_uraian['rerata_skorBwh']) / $data_kelas['jml_siswa'], 2);
 

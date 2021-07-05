@@ -26,7 +26,7 @@ class Record_model extends CI_Model
     if ($type == 'id_record') {
       $this->db->select('tb_record_login.*, tb_user.*')
         ->from('tb_record_login')
-        ->where(['id_record' => $id])
+        ->where(['tb_record_login.id_record' => $id])
         ->join('tb_user', 'tb_user.id_user = tb_record_login.id_user');
       return $this->db->get()->row_array();
     }
@@ -35,7 +35,7 @@ class Record_model extends CI_Model
     if ($type == 'id_user') {
       $this->db->select('tb_record_login.*, tb_user.*')
         ->from('tb_record_login')
-        ->where(['tb_user.id_user' => $id])
+        ->where(['tb_record_login.id_user' => $id])
         ->join('tb_user', 'tb_user.id_user = tb_record_login.id_user');
       return $this->db->get()->result_array();
     }
