@@ -161,4 +161,40 @@ class soal_model extends CI_Model
     // cek lagi returnnya
     return $this->db->update('tb_kelas', $AtasBwh, ['id_kelas' => $id_kelas]);
   }
+
+  // menentukan kelompok atas, bawah dan tengah
+  // fungsi selesai tinggal dimasukkan kedalam database
+  public function updateKelompok($tipe_soal, $id_ujian)
+  {
+    // yang diambil => id_pg, id_score, data
+    $data_ujian = $this->db->get_where('tb_ujian', ['id_ujian' => $id_ujian])->row_array();
+    if ($tipe_soal == 'PILIHAN GANDA' || 'URAIAN' || 'PG') {
+      $data_soal = $this->db->get_where('tb_soal', ['id_ujian' => $id_ujian] && ['jenis_soal' => $tipe_soal])->result_array();
+    } elseif ($tipe_soal == 'NILAI') {
+      $data_soal = $this->db->get_where('tb_dist_nilai', ['id_ujian' => $id_ujian])->result_array();
+    }
+    $data_kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $data_ujian['id_kelas']])->row_array();
+
+    array_multisort(array_column($data_soal, 'nilai'), SORT_DESC, $data_soal);
+
+    for ($i = 0; $i < $data_kelas['jml_siswa']; $i++) {
+      $data_soal[$i]['kelompok'] = null;
+      for ($j = 0; $j < $data_kelas['jml_kelAtsBwh']; $j++) {
+        $data_soal[$j]['kelompok'] = 'ATS';
+      }
+      for ($k = $data_kelas['jml_siswa']; $k > $data_kelas['jml_kelTengah']; $k--) {
+        $data_soal[$k]['kelompok'] = 'BWH';
+      }
+      if ($data_soal[$i]['kelompok'] == null) {
+        $data_soal[$i]['kelompok'] = 'TGH';
+      }
+    }
+    // return $data_soal; // dihapus
+    // cek lagi returnnya ke database
+    if ($tipe_soal == 'PILIHAN GANDA' || 'URAIAN' || 'PG') {
+      return $this->db->update_batch('tb_soal', $data_soal, 'id_soal');
+    } elseif ($tipe_soal == 'NILAI') {
+      return $this->db->update_batch('tb_dist_nilai', $data_soal, 'id_skor');
+    }
+  }
 }
