@@ -41,8 +41,8 @@
                   <td><?= $S['skor_max'] ?></td>
                   <td><?= date('d-m-Y', $S['jml_soal']) ?></td>
                   <td>
-                    <a href="" data-toggle="modal" data-target="#editSoal" id="<?= $S['id_soal'] ?>" class="badge badge-success view-data">edit</a>
-                    <a href="#" data-url="<?= base_url('admin/delete/soal/') . $S['id_soal'] ?>" class="delete-daftar-soal badge badge-danger">hapus</a>
+                    <a href="" data-toggle="modal" data-target="#editSoal" id="<?= $S['id_soal'] ?>" class="btn btn-success view-data">edit</a>
+                    <a href="#" data-url="<?= base_url('admin/delete/soal/') . $S['id_soal'] ?>" class="delete-daftar-soal btn btn-danger">hapus</a>
                   </td>
                 </tr>
                 <?php $i++; ?>

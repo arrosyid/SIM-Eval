@@ -44,8 +44,8 @@
                 <td><?= $P['semester'] ?></td>
                 <td><?= $P['thn_pelajaran'] ?></td>
                 <td>
-                  <a href="" data-toggle="modal" data-target="#editPelajaran" id="<?= $P['id_pelajaran'] ?>" class="badge badge-success view-data">edit</a>
-                  <a href="#" class="badge badge-danger">hapus</a>
+                  <a href="" data-toggle="modal" data-target="#editPelajaran" id="<?= $P['id_pelajaran'] ?>" class="btn btn-success view-data">edit</a>
+                  <a href="#" class="btn btn-danger">hapus</a>
                 </td>
               </tr>
               <?php $i++; ?>

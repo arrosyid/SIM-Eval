@@ -31,8 +31,8 @@
                   <td><?= $S['nis'] ?></td>
                   <td><?= $S['kelas'] . ' ' . $S['bidang'] . ' ' . $S['nomor_kelas'] ?></td>
                   <td>
-                    <a href="" data-toggle="modal" data-target="#editSiswa" id="<?= $S['id_siswa'] ?>" class="badge badge-success view-data">edit</a>
-                    <a href="#" data-url="<?= base_url('index.php/admin/delete/siswa/') . $S['id_siswa'] ?>" class="delete-daftar-siswa badge badge-danger">hapus</a>
+                    <a href="" data-toggle="modal" data-target="#editSiswa" id="<?= $S['id_siswa'] ?>" class="btn btn-success view-data">edit</a>
+                    <a href="#" data-url="<?= base_url('index.php/admin/delete/siswa/') . $S['id_siswa'] ?>" class="delete-daftar-siswa btn btn-danger">hapus</a>
                   </td>
                 </tr>
                 <?php $i++; ?>

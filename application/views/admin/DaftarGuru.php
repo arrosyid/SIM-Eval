@@ -32,8 +32,8 @@
                   <td><?= $G['nip'] ?></td>
                   <td><?= $G['mapel'] ?></td>
                   <td>
-                    <a href="" data-toggle="modal" data-target="#editGuru" id="<?= $G['id_guru'] ?>" class="badge badge-success view-data">edit</a>
-                    <a href="#" data-url="<?= base_url('admin/delete/guru/') . $G['id_guru'] ?>" class="delete-daftar-guru badge badge-danger">hapus</a>
+                    <a href="" data-toggle="modal" data-target="#editGuru" id="<?= $G['id_guru'] ?>" class="btn btn-success view-data">edit</a>
+                    <a href="#" data-url="<?= base_url('admin/delete/guru/') . $G['id_guru'] ?>" class="delete-daftar-guru btn btn-danger">hapus</a>
                   </td>
                 </tr>
                 <?php $i++; ?>
