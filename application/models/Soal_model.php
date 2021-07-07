@@ -148,4 +148,17 @@ class soal_model extends CI_Model
       return $this->db->update_batch('tb_soal', $skor, 'id_soal');
     }
   }
+
+  // fungsi sudah dapat dipakai
+  // menentukan jumlah kelompok atas dan bawah
+  public function kelAtasBawah($id_kelas)
+  {
+    $kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $id_kelas])->row_array();
+    // $kelas['jml_siswa'] = 47;
+    $AtasBwh['jml_kelAtsBwh'] = (int) round((30 / 100) * $kelas['jml_siswa']);
+    $AtasBwh['jml_kelTengah'] = $kelas['jml_siswa'] - ($AtasBwh['jml_kelAtsBwh'] * 2);
+    // return $AtasBwh; // hapus
+    // cek lagi returnnya
+    return $this->db->update('tb_kelas', $AtasBwh, ['id_kelas' => $id_kelas]);
+  }
 }
