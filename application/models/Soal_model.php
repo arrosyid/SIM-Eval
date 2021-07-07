@@ -87,4 +87,65 @@ class soal_model extends CI_Model
     if ($type == 'id_ujian')
       return $this->db->delete('tb_soal', ['id_ujian' => $id]);
   }
+
+  public function skor($tipe_soal, $id_ujian)
+  {
+    $data_ujian = $this->db->get_where('tb_ujian', ['id_ujian' => $id_ujian])->row_array();
+    $kunci = $this->db->get_where('tb_dist_jwb', ['id_ujian' => $id_ujian] && ['kunci' => 1])->row_array();
+    $data_kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $data_ujian['id_kelas']])->row_array();
+    // untuk pilihan ganda
+    if ($tipe_soal == 'PILIHAN GANDA') {
+      $data_jwb = $this->db->select('tb_soal.*, tb_dist_jwb.*')
+        ->from('tb_soal')
+        ->where(['id_ujian' => $id_ujian] && ['jenis_soal' => 'PILIHAN GANDA'])
+        ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_ujian')->get()->result_array();
+      for ($j = 0; $j < $data_kelas['jml_siswa']; $j++) {
+        // diganti, data/nilai skor dimasukkan kedalam tabel masing2
+        $nilai = [
+          'jml_skor' => 0,
+          'nilai' => 0,
+          'kelompok' => null,
+          'id_soal' => $data_jwb[$j]['id_soal'],
+        ];
+        for ($i = 0; $i < $data_ujian['jml_soalpg']; $i++) {
+          if ($data_jwb[$j][$i] == $kunci[$i]) {
+            $data_jwb["no_$i"] = 3;
+            $nilai['jml_skor'] += 3;
+          } else {
+            $data_jwb["no_$i"] = 0;
+          }
+        }
+        $nilai['nilai'] = (int) round(($nilai['jml_skor'] / $data_ujian['skor_maxpg']) * 100);
+        $skor[$j] = $nilai;
+      }
+      // return $skor; // hapus
+      // cek lagi returnnya ke database
+      return $this->db->update_batch('tb_soal', $skor, 'id_soal');
+
+      // untuk uraian
+    } elseif ($tipe_soal == 'URAIAN') {
+      $data_jwb = $this->db->select('tb_soal.*, tb_dist_jwb.*')
+        ->from('tb_soal')
+        ->where(['tb_soal.id_ujian' => $id_ujian] && ['tb_soal.jenis_soal' => 'URAIAN'])
+        ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_ujian')->get()->result_array();
+      for ($j = 0; $j < $data_kelas['jml_siswa']; $j++) {
+        // diganti, data/nilai skor dimasukkan kedalam tabel masing2
+        $nilai = [
+          'jml_skor' => 0,
+          'nilai' => 0,
+          'kelompok' => null,
+          'id_soal' => $data_jwb[$j]['id_soal'],
+        ];
+        for ($i = 0; $i < $data_ujian['jml_soaluo']; $i++) {
+          // $nilai['jml_skor'] += $uraian[$i][$j];
+          $nilai['jml_skor'] += $data_jwb[$i][$j];
+        }
+        $nilai['nilai'] = (int) round(($nilai['jml_skor'] / $data_ujian['skor_maxuo']) * 100);
+        $skor[$j] = $nilai;
+      }
+      return $skor; // hapus
+      // cek lagi returnnya ke database
+      return $this->db->update_batch('tb_soal', $skor, 'id_soal');
+    }
+  }
 }
