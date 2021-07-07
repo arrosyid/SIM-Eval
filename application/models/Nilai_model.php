@@ -201,6 +201,22 @@ class Nilai_model extends CI_Model
     // cek lagi returnnya ke database
     return $this->db->update_batch('tb_dist_nilai', $hasil, 'id_skor');
   }
+
+  public function daftarTuntas($id_ujian)
+  {
+    $data_ujian = $this->db->get_where('tb_ujian', ['id_ujian' => $id_ujian])->row_array();
+    $tidak_tuntas = $this->db->get_where('tb_dist_nilai', ['id_ujian' => $id_ujian] && ['tuntas_belajar' => 'TIDAK TUNTAS'])->result_array();
+    $tuntas = $this->db->get_where('tb_dist_nilai', ['id_ujian' => $id_ujian] && ['tuntas_belajar' => 'TUNTAS'])->result_array();
+    $persen = [
+      'tuntas' => 0,
+      'tidak_tuntas' => 0,
+    ];
+    $persen['tidak_tuntas'] = ($data_ujian['jml_siswa'] / array_sum($tidak_tuntas)) * 100;
+    $$persen['tuntas'] = ($data_ujian['jml_siswa'] / array_sum($tuntas)) * 100;
+
+    array_push($tidak_tuntas, ['persen' => $persen]);
+    return $tidak_tuntas;
+  }
   // akb 2
   // echo nama siswa tidak tuntas
   // jml_siswa/jml_tuntas*100  = persentase siswa tuntas
