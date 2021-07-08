@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
   'dsn'  => '',
-  'hostname' => 'localhost',
-  'username' => 'root',
-  'password' => '',
-  'database' => 'sim_eval',
+  'hostname' => '127.0.0.1',
+  'username' => 'u8399122_simeval',
+  'password' => 'Avu^jPF-2d6?',
+  'database' => 'u8399122_sim_eval',
   'dbdriver' => 'mysqli',
   'dbprefix' => '',
   'pconnect' => FALSE,
