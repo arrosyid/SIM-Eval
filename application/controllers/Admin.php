@@ -35,7 +35,7 @@ class Admin extends CI_Controller
     $data['programTitle'] = ['PK1', 'PK2', 'PK3', 'PK4', 'PK5', 'PK6'];
     $data['programData'] = [5, 20, 30, 10, 25, 10];
 
-    $data['grafikTitle'] = ["", "VII","VIII","IX"];
+    $data['grafikTitle'] = ["", "VII", "VIII", "IX"];
     $data['grafikKetuntasanBelajar'] = [0, 60, 75, 59];
     $data['grafikRataRataNilai'] = [0, 55, 75, 89];
     $data['grafikRataRataSkor'] = [0, 75, 99, 79];
@@ -62,13 +62,13 @@ class Admin extends CI_Controller
     $data['analisisNilaiTitle'] = ['PK1', 'PK2', 'PK3', 'PK4', 'PK5', 'PK6'];
     $data['analisisNilaiData'] = [5, 20, 30, 10, 25, 10];
 
-    $data['tingkatKesukaranTitle'] = ["", "VII","VIII","IX"];
+    $data['tingkatKesukaranTitle'] = ["", "VII", "VIII", "IX"];
     $data['tingkatKesukaranKetuntasanBelajar'] = [0, 60, 75, 59];
     $data['tingkatKesukaranRataRataNilai'] = [0, 55, 75, 89];
     $data['tingkatKesukaranRataRataSkor'] = [0, 75, 99, 79];
     $data['tingkatKesukaranRataRataNilaiAkhir'] = [0, 36, 68, 33];
-    
-    $data['dayaPembedaTitle'] = ["", "VII","VIII","IX"];
+
+    $data['dayaPembedaTitle'] = ["", "VII", "VIII", "IX"];
     $data['dayaPembedaKetuntasanBelajar'] = [0, 60, 75, 59];
     $data['dayaPembedaRataRataNilai'] = [0, 55, 75, 89];
     $data['dayaPembedaRataRataSkor'] = [0, 75, 99, 79];
@@ -93,6 +93,12 @@ class Admin extends CI_Controller
     $this->load->view('templates/admin_footer');
   }
 
+  public function test()
+  {
+    $this->load->model('Kelas_model');
+    var_dump($this->Kelas_model->getAllKelas());
+    die;
+  }
   public function nilai()
   {
     // Read Nilai per ujian siwa
@@ -633,6 +639,7 @@ class Admin extends CI_Controller
         'valid_email' => 'email tidak cocok',
         'is_unique' => 'email sudah digunakan'
       ]);
+      // dihapus dan harus diganti dengan password default
       $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
         'min_length' => 'password terlalu pendek!',
         'matches' => 'password tidak sama!'

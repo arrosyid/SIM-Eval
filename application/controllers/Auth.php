@@ -27,7 +27,7 @@ class Auth extends CI_Controller
     $this->form_validation->set_rules('password', 'Password', 'trim|min_length[8]|required');
 
     if ($this->form_validation->run() == FALSE) {
-      $data['tittle'] = 'Login Kurir';
+      $data['tittle'] = 'Login Guru dan Admin';
 
       $this->load->view('templates/auth_header', $data);
       $this->load->view('auth/login');
