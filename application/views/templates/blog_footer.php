@@ -7,17 +7,20 @@
 
 <!-- overlayScrollbar function-->
 <script>
-  $(function() {
-    //The passed argument has to be at least a empty object or a object with your desired options
-    $("body").overlayScrollbars({});
-  });
-</script>
-<!-- onkir funtion -->
-<script>
-  $('#berat').on('keyup', function() {
-    let ongkir = $('#berat').val() * 6500;
-    // console.log(ongkir);
-    $('#ongkir').attr("value", ongkir)
+  // $(function() {
+  //   //The passed argument has to be at least a empty object or a object with your desired options
+  //   $("body").overlayScrollbars({});
+  // });
+  var osInstance = $('body').overlayScrollbars({}).overlayScrollbars();
+
+  $('body').on('show.bs.modal', function() {
+    setTimeout(function() {
+      var osContentElm = $(osInstance.getElements().content);
+      var backdropElms = $('body > .modal-backdrop');
+      backdropElms.each(function(index, elm) {
+        osContentElm.append(elm);
+      });
+    }, 1);
   });
 </script>
 </body>
