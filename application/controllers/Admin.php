@@ -27,6 +27,12 @@ class Admin extends CI_Controller
     $data['subtittle'] = 'Dashboard';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['sekolah'] = $this->Sekolah_model->getSekolahByid(1);
+    $data['jml'] = [
+      'siswa' => $this->db->count_all('tb_siswa'),
+      'kelas' => $this->db->count_all('tb_kelas'),
+      'guru' => $this->db->count_all('tb_guru'),
+      'mapel' => $this->db->count_all('tb_mapel'),
+    ];
 
     // GRAPH DATA
     $data['kelompokTitle'] = ['Kelompok Atas', 'Kelompok Bawah'];
