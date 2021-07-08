@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="#" class="brand-link">
-    <img src="<?= base_url() ?>assets/img/whatsapp.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <img src="<?= base_url('assets/img/logo-lamongan.jpg') ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">SIM Eval</span>
   </a>
 
@@ -10,10 +10,10 @@
     <!-- Sidebar user (optional) -->
     <div class="user-panel mt-3 pb-2 mb-2 d-flex">
       <div class="image">
-        <img src="<?= base_url() ?>assets/dist/img/user3-128x128.jpg" class="img-circle elevation-2" alt="User Image">
+        <img src="<?= base_url('assets/img/avatar.png') ?>" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="<?= base_url() ?>" class="d-block">Admin</a>
+        <a href="<?= $user['level'] == 1 ? base_url('admin') : base_url('guru') ?>" class="d-block"><?= $user['level'] == 1 ? 'Admin' : 'Guru' ?></a>
       </div>
     </div>
 

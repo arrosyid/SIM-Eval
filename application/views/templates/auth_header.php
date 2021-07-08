@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= $tittle; ?></title>
-  <link rel="icon" href="<?= base_url() ?>assets/img/icon.png">
+  <link rel="icon" href="<?= base_url() ?>assets/img/icon.jpg">
 
 
   <!-- Google Font: Source Sans Pro -->
@@ -22,5 +22,5 @@
   <div class="login-box">
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
-        <a href="<?= base_url() ?>index.php/admin/home" class="h1"><b>SIM</b>eval</a>
+        <a href="<?= base_url() ?>" class="h1"><b>SIM</b>eval</a>
       </div>
