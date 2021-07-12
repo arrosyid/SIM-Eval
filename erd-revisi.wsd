@@ -1,0 +1,204 @@
+@startuml ERD
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "user" as tb_user {
+  *id_user : int(11) <<PK>>
+  --
+  *id_guru : int(11) <<FK>>
+  username : varchar(255)
+  password : varchar(255)
+  level : int(1)
+  picture : varchar(128)
+  status : int(1)
+  date_created : int(11)
+}
+
+entity "token" as tb_token {
+  *id_token : int(11) <<PK>>
+  --
+  token : varchar(128)
+  email : varchar(255)
+  date_created : int(11)
+}
+
+entity "soal" as tb_soal {
+  *id_soal : int(11) <<PK>>
+  --
+  *id_siswa : int(11) <<FK>>
+  *id_jawab : int(11) <<FK>>
+  *id_ujian : int(11) <<FK>>
+kelompok : varchar(4)
+  jenis_soal : varchar(125)
+  jml_skor : int(3)
+  nilai : int(3)
+}
+entity "ujian" as tb_ujian {
+  *id_soal : int(11) <<PK>>
+  --
+  *id_pelajaran : int(11) <<FK>>
+  *id_kelas : int(11) <<FK>>
+  jml_soal_ujian : int(2)
+  jml_soalpg : int(2)
+  jml_soaluo : int(2)
+  skor_max_ujian : int(3)
+  skor_maxpg : int(3)
+  skor_maxuo : int(3)
+  jenis_ujian : varchar(125)
+  kd : varchar(11)
+  kkm : int(3)
+  tgl_ujian : int(11)
+}
+entity "siswa" as tb_siswa{
+  *id_siswa : int(11) <<PK>>
+  --
+  *id_kelas : int(11) <<FK>>
+  nm_siswa : varchar(255)
+  nis : int(15)
+}
+entity "sekolah" as tb_sekolah {
+  *id_sekolah : int(11) <<PK>>
+  --
+  nm_sekolah : varchar(255)
+  nm_kepsek : varchar(255)
+  nm_admin : varchar(255)
+  akreditasi : varchar(10)
+  kurikulum : (128)
+  alamat : varchar(255)
+  npsn : int(15)
+  bentuk_pendidikan : varchar(128)
+  sk_pendirian : varchar(128)
+  tgl_sk_pendirian : int(11)
+  sk_izin : varchar(128)
+  tgl_sk_izin : int(11)
+  telfon : int(13)
+  website : varchar(128)
+  email :  varchar(128)
+}
+entity "record login" as tb_record_login {
+  *id_record : int(11) <<PK>>
+  --
+  *id_user : int(11) <<FK>>
+  date_created : int(11)
+}
+entity "mapel" as tb_mapel {
+  *id_mapel : int(11) <<PK>>
+  --
+  mata_pelajaran : varchar(128)
+}
+entity "pelajaran" as r_pelajaran {
+  *id_pelajaran : int(11) <<PK>>
+  --
+  *id_kelas : int(11) <<FK>>
+  *id_mapel : int(11) <<FK>>
+  semester : int(7)
+  thn_pelajaran : varchar(128)
+}
+entity "kelas" as tb_kelas {
+  *id_kelas : int(11) <<PK>>
+  --
+  *id_guru : int(11) <<FK>>
+  kelas : varchar(3)
+  bidang : varchar(128)
+  nomor_kelas : int(3)
+  jml_siswa : int(3)
+  jml_kelAtsBwh : int(3)
+  jml_kelTengah : int(3)
+}
+entity "guru" as tb_guru {
+  *id_guru : int(11) <<PK>>
+  --
+  *id_mapel : int(11) <<FK>>
+  nip : varchar(20)
+  nm_guru : varchar(255)
+}
+entity "distribusi nilai" as tb_dist_nilai {
+  *id_skor : int(11) <<PK>>
+  --
+  *id_ujian : int(11) <<FK>>
+  *id_siswa : int(11) <<FK>>
+  jml_skor_ujian : int(3)
+  nilai_ujian : int(3)
+  ranking : int(3)
+  kelompok : varchar(3)
+  tuntas_belajar : int(1)
+  tindak_lanjut : varchar(128)
+  jenis_tindak_lanjut : varchar(128)
+  jenis_tugas : varchar(128)
+  nilai_perbaikan : int(3)
+  nilai_akhir : int(3)
+}
+entity "distribusi Jawaban" as tb_dist_jwb {
+  *id_pg : int(11) <<PK>>
+  --
+  *id_ujian : int(11) <<FK>>
+  kunci : varchar(1)
+  no_1 : varchar(2)
+  ...
+  no_50 : varchar(2)
+}
+entity "Skor Persoal uraian" as tb_skor_soaluo {
+  *id_skorsoal : int(11) <<PK>>
+  --
+  *id_ujian : int(11) <<FK>>
+  no_1 : int(2)
+  ...
+  no_20 : int(2)
+}
+
+entity "analisis soal pilihan ganda" as tb_analis_soalpg {
+  *id_analispg : int(11) <<PK>>
+  --
+  *id_ujian : int(11) <<FK>>
+  jml_jwbA : int(3)
+  jml_jwbB : int(3)
+  jml_jwbC : int(3)
+  jml_jwbD : int(3)
+  jml_jwbE : int(3)
+  jml_BenarAts : int(3)
+  jml_BenarBwh : int(3)
+  pengecoh_a : float
+  pengecoh_b : float
+  pengecoh_c : float
+  pengecoh_d : float
+  pengecoh_e : float
+  tingkat_kesukaran : float
+  daya_pembeda : float
+  ket_soal : varchar(255)
+}
+entity "analisis soal uraian" as tb_analis_soaluo {
+  *id_analisuo : int(11) <<PK>>
+  --
+  *id_ujian : int(11) <<FK>>
+  no_soal : int(3)
+  rerata_skor : float
+  rerata_skorats : float
+  rerata_skorbwh : float
+  tingkat_kesukaran : float
+  daya_pembeda : float
+  ket_soal : varchar(255)
+}
+
+
+tb_siswa }|--|| tb_kelas
+tb_kelas ||--|| tb_guru
+tb_guru ||--|| tb_mapel
+tb_record_login }o--|| tb_user
+tb_user |o--|| tb_guru
+r_pelajaran }|-up-|| tb_mapel
+r_pelajaran }|--|| tb_kelas
+tb_ujian }|-up-|| r_pelajaran
+tb_ujian }|--|| tb_kelas
+tb_ujian ||-up-|| tb_skor_soaluo
+tb_soal }|--|| tb_ujian
+tb_soal ||--|| tb_dist_jwb
+tb_dist_nilai ||--|| tb_ujian
+tb_dist_jwb }|--|| tb_ujian
+tb_dist_nilai }|-up-|| tb_siswa
+tb_soal }|-right-|| tb_siswa
+tb_analis_soalpg ||--|| tb_ujian
+tb_analis_soaluo ||--|| tb_ujian
+@enduml
