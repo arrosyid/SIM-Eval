@@ -17,6 +17,7 @@ class Admin extends CI_Controller
     $this->load->model('Kelas_model');
     $this->load->model('Sekolah_model');
     $this->load->model('Soal_model');
+    $this->load->model('Ujian_model');
     $this->load->model('Pelajaran_model');
   }
 
@@ -261,6 +262,62 @@ class Admin extends CI_Controller
     }
   }
 
+  public function daftarUjian()
+  {
+    // Read data Ujian
+    $data['tittle'] = 'Daftar Ujian';
+    $data['subtittle'] = 'Daftar Semua Ujian';
+    $data['tittle_sweets'] = 'Apakah anda yakin menghapus data Ujian?';
+    $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data Ujian, data analisis Ujian dan data lain yg terkait';
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['ujian'] = $this->Ujian_model->getAllUjian();
+    // var_dump($data['ujian']);
+    // die;
+
+    // diubah
+    $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
+    $this->form_validation->set_rules('jenis_soal', 'Jenis Soal', 'required|trim');
+    $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
+    $this->form_validation->set_rules('jml_soal', 'Jumlah Soal', 'required|trim');
+    $this->form_validation->set_rules('kd', 'Kopempetensi Dasar', 'required|trim');
+    $this->form_validation->set_rules('kkm', 'KKM', 'required|trim');
+    $this->form_validation->set_rules('skor_max', 'Nilai Maksimal', 'required|trim');
+    $this->form_validation->set_rules('tgl_ujian', 'Tanggal Ujian', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/DaftarUjian');
+      $this->load->view('templates/admin_footer', $data);
+    } else {
+      // diubah
+      $data_ujian = [
+        'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
+        'jenis_soal' => htmlspecialchars($this->input->post('jenis_soal', true)),
+        'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
+        'jml_soal' => htmlspecialchars($this->input->post('jml_soal', true)),
+        'kd' => htmlspecialchars($this->input->post('kd', true)),
+        'kkm' => htmlspecialchars($this->input->post('kkm', true)),
+        'skor_max' => htmlspecialchars($this->input->post('skor_max', true)),
+        'tgl_ujian' => htmlspecialchars($this->input->post('tgl_ujian', true))
+      ];
+      if ($this->db->insert('tb_ujian', $data_ujian)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil Menginputkan Data Ujian</div>'
+        );
+        redirect('admin/daftarUjian');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal Menginputkan Data Ujian</div>'
+        );
+        redirect('admin/daftarUjian');
+      }
+    }
+  }
   public function daftarSoal()
   {
     // Read data soal

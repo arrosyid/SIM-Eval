@@ -299,6 +299,7 @@
     '.delete-daftar-siswa',
     '.delete-mapel-btn',
     '.delete-daftar-kelas',
+    '.delete-daftar-ujian',
     '.delete-daftar-soal'
   ]
 
