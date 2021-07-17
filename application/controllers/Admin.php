@@ -267,20 +267,20 @@ class Admin extends CI_Controller
     $data['tittle'] = 'Daftar Soal';
     $data['subtittle'] = 'Daftar Semua Soal';
     $data['tittle_sweets'] = 'Apakah anda yakin menghapus data soal?';
-    $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data soal, data analisis soal dan data lain yg terkait';
+    $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data jawaban';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['soal'] = $this->Soal_model->getAllSoal();
     // var_dump($data['soal']);
     // die;
 
-    $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
+    // dikasih dropdown menurut id_ujian
+    $this->form_validation->set_rules('id_siswa', 'Nama Siswa', 'required|trim');
+    $this->form_validation->set_rules('id_ujian', 'Ujian', 'required|trim');
+    $this->form_validation->set_rules('id_jawab', 'Jawab', 'required|trim');
     $this->form_validation->set_rules('jenis_soal', 'Jenis Soal', 'required|trim');
-    $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
-    $this->form_validation->set_rules('jml_soal', 'Jumlah Soal', 'required|trim');
-    $this->form_validation->set_rules('kd', 'Kopempetensi Dasar', 'required|trim');
-    $this->form_validation->set_rules('kkm', 'KKM', 'required|trim');
-    $this->form_validation->set_rules('skor_max', 'Nilai Maksimal', 'required|trim');
-    $this->form_validation->set_rules('tgl_ujian', 'Tanggal Ujian', 'required|trim');
+    $this->form_validation->set_rules('kelompok', 'Kelompok', 'required|trim');
+    $this->form_validation->set_rules('jml_skor', 'Jumlah Skor', 'required|trim');
+    $this->form_validation->set_rules('nilai', 'Nilai', 'required|trim');
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/admin_header', $data);
@@ -289,14 +289,13 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_footer', $data);
     } else {
       $data_soal = [
-        'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
+        'id_siswa' => htmlspecialchars($this->input->post('id_siswa', true)),
+        'id_ujian' => htmlspecialchars($this->input->post('id_ujian', true)),
+        'id_jawab' => htmlspecialchars($this->input->post('id_jawab', true)),
         'jenis_soal' => htmlspecialchars($this->input->post('jenis_soal', true)),
-        'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
-        'jml_soal' => htmlspecialchars($this->input->post('jml_soal', true)),
-        'kd' => htmlspecialchars($this->input->post('kd', true)),
-        'kkm' => htmlspecialchars($this->input->post('kkm', true)),
-        'skor_max' => htmlspecialchars($this->input->post('skor_max', true)),
-        'tgl_ujian' => htmlspecialchars($this->input->post('tgl_ujian', true))
+        'kelompok' => htmlspecialchars($this->input->post('kelompok', true)),
+        'jml_skor' => htmlspecialchars($this->input->post('jml_skor', true)),
+        'nilai' => htmlspecialchars($this->input->post('skor_max', true)),
       ];
       if ($this->db->insert('tb_soal', $data_soal)) {
         $this->session->set_flashdata(

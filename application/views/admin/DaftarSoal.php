@@ -13,33 +13,30 @@
           <thead>
             <tr>
               <th>No</th>
-              <th>Mata Pelajaran</th>
+              <th>Nama Siswa</th>
               <th>Jenis Soal</th>
-              <th>Kelas</th>
-              <th>Jumlah Soal</th>
-              <th>KD</th>
-              <th>KKM</th>
-              <th>Nilai Maksimal</th>
-              <th>Tanggal Ujian</th>
+              <th>Ujian</th>
+              <th>jawaban</th>
+              <th>kelompok</th>
+              <th>Jumlah skor</th>
+              <th>Nilai</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <?php if ($soal == null) {
-              echo '<tr><td colspan="10">Data Tidak Di Temukan</td></tr>';
+              echo '<tr><td colspan="9" class="text-center">Data Tidak Di Temukan</td></tr>';
             } else {
               $i = 1; ?>
               <?php foreach ($soal as $S) : ?>
                 <tr>
                   <td><?= $i; ?></td>
-                  <td><?= $S['mapel'] ?></td>
+                  <td><?= $S['nm_siswa'] ?></td>
                   <td><?= $S['jenis_soal'] ?></td>
-                  <td><?= $S['kelas'] . ' ' . $S['bidang'] . ' ' . $S['nomor_kelas'] ?></td>
-                  <td><?= $S['jml_soal'] ?></td>
-                  <td><?= $S['kd'] ?></td>
-                  <td><?= $S['kkm'] ?></td>
-                  <td><?= $S['skor_max'] ?></td>
-                  <td><?= date('d-m-Y', $S['jml_soal']) ?></td>
+                  <td><a href="<?= base_url('admin/') . $S['id_jawab'] ?>" class="btn btn-warning">detail jawaban</a></td>
+                  <td><?= $S['kelompok'] ?></td>
+                  <td><?= $S['jml_skor'] ?></td>
+                  <td><?= $S['nilai'] ?></td>
                   <td>
                     <a href="" data-toggle="modal" data-target="#editSoal" id="<?= $S['id_soal'] ?>" class="btn btn-success view-data">edit</a>
                     <a href="#" data-url="<?= base_url('admin/delete/soal/') . $S['id_soal'] ?>" class="delete-daftar-soal btn btn-danger">hapus</a>
@@ -53,14 +50,13 @@
           <tfoot>
             <tr>
               <th>No</th>
-              <th>Mata Pelajaran</th>
+              <th>Nama Siswa</th>
               <th>Jenis Soal</th>
-              <th>Kelas</th>
-              <th>Jumlah Soal</th>
-              <th>KD</th>
-              <th>KKM</th>
-              <th>Nilai Maksimal</th>
-              <th>Tanggal Ujian</th>
+              <th>Ujian</th>
+              <th>jawaban</th>
+              <th>kelompok</th>
+              <th>Jumlah skor</th>
+              <th>Nilai</th>
               <th>Action</th>
             </tr>
           </tfoot>
