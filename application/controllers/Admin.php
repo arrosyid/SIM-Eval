@@ -128,6 +128,13 @@ class Admin extends CI_Controller
     $data['tittle'] = 'Daftar Pelajaran';
     $data['tittle_sweets'] = 'Apakah anda yakin menghapus data pelajaran?';
     $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data pelajaran';
+
+    $data['url_ajax'] = base_url('admin/ajax');
+    $data['data_menu_ajax'] = 'get_pelajaran';
+    $data['id_ajax'] = 'id_pelajaran';
+    $data['html_ajax'] = '#detailPelajaran';
+    $data['modal_ajax'] = '#editPelajaran';
+
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     if ($id_kelas == null) {
       $data['kelas'] = null;
@@ -183,6 +190,13 @@ class Admin extends CI_Controller
     $data['subtittle'] = 'Daftar Semua Kelas';
     $data['tittle_sweets'] = 'Apakah anda yakin menghapus data Kelas?';
     $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data Kelas, data siswa satu kelas, dan data lain yg terkait dengan siswa';
+
+    $data['url_ajax'] = base_url('admin/ajax');
+    $data['data_menu_ajax'] = 'get_kelas';
+    $data['id_ajax'] = 'id_kelas';
+    $data['html_ajax'] = '#detailKelas';
+    $data['modal_ajax'] = '#editKelas';
+
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['kelas'] = $this->Kelas_model->getAllKelas();
 
@@ -269,6 +283,13 @@ class Admin extends CI_Controller
     $data['subtittle'] = 'Daftar Semua Ujian';
     $data['tittle_sweets'] = 'Apakah anda yakin menghapus data Ujian?';
     $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data Ujian, data analisis Ujian dan data lain yg terkait';
+
+    $data['url_ajax'] = base_url('admin/ajax');
+    $data['data_menu_ajax'] = 'get_ujian';
+    $data['id_ajax'] = 'id_ujian';
+    $data['html_ajax'] = '#detailUjian';
+    $data['modal_ajax'] = '#editUjian';
+
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['ujian'] = $this->Ujian_model->getAllUjian();
     // var_dump($data['ujian']);
@@ -325,6 +346,13 @@ class Admin extends CI_Controller
     $data['subtittle'] = 'Daftar Semua Soal';
     $data['tittle_sweets'] = 'Apakah anda yakin menghapus data soal?';
     $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data jawaban';
+
+    $data['url_ajax'] = base_url('admin/ajax');
+    $data['data_menu_ajax'] = 'get_soal';
+    $data['id_ajax'] = 'id_soal';
+    $data['html_ajax'] = '#detailSoal';
+    $data['modal_ajax'] = '#editSoal';
+
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['soal'] = $this->Soal_model->getAllSoal();
     // var_dump($data['soal']);
@@ -379,6 +407,13 @@ class Admin extends CI_Controller
     $data['subtittle'] = 'Daftar Guru';
     $data['tittle_sweets'] = 'Apakah anda yakin menghapus data guru?';
     $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data guru dan data akun guru';
+
+    $data['url_ajax'] = base_url('admin/ajax');
+    $data['data_menu_ajax'] = 'get_guru';
+    $data['id_ajax'] = 'id_guru';
+    $data['html_ajax'] = '#detailGuru';
+    $data['modal_ajax'] = '#editGuru';
+
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['guru'] = $this->Guru_model->getAllGuru();
     $data['mapel'] = $this->Mapel_model->getAllMapel();
@@ -615,6 +650,13 @@ class Admin extends CI_Controller
     $data['subtittle'] = 'Daftar Siswa Baru';
     $data['tittle_sweets'] = 'Apakah anda yakin menghapus data siswa?';
     $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data siswa, data nilai dan data lain yg terkait dengan nilai';
+
+    $data['url_ajax'] = base_url('admin/ajax');
+    $data['data_menu_ajax'] = 'get_siswa';
+    $data['id_ajax'] = 'id_siswa';
+    $data['html_ajax'] = '#detailSiswa';
+    $data['modal_ajax'] = '#editSiswa';
+
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['siswa'] = $this->Siswa_model->getAllSiswa();
     $data['kelas'] = $this->Kelas_model->getAllKelas();

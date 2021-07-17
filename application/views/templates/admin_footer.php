@@ -158,83 +158,25 @@
   //- Modal Edit Box -
   //------------------
   $(function() {
-    <?php if ($tittle == 'Daftar Siswa') : ?>
-      $('.view-data').on('click', function() {
-        var id_siswa = $(this).attr('id');
-        console.log(id_siswa);
+    $('.view-data').on('click', function() {
+      var <?= $id_ajax ?> = $(this).attr('id');
+      console.log(<?= $id_ajax ?>);
 
-        $.ajax({
-          url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
-          method: "post",
-          data: {
-            ajax_menu: 'get_siswa',
-            id_siswa: id_siswa
-          },
-          success: function(data) {
-            $('#detailSiswa').html(data);
-            $('#editSiswa').modal();
-          }
-        });
+      $.ajax({
+        url: "<?= $url_ajax ?>",
+        method: "post",
+        data: {
+          ajax_menu: '<?= $data_menu_ajax ?>',
+          <?= $id_ajax ?>: <?= $id_ajax ?>
+        },
+        success: function(data) {
+          $('<?= $html_ajax ?>').html(data);
+          $('<?= $modal_ajax ?>').modal();
+        }
       });
+    });
 
-    <?php elseif ($tittle == 'Daftar Guru') : ?>
-      $('.view-data').on('click', function() {
-        var id_guru = $(this).attr('id');
-        console.log(id_guru);
-
-        $.ajax({
-          url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
-          method: "post",
-          data: {
-            ajax_menu: 'get_guru',
-            id_guru: id_guru
-          },
-          success: function(data) {
-            $('#detailGuru').html(data);
-            $('#editGuru').modal();
-          }
-        });
-      });
-
-    <?php elseif ($tittle == 'Daftar Soal') : ?>
-      $('.view-data').on('click', function() {
-        var id_soal = $(this).attr('id');
-        console.log(id_soal);
-
-        $.ajax({
-          url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
-          method: "post",
-          data: {
-            ajax_menu: 'get_soal',
-            id_soal: id_soal
-          },
-          success: function(data) {
-            $('#detailSoal').html(data);
-            $('#editSoal').modal();
-          }
-        });
-      });
-
-    <?php elseif ($tittle == 'Daftar Kelas') : ?>
-      $('.view-data').on('click', function() {
-        var id_kelas = $(this).attr('id');
-        console.log(id_kelas);
-
-        $.ajax({
-          url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
-          method: "post",
-          data: {
-            ajax_menu: 'get_kelas',
-            id_kelas: id_kelas
-          },
-          success: function(data) {
-            $('#detailKelas').html(data);
-            $('#editKelas').modal();
-          }
-        });
-      });
-
-    <?php elseif ($tittle == 'Daftar Pelajaran') : ?>
+    <?php if ($tittle == 'Daftar Pelajaran') : ?>
       $('#kelas').on('change', function() {
         var id_kelas = $('#kelas').val();
         console.log(id_kelas);
@@ -248,24 +190,6 @@
           success: function(data) {
             console.log('editable success');
             $('#table-data').html(data);
-          }
-        });
-      });
-
-      $('.view-data').on('click', function() {
-        var id_pelajaran = $(this).attr('id');
-        console.log(id_pelajaran);
-
-        $.ajax({
-          url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
-          method: "post",
-          data: {
-            ajax_menu: 'get_pelajaran',
-            id_pelajaran: id_pelajaran
-          },
-          success: function(data) {
-            $('#detailPelajaran').html(data);
-            $('#editPelajaran').modal();
           }
         });
       });
