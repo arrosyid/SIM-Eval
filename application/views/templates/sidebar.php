@@ -73,6 +73,20 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="<?= $user['level'] == 1 ? base_url('admin/daftarUjian') : base_url('guru/daftarUjian') ?>" class="nav-link 
+                    <?php if ($tittle == 'Daftar Ujian') echo 'active'; ?>">
+            <i class="nav-icon far fa-file-alt"></i>
+            <p>Daftar Ujian</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?= $user['level'] == 1 ? base_url('admin/daftarPelajaran') : base_url('guru/daftarPelajaran') ?>" class="nav-link 
+                    <?php if ($tittle == 'Daftar Pelajaran') echo 'active'; ?>">
+            <i class="nav-icon fas fa-clipboard-list"></i>
+            <p>Daftar Pelajaran</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="<?= $user['level'] == 1 ? base_url('admin') : base_url('guru/nilai') ?>" class="nav-link 
                     <?php if ($tittle == 'Distribusi Jawaban') echo 'active'; ?>">
             <i class="nav-icon fas fa-spell-check"></i>
