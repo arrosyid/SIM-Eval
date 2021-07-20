@@ -8,7 +8,7 @@
     <td><?= $P['thn_pelajaran'] ?></td>
     <td>
       <a href="" data-toggle="modal" data-target="#editPelajaran" id="<?= $P['id_pelajaran'] ?>" class="btn btn-success view-data">edit</a>
-      <a href="#" class="btn btn-danger">hapus</a>
+      <a href="#" data-url="<?= base_url('admin/delete/pelajaran/') . $M['id_pelajaran'] ?>" class="delete-pelajaran btn btn-danger">hapus</a>
     </td>
   </tr>
   <?php $i++; ?>

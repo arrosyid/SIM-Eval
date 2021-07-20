@@ -222,6 +222,7 @@
     '.delete-daftar-guru',
     '.delete-daftar-siswa',
     '.delete-mapel-btn',
+    '.delete-pelajaran',
     '.delete-daftar-kelas',
     '.delete-daftar-ujian',
     '.delete-daftar-soal'
