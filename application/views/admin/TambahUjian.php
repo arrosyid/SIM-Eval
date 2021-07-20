@@ -1,6 +1,5 @@
 <?php
 $form = [
-  ['Jenis Ujian', 'jenis_ujian', 'isi Jenis Ujian'],
   ['Skor Maksimal Ujian', 'skor_max_ujian', 'isi Skor Maksimal Ujian'],
   ['Skor Maksimal Pilihan Ganda', 'skor_maxpg', 'isi Skor Maksimal Pilihan Ganda'],
   ['Skor Maksimal Uraian', 'skor_maxuo', 'isi Skor Maksimal Uraian'],
@@ -30,12 +29,12 @@ $form = [
               <div class="form-group">
                 <select class="form-control <?= form_error('id_pelajaran') != null ? "is-invalid" : "" ?>" name="id_pelajaran" id="id_pelajaran">
                   <option value="">PILIH MATA PELAJARAN</option>
-                  <?php foreach ($Pelajaran as $M) { ?>
-                    <option <?= set_select('id_pelajaran', $M['id_pelajaran']) ?> value="<?= $M['id_pelajaran'] ?>"><?= $M['mapel'] ?></option>
+                  <?php foreach ($pelajaran as $M) { ?>
+                    <option <?= set_select('id_pelajaran', $M['id_pelajaran']) ?> value="<?= $M['id_pelajaran'] ?>"><?= $M['mapel'], ', SMT : ' . $M['semester'], ', THN : ' . $M['thn_pelajaran'] ?></option>
                   <?php } ?>
-                  <option value="Lainnya">Lainnya</option>
                 </select>
-                <?= form_error('id_pelajaran', '<small class="text-danger pl-3">', '</small>'); ?>
+                <?= form_error('id_pelajaran', '<small class="text-danger pl-3">', '</small><br>'); ?>
+                tidak menemukan Mata Pelajaran? <a href="<?= base_url('admin/tambahPelajaran') ?>">Tambahkan Mata Pelajaran</a>
               </div>
             </div>
           </div>
@@ -58,6 +57,7 @@ $form = [
             <div class="col-sm-5" id="ujian_jenis_lainnya">
               <div class="form-group">
                 <input type="text" class="form-control" name="" placeholder="Isi Jenis Ujian">
+
               </div>
             </div>
           </div>
@@ -72,14 +72,9 @@ $form = [
                   <?php foreach ($kelas as $K) : ?>
                     <option <?= set_select('id_kelas', $K['id_kelas']) ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
                   <?php endforeach ?>
-                  <option value="Lainnya">Lainnya</option>
                 </select>
-                <?= form_error('id_kelas', '<small class="text-danger pl-3">', '</small>'); ?>
-              </div>
-            </div>
-            <div class="col-sm-5" id="soal_kelas_lainnya">
-              <div class="form-group">
-                <input type="text" class="form-control" name="" placeholder="Isi Nama Kelas">
+                <?= form_error('id_kelas', '<small class="text-danger pl-3">', '</small> <br>'); ?>
+                tidak menemukan kelas? <a href="<?= base_url('admin/tambahKelas') ?>">Tambahkan Kelas</a>
               </div>
             </div>
           </div>
@@ -115,7 +110,7 @@ $form = [
             </div>
             <!-- /.col -->
             <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Tambah Soal</button>
+              <button type="submit" class="btn btn-primary btn-block">Tambah Ujian</button>
             </div>
             <!-- /.col -->
           </div>
