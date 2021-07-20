@@ -6,10 +6,10 @@ class soal_model extends CI_Model
   // mengambil semua soal
   public function getAllSoal()
   {
-    $this->db->select('tb_soal.*, tb_siswa.*, tb_jawab.*, tb_ujian.*')
+    $this->db->select('tb_soal.*, tb_siswa.*, tb_dist_jwb.*, tb_ujian.*')
       ->from('tb_soal')
       ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
-      ->join('tb_jawab', 'tb_dist_jawab.id_jawab = tb_soal.id_jawab')
+      ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_jawab')
       ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
     return $this->db->get()->result_array();
   }
@@ -19,44 +19,44 @@ class soal_model extends CI_Model
   {
     // berdasarkan idsoal
     if ($type == 'id_soal') {
-      $this->db->select('tb_soal.*, tb_siswa.*, tb_jawab.*, tb_ujian.*')
+      $this->db->select('tb_soal.*, tb_siswa.*, tb_dist_jwb.*, tb_ujian.*')
         ->from('tb_soal')
         ->where(['id_soal' => $id])
         ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
-        ->join('tb_jawab', 'tb_dist_jawab.id_jawab = tb_soal.id_jawab')
+        ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_jawab')
         ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
       return $this->db->get()->row_array();
     }
 
     // berdasarkan id_siswa
     if ($type == 'id_siswa') {
-      $this->db->select('tb_soal.*, tb_siswa.*, tb_jawab.*, tb_ujian.*')
+      $this->db->select('tb_soal.*, tb_siswa.*, tb_dist_jwb.*, tb_ujian.*')
         ->from('tb_soal')
         ->where(['tb_siswa.id_siswa' => $id])
         ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
-        ->join('tb_jawab', 'tb_dist_jawab.id_jawab = tb_soal.id_jawab')
+        ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_jawab')
         ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
       return $this->db->get()->result_array();
     }
 
     // berdasarkan id_jawab
     if ($type == 'id_jawab') {
-      $this->db->select('tb_soal.*, tb_siswa.*, tb_jawab.*, tb_ujian.*')
+      $this->db->select('tb_soal.*, tb_siswa.*, tb_dist_jwb.*, tb_ujian.*')
         ->from('tb_soal')
-        ->where(['tb_dist_jawab.id_jawab' => $id])
+        ->where(['tb_dist_jwb.id_jawab' => $id])
         ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
-        ->join('tb_jawab', 'tb_dist_jawab.id_jawab = tb_soal.id_jawab')
+        ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_jawab')
         ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
       return $this->db->get()->result_array();
     }
 
     // berdasarkan id_ujian
     if ($type == 'id_ujian') {
-      $this->db->select('tb_soal.*, tb_siswa.*, tb_jawab.*, tb_ujian.*')
+      $this->db->select('tb_soal.*, tb_siswa.*, tb_dist_jwb.*, tb_ujian.*')
         ->from('tb_soal')
         ->where(['tb_ujian.id_ujian' => $id])
         ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
-        ->join('tb_jawab', 'tb_dist_jawab.id_jawab = tb_soal.id_jawab')
+        ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_jawab')
         ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
       return $this->db->get()->result_array();
     }
@@ -138,12 +138,12 @@ class soal_model extends CI_Model
         ];
         for ($i = 0; $i < $data_ujian['jml_soaluo']; $i++) {
           // $nilai['jml_skor'] += $uraian[$i][$j];
-          $nilai['jml_skor'] += $data_jwb[$i][$j];
+          $nilai['jml_skor'] += (int) $data_jwb[$i][$j];
         }
         $nilai['nilai'] = (int) round(($nilai['jml_skor'] / $data_ujian['skor_maxuo']) * 100);
         $skor[$j] = $nilai;
       }
-      return $skor; // hapus
+      // return $skor; // hapus
       // cek lagi returnnya ke database
       return $this->db->update_batch('tb_soal', $skor, 'id_soal');
     }
@@ -182,7 +182,7 @@ class soal_model extends CI_Model
       for ($j = 0; $j < $data_kelas['jml_kelAtsBwh']; $j++) {
         $data_soal[$j]['kelompok'] = 'ATS';
       }
-      for ($k = $data_kelas['jml_siswa']; $k > $data_kelas['jml_kelTengah']; $k--) {
+      for ($k = $data_kelas['jml_siswa']; $k > $data_kelas['jml_kelAtsBwh']; $k--) {
         $data_soal[$k]['kelompok'] = 'BWH';
       }
       if ($data_soal[$i]['kelompok'] == null) {

@@ -149,9 +149,9 @@ class Nilai_model extends CI_Model
       } elseif ($analisis['nilai_ujian'] >= 55) {
         $analisis['tindak_lanjut'] = 'PB1';
       } elseif ($analisis['nilai_ujian'] >= 40) {
-        $analisis['tindak_lanjut'] = 'PB1';
+        $analisis['tindak_lanjut'] = 'PB2';
       } elseif ($analisis['nilai_ujian'] < 40) {
-        $analisis['tindak_lanjut'] = 'PB1';
+        $analisis['tindak_lanjut'] = 'PB3';
       }
       // Jenis penugasan
       if ($analisis['nilai_ujian'] > 96) {
@@ -185,16 +185,16 @@ class Nilai_model extends CI_Model
     }
     array_multisort($nilai, SORT_DESC, $hasil);
     // perankingan dan penentuan kelompok atas bawah
-    for ($i = 0; $i < $data_kelas['jml_siswa']; $i++) {
-      $hasil[$i]['ranking'] = $i + 1;
+    for ($l = 0; $l < $data_kelas['jml_siswa']; $l++) {
+      $hasil[$l]['ranking'] = $l + 1;
       for ($j = 0; $j < $data_kelas['jml_kelAtsBwh']; $j++) {
         $hasil[$j]['kelompok'] = 'ATS';
       }
       for ($k = ($data_kelas['jml_siswa'] - 1); $k > $data_kelas['jml_kelTengah']; $k--) {
         $hasil[$k]['kelompok'] = 'BWH';
       }
-      if ($hasil[$i]['kelompok'] == null) {
-        $hasil[$i]['kelompok'] = 'TGH';
+      if ($hasil[$l]['kelompok'] == null) {
+        $hasil[$l]['kelompok'] = 'TGH';
       }
     }
     // return $hasil;
