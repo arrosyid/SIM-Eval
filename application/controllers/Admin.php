@@ -62,6 +62,15 @@ class Admin extends CI_Controller
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['sekolah'] = $this->Sekolah_model->getSekolahByid(1);
 
+    // $data['ujian'] = $this->ujian_model->getUjianByType('id_ujian', 1);
+    // $data['soal'] = 1;
+    // $data['kelas'] = 1;
+    // $data['siswa'] = 1;
+    // $data['dist_jwb'] = 1;
+    // $data['dist_nilai'] = 1;
+    // $data['analisis_pg'] = 1;
+    // $data['analisis_uo'] = 1;
+
     // GRAPH DATA
     $data['analisisKelompokTitle'] = ['Kelompok Atas', 'Kelompok Bawah', 'Kelompok Tengah'];
     $data['analisisKelompokData'] = [60, 10, 30];
@@ -860,7 +869,7 @@ class Admin extends CI_Controller
     $data['pelajaran'] = $this->Pelajaran_model->getAllPelajaran();
 
     $this->form_validation->set_rules('id_pelajaran', 'Mata Pelajaran', 'required|trim');
-    $this->form_validation->set_rules('jenis_Ujian', 'Jenis Ujian', 'required|trim');
+    $this->form_validation->set_rules('jenis_ujian', 'Jenis Ujian', 'required|trim');
     $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
     $this->form_validation->set_rules('jml_soal_ujian', 'Jumlah Soal Ujian', 'required|trim');
     $this->form_validation->set_rules('jml_soalpg', 'Jumlah Soal Pilihan Ganda', 'required|trim');
@@ -881,7 +890,7 @@ class Admin extends CI_Controller
       $data_ujian = [
         'id_pelajaran' => htmlspecialchars($this->input->post('id_pelajaran', true)),
         'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
-        'jenis_Ujian' => htmlspecialchars($this->input->post('jenis_soal', true)),
+        'jenis_ujian' => htmlspecialchars($this->input->post('jenis_ujian', true)),
         'jml_soal_ujian' => htmlspecialchars($this->input->post('jml_soal_ujian', true)),
         'jml_soalpg' => htmlspecialchars($this->input->post('jml_soalpg', true)),
         'jml_soaluo' => htmlspecialchars($this->input->post('jml_soaluo', true)),
@@ -890,7 +899,7 @@ class Admin extends CI_Controller
         'skor_maxuo' => htmlspecialchars($this->input->post('skor_maxuo', true)),
         'kd' => htmlspecialchars($this->input->post('kd', true)),
         'kkm' => htmlspecialchars($this->input->post('kkm', true)),
-        'tgl_ujian' => htmlspecialchars($this->input->post('tgl_ujian', true)),
+        'tgl_ujian' => strtotime(htmlspecialchars($this->input->post('tgl_ujian', true))),
       ];
       if ($this->db->insert('tb_ujian', $data_ujian)) {
         $this->session->set_flashdata(

@@ -8,7 +8,6 @@ $form = [
   ['Jumlah Soal Uraian', 'jml_soaluo', 'isi Jumlah Soal Uraian'],
   ['Kompetensi Dasar', 'kd', 'isi Kompetensi Dasar'],
   ['Kriteria Ketuntasan Minimal (KKM)', 'kkm', 'isi Kriteria Ketuntasan Minimal (KKM)'],
-  ['Tanggal Ujian', 'kkm', 'isi Tanggal Ujian'],
 ]
 ?>
 
@@ -57,7 +56,6 @@ $form = [
             <div class="col-sm-5" id="ujian_jenis_lainnya">
               <div class="form-group">
                 <input type="text" class="form-control" name="" placeholder="Isi Jenis Ujian">
-
               </div>
             </div>
           </div>
