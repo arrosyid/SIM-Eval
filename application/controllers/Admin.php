@@ -135,6 +135,7 @@ class Admin extends CI_Controller
   {
     // Read Data Pelajaran
     $data['tittle'] = 'Daftar Pelajaran';
+    $data['subtittle'] = 'Daftar Pelajaan';
     $data['tittle_sweets'] = 'Apakah anda yakin menghapus data pelajaran?';
     $data['text_sweets'] = 'Data yang sudah di hapus tidak bisa di kembalikan lagi, data yg akan terhapus adalah data pelajaran';
 
@@ -145,14 +146,7 @@ class Admin extends CI_Controller
     $data['modal_ajax'] = '#editPelajaran';
 
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-    if ($id_kelas == null) {
-      $data['kelas'] = null;
-      $data['subtittle'] = 'Daftar Pelajaan Kelas';
-    } else {
-      $data['kelas'] = $this->Kelas_model->getKelasByType('id_kelas', $id_kelas);
-      $data['subtittle'] = 'Daftar Pelajaan Kelas ' . $data['kelas']['kelas'];
-    }
-    $data['kelasAll'] = $this->Kelas_model->getAllKelas();
+    $data['kelas'] = $this->Kelas_model->getAllKelas();
     $data['mapel'] = $this->Mapel_model->getAllMapel();
     $data['pelajaran'] = $this->Pelajaran_model->getAllPelajaran();
 

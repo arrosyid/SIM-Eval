@@ -3,7 +3,7 @@
     <div class="card card-primary">
       <!-- /.card-header -->
       <div class="card-header">
-        <h3 class="card-title">Daftar Mata Pelajaran Kelas IX 2</h3>
+        <h3 class="card-title">Daftar Mata Pelajaran</h3>
       </div>
       <div class="card-body">
         <table id="Tables" class="table table-bordered table-striped">
@@ -17,7 +17,7 @@
               <div class="form-grup">
                 <select class="form-control" name="kelas" id="kelas">
                   <option value="">PILIH KELAS</option>
-                  <?php foreach ($kelasAll as $K) : ?>
+                  <?php foreach ($kelas as $K) : ?>
                     <option value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
                   <?php endforeach ?>
                 </select>
@@ -90,7 +90,7 @@
                   <div class="form-group">
                     <select class="form-control <?= form_error('id_kelas') != null ? "is-invalid" : "" ?>" name="id_kelas" id="id_kelas">
                       <option value="">PILIH KELAS</option>
-                      <?php foreach ($kelasAll as $K) : ?>
+                      <?php foreach ($kelas as $K) : ?>
                         <option <?= set_select('id_kelas', $K['id_kelas']) ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
                       <?php endforeach ?>
                     </select>

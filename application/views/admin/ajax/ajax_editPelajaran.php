@@ -10,7 +10,7 @@
       <div class="form-group">
         <select class="form-control <?= form_error('id_kelas') != null ? "is-invalid" : "" ?>" name="id_kelas" id="id_kelas">
           <option value="">PILIH KELAS</option>
-          <?php foreach ($kelasAll as $K) : ?>
+          <?php foreach ($kelas as $K) : ?>
             <option <?= set_select('id_kelas') != null ? set_select('id_kelas', $K['id_kelas']) : ($K['id_kelas'] == $pelajaran['id_kelas'] ? 'selected' : '') ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
           <?php endforeach ?>
         </select>
