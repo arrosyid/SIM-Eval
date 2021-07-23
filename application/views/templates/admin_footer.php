@@ -284,6 +284,62 @@ if (isset($url_ajax)) :
 </script>
 <!-- End Input Lainnya -->
 
+<?php if ($tittle == 'Tambah Soal') : ?>
+  <!-- Input soal -->
+  <script>
+    const jenis = [{
+        input: '#pilihan-ganda',
+        select: "#jenis_soal",
+        valuation: "Pilihan Ganda"
+      },
+      {
+        input: '#uraian',
+        select: "#jenis_soal",
+        valuation: "Uraian"
+      },
+      // {
+      //   input: '#isi-form',
+      //   select: "#pilihan-soal",
+      //   valuation: "isi-form"
+      // },
+      // {
+      //   input: '#upload-file',
+      //   select: "#pilihan-soal",
+      //   valuation: "upload-file"
+      // },
+      {
+        input: '#soal_jenis_lainnya',
+        select: "#jenis_soal",
+        valuation: "Lainnya"
+      },
+    ]
+    jenis.forEach(i => {
+      $(i.input).hide();
+      $(i.select).change(function() {
+        if ($(this).val() == i.valuation) {
+          // ditambahkan input post untuk mengirim
+          $(i.input).show();
+          // $.ajax({
+          //   url: "<?= base_url('admin/tambahSoal') ?>",
+          //   method: "post",
+          //   data: {
+          //     ajax_menu: 'tambah-soal',
+          //     jenis_soal: i.valuation,
+          //   },
+          //   success: function(data) {
+          //     $(i.input).show();
+          //     // $('').html(data);
+          //     // $('').modal();
+          //   },
+          // });
+        } else {
+          $(i.input).hide();
+        };
+      });
+    });
+  </script>
+  <!-- End Input soal -->
+<?php endif ?>
 
 <?php if ($tittle == 'dashboard' || $tittle == 'Hasil Analisis') : ?>
   <!-- Import Chart -->

@@ -1,3 +1,11 @@
+<?php
+$jml_soal = 40;
+for ($i = 1; $i <= $jml_soal; $i++) {
+  $nomor[$i] = ["Nomor $i", "no_$i", 'isi skor uraian siswa'];
+}
+?>
+
+<!-- dikasih upload jawaban CSV -->
 <section class="content">
   <div class="container-fluid">
     <div class="card card-primary">
@@ -6,26 +14,49 @@
         <h3 class="card-title">Tambahkan Soal</h3>
       </div>
       <div class="card-body">
-        <form role="form" action="" method="POST">
+        <?= $this->session->flashdata('message'); ?>
+        <?= $this->session->flashdata('message1'); ?>
+        <!-- penentuan cara pengisian data -->
+        <!-- <div class="form-group">
+          <select name="pilihan-soal" id="pilihan-soal" class="form-control">
+            <option value="">PILIH METODE PENGISIAN DATA</option>
+            <option value="upload-file">UPLOAD FILE</option>
+            <option value="isi-form">ISI FORM</option>
+          </select>
+        </div> -->
+
+        <form role="form" action="" method="POST" id="isi-form">
           <div class="row">
             <div class="col-sm-2">
-              <label>Mata Pelajaran</label>
+              <label>Nama Siswa</label>
             </div>
             <div class="col-sm-5">
               <div class="form-group">
-                <select class="form-control <?= form_error('id_mapel') != null ? "is-invalid" : "" ?>" name="id_mapel" id="id_mapel">
-                  <option value="">PILIH MATA PELAJARAN</option>
-                  <?php foreach ($mapel as $M) { ?>
-                    <option <?= set_select('id_mapel', $M['id_mapel']) ?> value="<?= $M['id_mapel'] ?>"><?= $M['mapel'] ?></option>
+                <select class="form-control <?= form_error('id_siswa') != null ? "is-invalid" : "" ?>" name="id_siswa" id="id_siswa">
+                  <option value="">PILIH NAMA SISWA</option>
+                  <?php foreach ($siswa as $S) { ?>
+                    <option <?= set_select('id_siswa', $S['id_siswa']) ?> value="<?= $S['id_siswa'] ?>"><?= $S['nm_siswa'] ?></option>
                   <?php } ?>
-                  <option value="Lainnya">Lainnya</option>
                 </select>
-                <?= form_error('id_mapel', '<small class="text-danger pl-3">', '</small>'); ?>
+                <?= form_error('id_siswa', '<small class="text-danger pl-3">', '</small>'); ?>
+                tidak menemukan Siswa? <a href="<?= base_url('admin/tambahSiswa') ?>">Tambahkan Siswa</a>
               </div>
             </div>
-            <div class="col-sm-5" id="soal_mapel_lainnya">
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+              <label>UJIAN</label>
+            </div>
+            <div class="col-sm-5">
               <div class="form-group">
-                <input type="text" class="form-control" name="" placeholder="Isi Nama Mata Pelajaran">
+                <select class="form-control <?= form_error('id_ujian') != null ? "is-invalid" : "" ?>" name="id_ujian" id="id_ujian">
+                  <option value="">PILIH UJIAN</option>
+                  <?php foreach ($ujian as $U) { ?>
+                    <option <?= set_select('id_ujian', $U['id_ujian']) ?> value="<?= $U['id_ujian'] ?>"><?= $U['jenis_ujian'] ?></option>
+                  <?php } ?>
+                </select>
+                <?= form_error('id_ujian', '<small class="text-danger pl-3">', '</small>'); ?>
+                tidak menemukan Ujian? <a href="<?= base_url('admin/tambahUjian') ?>">Tambahkan Ujian</a>
               </div>
             </div>
           </div>
@@ -37,12 +68,8 @@
               <div class="form-group">
                 <select class="form-control <?= form_error('jenis_soal') != null ? "is-invalid" : "" ?>" name="jenis_soal" id="jenis_soal">
                   <option value="">PILIH SOAL</option>
-                  <option <?= set_select('jenis_soal', 'Pilihan Ganda UH') ?> value="Pilihan Ganda UH">Pilihan Ganda UH</option>
-                  <option <?= set_select('jenis_soal', 'Uraian UH') ?> value="Uraian UH">Uraian UH</option>
-                  <option <?= set_select('jenis_soal', 'Pilihan Ganda PTS') ?> value="Pilihan Ganda PTS">Pilihan Ganda PTS</option>
-                  <option <?= set_select('jenis_soal', 'Uraian PTS') ?> value="Uraian PTS">Uraian PTS</option>
-                  <option <?= set_select('jenis_soal', 'Pilihan Ganda PAS') ?> value="Pilihan Ganda PAS">Pilihan Ganda PAS</option>
-                  <option <?= set_select('jenis_soal', 'Uraian PAS') ?> value="Uraian PAS">Uraian PAS</option>
+                  <option value="Pilihan Ganda">Pilihan Ganda</option>
+                  <option value="Uraian">Uraian</option>
                   <option value="Lainnya">Lainnya</option>
                 </select>
                 <?= form_error('jenis_soal', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -50,86 +77,61 @@
             </div>
             <div class="col-sm-5" id="soal_jenis_lainnya">
               <div class="form-group">
-                <input type="text" class="form-control" name="" placeholder="Isi Nama Soal">
+                <input type="text" class="form-control" name="" placeholder="Isi Jenis Soal">
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-2">
-              <label>Kelas</label>
-            </div>
-            <div class="col-sm-5">
-              <div class="form-group">
-                <select class="form-control <?= form_error('id_kelas') != null ? "is-invalid" : "" ?>" name="id_kelas" id="id_kelas">
-                  <option value="">PILIH KELAS</option>
-                  <?php foreach ($kelas as $K) : ?>
-                    <option <?= set_select('id_kelas', $K['id_kelas']) ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
-                  <?php endforeach ?>
-                  <option value="Lainnya">Lainnya</option>
-                </select>
-                <?= form_error('id_kelas', '<small class="text-danger pl-3">', '</small>'); ?>
+          <!-- refactoring nomor -->
+          <div id="pilihan-ganda">
+            <div class="row">
+              <div class="col-sm-2">
+                <label>Ini Kunci Jawaban?</label>
+              </div>
+              <div class="col-sm-10">
+                <div class="form-group">
+                  <div class="form-check form-check-inline <?= form_error('kunci') != null ? "is-invalid" : "" ?>">
+                    <input class="form-check-input" type="radio" name="kunci" id="kunci-ya" value="1" ?>
+                    <label class="form-check-label">IYA</label>
+                    <input class="form-check-input" type="radio" name="kunci" id="kunci-tidak" value="0" ?>
+                    <label class="form-check-label">TIDAK</label>
+                  </div>
+                  <?= form_error('kunci', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
               </div>
             </div>
-            <div class="col-sm-5" id="soal_kelas_lainnya">
-              <div class="form-group">
-                <input type="text" class="form-control" name="" placeholder="Isi Nama Kelas">
+            <?php foreach ($nomor as $N => $isi) : ?>
+              <div class="row">
+                <div class="col-sm-2">
+                  <label><?= $isi[0] ?></label>
+                </div>
+                <div class="col-sm-10">
+                  <div class="form-group">
+                    <?php for ($i = 'A'; $i <= 'E'; $i++) : ?>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="pg-<?= $isi[1] ?>" id="pg-<?= $isi[1], '-', $i ?>" value="<?= $i ?>" <?= set_radio($isi[1], $i) ?>>
+                        <label class="form-check-label"><?= $i ?></label>
+                      </div>
+                    <?php endfor; ?>
+                    <?= form_error($isi[1], '<small class="text-danger pl-3">', '</small>'); ?>
+                  </div>
+                </div>
               </div>
-            </div>
+            <?php endforeach ?>
           </div>
-          <div class="row">
-            <div class="col-sm-2">
-              <label>Jumlah Soal</label>
-            </div>
-            <div class="col-sm-10">
-              <div class="form-group">
-                <input type="text" class="form-control <?= form_error('jml_soal') != null ? "is-invalid" : "" ?>" name="jml_soal" id="jml_soal" placeholder="Isi Jumlah Soal" value="<?= set_value('jml_soal') ?>">
-                <?= form_error('jml_soal', '<small class="text-danger pl-3">', '</small>'); ?>
+          <div id="uraian">
+            <?php foreach ($nomor as $N => $isi) : ?>
+              <div class="row">
+                <div class="col-sm-2">
+                  <label><?= $isi[0] ?></label>
+                </div>
+                <div class="col-sm-10">
+                  <div class="form-group">
+                    <input type="text" class="form-control <?= form_error($isi[1]) != null ? "is-invalid" : "" ?>" name="uraian-<?= $isi[1] ?>" id="uraian-<?= $isi[1] ?>" placeholder="<?= $isi[2] ?>" value="<?= set_value($isi[1]) ?>">
+                    <?= form_error($isi[1], '<small class="text-danger pl-3">', '</small>'); ?>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2">
-              <label>Kopetensi Dasar</label>
-            </div>
-            <div class="col-sm-10">
-              <div class="form-group">
-                <input type="text" class="form-control <?= form_error('kd') != null ? "is-invalid" : "" ?>" name="kd" id="kd" placeholder="Isi Kopetensi Dasar" value="<?= set_value('kd') ?>">
-                <?= form_error('kd', '<small class="text-danger pl-3">', '</small>'); ?>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2">
-              <label>KKM</label>
-            </div>
-            <div class="col-sm-10">
-              <div class="form-group">
-                <input type="text" class="form-control <?= form_error('kkm') != null ? "is-invalid" : "" ?>" name="kkm" id="kkm" placeholder="Isi  Kriteria Ketuntasan Minimal (KKM)" value="<?= set_value('kkm') ?>">
-                <?= form_error('kkm', '<small class="text-danger pl-3">', '</small>'); ?>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2">
-              <label>Nilai Maksimal</label>
-            </div>
-            <div class="col-sm-10">
-              <div class="form-group">
-                <input type="text" class="form-control <?= form_error('skor_max') != null ? "is-invalid" : "" ?>" name="skor_max" id="skor_max" placeholder="isi Nilai Maksimal" value="<?= set_value('skor_max') ?>">
-                <?= form_error('skor_max', '<small class="text-danger pl-3">', '</small>'); ?>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2">
-              <label>Tanggal Ujian</label>
-            </div>
-            <div class="col-sm-10">
-              <div class="form-group">
-                <input type="date" class="form-control <?= form_error('tgl_ujian') != null ? "is-invalid" : "" ?>" name="tgl_ujian" id="tgl_ujian" placeholder="isi Tanggal Ujian" value="<?= set_value('tgl_ujian') ?>">
-                <?= form_error('tgl_ujian', '<small class="text-danger pl-3">', '</small>'); ?>
-              </div>
-            </div>
+            <?php endforeach ?>
           </div>
           <div class="row">
             <div class="col-8">
