@@ -18,53 +18,55 @@
 </div>
 <!-- /.wraper -->
 
-<!-- Stylesheet -->
-<style>
-  /* Dashboard */
-  .dashboard-card {
-    box-shadow: 0px 8px 5px rgba(0, 0, 0, 0.03);
-    border-radius: 5px;
-    padding: 1.5rem 1rem;
-  }
+<?php if ($tittle == 'dashboard') : ?>
+  <!-- Stylesheet -->
+  <style>
+    /* Dashboard */
+    .dashboard-card {
+      box-shadow: 0px 8px 5px rgba(0, 0, 0, 0.03);
+      border-radius: 5px;
+      padding: 1.5rem 1rem;
+    }
 
-  .card-orange {
-    background: linear-gradient(113.02deg, rgba(255, 77, 0, 0.63) 1.33%, rgba(255, 122, 0, 0.63) 54.21%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(255, 214, 0, 0.63) 99.24%);
-  }
+    .card-orange {
+      background: linear-gradient(113.02deg, rgba(255, 77, 0, 0.63) 1.33%, rgba(255, 122, 0, 0.63) 54.21%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(255, 214, 0, 0.63) 99.24%);
+    }
 
-  .card-blue {
-    background: linear-gradient(113.02deg, rgba(86, 59, 255, 0.63) 1.33%, rgba(9, 175, 246, 0.63) 54.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(30, 215, 215, 0.63) 99.24%);
-  }
+    .card-blue {
+      background: linear-gradient(113.02deg, rgba(86, 59, 255, 0.63) 1.33%, rgba(9, 175, 246, 0.63) 54.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(30, 215, 215, 0.63) 99.24%);
+    }
 
-  .card-gray {
-    background: linear-gradient(113.02deg, rgba(77, 88, 103, 0.63) 1.33%, rgba(158, 172, 179, 0.63) 54.21%, rgba(180, 191, 191, 0.63) 99.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(137, 137, 137, 0.63) 99.24%);
-  }
+    .card-gray {
+      background: linear-gradient(113.02deg, rgba(77, 88, 103, 0.63) 1.33%, rgba(158, 172, 179, 0.63) 54.21%, rgba(180, 191, 191, 0.63) 99.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(137, 137, 137, 0.63) 99.24%);
+    }
 
-  .card-purple {
-    background: linear-gradient(113.02deg, rgba(173, 0, 255, 0.63) 1.33%, rgba(207, 76, 209, 0.63) 54.21%, rgba(208, 99, 255, 0.63) 99.2%, rgba(180, 191, 191, 0.63) 99.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(237, 42, 241, 0.63) 99.24%);
-  }
+    .card-purple {
+      background: linear-gradient(113.02deg, rgba(173, 0, 255, 0.63) 1.33%, rgba(207, 76, 209, 0.63) 54.21%, rgba(208, 99, 255, 0.63) 99.2%, rgba(180, 191, 191, 0.63) 99.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(237, 42, 241, 0.63) 99.24%);
+    }
 
-  /* Jumbotron for ProfileSekolah.php & ProfileAdmin.php */
-  .jumbotron-bg {
-    background: url("https://images.unsplash.com/photo-1553526777-5ffa3b3248d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"), linear-gradient(to bottom, #ADB2B6, #ABAEB3);
-    background-size: cover;
-    background-position: bottom;
-  }
+    /* Jumbotron for ProfileSekolah.php & ProfileAdmin.php */
+    .jumbotron-bg {
+      background: url("https://images.unsplash.com/photo-1553526777-5ffa3b3248d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"), linear-gradient(to bottom, #ADB2B6, #ABAEB3);
+      background-size: cover;
+      background-position: bottom;
+    }
 
-  /* Dashbord Activity Monitor */
-  .badge {
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-  }
+    /* Dashbord Activity Monitor */
+    .badge {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+    }
 
-  .badge-green {
-    background-color: #51CF66;
-  }
+    .badge-green {
+      background-color: #51CF66;
+    }
 
-  .badge-red {
-    background-color: #D45151;
-  }
-</style>
+    .badge-red {
+      background-color: #D45151;
+    }
+  </style>
+<?php endif ?>
 
 <!-- jQuery -->
 <script src="<?= base_url() ?>assets/plugins/jquery/jquery.min.js"></script>
@@ -140,135 +142,132 @@
   });
 </script> -->
 
-<script>
-  $(function() {
-    $('#Tables').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
-<script>
-  //------------------
-  //- Modal Edit Box -
-  //------------------
-  $(function() {
-    $('.view-data').on('click', function() {
-      var <?= $id_ajax ?> = $(this).attr('id');
-      console.log(<?= $id_ajax ?>);
-
-      $.ajax({
-        url: "<?= $url_ajax ?>",
-        method: "post",
-        data: {
-          ajax_menu: '<?= $data_menu_ajax ?>',
-          <?= $id_ajax ?>: <?= $id_ajax ?>
-        },
-        success: function(data) {
-          $('<?= $html_ajax ?>').html(data);
-          $('<?= $modal_ajax ?>').modal();
-        }
+<?php
+if (isset($url_ajax)) :
+?>
+  <script>
+    $(function() {
+      $('#Tables').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
       });
     });
+  </script>
+  <script>
+    //------------------
+    //- Modal Edit Box -
+    //------------------
+    $(function() {
+      $('.view-data').on('click', function() {
+        var <?= $id_ajax ?> = $(this).attr('id');
+        console.log(<?= $id_ajax ?>);
 
-    <?php if ($tittle == 'Daftar Pelajaran') : ?>
-      $('#kelas').on('change', function() {
-        var id_kelas = $('#kelas').val();
-        console.log(id_kelas);
         $.ajax({
-          url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
+          url: "<?= $url_ajax ?>",
           method: "post",
           data: {
-            ajax_menu: 'get_Allpelajaran',
-            id_kelas: id_kelas
+            ajax_menu: '<?= $data_menu_ajax ?>',
+            <?= $id_ajax ?>: <?= $id_ajax ?>
           },
           success: function(data) {
-            console.log('editable success');
-            $('#table-data').html(data);
+            $('<?= $html_ajax ?>').html(data);
+            $('<?= $modal_ajax ?>').modal();
           }
         });
       });
-    <?php endif ?>
-  });
-</script>
 
-<!-- Sweet Alert -->
-<script src="<?= base_url() ?>assets/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-
-<script>
-  function displayAlert(deleteUrl) {
-    Swal.fire({
-      title: <?= $tittle_sweets ?>,
-      text: <?= $text_sweets ?>,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Ya, hapus!',
-      cancelButtonText: 'Batal'
-    }).then((result) => {
-      if (result.value) {
-        window.location.href = deleteUrl;
-      }
-    })
-  }
-
-  const deleteButtons = [
-    '.delete-daftar-guru',
-    '.delete-daftar-siswa',
-    '.delete-mapel-btn',
-    '.delete-pelajaran',
-    '.delete-daftar-kelas',
-    '.delete-daftar-ujian',
-    '.delete-daftar-soal'
-  ]
-
-  for (const btn of deleteButtons) {
-    $(btn).on('click', function(e) {
-      displayAlert($(this).data('url'));
+      <?php if ($tittle == 'Daftar Pelajaran') : ?>
+        $('#kelas').on('change', function() {
+          var id_kelas = $('#kelas').val();
+          console.log(id_kelas);
+          $.ajax({
+            url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
+            method: "post",
+            data: {
+              ajax_menu: 'get_Allpelajaran',
+              id_kelas: id_kelas
+            },
+            success: function(data) {
+              console.log('editable success');
+              $('#table-data').html(data);
+            }
+          });
+        });
+      <?php endif ?>
     });
-  }
-</script>
-<!-- End Sweet Alert -->
+  </script>
+
+  <!-- Sweet Alert -->
+  <script src="<?= base_url() ?>assets/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+  <script>
+    function displayAlert(deleteUrl) {
+      Swal.fire({
+        title: <?= $tittle_sweets ?>,
+        text: <?= $text_sweets ?>,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.value) {
+          window.location.href = deleteUrl;
+        }
+      })
+    }
+
+    const deleteButtons = [
+      '.delete-daftar-guru',
+      '.delete-daftar-siswa',
+      '.delete-mapel-btn',
+      '.delete-pelajaran',
+      '.delete-daftar-kelas',
+      '.delete-daftar-ujian',
+      '.delete-daftar-soal'
+    ]
+
+    for (const btn of deleteButtons) {
+      $(btn).on('click', function(e) {
+        displayAlert($(this).data('url'));
+      });
+    }
+  </script>
+  <!-- End Sweet Alert -->
+<?php endif ?>
 
 <!-- Input Lainnya -->
 <script>
   const forms = [{
+      // ada tapi akan dihapus
       input: '#mapel_lainnya',
       select: "#id_mapel"
     },
     {
-      input: '#kelas_lainnya',
-      select: "#id_kelas"
-    },
-    {
+      // ada tapi akan dihapus
       input: '#kelas_wali_lainnya',
       select: "#id_guru"
     },
     {
+      // ada
       input: '#kelas_bidang_lainnya',
       select: "#bidang"
     },
     {
+      // ada
       input: '#kelas_kelas_lainnya',
       select: "#kelas"
     },
     {
-      input: '#soal_mapel_lainnya',
-      select: "#id_mapel"
-    },
-    {
-      input: '#soal_jenis_lainnya',
-      select: "#jenis_soal"
-    },
-    {
-      input: '#soal_kelas_lainnya',
-      select: "#id_kelas"
+      // ada
+      input: '#ujian_jenis_lainnya',
+      select: "#jenis_ujian"
     },
   ]
 
@@ -284,6 +283,7 @@
   })
 </script>
 <!-- End Input Lainnya -->
+
 
 <?php if ($tittle == 'dashboard' || $tittle == 'Hasil Analisis') : ?>
   <!-- Import Chart -->
