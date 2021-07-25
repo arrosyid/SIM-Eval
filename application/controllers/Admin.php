@@ -298,17 +298,18 @@ class Admin extends CI_Controller
 
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['ujian'] = $this->Ujian_model->getAllUjian();
-    // var_dump($data['ujian']);
-    // die;
 
-    // diubah
-    $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
-    $this->form_validation->set_rules('jenis_soal', 'Jenis Soal', 'required|trim');
+    $this->form_validation->set_rules('id_pelajaran', 'Mata Pelajaran', 'required|trim');
+    $this->form_validation->set_rules('jenis_ujian', 'Jenis Ujian', 'required|trim');
     $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
-    $this->form_validation->set_rules('jml_soal', 'Jumlah Soal', 'required|trim');
+    $this->form_validation->set_rules('jml_soal_ujian', 'Jumlah Soal Ujian', 'required|trim');
+    $this->form_validation->set_rules('jml_soalpg', 'Jumlah Soal Pilihan Ganda', 'required|trim');
+    $this->form_validation->set_rules('jml_soaluo', 'Jumlah Soal Uraian', 'required|trim');
+    $this->form_validation->set_rules('skor_max_ujian', 'Skor Maksimal Ujian', 'required|trim');
+    $this->form_validation->set_rules('skor_maxpg', 'Skor Maksimal Pilihan Ganda', 'required|trim');
+    $this->form_validation->set_rules('skor_maxuo', 'Skor Maksimal Uraian', 'required|trim');
     $this->form_validation->set_rules('kd', 'Kopempetensi Dasar', 'required|trim');
     $this->form_validation->set_rules('kkm', 'KKM', 'required|trim');
-    $this->form_validation->set_rules('skor_max', 'Nilai Maksimal', 'required|trim');
     $this->form_validation->set_rules('tgl_ujian', 'Tanggal Ujian', 'required|trim');
 
     if ($this->form_validation->run() == false) {
@@ -317,29 +318,36 @@ class Admin extends CI_Controller
       $this->load->view('admin/DaftarUjian');
       $this->load->view('templates/admin_footer', $data);
     } else {
-      // diubah
+      $id_ujian = htmlspecialchars($this->input->post('id_ujian', true));
       $data_ujian = [
-        'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
-        'jenis_soal' => htmlspecialchars($this->input->post('jenis_soal', true)),
+        'id_ujian' => $id_ujian,
+        'id_pelajaran' => htmlspecialchars($this->input->post('id_pelajaran', true)),
         'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
-        'jml_soal' => htmlspecialchars($this->input->post('jml_soal', true)),
+        'jenis_ujian' => htmlspecialchars($this->input->post('jenis_ujian', true)),
+        'jml_soal_ujian' => htmlspecialchars($this->input->post('jml_soal_ujian', true)),
+        'jml_soalpg' => htmlspecialchars($this->input->post('jml_soalpg', true)),
+        'jml_soaluo' => htmlspecialchars($this->input->post('jml_soaluo', true)),
+        'skor_max_ujian' => htmlspecialchars($this->input->post('skor_max_ujian', true)),
+        'skor_maxpg' => htmlspecialchars($this->input->post('skor_maxpg', true)),
+        'skor_maxuo' => htmlspecialchars($this->input->post('skor_maxuo', true)),
         'kd' => htmlspecialchars($this->input->post('kd', true)),
         'kkm' => htmlspecialchars($this->input->post('kkm', true)),
-        'skor_max' => htmlspecialchars($this->input->post('skor_max', true)),
-        'tgl_ujian' => htmlspecialchars($this->input->post('tgl_ujian', true))
+        'tgl_ujian' => strtotime(htmlspecialchars($this->input->post('tgl_ujian', true))),
       ];
-      if ($this->db->insert('tb_ujian', $data_ujian)) {
+      // var_dump($data['data_ujian']);
+      // die;
+      if ($this->Ujian_model->upadateUjianById($id_ujian, $data_ujian)) {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil Menginputkan Data Ujian</div>'
+                      Berhasil Mengubah Data Ujian</div>'
         );
         redirect('admin/daftarUjian');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal Menginputkan Data Ujian</div>'
+                      Gagal Mengubah Data Ujian</div>'
         );
         redirect('admin/daftarUjian');
       }
