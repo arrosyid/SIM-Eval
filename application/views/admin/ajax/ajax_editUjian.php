@@ -17,6 +17,7 @@ $form = [
     </div>
     <div class="col-sm-5">
       <div class="form-group">
+        <input type="hidden" class="form-control" name="id_ujian" id="id_ujian" value="<?= $ujian['id_ujian'] ?>">
         <select class="form-control <?= form_error('id_pelajaran') != null ? "is-invalid" : "" ?>" name="id_pelajaran" id="id_pelajaran">
           <option value="">PILIH MATA PELAJARAN</option>
           <?php foreach ($pelajaran as $M) { ?>

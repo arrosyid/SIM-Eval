@@ -334,7 +334,7 @@ class Admin extends CI_Controller
         'kkm' => htmlspecialchars($this->input->post('kkm', true)),
         'tgl_ujian' => strtotime(htmlspecialchars($this->input->post('tgl_ujian', true))),
       ];
-      // var_dump($data['data_ujian']);
+      // var_dump($data_ujian);
       // die;
       if ($this->Ujian_model->upadateUjianById($id_ujian, $data_ujian)) {
         $this->session->set_flashdata(
@@ -1165,8 +1165,8 @@ class Admin extends CI_Controller
     if ($ajax_menu == 'get_soal') {
       $id_soal = $this->input->post('id_soal', true);
       $data['soal'] = $this->Soal_model->getSoalByType('id_soal', $id_soal);
-      $data['mapel'] = $this->Mapel_model->getAllMapel();
-      $data['kelas'] = $this->Kelas_model->getAllKelas();
+      $data['siswa'] = $this->Siswa_model->getAllSiswa();
+      $data['ujian'] = $this->Ujian_model->getAllUjian();
       $this->load->view('admin/ajax/ajax_editSoal', $data);
     }
 
@@ -1186,6 +1186,7 @@ class Admin extends CI_Controller
       $data['kelasAll'] = $this->Kelas_model->getAllKelas();
       $this->load->view('admin/ajax/ajax_editPelajaran', $data);
     }
+
     // ajax view Pelajaran
     if ($ajax_menu == 'get_Allpelajaran') {
       $id_kelas = $this->input->post('id_kelas', true);
@@ -1195,6 +1196,15 @@ class Admin extends CI_Controller
         $data['pelajaran'] = $this->Pelajaran_model->getPelajaranByType('id_kelas', $id_kelas);
       }
       $this->load->view('admin/ajax/ajax_tablePelajaran', $data);
+    }
+
+    // ajax edit Ujian
+    if ($ajax_menu == 'get_ujian') {
+      $id_ujian = $this->input->post('id_ujian', true);
+      $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+      $data['pelajaran'] = $this->Pelajaran_model->getAllPelajaran();
+      $data['kelas'] = $this->Kelas_model->getAllKelas();
+      $this->load->view('admin/ajax/ajax_editUjian', $data);
     }
   }
 }
