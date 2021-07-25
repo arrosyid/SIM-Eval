@@ -188,7 +188,7 @@ class Delete extends CI_Controller
       redirect('admin/daftarUjian');
     }
   }
-  public function analisisSoal($id, $type)
+  public function analisisSoal($type, $id)
   {
     if ($type == 'pg') {
       if ($this->Analisispg_model->deleteAnalisispgByType('id_analisispg', $id)) {
