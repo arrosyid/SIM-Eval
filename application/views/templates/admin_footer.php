@@ -208,8 +208,8 @@ if (isset($url_ajax)) :
   <script>
     function displayAlert(deleteUrl) {
       Swal.fire({
-        title: <?= $tittle_sweets ?>,
-        text: <?= $text_sweets ?>,
+        title: '<?= $tittle_sweets ?>',
+        text: '<?= $text_sweets ?>',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
