@@ -8,6 +8,7 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
+        <input type="hidden" class="form-control" name="id_guru" id="id_guru" value="<?= $guru['id_guru'] ?>">
         <input type="text" class="form-control <?= form_error('nm_guru') != null ? "is-invalid" : "" ?>" name="nm_guru" id="nm_guru" placeholder="Tambahkan Nama Guru" value="<?= set_value('nm_guru') != null ? set_value('nm_guru') : $guru['nm_guru'] ?>">
         <?= form_error('nm_guru', '<small class="text-danger pl-3">', '</small>'); ?>
       </div>
@@ -42,7 +43,7 @@
   </div>
   <div class="form-group row">
     <div class="offset-sm-2 col-sm-10">
-      <input type="submit" name="tambahModal" class="btn btn-danger" value="Submit">
+      <input type="submit" name="editGuru" class="btn btn-danger" value="Submit">
     </div>
   </div>
 </form>

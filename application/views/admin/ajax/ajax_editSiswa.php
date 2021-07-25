@@ -5,6 +5,7 @@
       </div>
       <div class="col-sm-10">
         <div class="form-group">
+          <input type="hidden" class="form-control" name="id_siswa" id="id_siswa" value="<?= $siswa['id_siswa'] ?>">
           <input type="text" class="form-control <?= form_error('nm_siswa') != null ? "is-invalid" : "" ?>" name="nm_siswa" id="nm_siswa" placeholder="Isi Nama Siswa" value="<?= set_value('nm_siswa') != null ? set_value('nm_siswa') : $siswa['nm_siswa'] ?>">
           <?= form_error('nm_siswa') != null ? "is-invalid" : "" ?>
         </div>

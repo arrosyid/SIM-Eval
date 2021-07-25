@@ -5,6 +5,7 @@
     </div>
     <div class="col-sm-5">
       <div class="form-group">
+        <input type="hidden" class="form-control" name="id_soal" id="id_soal" value="<?= $soal['id_soal'] ?>">
         <select class="form-control <?= form_error('id_siswa') != null ? "is-invalid" : "" ?>" name="id_siswa" id="id_siswa">
           <option value="">PILIH NAMA SISWA</option>
           <?php foreach ($siswa as $S) { ?>
@@ -54,7 +55,7 @@
   </div>
   <div class="form-group row">
     <div class="offset-sm-2 col-sm-10">
-      <input type="submit" name="tambahModal" class="btn btn-danger" value="Submit">
+      <input type="submit" name="editSoal" class="btn btn-danger" value="Submit">
     </div>
   </div>
 </form>

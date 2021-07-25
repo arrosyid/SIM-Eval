@@ -131,7 +131,7 @@ class Admin extends CI_Controller
     $data['tittle'] = 'Distribusi Jawaban';
   }
 
-  public function daftarPelajaran($id_kelas = null)
+  public function daftarPelajaran()
   {
     // Read Data Pelajaran
     $data['tittle'] = 'Daftar Pelajaran';
@@ -162,6 +162,7 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_footer', $data);
     } else {
       $data_pelajaran = [
+        'id_pelajaran' => htmlspecialchars($this->input->post('id_pelajaran', true)),
         'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
         'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
         'semester' => htmlspecialchars($this->input->post('semester', true)),
@@ -214,7 +215,9 @@ class Admin extends CI_Controller
       $this->load->view('admin/DaftarKelas');
       $this->load->view('templates/admin_footer', $data);
     } else {
+      $id_kelas = htmlspecialchars($this->input->post('id_kelas', true));
       $data_kelas = [
+        'id_kelas' => $id_kelas,
         'kelas' => htmlspecialchars($this->input->post('kelas', true)),
         'bidang' => htmlspecialchars($this->input->post('bidang', true)),
         'nomor_kelas' => htmlspecialchars($this->input->post('nomor_kelas', true)),
@@ -223,7 +226,7 @@ class Admin extends CI_Controller
       ];
       // var_dump($data_kelas);
       // die;
-      if ($this->db->insert('tb_kelas', $data_kelas)) {
+      if ($this->Kelas_model->upadateKelasById($id_kelas, $data_kelas)) {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -376,8 +379,9 @@ class Admin extends CI_Controller
       $this->load->view('admin/DaftarSoal');
       $this->load->view('templates/admin_footer', $data);
     } else {
+      $id_soal = htmlspecialchars($this->input->post('id_soal', true));
       $data_soal = [
-        'id_siswa' => htmlspecialchars($this->input->post('id_siswa', true)),
+        'id_siswa' => $id_soal,
         'id_ujian' => htmlspecialchars($this->input->post('id_ujian', true)),
         'id_jawab' => htmlspecialchars($this->input->post('id_jawab', true)),
         'jenis_soal' => htmlspecialchars($this->input->post('jenis_soal', true)),
@@ -385,18 +389,18 @@ class Admin extends CI_Controller
         'jml_skor' => htmlspecialchars($this->input->post('jml_skor', true)),
         'nilai' => htmlspecialchars($this->input->post('skor_max', true)),
       ];
-      if ($this->db->insert('tb_soal', $data_soal)) {
+      if ($this->Soal_model->upadateSoalById($id_soal, $data_soal)) {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil Menginputkan Data Soal</div>'
+                      Berhasil Mengubah Data Soal</div>'
         );
         redirect('admin/daftarSoal');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal Menginputkan Data Soal</div>'
+                      Gagal Mengubah Data Soal</div>'
         );
         redirect('admin/daftarSoal');
       }
@@ -431,14 +435,16 @@ class Admin extends CI_Controller
       $this->load->view('admin/DaftarGuru');
       $this->load->view('templates/admin_footer', $data);
     } else {
+      $id_guru = htmlspecialchars($this->input->post('id_guru', true));
       $data_guru = [
+        'id_guru' => htmlspecialchars($this->input->post('id_guru', true)),
         'nm_guru' => htmlspecialchars($this->input->post('nm_guru', true)),
         'nip' => htmlspecialchars($this->input->post('nip', true)),
         'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
       ];
       // var_dump($data_guru);
       // die;
-      if ($this->db->insert('tb_guru', $data_guru)) {
+      if ($this->Guru_model->upadateGuruById($id_guru, $data_guru)) {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

@@ -5,13 +5,14 @@
     </div>
     <div class="col-sm-5">
       <div class="form-group">
-        <select class="form-control <?= form_error('id_kelas') != null ? "is-invalid" : "" ?>" name="id_guru" id="id_guru">
+        <input type="hidden" class="form-control" name="id_kelas" id="id_kelas" value="<?= $kelas['id_kelas'] ?>">
+        <select class="form-control <?= form_error('id_guru') != null ? "is-invalid" : "" ?>" name="id_guru" id="id_guru">
           <option value="">PILIH WALI KELAS</option>
           <?php foreach ($guru as $G) { ?>
-            <option <?= set_select('id_kelas') != null ? set_select('id_kelas', $G['id_kelas']) : ($G['nm_guru'] == $kelas['nm_guru'] ? 'selected' : '') ?> value="<?= $G['id_guru'] ?>"><?= $G['nm_guru'] ?></option>
+            <option <?= set_select('id_guru') != null ? set_select('id_guru', $G['id_guru']) : ($G['nm_guru'] == $kelas['nm_guru'] ? 'selected' : '') ?> value="<?= $G['id_guru'] ?>"><?= $G['nm_guru'] ?></option>
           <?php } ?>
         </select>
-        <?= form_error('id_kelas', '<small class="text-danger pl-3">', '</small>'); ?>
+        <?= form_error('id_guru', '<small class="text-danger pl-3">', '</small>'); ?>
       </div>
     </div>
   </div>
@@ -67,7 +68,7 @@
   <hr>
   <div class="form-group row">
     <div class="offset-sm-2 col-sm-10">
-      <input type="submit" name="tambahModal" class="btn btn-danger" value="Submit">
+      <input type="submit" name="editKelas" class="btn btn-danger" value="Submit">
     </div>
   </div>
 </form>

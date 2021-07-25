@@ -8,9 +8,10 @@
     </div>
     <div class="col-sm-10">
       <div class="form-group">
+        <input type="hidden" class="form-control" name="id_pelajaran" id="id_pelajaran" value="<?= $pelajaran['id_pelajaran'] ?>">
         <select class="form-control <?= form_error('id_kelas') != null ? "is-invalid" : "" ?>" name="id_kelas" id="id_kelas">
           <option value="">PILIH KELAS</option>
-          <?php foreach ($kelas as $K) : ?>
+          <?php foreach ($kelasAll as $K) : ?>
             <option <?= set_select('id_kelas') != null ? set_select('id_kelas', $K['id_kelas']) : ($K['id_kelas'] == $pelajaran['id_kelas'] ? 'selected' : '') ?> value="<?= $K['id_kelas'] ?>"><?= $K['kelas'] . ' ' . $K['bidang'] . ' ' . $K['nomor_kelas'] ?></option>
           <?php endforeach ?>
         </select>
@@ -62,7 +63,7 @@
   </div>
   <div class="form-group row">
     <div class="offset-sm-2 col-sm-10">
-      <input type="submit" name="tambahPelajaran" class="btn btn-danger" value="Submit">
+      <input type="submit" name="editPelajaran" class="btn btn-danger" value="Submit">
     </div>
   </div>
 </form>
