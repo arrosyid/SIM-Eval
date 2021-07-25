@@ -50,7 +50,7 @@
                   <td><?= date('d-m-Y', $U['tgl_ujian']) ?></td>
                   <td>
                     <a href="" data-toggle="modal" data-target="#editUjian" id="<?= $U['id_ujian'] ?>" class="btn btn-success view-data">edit</a>
-                    <a href="#" data-url="<?= base_url('admin/delete/ujian/') . $U['id_ujian'] ?>" class="delete-daftar-ujian btn btn-danger">hapus</a>
+                    <a href="#" data-url="<?= base_url('Delete/ujian/') . $U['id_ujian'] ?>" class="delete-daftar-ujian btn btn-danger">hapus</a>
                   </td>
                 </tr>
                 <?php $i++; ?>

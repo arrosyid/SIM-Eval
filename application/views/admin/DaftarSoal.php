@@ -39,7 +39,7 @@
                   <td><?= $S['nilai'] ?></td>
                   <td>
                     <a href="" data-toggle="modal" data-target="#editSoal" id="<?= $S['id_soal'] ?>" class="btn btn-success view-data">edit</a>
-                    <a href="#" data-url="<?= base_url('admin/delete/soal/') . $S['id_soal'] ?>" class="delete-daftar-soal btn btn-danger">hapus</a>
+                    <a href="#" data-url="<?= base_url('Delete/soal/') . $S['id_soal'] ?>" class="delete-daftar-soal btn btn-danger">hapus</a>
                   </td>
                 </tr>
                 <?php $i++; ?>
