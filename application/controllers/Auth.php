@@ -27,7 +27,7 @@ class Auth extends CI_Controller
     $this->form_validation->set_rules('password', 'Password', 'trim|min_length[8]|required');
 
     if ($this->form_validation->run() == FALSE) {
-      $data['tittle'] = 'Login Guru dan Admin';
+      $data['tittle'] = 'Login';
 
       $this->load->view('templates/auth_header', $data);
       $this->load->view('auth/login');
@@ -59,8 +59,10 @@ class Auth extends CI_Controller
           $this->session->set_userdata($data);
           if ($user['level'] == '1') {
             redirect('admin');
-          } else {
+          } elseif ($user['level'] == '2') {
             redirect('guru');
+          } elseif ($user['level'] == '3') {
+            redirect('siswa');
           }
         } else {
           $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible">
@@ -102,7 +104,7 @@ class Auth extends CI_Controller
 
 
     if ($this->form_validation->run() == FALSE) {
-      $data['tittle'] = 'Regristrasi guru';
+      $data['tittle'] = 'Regristrasi';
 
       $this->load->view('templates/auth_header', $data);
       $this->load->view('auth/registrasi');
@@ -119,7 +121,7 @@ class Auth extends CI_Controller
           PASSWORD_DEFAULT
         ),
         'email' => htmlspecialchars($email),
-        'level' => 2,
+        'level' => 3,
         'status' => 0,
         'date_created' => time()
       ];
