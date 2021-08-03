@@ -19,6 +19,7 @@ class Delete extends CI_Controller
     $this->load->model('Analisispg_model');
     $this->load->model('Analisisuo_model');
     $this->load->model('Nilai_model');
+    $this->load->model('Skor_model');
   }
   public function user($id)
   {
@@ -71,6 +72,7 @@ class Delete extends CI_Controller
       redirect('admin/daftarGuru');
     }
   }
+
   public function mapel($id)
   {
     // tabel yang terkait -> guru, pelajaran, eval, pg/uraian, analisis pg/uraian, soal, skor
@@ -93,6 +95,7 @@ class Delete extends CI_Controller
       redirect('admin/daftarMapel');
     }
   }
+
   public function pelajaran($id)
   {
     if ($this->pelajaran_model->deletePelajaranByType('id_pelajaran', $id)) {
@@ -111,6 +114,7 @@ class Delete extends CI_Controller
       redirect('admin/daftarSkor');
     }
   }
+
   public function kelas($id)
   {
     // tabel yg terkait -> pelajaran dan siswa
@@ -131,6 +135,7 @@ class Delete extends CI_Controller
       redirect('admin/daftarKelas');
     }
   }
+
   public function siswa($id)
   {
     // tabel terkait -> skor, pg/uraian, eval, analisis pg/uraian
@@ -150,6 +155,7 @@ class Delete extends CI_Controller
       redirect('admin/daftarSiswa');
     }
   }
+
   public function soal($id)
   {
     // tabel terkait -> jawaban, analisis pg/uraian
@@ -169,6 +175,7 @@ class Delete extends CI_Controller
       redirect('admin/daftarSoal');
     }
   }
+
   public function ujian($id)
   {
     // tabel terkait -> Soal, jawaban, nilai, analisis pg/uraian
@@ -188,6 +195,7 @@ class Delete extends CI_Controller
       redirect('admin/daftarUjian');
     }
   }
+
   public function analisisSoal($type, $id)
   {
     if ($type == 'pg') {
@@ -224,10 +232,61 @@ class Delete extends CI_Controller
       }
     }
   }
+
   public function jawaban($id)
   {
+    if ($this->Jawaban_model->deleteJawabByType('id_jawaban', $id)) {
+      $this->session->set_flashdata(
+        'message',
+        '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil Menghapus Data Jawaban</div>'
+      );
+      redirect('admin/distJawaban');
+    } else {
+      $this->session->set_flashdata(
+        'message',
+        '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal Menghapus Data Jawaban</div>'
+      );
+      redirect('admin/distJawaban');
+    }
   }
+
   public function nilai($id)
   {
+    if ($this->Nilai_model->deleteNilaiByType('id_nilai', $id)) {
+      $this->session->set_flashdata(
+        'message',
+        '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil Menghapus Data Nilai Siswa</div>'
+      );
+      redirect('admin/nilai');
+    } else {
+      $this->session->set_flashdata(
+        'message',
+        '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal Menghapus Data Nilai Siswa</div>'
+      );
+      redirect('admin/nilai');
+    }
+  }
+
+  public function skor($id)
+  {
+    if ($this->Skor_model->deleteSkorByType('id_skor', $id)) {
+      $this->session->set_flashdata(
+        'message',
+        '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil Menghapus Data Skor Siswa</div>'
+      );
+      redirect('admin/skor');
+    } else {
+      $this->session->set_flashdata(
+        'message',
+        '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal Menghapus Data Skor Siswa</div>'
+      );
+      redirect('admin/skor');
+    }
   }
 }
