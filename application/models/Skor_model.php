@@ -68,4 +68,98 @@ class Skor_model extends CI_Model
     if ($type == 'id_ujian')
       return $this->db->delete('tb_skor', ['id_ujian' => $id]);
   }
+
+  // koreksi otomatis
+  public function koreksi($tipe_soal, $id_ujian)
+  {
+    $data_ujian = $this->db->get_where('tb_ujian', ['id_ujian' => $id_ujian])->row_array();
+    $data_kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $data_ujian['id_kelas']])->row_array();
+    $data_jwb = $this->db->select('tb_soal.*, tb_dist_jwb.*')
+      ->from('tb_soal')
+      ->where(['id_ujian' => $id_ujian] && ['jenis_soal' => $tipe_soal])
+      ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_ujian')->get()->result_array();
+    $data_kunci = $this->db->select('kunci, nomor_soal')->from('tb_soal')
+      ->where(['id_ujian' => $id_ujian] && ['jenis_soal' => $tipe_soal])->order_by('nomor_soal', 'ASC')->get()->result_array();
+    foreach ($data_kunci as $K => $value) { // sudah dapat dijalankan
+      $kunci[$K] = $value['kunci'];
+    }
+
+    // siswa ngisi soal -> sistem nyimpen jawaban -> sistem koreksi soal(PG) -> disimpan bentuk skor
+    // untuk pilihan ganda
+    if ($tipe_soal == 'PILIHAN GANDA') {
+      $skorSoal = (int) round($data_ujian['skor_maxpg'] / $data_ujian['jml_soalpg']);
+      for ($j = 0; $j < $data_kelas['jml_siswa']; $j++) {
+        $nilai = [
+          'jml_skor' => 0,
+          'nilai' => 0,
+          'kelompok' => null,
+          'id_ujian' => $data_jwb[$j]['id_ujian'],
+          'id_siswa' => $data_jwb[$j]['id_siswa'],
+        ];
+        // for ($i = 1; $i <= $data_ujian['jml_soalpg']; $i++) {
+        for ($i = 0; $i < $data_ujian['jml_soalpg']; $i++) {
+          $nilai["no_$i"] = 0;
+          if ($data_jwb[$j][$i] == $kunci[$i]) {
+            $nilai["no_$i"] = $skorSoal;
+            $nilai['jml_skor'] += $skorSoal;
+          }
+        }
+        $nilai['nilai'] = (int) round(($nilai['jml_skor'] / $data_ujian['skor_maxpg']) * 100);
+        $skor[$j] = $nilai;
+      }
+      // menentukan kelompok atas tengah dan bawah
+      array_multisort(array_column($skor, 'nilai'), SORT_DESC, $skor);
+
+      for ($a = 0; $a < $data_kelas['jml_siswa']; $a++) {
+        for ($b = 0; $b < $data_kelas['jml_kelAtsBwh']; $b++) {
+          $skor[$b]['kelompok'] = 'ATS';
+        }
+        for ($c = ($data_kelas['jml_siswa'] - 1); $c > ($data_kelas['jml_kelAtsBwh'] * 2); $c--) {
+          $skor[$c]['kelompok'] = 'BWH';
+        }
+        if ($skor[$a]['kelompok'] == null) {
+          $skor[$a]['kelompok'] = 'TGH';
+        }
+      }
+      return $skor; // hapus
+      // cek lagi returnnya ke database
+      // return $this->db->update_batch('tb_skor', $skor, 'id_skor');
+
+      // untuk uraian
+    } elseif ($tipe_soal == 'URAIAN') {
+      for ($j = 0; $j < $data_kelas['jml_siswa']; $j++) {
+        // diganti, data/nilai skor dimasukkan kedalam tabel masing2
+        $nilai = [
+          'id_ujian' => $data_jwb[$j]['id_ujian'],
+          'id_siswa' => $data_jwb[$j]['id_siswa'],
+          'jml_skor' => 0,
+          'nilai' => 0,
+          'kelompok' => null,
+        ];
+        for ($i = 0; $i < $data_ujian['jml_soaluo']; $i++) {
+          // $nilai['jml_skor'] += $uraian[$j][$i];
+          $nilai['jml_skor'] += (int) $data_jwb[$j][$i];
+        }
+        $nilai['nilai'] = (int) round(($nilai['jml_skor'] / $data_ujian['skor_maxuo']) * 100);
+        $skor[$j] = $nilai;
+      }
+      // menentukan kelompok atas tengah dan bawah
+      array_multisort(array_column($skor, 'nilai'), SORT_DESC, $skor);
+
+      for ($a = 0; $a < $data_kelas['jml_siswa']; $a++) {
+        for ($b = 0; $b < $data_kelas['jml_kelAtsBwh']; $b++) {
+          $skor[$b]['kelompok'] = 'ATS';
+        }
+        for ($c = ($data_kelas['jml_siswa'] - 1); $c > ($data_kelas['jml_kelAtsBwh'] * 2); $c--) {
+          $skor[$c]['kelompok'] = 'BWH';
+        }
+        if ($skor[$a]['kelompok'] == null) {
+          $skor[$a]['kelompok'] = 'TGH';
+        }
+      }
+      return $skor; // hapus
+      // cek lagi returnnya ke database
+      // return $this->db->update_batch('tb_skor', $skor, 'id_skor');
+    }
+  }
 }

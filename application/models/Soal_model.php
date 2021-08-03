@@ -1,15 +1,13 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class soal_model extends CI_Model
+class Soal_model extends CI_Model
 {
   // mengambil semua soal
   public function getAllSoal()
   {
-    $this->db->select('tb_soal.*, tb_siswa.*, tb_dist_jwb.*, tb_ujian.*')
+    $this->db->select('tb_soal.*, tb_ujian.*')
       ->from('tb_soal')
-      ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
-      ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_jawab')
       ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
     return $this->db->get()->result_array();
   }
@@ -19,45 +17,19 @@ class soal_model extends CI_Model
   {
     // berdasarkan idsoal
     if ($type == 'id_soal') {
-      $this->db->select('tb_soal.*, tb_siswa.*, tb_dist_jwb.*, tb_ujian.*')
+      $this->db->select('tb_soal.*, tb_ujian.*')
         ->from('tb_soal')
         ->where(['id_soal' => $id])
-        ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
-        ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_jawab')
         ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
       return $this->db->get()->row_array();
     }
 
-    // berdasarkan id_siswa
-    if ($type == 'id_siswa') {
-      $this->db->select('tb_soal.*, tb_siswa.*, tb_dist_jwb.*, tb_ujian.*')
-        ->from('tb_soal')
-        ->where(['tb_siswa.id_siswa' => $id])
-        ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
-        ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_jawab')
-        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
-      return $this->db->get()->result_array();
-    }
-
-    // berdasarkan id_jawab
-    if ($type == 'id_jawab') {
-      $this->db->select('tb_soal.*, tb_siswa.*, tb_dist_jwb.*, tb_ujian.*')
-        ->from('tb_soal')
-        ->where(['tb_dist_jwb.id_jawab' => $id])
-        ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
-        ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_jawab')
-        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
-      return $this->db->get()->result_array();
-    }
-
     // berdasarkan id_ujian
     if ($type == 'id_ujian') {
-      $this->db->select('tb_soal.*, tb_siswa.*, tb_dist_jwb.*, tb_ujian.*')
+      $this->db->select('tb_soal.*, tb_ujian.*')
         ->from('tb_soal')
         ->where(['tb_ujian.id_ujian' => $id])
-        ->join('tb_siswa', 'tb_siswa.id_siswa = tb_soal.id_siswa')
-        ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_jawab')
-        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian');
+        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian')->order_by('nomor_soal', 'ASC');
       return $this->db->get()->result_array();
     }
   }
@@ -75,80 +47,12 @@ class soal_model extends CI_Model
     if ($type == 'id_soal')
       return $this->db->delete('tb_soal', ['id_soal' => $id]);
 
-    // berdasarkan id_siswa
-    if ($type == 'id_siswa')
-      return $this->db->delete('tb_soal', ['id_siswa' => $id]);
-
-    // berdasarkan id_jawab
-    if ($type == 'id_jawab')
-      return $this->db->delete('tb_soal', ['id_jawab' => $id]);
-
     // berdasarkan id_ujian
     if ($type == 'id_ujian')
       return $this->db->delete('tb_soal', ['id_ujian' => $id]);
   }
 
-  public function skor($tipe_soal, $id_ujian)
-  {
-    $data_ujian = $this->db->get_where('tb_ujian', ['id_ujian' => $id_ujian])->row_array();
-    $kunci = $this->db->get_where('tb_dist_jwb', ['id_ujian' => $id_ujian] && ['kunci' => 1])->row_array();
-    $data_kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $data_ujian['id_kelas']])->row_array();
-    // untuk pilihan ganda
-    if ($tipe_soal == 'PILIHAN GANDA') {
-      $data_jwb = $this->db->select('tb_soal.*, tb_dist_jwb.*')
-        ->from('tb_soal')
-        ->where(['id_ujian' => $id_ujian] && ['jenis_soal' => 'PILIHAN GANDA'])
-        ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_ujian')->get()->result_array();
-      for ($j = 0; $j < $data_kelas['jml_siswa']; $j++) {
-        // diganti, data/nilai skor dimasukkan kedalam tabel masing2
-        $nilai = [
-          'jml_skor' => 0,
-          'nilai' => 0,
-          'kelompok' => null,
-          'id_soal' => $data_jwb[$j]['id_soal'],
-        ];
-        for ($i = 0; $i < $data_ujian['jml_soalpg']; $i++) {
-          if ($data_jwb[$j][$i] == $kunci[$i]) {
-            $data_jwb["no_$i"] = 3;
-            $nilai['jml_skor'] += 3;
-          } else {
-            $data_jwb["no_$i"] = 0;
-          }
-        }
-        $nilai['nilai'] = (int) round(($nilai['jml_skor'] / $data_ujian['skor_maxpg']) * 100);
-        $skor[$j] = $nilai;
-      }
-      // return $skor; // hapus
-      // cek lagi returnnya ke database
-      return $this->db->update_batch('tb_soal', $skor, 'id_soal');
-
-      // untuk uraian
-    } elseif ($tipe_soal == 'URAIAN') {
-      $data_jwb = $this->db->select('tb_soal.*, tb_dist_jwb.*')
-        ->from('tb_soal')
-        ->where(['tb_soal.id_ujian' => $id_ujian] && ['tb_soal.jenis_soal' => 'URAIAN'])
-        ->join('tb_dist_jwb', 'tb_dist_jwb.id_jawab = tb_soal.id_ujian')->get()->result_array();
-      for ($j = 0; $j < $data_kelas['jml_siswa']; $j++) {
-        // diganti, data/nilai skor dimasukkan kedalam tabel masing2
-        $nilai = [
-          'jml_skor' => 0,
-          'nilai' => 0,
-          'kelompok' => null,
-          'id_soal' => $data_jwb[$j]['id_soal'],
-        ];
-        for ($i = 0; $i < $data_ujian['jml_soaluo']; $i++) {
-          // $nilai['jml_skor'] += $uraian[$i][$j];
-          $nilai['jml_skor'] += (int) $data_jwb[$i][$j];
-        }
-        $nilai['nilai'] = (int) round(($nilai['jml_skor'] / $data_ujian['skor_maxuo']) * 100);
-        $skor[$j] = $nilai;
-      }
-      // return $skor; // hapus
-      // cek lagi returnnya ke database
-      return $this->db->update_batch('tb_soal', $skor, 'id_soal');
-    }
-  }
-
+  // pindahkan ke controller tambah kelas
   // fungsi sudah dapat dipakai
   // menentukan jumlah kelompok atas dan bawah
   public function kelAtasBawah($id_kelas)
@@ -160,41 +64,5 @@ class soal_model extends CI_Model
     // return $AtasBwh; // hapus
     // cek lagi returnnya
     return $this->db->update('tb_kelas', $AtasBwh, ['id_kelas' => $id_kelas]);
-  }
-
-  // menentukan kelompok atas, bawah dan tengah
-  // fungsi selesai tinggal dimasukkan kedalam database
-  public function updateKelompok($tipe_soal, $id_ujian)
-  {
-    // yang diambil => id_pg, id_score, data
-    $data_ujian = $this->db->get_where('tb_ujian', ['id_ujian' => $id_ujian])->row_array();
-    if ($tipe_soal == 'PILIHAN GANDA' || 'URAIAN' || 'PG') {
-      $data_soal = $this->db->get_where('tb_soal', ['id_ujian' => $id_ujian] && ['jenis_soal' => $tipe_soal])->result_array();
-    } elseif ($tipe_soal == 'NILAI') {
-      $data_soal = $this->db->get_where('tb_dist_nilai', ['id_ujian' => $id_ujian])->result_array();
-    }
-    $data_kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $data_ujian['id_kelas']])->row_array();
-
-    array_multisort(array_column($data_soal, 'nilai'), SORT_DESC, $data_soal);
-
-    for ($i = 0; $i < $data_kelas['jml_siswa']; $i++) {
-      $data_soal[$i]['kelompok'] = null;
-      for ($j = 0; $j < $data_kelas['jml_kelAtsBwh']; $j++) {
-        $data_soal[$j]['kelompok'] = 'ATS';
-      }
-      for ($k = $data_kelas['jml_siswa']; $k > $data_kelas['jml_kelAtsBwh']; $k--) {
-        $data_soal[$k]['kelompok'] = 'BWH';
-      }
-      if ($data_soal[$i]['kelompok'] == null) {
-        $data_soal[$i]['kelompok'] = 'TGH';
-      }
-    }
-    // return $data_soal; // dihapus
-    // cek lagi returnnya ke database
-    if ($tipe_soal == 'PILIHAN GANDA' || 'URAIAN' || 'PG') {
-      return $this->db->update_batch('tb_soal', $data_soal, 'id_soal');
-    } elseif ($tipe_soal == 'NILAI') {
-      return $this->db->update_batch('tb_dist_nilai', $data_soal, 'id_skor');
-    }
   }
 }

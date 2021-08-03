@@ -21,10 +21,7 @@ class User_model extends CI_Model
   // mengambil user berdasarkan guru
   public function getAllUser()
   {
-    $this->db->select('user.*, tb_guru.nm_guru');
-    $this->db->from('tb_user');
-    $this->db->join('tb_guru', 'user.id_guru = tb_guru.id_guru');
-    return $this->db->get()->result_array();
+    return $this->db->get('tb_user')->result_array();
   }
 
   // untuk merubah status aktiv user
@@ -38,14 +35,13 @@ class User_model extends CI_Model
     return $this->db->delete('tb_user', ['email' => $email]);
   }
   // delete kooperasi by parameter
-  public function deleteUserById($type = 'id_user', $param = null)
+  public function deleteUserByType($type = 'id_user', $id = null)
   {
     if ($type == 'id_user') {
-      return $this->db->delete('tb_user', ['id_user' => $param]);
+      return $this->db->delete('tb_user', ['id_user' => $id]);
     }
-
-    if ($type == 'id_guru') {
-      return $this->db->delete('tb_user', ['id_guru' => $param]);
+    if ($type == 'email') {
+      return $this->db->delete('tb_user', ['email' => $id]);
     }
   }
 

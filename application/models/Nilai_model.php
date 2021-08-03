@@ -17,10 +17,10 @@ class Nilai_model extends CI_Model
   public function getNilaiByType($type, $id)
   {
     // berdasarkan id Skor
-    if ($type == 'id_skor') {
+    if ($type == 'id_nilai') {
       $this->db->select('tb_dist_nilai.*, tb_ujian.*, tb_siswa.*')
         ->from('tb_dist_nilai')
-        ->where(['tb_dist_nilai.id_skor' => $id])
+        ->where(['tb_dist_nilai.id_nilai' => $id])
         ->join('tb_ujian', 'tb_dist_nilai.id_ujian = tb_ujian.id_ujian')
         ->join('tb_siswa', 'tb_dist_nilai.id_siswa = tb_siswa.id_siswa');
       return $this->db->get()->row_array();
@@ -46,15 +46,15 @@ class Nilai_model extends CI_Model
   // update Skor dari id
   public function upadateNilaiById($idSkor, $data)
   {
-    return $this->db->update('tb_dist_nilai', $data, ['id_skor' => $idSkor]);
+    return $this->db->update('tb_dist_nilai', $data, ['id_nilai' => $idSkor]);
   }
 
   // delete Skor
   public function deleteNilaiByType($type, $id)
   {
     // berdasarkan id Skor
-    if ($type == 'id_skor')
-      return $this->db->delete('tb_dist_nilai', ['id_skor' => $id]);
+    if ($type == 'id_nilai')
+      return $this->db->delete('tb_dist_nilai', ['id_nilai' => $id]);
 
     // berdasarkan id ujian
     if ($type == 'id_ujian')
@@ -71,50 +71,10 @@ class Nilai_model extends CI_Model
   // if (nilai>kkm) = tuntas belajar; else tidak tuntas belajar
   public function analisisHasilBelajar($id_ujian)
   {
-
     $data_ujian = $this->db->get_where('tb_ujian', ['id_ujian' => $id_ujian])->row_array();
-    $pg = $this->db->get_where('tb_soal', ['id_ujian' => $id_ujian] && ['jenis_soal' => 'PILIHAN GANDA'])->result_array();
-    $uraian = $this->db->get_where('tb_soal', ['id_ujian' => $id_ujian] && ['jenis_soal' => 'URAIAN'])->result_array();
+    $pg = $this->db->get_where('tb_skor', ['id_ujian' => $id_ujian] && ['jenis_soal' => 'PILIHAN GANDA'])->result_array();
+    $uraian = $this->db->get_where('tb_skor', ['id_ujian' => $id_ujian] && ['jenis_soal' => 'URAIAN'])->result_array();
     $data_kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $data_ujian['id_kelas']])->row_array();
-
-    // $pg = [
-    //   ['kelompok' => 'BWH', 'jml_skor' => 3, 'nilai' => 30, 'id_siswa' => 1],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 1, 'nilai' => 10, 'id_siswa' => 2],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 2, 'nilai' => 20, 'id_siswa' => 3],
-    //   ['kelompok' => 'ATS', 'jml_skor' => 6, 'nilai' => 60, 'id_siswa' => 4],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 3, 'nilai' => 30, 'id_siswa' => 5],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 2, 'nilai' => 20, 'id_siswa' => 6],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 1, 'nilai' => 10, 'id_siswa' => 7],
-    //   ['kelompok' => 'ATS', 'jml_skor' => 5, 'nilai' => 50, 'id_siswa' => 8],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 3, 'nilai' => 30, 'id_siswa' => 9],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 2, 'nilai' => 20, 'id_siswa' => 10],
-    // ];
-    // $uraian = [
-    //   ['kelompok' => 'BWH', 'jml_skor' => 3, 'nilai' => 30, 'id_siswa' => 1],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 1, 'nilai' => 10, 'id_siswa' => 2],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 2, 'nilai' => 20, 'id_siswa' => 3],
-    //   ['kelompok' => 'ATS', 'jml_skor' => 6, 'nilai' => 60, 'id_siswa' => 4],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 3, 'nilai' => 30, 'id_siswa' => 5],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 2, 'nilai' => 20, 'id_siswa' => 6],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 1, 'nilai' => 10, 'id_siswa' => 7],
-    //   ['kelompok' => 'ATS', 'jml_skor' => 5, 'nilai' => 50, 'id_siswa' => 8],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 3, 'nilai' => 30, 'id_siswa' => 9],
-    //   ['kelompok' => 'BWH', 'jml_skor' => 2, 'nilai' => 20, 'id_siswa' => 10],
-    // ];
-    // $data_kelas = [
-    //   'jml_siswa' => 10,
-    //   'jml_kelAtsBwh' => 0,
-    //   'jml_kelTgh' => 0,
-    // ];
-    // $data_kelas['jml_kelAtsBwh'] = (int) round((30 / 100) * $data_kelas['jml_siswa']);
-    // $data_kelas['jml_kelTengah'] = $data_kelas['jml_siswa'] - ($data_kelas['jml_kelAtsBwh'] * 2);
-
-    // $data_ujian = [
-    //   'skor_max' => 20,
-    //   'skor_max_pg' => 10,
-    //   'skor_max_uraian' => 10,
-    //   'kkm' => 75,
-    // ];
 
     for ($i = 0; $i < $data_kelas['jml_siswa']; $i++) {
       $analisis = [
@@ -190,7 +150,7 @@ class Nilai_model extends CI_Model
       for ($j = 0; $j < $data_kelas['jml_kelAtsBwh']; $j++) {
         $hasil[$j]['kelompok'] = 'ATS';
       }
-      for ($k = ($data_kelas['jml_siswa'] - 1); $k > $data_kelas['jml_kelTengah']; $k--) {
+      for ($k = ($data_kelas['jml_siswa'] - 1); $k > ($data_kelas['jml_kelAtsBwh'] * 2); $k--) {
         $hasil[$k]['kelompok'] = 'BWH';
       }
       if ($hasil[$l]['kelompok'] == null) {
@@ -199,7 +159,7 @@ class Nilai_model extends CI_Model
     }
     // return $hasil;
     // cek lagi returnnya ke database
-    return $this->db->update_batch('tb_dist_nilai', $hasil, 'id_skor');
+    return $this->db->update_batch('tb_dist_nilai', $hasil, 'id_ujian');
   }
 
   public function daftarTuntas($id_ujian)
@@ -217,8 +177,4 @@ class Nilai_model extends CI_Model
     array_push($tidak_tuntas, ['persen' => $persen]);
     return $tidak_tuntas;
   }
-  // akb 2
-  // echo nama siswa tidak tuntas
-  // jml_siswa/jml_tuntas*100  = persentase siswa tuntas
-  // jml_siswa/jml_tidakTuntas*100  = persentase siswa tidak tuntas
 }
