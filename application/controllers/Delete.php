@@ -16,8 +16,8 @@ class Delete extends CI_Controller
     $this->load->model('Soal_model');
     $this->load->model('Ujian_model');
     $this->load->model('Pelajaran_model');
-    $this->load->model('Analisispg_model');
-    $this->load->model('Analisisuo_model');
+    $this->load->model('Analispg_model');
+    $this->load->model('Analisuo_model');
     $this->load->model('Nilai_model');
     $this->load->model('Skor_model');
   }
