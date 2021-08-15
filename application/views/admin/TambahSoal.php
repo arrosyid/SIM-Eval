@@ -31,7 +31,7 @@ $form = [
                 <select class="form-control <?= form_error('id_ujian') != null ? "is-invalid" : "" ?>" name="id_ujian" id="id_ujian">
                   <option value="">PILIH UJIAN</option>
                   <?php foreach ($ujian as $U) { ?>
-                    <option <?= set_select('id_ujian', $U['id_ujian']) ?> value="<?= $U['id_ujian'] ?>"><?= $U['jenis_ujian'] ?></option>
+                    <option <?= set_select('id_ujian', $U['id_ujian']) ?> value="<?= $U['id_ujian'] ?>"><?= $U['jenis_ujian'] . ' ' . $U['mapel'] . ' ' . date('d-M-Y', $U['tgl_ujian']) ?></option>
                   <?php } ?>
                 </select>
                 <?= form_error('id_ujian', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -47,8 +47,8 @@ $form = [
               <div class="form-group">
                 <select class="form-control <?= form_error('jenis_soal') != null ? "is-invalid" : "" ?>" name="jenis_soal" id="jenis_soal">
                   <option value="">PILIH JENIS SOAL</option>
-                  <option value="Pilihan Ganda">Pilihan Ganda</option>
-                  <option value="Uraian">Uraian</option>
+                  <option value="PILIHAN GANDA">PILIHAN GANDA</option>
+                  <option value="URAIAN">URAIAN</option>
                   <option value="Lainnya">Lainnya</option>
                 </select>
                 <?= form_error('jenis_soal', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -69,8 +69,8 @@ $form = [
               <div class="col-sm-10">
                 <div class="form-group">
                   <input type="text" class="form-control <?= form_error($val[1]) != null ? "is-invalid" : "" ?>" name="<?= $val[1] ?>" id="<?= $val[1] ?>" placeholder="<?= $val[2] ?>" value="<?= set_value($val[1]) ?>">
+                  <?= form_error($val[1], '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
-                <?= form_error($val[1], '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
             </div>
           <?php endforeach ?>

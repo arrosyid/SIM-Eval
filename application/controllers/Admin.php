@@ -807,18 +807,19 @@ class Admin extends CI_Controller
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['ujian'] = $this->Ujian_model->getAllUjian();
 
-    $this->form_validation->set_rules('id_siswa', 'Nama Siswa', 'required|trim');
     $this->form_validation->set_rules('id_ujian', 'Ujian', 'required|trim');
     $this->form_validation->set_rules('jenis_soal', 'Jenis Soal', 'required|trim');
     $this->form_validation->set_rules('nomor_soal', 'Nomor Soal', 'required|trim');
     $this->form_validation->set_rules('soal', 'Soal', 'required|trim');
     $this->form_validation->set_rules('skor_soal', 'Skor Soal', 'required|trim');
     $this->form_validation->set_rules('kunci', 'Kunci Jawaban', 'required|trim');
-    $this->form_validation->set_rules('pilihan_a', 'Pilihan A', 'required|trim');
-    $this->form_validation->set_rules('pilihan_b', 'Pilihan B', 'required|trim');
-    $this->form_validation->set_rules('pilihan_c', 'Pilihan C', 'required|trim');
-    $this->form_validation->set_rules('pilihan_d', 'Pilihan D', 'required|trim');
-    $this->form_validation->set_rules('pilihan_e', 'Pilihan E', 'required|trim');
+    $jenis_soal = htmlspecialchars($this->input->post('jenis_soal', true));
+    if ($jenis_soal == 'PILIHAN GANDA') {
+      $this->form_validation->set_rules('pilihan_a', 'Pilihan A', 'required|trim');
+      $this->form_validation->set_rules('pilihan_b', 'Pilihan B', 'required|trim');
+      $this->form_validation->set_rules('pilihan_c', 'Pilihan C', 'required|trim');
+      $this->form_validation->set_rules('pilihan_d', 'Pilihan D', 'required|trim');
+    }
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/admin_header', $data);
@@ -828,7 +829,7 @@ class Admin extends CI_Controller
     } else {
       $data_soal = [
         'id_ujian' => htmlspecialchars($this->input->post('id_ujian', true)),
-        'jenis_soal' => htmlspecialchars($this->input->post('jenis_soal', true)),
+        'jenis_soal' => $jenis_soal,
         'nomor_soal' => htmlspecialchars($this->input->post('nomor_soal', true)),
         'soal' => htmlspecialchars($this->input->post('soal', true)),
         'skor_soal' => htmlspecialchars($this->input->post('skor_soal', true)),
@@ -839,7 +840,7 @@ class Admin extends CI_Controller
         'pilihan_d' => htmlspecialchars($this->input->post('pilihan_d', true)),
         'pilihan_d' => htmlspecialchars($this->input->post('pilihan_d', true)),
       ];
-      // var_dump($data_jawab);
+      // var_dump($data_soal);
       // die;
       if ($this->db->insert('tb_soal', $data_soal)) {
         $this->session->set_flashdata(
