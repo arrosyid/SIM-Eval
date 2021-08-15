@@ -113,28 +113,6 @@ class Admin extends CI_Controller
     $this->load->view('templates/admin_footer');
   }
 
-  public function test()
-  {
-    $this->load->model('Kelas_model');
-    var_dump($this->Kelas_model->getAllKelas());
-    die;
-  }
-  public function nilai()
-  {
-    // Read Nilai per ujian siwa
-  }
-
-  public function skor()
-  {
-    // Input skor soal Uraian
-  }
-
-  public function jawaban()
-  {
-    // Read distribusi jawaban siswa dan kunci jawaban
-    $data['tittle'] = 'Distribusi Jawaban';
-  }
-
   public function daftarPelajaran()
   {
     // Read Data Pelajaran
@@ -827,18 +805,20 @@ class Admin extends CI_Controller
     $data['tittle'] = 'Tambah Soal';
     $data['subtittle'] = 'Tambah Soal Baru';
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-    $data['siswa'] = $this->Siswa_model->getAllSiswa();
     $data['ujian'] = $this->Ujian_model->getAllUjian();
-    // $data['ajax'] = $this->input->post('ajax_menu');
-    // var_dump($data['ajax']);
 
     $this->form_validation->set_rules('id_siswa', 'Nama Siswa', 'required|trim');
     $this->form_validation->set_rules('id_ujian', 'Ujian', 'required|trim');
     $this->form_validation->set_rules('jenis_soal', 'Jenis Soal', 'required|trim');
-    $jenis_soal = $this->input->post('jenis_soal', true);
-    if ($jenis_soal == 'Pilihan Ganda') {
-      $this->form_validation->set_rules('kunci', 'Kunci Jawaban', 'required|trim');
-    }
+    $this->form_validation->set_rules('nomor_soal', 'Nomor Soal', 'required|trim');
+    $this->form_validation->set_rules('soal', 'Soal', 'required|trim');
+    $this->form_validation->set_rules('skor_soal', 'Skor Soal', 'required|trim');
+    $this->form_validation->set_rules('kunci', 'Kunci Jawaban', 'required|trim');
+    $this->form_validation->set_rules('pilihan_a', 'Pilihan A', 'required|trim');
+    $this->form_validation->set_rules('pilihan_b', 'Pilihan B', 'required|trim');
+    $this->form_validation->set_rules('pilihan_c', 'Pilihan C', 'required|trim');
+    $this->form_validation->set_rules('pilihan_d', 'Pilihan D', 'required|trim');
+    $this->form_validation->set_rules('pilihan_e', 'Pilihan E', 'required|trim');
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/admin_header', $data);
@@ -847,26 +827,18 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_footer');
     } else {
       $data_soal = [
-        'id_siswa' => htmlspecialchars($this->input->post('id_siswa', true)),
         'id_ujian' => htmlspecialchars($this->input->post('id_ujian', true)),
-        'jenis_soal' => htmlspecialchars($jenis_soal),
+        'jenis_soal' => htmlspecialchars($this->input->post('jenis_soal', true)),
+        'nomor_soal' => htmlspecialchars($this->input->post('nomor_soal', true)),
+        'soal' => htmlspecialchars($this->input->post('soal', true)),
+        'skor_soal' => htmlspecialchars($this->input->post('skor_soal', true)),
+        'kunci' => htmlspecialchars($this->input->post('kunci', true)),
+        'pilihan_a' => htmlspecialchars($this->input->post('pilihan_a', true)),
+        'pilihan_b' => htmlspecialchars($this->input->post('pilihan_b', true)),
+        'pilihan_c' => htmlspecialchars($this->input->post('pilihan_c', true)),
+        'pilihan_d' => htmlspecialchars($this->input->post('pilihan_d', true)),
+        'pilihan_d' => htmlspecialchars($this->input->post('pilihan_d', true)),
       ];
-      $kunci = htmlspecialchars($this->input->post('kunci', true));
-      if ($kunci == 0)
-        $kunci = 0;
-      elseif ($kunci == 1)
-        $kunci = 1;
-      $data_jawab = [
-        'id_ujian' => $data_soal['id_ujian'],
-        'kunci' => $kunci,
-      ];
-      for ($i = 1; $i <= 40; $i++) {
-        if ($data_soal['jenis_soal'] == 'Pilihan Ganda') {
-          $data_jawab["no_$i"] = htmlspecialchars($this->input->post("pg-no_$i", true));
-        } else if ($data_soal['jenis_soal'] == 'Uraian') {
-          $data_jawab["no_$i"] = htmlspecialchars($this->input->post("uraian-no_$i", true));
-        }
-      }
       // var_dump($data_jawab);
       // die;
       if ($this->db->insert('tb_soal', $data_soal)) {
@@ -881,21 +853,6 @@ class Admin extends CI_Controller
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         Gagal Menginputkan Data Soal</div>'
         );
-      }
-      if ($this->db->insert('tb_dist_jwb', $data_jawab)) {
-        $this->session->set_flashdata(
-          'message1',
-          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Berhasil Menginputkan Data Jawaban</div>'
-        );
-        redirect('admin/tambahSoal');
-      } else {
-        $this->session->set_flashdata(
-          'message1',
-          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Gagal Menginputkan Data Jawaban</div>'
-        );
-        redirect('admin/tambahSoal');
       }
     }
   }
