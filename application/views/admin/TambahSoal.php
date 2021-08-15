@@ -31,7 +31,7 @@ $form = [
                 <select class="form-control <?= form_error('id_ujian') != null ? "is-invalid" : "" ?>" name="id_ujian" id="id_ujian">
                   <option value="">PILIH UJIAN</option>
                   <?php foreach ($ujian as $U) { ?>
-                    <option <?= set_select('id_ujian', $U['id_ujian']) ?> value="<?= $U['id_ujian'] ?>"><?= $U['jenis_ujian'] . ' ' . $U['mapel'] . ' ' . date('d-M-Y', $U['tgl_ujian']) ?></option>
+                    <option <?= set_select('id_ujian', $U['id_ujian']) ?> value="<?= $U['id_ujian'] ?>"><?= $U['jenis_ujian'] . ', ' . $U['mapel'] . ', ' . date('d-M-Y', $U['tgl_ujian']) ?></option>
                   <?php } ?>
                 </select>
                 <?= form_error('id_ujian', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -81,7 +81,7 @@ $form = [
             </div>
             <!-- /.col -->
             <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Tambah Guru</button>
+              <button type="submit" class="btn btn-primary btn-block">Tambah Soal</button>
             </div>
             <!-- /.col -->
           </div>
