@@ -141,13 +141,12 @@
     xhr.send();
   });
 </script> -->
-
 <?php
-if (isset($url_ajax)) :
+if ($tittle != 'dashboard' || $tittle != 'Hasil Analisis') :
 ?>
   <script>
     $(function() {
-      $('#Tables').DataTable({
+      $('.table').DataTable({
         "paging": true,
         "lengthChange": false,
         "searching": false,
@@ -158,6 +157,11 @@ if (isset($url_ajax)) :
       });
     });
   </script>
+<?php endif ?>
+
+<?php
+if (isset($url_ajax)) :
+?>
   <script>
     //------------------
     //- Modal Edit Box -
@@ -341,9 +345,9 @@ if (isset($url_ajax)) :
   <!-- End Input soal -->
 <?php endif ?>
 
-<?php if ($tittle == 'dashboard' || $tittle == 'Hasil Analisis') : ?>
-  <!-- Import Chart -->
+<?php if ($tittle == 'dashboard') : ?>
   <script src="<?= base_url() ?>assets/plugins/chart.js/Chart.js"></script>
+  <!-- Import Chart -->
 
   <!-- Chart Dashboard -->
   <script>
@@ -450,8 +454,9 @@ if (isset($url_ajax)) :
     });
   </script>
   <!-- End Chart Dashboard -->
-
-  <!-- Chart Dashboard -->
+<?php elseif ($tittle == 'Hasil Analisis') : ?>
+  <script src="<?= base_url() ?>assets/plugins/chart.js/Chart.js"></script>
+  <!-- Chart Analisis -->
   <script>
     var chartTingkatKesukaran = document.getElementById('chartTingkatKesukaran').getContext('2d');
     var myChart = new Chart(chartTingkatKesukaran, {
@@ -727,7 +732,7 @@ if (isset($url_ajax)) :
       }
     });
   </script>
-  <!-- End Chart Dashboard -->
+  <!-- End Chart Analisis -->
 <?php endif ?>
 
 </body>
