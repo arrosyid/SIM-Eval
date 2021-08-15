@@ -13,13 +13,17 @@
           <thead>
             <tr>
               <th>No</th>
-              <th>Nama Siswa</th>
+              <th>Soal</th>
+              <th>Nomor Soal</th>
+              <th>Skor Soal</th>
               <th>Jenis Soal</th>
-              <th>Ujian</th>
-              <th>jawaban</th>
-              <th>kelompok</th>
-              <th>Jumlah skor</th>
-              <th>Nilai</th>
+              <th>Kunci jawaban</th>
+              <th>Pilihan A</th>
+              <th>Pilihan B</th>
+              <th>Pilihan C</th>
+              <th>Pilihan D</th>
+              <th>Pilihan E</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -31,12 +35,17 @@
               <?php foreach ($soal as $S) : ?>
                 <tr>
                   <td><?= $i; ?></td>
-                  <td><?= $S['nm_siswa'] ?></td>
+                  <td><?= $S['soal'] ?></td>
+                  <td><?= $S['nomor_soal'] ?></td>
+                  <td><?= $S['skor_soal'] ?></td>
                   <td><?= $S['jenis_soal'] ?></td>
-                  <td><a href="<?= base_url('admin/') . $S['id_jawab'] ?>" class="btn btn-warning">detail jawaban</a></td>
-                  <td><?= $S['kelompok'] ?></td>
-                  <td><?= $S['jml_skor'] ?></td>
-                  <td><?= $S['nilai'] ?></td>
+                  <td><?= $S['kunci'] ?></td>
+                  <td><?= $S['pilihan_a'] ?></td>
+                  <td><?= $S['pilihan_b'] ?></td>
+                  <td><?= $S['pilihan_c'] ?></td>
+                  <td><?= $S['pilihan_d'] ?></td>
+                  <td><?= $S['pilihan_e'] ?></td>
+                  <td><?= $S['status'] == 0 ? 'tidak aktif' : 'aktif' ?></td>
                   <td>
                     <a href="" data-toggle="modal" data-target="#editSoal" id="<?= $S['id_soal'] ?>" class="btn btn-success view-data">edit</a>
                     <a href="#" data-url="<?= base_url('Delete/soal/') . $S['id_soal'] ?>" class="delete-daftar-soal btn btn-danger">hapus</a>
@@ -50,13 +59,17 @@
           <tfoot>
             <tr>
               <th>No</th>
-              <th>Nama Siswa</th>
+              <th>Soal</th>
+              <th>Nomor Soal</th>
+              <th>Skor Soal</th>
               <th>Jenis Soal</th>
-              <th>Ujian</th>
-              <th>jawaban</th>
-              <th>kelompok</th>
-              <th>Jumlah skor</th>
-              <th>Nilai</th>
+              <th>Kunci jawaban</th>
+              <th>Pilihan A</th>
+              <th>Pilihan B</th>
+              <th>Pilihan C</th>
+              <th>Pilihan D</th>
+              <th>Pilihan E</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </tfoot>
