@@ -1,53 +1,10 @@
 <!-- koreksi khusus uraian -->
 <?php
-$ujian = [
-  ['jenis Ujian', 'UH'],
-  ['Kompetensi Dasar', '3.1'],
-  ['KKM', 75],
-  ['tanggal Ujian', date('D, d M Y', 1626127200)],
-];
-$pg = [
-  [
-    'nomor_soal' => 1,
-    'soal' => 'INI PILIHAN GANDA',
-    'pilihan_a' => 'pilihan a',
-    'pilihan_b' => 'aku',
-    'pilihan_c' => 'pilihan c',
-    'pilihan_d' => 'pilihan d',
-    'pilihan_e' => 'pilihan e'
-  ],
-  [
-    'nomor_soal' => 2,
-    'soal' => 'INI PILIHAN GANDA',
-    'pilihan_a' => 'pilihan a',
-    'pilihan_b' => 'pilihan b',
-    'pilihan_c' => 'pilihan c',
-    'pilihan_d' => 'pilihan d',
-    'pilihan_e' => 'pilihan e'
-  ],
-  [
-    'nomor_soal' => 3,
-    'soal' => 'INI PILIHAN GANDA',
-    'pilihan_a' => 'pilihan a',
-    'pilihan_b' => 'pilihan b',
-    'pilihan_c' => 'pilihan c',
-    'pilihan_d' => 'pilihan d',
-    'pilihan_e' => 'pilihan e'
-  ],
-];
-$uraian = [
-  [
-    'nomor_soal' => 1,
-    'soal' => 'INI URAIAN',
-  ],
-  [
-    'nomor_soal' => 2,
-    'soal' => 'INI URAIAN',
-  ],
-  [
-    'nomor_soal' => 3,
-    'soal' => 'INI URAIAN',
-  ],
+$data_ujian = [
+  ['jenis Ujian', $ujian['jenis_ujian']],
+  ['Kompetensi Dasar', $ujian['kd']],
+  ['KKM', $ujian['kkm']],
+  ['tanggal Ujian', date('D, d M Y', $ujian['tgl_ujian'])],
 ];
 ?>
 <section class="content">
@@ -61,7 +18,7 @@ $uraian = [
         <?= $this->session->flashdata('message'); ?>
         <div class="row mb-4">
           <div class="col-sm-4">
-            <?php foreach ($ujian as $U => $key) : ?>
+            <?php foreach ($data_ujian as $U => $key) : ?>
               <div class="row">
                 <div class="col-5">
                   <h6 class="mb-0"><?= $key[0] ?></h6>
@@ -93,27 +50,29 @@ $uraian = [
         <form action="" method="post">
           <h4>PILIHAN GANDA</h4>
           <hr>
-          <?php foreach ($pg as $P => $val) : ?>
+          <?php foreach ($pg as $P) : ?>
             <div class="row">
               <div class="col-sm-2">
-                <label>Nomor <?= $val['nomor_soal'] ?></label>
+                <label>Nomor <?= $P['nomor_soal'] ?></label>
               </div>
               <div class="col-sm-10">
-                <p><?= $val['soal'] ?></p>
+                <p><?= $P['soal'] ?></p>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-2">
               </div>
               <div class="col-sm-10">
-                <div class="form-group <?= form_error('pg_no_' . $val['nomor_soal']) != null ? "is-invalid" : "" ?>">
-                  <?php for ($i = 'a'; $i <= 'e'; $i++) : ?>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="pg_no_<?= $val['nomor_soal'] ?>" id="pg-<?= $val['nomor_soal'] ?>-<?= $i ?>" value="<?= $i ?>" <?= set_radio('pg_no_' . $val['nomor_soal'], $i) ?>>
-                      <label class="form-check-label" for="<?= $val['nomor_soal'] . '-' . $i ?>"><?= $i . '. ' . $val["pilihan_$i"] ?></label>
-                    </div>
-                  <?php endfor; ?>
-                  <?= form_error('pg_no_' . $val['nomor_soal'], '<small class="text-danger pl-3">', '</small>'); ?>
+                <div class="form-group ">
+                  <?php for ($i = 'a'; $i <= 'e'; $i++) :
+                    if ($P["pilihan_$i"] != null) : ?>
+                      <div class="form-check">
+                        <input class="form-check-input <?= form_error("pg_no_" . $P['nomor_soal']) != null ? "is-invalid" : "" ?>" type="radio" name="pg_no_<?= $P['nomor_soal'] ?>" id="pg-<?= $P['nomor_soal'] . '-' . $i ?>" value="<?= $i ?>" <?= set_radio('pg_no_' . $P['nomor_soal'], $i) ?>>
+                        <label class="form-check-label" for="pg-<?= $P['nomor_soal'] . '-' . $i ?>"><?= $i . '. ' . $P["pilihan_$i"] ?></label>
+                      </div>
+                  <?php endif;
+                  endfor; ?>
+                  <?= form_error('pg_no_' . $P['nomor_soal'], '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
               </div>
             </div>
@@ -122,13 +81,13 @@ $uraian = [
           <h4>URAIAN</h4>
           <hr>
           <!-- untuk uraian -->
-          <?php foreach ($uraian as $U => $value) : ?>
+          <?php foreach ($uo as $U) : ?>
             <div class="row">
               <div class="col-sm-2">
-                <label>Nomor <?= $value['nomor_soal'] ?></label>
+                <label>Nomor <?= $U['nomor_soal'] ?></label>
               </div>
               <div class="col-sm-10">
-                <p><?= $value['soal'] ?></p>
+                <p><?= $U['soal'] ?></p>
               </div>
             </div>
             <div class="row">
@@ -136,8 +95,8 @@ $uraian = [
               </div>
               <div class="col-sm-10">
                 <div class="form-group">
-                  <input type="text" class="form-control <?= form_error('uo_no_' . $value['nomor_soal']) != null ? "is-invalid" : "" ?>" name="uo_no_<?= $val['nomor_soal'] ?>" id="uo-<?= $val['nomor_soal'] ?>" placeholder="Isi Jawaban Anda" value="<?= set_value('uo_no_' . $val['nomor_soal'], $i) ?>">
-                  <?= form_error('uo_no_' . $value['nomor_soal'], '<small class="text-danger pl-3">', '</small>'); ?>
+                  <input type="text" class="form-control <?= form_error('uo_no_' . $U['nomor_soal']) != null ? "is-invalid" : "" ?>" name="uo_no_<?= $U['nomor_soal'] ?>" id="uo-<?= $U['nomor_soal'] ?>" placeholder="Isi Jawaban Anda" value="<?= set_value('uo_no_' . $U['nomor_soal']) ?>">
+                  <?= form_error('uo_no_' . $U['nomor_soal'], '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
               </div>
             </div>
@@ -149,7 +108,7 @@ $uraian = [
             </div>
             <!-- /.col -->
             <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Kirim Jawaban Anda</button>
+              <button type="submit" class="btn btn-primary btn-block">Simpan jawaban anda</button>
             </div>
             <!-- /.col -->
           </div>

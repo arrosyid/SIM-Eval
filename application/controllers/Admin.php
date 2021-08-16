@@ -113,6 +113,68 @@ class Admin extends CI_Controller
     $this->load->view('templates/admin_footer');
   }
 
+  public function lembarSoal($id_ujian = 1)
+  {
+    // Read Nilai per ujian siwa
+    $data['tittle'] = 'Soal';
+    $data['subtittle'] = 'Lembar Soal';
+
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+    $data['pg'] = $this->Soal_model->getSoalByType('id_ujian_pg', $id_ujian);
+    $data['uo'] = $this->Soal_model->getSoalByType('id_ujian_uo', $id_ujian);
+
+    for ($i = 1; $i <= $data['ujian']['jml_soalpg']; $i++) {
+      $this->form_validation->set_rules("pg_no_$i", 'Jawaban', 'required|trim', [
+        'required' => 'silahkan pilih jawaban anda dengan benar'
+      ]);
+      $jawabpg["no_$i"] = strtoupper(htmlspecialchars($this->input->post("pg_no_$i", true)));
+    }
+    for ($i = 1; $i <= $data['ujian']['jml_soaluo']; $i++) {
+      $this->form_validation->set_rules("uo_no_$i", 'Jawaban', 'required|trim', [
+        'required' => 'silahkan isi jawaban anda dengan benar'
+      ]);
+      $jawabuo["no_$i"] = htmlspecialchars($this->input->post("uo_no_$i", true));
+    }
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/LembarSoal');
+      $this->load->view('templates/admin_footer');
+    } else {
+      $data_jawabpg = [
+        'id_ujian' => $id_ujian,
+        'id_siswa' => 1,
+        'jenis_soal' => 'PILIHAN GANDA',
+      ];
+      $uploadpg = $data_jawabpg + $jawabpg;
+      $data_jawabuo = [
+        'id_ujian' => $id_ujian,
+        'id_siswa' => 1,
+        'jenis_soal' => 'PILIHAN GANDA',
+      ];
+      $uploaduo = $data_jawabuo + $jawabuo;
+      // var_dump($uploadpg);
+      // die;
+      if ($this->db->insert('tb_dist_jwb', $uploadpg) && $this->db->insert('tb_dist_jwb', $uploaduo)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Berhasil Menginputkan Data Jawaban</div>'
+        );
+        redirect('admin/lembarSoal');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Gagal Menginputkan Data Jawaban</div>'
+        );
+        redirect('admin/lembarSoal');
+      }
+    }
+  }
+
   public function daftarPelajaran()
   {
     // Read Data Pelajaran
