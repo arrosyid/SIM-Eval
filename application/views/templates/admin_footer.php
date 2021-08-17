@@ -182,25 +182,6 @@ if ($tittle != 'dashboard' || $tittle != 'Hasil Analisis') :
           }
         });
       });
-
-      <?php if ($tittle == 'Daftar Pelajaran') : ?>
-        $('#kelas').on('change', function() {
-          var id_kelas = $('#kelas').val();
-          console.log(id_kelas);
-          $.ajax({
-            url: "<?= $user['level'] == 1 ? base_url('admin/ajax') :  base_url('guru/ajax') ?>",
-            method: "post",
-            data: {
-              ajax_menu: 'get_Allpelajaran',
-              id_kelas: id_kelas
-            },
-            success: function(data) {
-              console.log('editable success');
-              $('#table-data').html(data);
-            }
-          });
-        });
-      <?php endif ?>
     });
   </script>
 <?php endif ?>

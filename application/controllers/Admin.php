@@ -232,6 +232,12 @@ class Admin extends CI_Controller
     $data['html_ajax'] = '#detailPelajaran';
     $data['modal_ajax'] = '#editPelajaran';
 
+    $data['table_url_ajax'] = base_url('admin/ajax');
+    $data['table_ajax_menu'] = 'get_Allpelajaran';
+    $data['table_id_ajax'] = 'id_kelas';
+    $data['table_html_ajax'] = '#table-data';
+    $data['table_ajax_dom'] = '#kelas';
+
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['kelas'] = $this->Kelas_model->getAllKelas();
     $data['mapel'] = $this->Mapel_model->getAllMapel();
