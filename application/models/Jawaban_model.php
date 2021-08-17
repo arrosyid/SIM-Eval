@@ -63,6 +63,24 @@ class Jawaban_model extends CI_Model
         ->where(['tb_dist_jwb.jenis_soal' => 'URAIAN']);
       return $this->db->get()->row_array();
     }
+    // berdasarkan id_ujian dan pilihan ganda
+    if ($type == 'id_ujian_pg') {
+      $this->db->select('tb_dist_jwb.*, tb_siswa.*')
+        ->from('tb_dist_jwb')
+        ->where(['tb_dist_jwb.id_ujian' => $id])
+        ->where(['tb_dist_jwb.jenis_soal' => 'PILIHAN GANDA'])
+        ->join('tb_siswa', 'tb_siswa.id_siswa = tb_dist_jwb.id_siswa');
+      return $this->db->get()->result_array();
+    }
+    // berdasarkan id_ujian dan URAIAN
+    if ($type == 'id_ujian_uo') {
+      $this->db->select('tb_dist_jwb.*, tb_siswa.*')
+        ->from('tb_dist_jwb')
+        ->where(['tb_dist_jwb.id_ujian' => $id])
+        ->where(['tb_dist_jwb.jenis_soal' => 'URAIAN'])
+        ->join('tb_siswa', 'tb_siswa.id_siswa = tb_dist_jwb.id_siswa');
+      return $this->db->get()->result_array();
+    }
   }
 
   // update jawaban dari id
