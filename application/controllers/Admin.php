@@ -23,6 +23,7 @@ class Admin extends CI_Controller
     $this->load->model('Analisuo_model');
     $this->load->model('Nilai_model');
     $this->load->model('Skor_model');
+    $this->load->model('Jawaban_model');
   }
 
   public function index()
@@ -173,6 +174,27 @@ class Admin extends CI_Controller
         redirect('admin/lembarSoal');
       }
     }
+  }
+
+  public function reviewJawaban($id_ujian = 1, $id_siswa = 1)
+  {
+    // Read Nilai per ujian siwa
+    $data['tittle'] = 'Review Jawaban';
+    $data['subtittle'] = 'Review Jawaban Anda';
+
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+    $data['soal_pg'] = $this->Soal_model->getSoalByType('id_ujian_pg', $id_ujian);
+    $data['soal_uo'] = $this->Soal_model->getSoalByType('id_ujian_uo', $id_ujian);
+    $data['pg'] = $this->Jawaban_model->getJawabanByType('id_ujian_siswa_pg', $id_ujian, $id_siswa);
+    $data['uo'] = $this->Jawaban_model->getJawabanByType('id_ujian_siswa_uo', $id_ujian, $id_siswa);
+    // var_dump($data['uo']);
+    // die;
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('admin/ReviewJawaban');
+    $this->load->view('templates/admin_footer');
   }
 
   public function daftarPelajaran()
