@@ -206,6 +206,12 @@ class Admin extends CI_Controller
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['ujian'] = $this->Ujian_model->getAllUjian();
 
+    $data['table_url_ajax'] = base_url('admin/ajax');
+    $data['table_ajax_menu'] = 'get_AllJawaban';
+    $data['table_id_ajax'] = 'id_ujian';
+    $data['table_html_ajax'] = '#table-data';
+    $data['table_ajax_dom'] = '#ujian';
+
     $this->load->view('templates/admin_header', $data);
     $this->load->view('templates/sidebar', $data);
     $this->load->view('admin/DistJawaban');
@@ -1118,6 +1124,19 @@ class Admin extends CI_Controller
         $data['pelajaran'] = $this->Pelajaran_model->getPelajaranByType('id_kelas', $id_kelas);
       }
       $this->load->view('admin/ajax/ajax_tablePelajaran', $data);
+    }
+
+    // ajax view Jawaban
+    if ($ajax_menu == 'get_AllJawaban') {
+      $id_ujian = $this->input->post('id_ujian', true);
+      if ($id_ujian == null) {
+        $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+      } else {
+        $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+        $data['pg'] = $this->Jawaban_model->getJawabanByType('id_ujian_pg', $id_ujian);
+        $data['uo'] = $this->Jawaban_model->getJawabanByType('id_ujian_uo', $id_ujian);
+      }
+      $this->load->view('admin/ajax/ajax_tableDistJawaban', $data);
     }
 
     // ajax edit Ujian

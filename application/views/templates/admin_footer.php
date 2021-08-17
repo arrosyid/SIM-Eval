@@ -159,9 +159,7 @@ if ($tittle != 'dashboard' || $tittle != 'Hasil Analisis') :
   </script>
 <?php endif ?>
 
-<?php
-if (isset($url_ajax)) :
-?>
+<?php if (isset($url_ajax)) : ?>
   <script>
     //------------------
     //- Modal Edit Box -
@@ -205,7 +203,33 @@ if (isset($url_ajax)) :
       <?php endif ?>
     });
   </script>
+<?php endif ?>
 
+<?php if (isset($table_url_ajax)) : ?>
+  <script>
+    //------------------
+    //- Modal Edit Box -
+    //------------------
+    $('<?= $table_ajax_dom ?>').on('change', function() {
+      var <?= $table_id_ajax ?> = $('<?= $table_ajax_dom ?>').val();
+      console.log(<?= $table_id_ajax ?>);
+      $.ajax({
+        url: "<?= $table_url_ajax ?>",
+        method: "post",
+        data: {
+          ajax_menu: '<?= $table_ajax_menu ?>',
+          <?= $table_id_ajax ?>: <?= $table_id_ajax ?>
+        },
+        success: function(data) {
+          console.log('editable success');
+          $('<?= $table_html_ajax ?>').html(data);
+        }
+      });
+    });
+  </script>
+<?php endif ?>
+
+<?php if (isset($tittle_sweets)) : ?>
   <!-- Sweet Alert -->
   <script src="<?= base_url() ?>assets/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
