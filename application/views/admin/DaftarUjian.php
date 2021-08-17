@@ -36,7 +36,10 @@
               <?php foreach ($ujian as $U) : ?>
                 <tr>
                   <td><?= $i; ?></td>
-                  <td><?= $U['mapel'] ?></td>
+                  <td>
+                    <?= $U['mapel'] ?>
+                    <a href="<?= base_url('admin/lembarSoal/') . $U['id_ujian'] ?>" class="btn btn-info">Kerjakan</a>
+                  </td>
                   <td><?= $U['kelas'] . ' ' . $U['bidang'] . ' ' . $U['nomor_kelas'] ?></td>
                   <td><?= $U['jenis_ujian'] ?></td>
                   <td><?= $U['kd'] ?></td>
@@ -51,6 +54,11 @@
                   <td>
                     <a href="" data-toggle="modal" data-target="#editUjian" id="<?= $U['id_ujian'] ?>" class="btn btn-success view-data">edit</a>
                     <a href="#" data-url="<?= base_url('Delete/ujian/') . $U['id_ujian'] ?>" class="delete-daftar-ujian btn btn-danger">hapus</a>
+                    <!-- <?php if ($U['status'] == 1) : ?>
+                      <a href="<?= base_url('admin/lembarSoal/') . $U['id_ujian'] ?>" class="btn btn-info">non aktifkan</a>
+                    <?php elseif ($U['staus'] == 0) : ?>
+                      <a href="<?= base_url('admin/lembarSoal/') . $U['id_ujian'] ?>" class="btn btn-info">aktifkan</a>
+                    <?php endif ?> -->
                   </td>
                 </tr>
                 <?php $i++; ?>
