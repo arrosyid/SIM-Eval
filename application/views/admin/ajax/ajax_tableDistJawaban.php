@@ -17,10 +17,10 @@ if (isset($pg) && isset($uo)) {
     ['PILIHAN GANDA', 2],
     ['URAIAN', 2]
   ];
-}
-$a = 1;
+} ?>
+<a href="<?= base_url('admin/skor/' . $ujian['id_ujian']) ?>" class="btn btn-primary">Lihat Skor</a>
+<?php $a = 1;
 foreach ($jenis as $J => $val) : ?>
-  <!-- data table yg uraian tidak bisa diuggah -->
   <h5 class="text-center"><?= $val[0] ?></h5>
   <table id="Tables<?= $a ?>" class="table table-bordered table-striped">
     <thead>

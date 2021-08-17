@@ -26,12 +26,9 @@ $jenis = [
               </select>
             </div>
           </div>
-          <div class="col-sm-2">
-            <!-- fungsi lihat Skor siswa -->
-            <a href="<?= base_url('admin/skor') ?>" class="btn btn-primary">Lihat Skor</a>
-          </div>
         </div>
         <div id="table-data">
+          <a href="<?= base_url('admin/skor') ?>" class="btn btn-primary">Lihat Skor</a>
           <?php $a = 1;
           foreach ($jenis as $J => $val) : ?>
             <!-- data table yg uraian tidak bisa diuggah -->
