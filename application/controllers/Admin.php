@@ -152,7 +152,7 @@ class Admin extends CI_Controller
       $data_jawabuo = [
         'id_ujian' => $id_ujian,
         'id_siswa' => 1,
-        'jenis_soal' => 'PILIHAN GANDA',
+        'jenis_soal' => 'URAIAN',
       ];
       $uploaduo = $data_jawabuo + $jawabuo;
       // var_dump($uploadpg);
