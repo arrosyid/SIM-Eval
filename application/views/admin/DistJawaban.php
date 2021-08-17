@@ -1,32 +1,10 @@
 <?php
 // data dibawah dikirim dari controller ke variable pg dan uraian
 //array dalam jenis adalah jenis soal dan jumlah soals
-$pg = [
-  ['AKU', 'C', 'D', 'A', 'C', 'B', 'C', 'A', 'C', 'B', 'C', 'A', 'C', 'B'],
-  ['AKU', 'C', 'D', 'A', 'C', 'B', 'C', 'A', 'C', 'B', 'C', 'A', 'C', 'B'],
-  ['AKU', 'C', 'D', 'A', 'C', 'B', 'C', 'A', 'C', 'B', 'C', 'A', 'C', 'B'],
-  ['AKU', 'C', 'D', 'A', 'C', 'B', 'C', 'A', 'C', 'B', 'C', 'A', 'C', 'B'],
+$jenis = [
+  ['PILIHAN GANDA', 2],
+  ['URAIAN', 2]
 ];
-$uraian = [
-  ['AKU', '1', '2', '3', '4', '5', '6', '7', '1', '2', '1', '2', '1', '2'],
-  ['AKU', '1', '2', '3', '4', '5', '6', '7', '1', '2', '1', '2', '1', '2'],
-  ['AKU', '1', '2', '3', '4', '5', '6', '7', '1', '2', '1', '2', '1', '2'],
-  ['AKU', '1', '2', '3', '4', '5', '6', '7', '1', '2', '1', '2', '1', '2'],
-];
-if (isset($pg) && isset($uraian)) {
-  $jenis = [
-    ['PILIHAN GANDA', 12],
-    ['URAIAN', 5]
-  ];
-} elseif (isset($pg)) {
-  $jenis = [
-    ['PILIHAN GANDA', 12],
-  ];
-} elseif (isset($uraian)) {
-  $jenis = [
-    ['URAIAN', 5]
-  ];
-}
 ?>
 <section class="content">
   <div class="container-fluid">
@@ -41,61 +19,57 @@ if (isset($pg) && isset($uraian)) {
           <div class="col-sm-3">
             <div class="form-grup">
               <select class="form-control" name="ujian" id="ujian">
-                <option value="">PILIH Ujian</option>
+                <option value="">PILIH UJIAN</option>
                 <?php foreach ($ujian as $U) : ?>
-                  <option value="<?= $U['id_ujian'] ?>"><?= $U['mapel'] . ', ' . $U['jenis_ujian'] . ', ' . date("d-m-Y", $U['tanngal']) ?></option>
+                  <option value="<?= $U['id_ujian'] ?>"><?= $U['mapel'] . ', ' . $U['jenis_ujian'] . ', ' . date("d-m-Y", $U['tgl_ujian']) ?></option>
                 <?php endforeach ?>
               </select>
             </div>
           </div>
+          <div class="col-sm-2">
+            <!-- fungsi lihat Skor siswa -->
+            <a href="<?= base_url('admin/skor') ?>" class="btn btn-primary">Lihat Skor</a>
+          </div>
         </div>
-        <?php foreach ($jenis as $J => $val) : ?>
-          <table id="Tables" class="table table-bordered table-striped">
+        <div id="table-data">
+          <?php $a = 1;
+          foreach ($jenis as $J => $val) : ?>
+            <!-- data table yg uraian tidak bisa diuggah -->
             <h5 class="text-center"><?= $val[0] ?></h5>
-            <thead>
-              <tr>
-                <th rowspan="2" class="text-center align-middle">No</th>
-                <th rowspan="2" class="text-center align-middle">Nama Siswa</th>
-                <th colspan="<?= $val[1] ?>" class="text-center align-middle">nomor</th>
-              </tr>
-              <tr>
-                <?php for ($i = 1; $i <= $val[1]; $i++) {
-                  echo "<th>$i</th>";
-                } ?>
-              </tr>
-            </thead>
-            <tbody>
-              <?php if ($val[0] == 'URAIAN') {
-                $isi = $uraian;
-              } elseif ($val[0] == 'PILIHAN GANDA') {
-                $isi = $pg;
-              } ?>
-              <?php $i = 1;
-              foreach ($isi as $S => $value) : ?>
+            <table id="Tables<?= $a ?>" class="table table-bordered table-striped">
+              <thead>
                 <tr>
-                  <td><?= $i ?></td>
-                  <?php for ($k = 0; $k <= $val[1]; $k++) : ?>
-                    <td><?= $value[$k] ?></td>
-                  <?php endfor ?>
+                  <th rowspan="2" class="text-center align-middle">No</th>
+                  <th rowspan="2" class="text-center align-middle">Nama Siswa</th>
+                  <th colspan="<?= $val[1] ?>" class="text-center align-middle">nomor</th>
+                  <?= $val[0] == 'URAIAN' ? '<th rowspan="2" class="text-center align-middle">status</th>' : '' ?>
                 </tr>
-              <?php $i++;
-              endforeach; ?>
-            </tbody>
-            <tfoot>
-              <tr>
-                <th rowspan="2" class="text-center align-middle">No</th>
-                <th rowspan="2" class="text-center align-middle">Nama Siswa</th>
-                <?php for ($i = 1; $i <= $val[1]; $i++) {
-                  echo "<th>$i</th>";
-                } ?>
-              </tr>
-              <tr>
-                <th colspan="<?= $val[1] ?>" class="text-center align-middle">nomor</th>
-              </tr>
-            </tfoot>
-          </table>
-          <br>
-        <?php endforeach ?>
+                <tr>
+                  <?php for ($i = 1; $i <= $val[1]; $i++) {
+                    echo "<th>$i</th>";
+                  } ?>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th rowspan="2" class="text-center align-middle">No</th>
+                  <th rowspan="2" class="text-center align-middle">Nama Siswa</th>
+                  <?php for ($i = 1; $i <= $val[1]; $i++) {
+                    echo "<th>$i</th>";
+                  } ?>
+                  <?= $val[0] == 'URAIAN' ? '<th rowspan="2" class="text-center align-middle">status</th>' : '' ?>
+                </tr>
+                <tr>
+                  <th colspan="<?= $val[1] ?>" class="text-center align-middle">nomor</th>
+                </tr>
+              </tfoot>
+            </table>
+            <br>
+          <?php $a++;
+          endforeach; ?>
+        </div>
       </div>
       <!-- /.card-body -->
     </div>

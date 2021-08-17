@@ -197,6 +197,21 @@ class Admin extends CI_Controller
     $this->load->view('templates/admin_footer');
   }
 
+  public function distJawaban()
+  {
+    // Read distribusi jawaban siswa dan kunci jawaban
+    $data['tittle'] = 'Distribusi Jawaban';
+    $data['subtittle'] = 'Distribusi Jawaban';
+
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['ujian'] = $this->Ujian_model->getAllUjian();
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('admin/DistJawaban');
+    $this->load->view('templates/admin_footer');
+  }
+
   public function daftarPelajaran()
   {
     // Read Data Pelajaran
