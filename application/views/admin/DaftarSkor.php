@@ -58,7 +58,7 @@ if ($pg != null && $uo != null) {
                 foreach ($isi as $S) : ?>
                   <tr>
                     <td><?= $i ?></td>
-                    <td><?= isset($koreksi) ? $S['nm_siswa'] . $koreksi : $S['nm_siswa'] ?></td>
+                    <td><?= $S['nm_siswa'] ?></td>
                     <?php for ($k = 1; $k <= $val[1]; $k++) : ?>
                       <td><?= $S["no_$k"] ?>
                       </td>
