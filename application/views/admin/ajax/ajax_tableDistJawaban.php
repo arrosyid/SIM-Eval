@@ -1,14 +1,14 @@
 <?php
-if (isset($pg) && isset($uo)) {
+if ($pg != null && $uo != null) {
   $jenis = [
     ['PILIHAN GANDA', $ujian['jml_soalpg']],
     ['URAIAN', $ujian['jml_soaluo']]
   ];
-} elseif (isset($pg)) {
+} elseif ($pg != null) {
   $jenis = [
     ['PILIHAN GANDA', $ujian['jml_soalpg']],
   ];
-} elseif (isset($uo)) {
+} elseif ($uo != null) {
   $jenis = [
     ['URAIAN', $ujian['jml_soalou']]
   ];
@@ -38,7 +38,7 @@ foreach ($jenis as $J => $val) : ?>
     </thead>
     <tbody>
       <?php
-      if (isset($pg) || isset($uo)) :
+      if ($pg != null || $uo != null) :
         if ($val[0] == 'URAIAN') {
           // href kirim id siswa dan id ujian
           $koreksi = '<a href="' . base_url('admin/koreksi/') . '" class="btn btn-primary float-right">Koreksi jawaban</a>';
