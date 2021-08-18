@@ -218,6 +218,26 @@ class Admin extends CI_Controller
     $this->load->view('templates/admin_footer');
   }
 
+  public function skor($id_ujian = 1)
+  {
+    // Input Skor soal Uraian
+    // fitur Skor manual
+    $data['tittle'] = 'Skor Soal';
+    $data['subtittle'] = 'Skor Soal Uraian';
+
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+    $data['pg'] = $this->Skor_model->getSkorByType('id_ujian_pg', $id_ujian);
+    $data['uo'] = $this->Skor_model->getSkorByType('id_ujian_uo', $id_ujian);
+    // var_dump($data['ujian']);
+    // die;
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('admin/DaftarSkor');
+    $this->load->view('templates/admin_footer');
+  }
+
   public function daftarPelajaran()
   {
     // Read Data Pelajaran
