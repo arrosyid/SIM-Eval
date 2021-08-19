@@ -11,7 +11,7 @@ if ($pg != null && $uo != null) {
   ];
 } elseif ($uo != null) {
   $jenis = [
-    ['URAIAN', $ujian['jml_soalou']]
+    ['URAIAN', $ujian['jml_soaluo']]
   ];
 } else {
   $jenis = [
@@ -38,7 +38,6 @@ if ($pg != null && $uo != null) {
                 <th rowspan="2" class="text-center align-middle">No</th>
                 <th rowspan="2" class="text-center align-middle">Nama Siswa</th>
                 <th colspan="<?= $val[1] ?>" class="text-center align-middle">nomor</th>
-                <?= $val[0] == 'URAIAN' ? '<th rowspan="2" class="text-center align-middle">status</th>' : '' ?>
               </tr>
               <tr>
                 <?php for ($i = 1; $i <= $val[1]; $i++) {
@@ -62,14 +61,7 @@ if ($pg != null && $uo != null) {
                     <?php for ($k = 1; $k <= $val[1]; $k++) : ?>
                       <td><?= $S["no_$k"] ?>
                       </td>
-                    <?php endfor;
-                    if ($S['status'] == 1) {
-                      $status = 'terkoreksi';
-                    } elseif ($S['status'] == 0) {
-                      $status = 'belum dikoreksi';
-                    }
-                    ?>
-                    <?= $val[0] == 'URAIAN' ? '<td>' . $status . '</td>' : '' ?>
+                    <?php endfor; ?>
                   </tr>
               <?php $i++;
                 endforeach;
@@ -82,7 +74,6 @@ if ($pg != null && $uo != null) {
                 <?php for ($i = 1; $i <= $val[1]; $i++) {
                   echo "<th>$i</th>";
                 } ?>
-                <?= $val[0] == 'URAIAN' ? '<th rowspan="2" class="text-center align-middle">status</th>' : '' ?>
               </tr>
               <tr>
                 <th colspan="<?= $val[1] ?>" class="text-center align-middle">nomor</th>
