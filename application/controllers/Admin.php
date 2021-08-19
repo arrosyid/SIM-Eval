@@ -197,6 +197,22 @@ class Admin extends CI_Controller
     $this->load->view('templates/admin_footer');
   }
 
+  public function nilai()
+  {
+    // Read Nilai per ujian siwa
+    $data['tittle'] = 'Daftar Nilai';
+    $data['subtittle'] = 'Daftar Nilai Siswa';
+
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['ujian'] = $this->Ujian_model->getAllUjian();
+    $data['nilai'] = $this->Nilai_model->getAllNilai();
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('admin/Nilai');
+    $this->load->view('templates/admin_footer');
+  }
+
   public function koreksi($id_ujian = 1, $id_siswa = 1)
   {
     // Input skor soal Uraian
