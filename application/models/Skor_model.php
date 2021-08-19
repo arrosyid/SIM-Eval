@@ -30,7 +30,7 @@ class Skor_model extends CI_Model
     if ($type == 'id_siswa') {
       $this->db->select('tb_skor.*, tb_siswa.*, tb_ujian.*')
         ->from('tb_skor')
-        ->where(['tb_siswa.id_siswa' => $id])
+        ->where(['tb_skor.id_siswa' => $id])
         ->join('tb_siswa', 'tb_siswa.id_siswa = tb_skor.id_siswa')
         ->join('tb_ujian', 'tb_ujian.id_ujian = tb_skor.id_ujian');
       return $this->db->get()->result_array();
@@ -40,9 +40,27 @@ class Skor_model extends CI_Model
     if ($type == 'id_ujian') {
       $this->db->select('tb_skor.*, tb_siswa.*, tb_ujian.*')
         ->from('tb_skor')
-        ->where(['tb_ujian.id_ujian' => $id])
+        ->where(['tb_skor.id_ujian' => $id])
         ->join('tb_siswa', 'tb_siswa.id_siswa = tb_skor.id_siswa')
         ->join('tb_ujian', 'tb_ujian.id_ujian = tb_skor.id_ujian');
+      return $this->db->get()->result_array();
+    }
+    // berdasarkan id_ujian dan pilihan ganda
+    if ($type == 'id_ujian_pg') {
+      $this->db->select('tb_skor.*, tb_siswa.*')
+        ->from('tb_skor')
+        ->where(['tb_skor.id_ujian' => $id])
+        ->where(['tb_skor.jenis_soal' => 'PILIHAN GANDA'])
+        ->join('tb_siswa', 'tb_siswa.id_siswa = tb_skor.id_siswa');
+      return $this->db->get()->result_array();
+    }
+    // berdasarkan id_ujian dan uraian
+    if ($type == 'id_ujian_uo') {
+      $this->db->select('tb_skor.*, tb_siswa.*')
+        ->from('tb_skor')
+        ->where(['tb_skor.id_ujian' => $id])
+        ->where(['tb_skor.jenis_soal' => 'URAIAN'])
+        ->join('tb_siswa', 'tb_siswa.id_siswa = tb_skor.id_siswa');
       return $this->db->get()->result_array();
     }
   }
@@ -121,9 +139,9 @@ class Skor_model extends CI_Model
           $skor[$a]['kelompok'] = 'TGH';
         }
       }
-      return $skor; // hapus
+      // return $skor; // hapus
       // cek lagi returnnya ke database
-      // return $this->db->update_batch('tb_skor', $skor, 'id_skor');
+      return $this->db->update_batch('tb_skor', $skor, 'id_skor');
 
       // untuk uraian
     } elseif ($tipe_soal == 'URAIAN') {
@@ -157,9 +175,9 @@ class Skor_model extends CI_Model
           $skor[$a]['kelompok'] = 'TGH';
         }
       }
-      return $skor; // hapus
+      // return $skor; // hapus
       // cek lagi returnnya ke database
-      // return $this->db->update_batch('tb_skor', $skor, 'id_skor');
+      return $this->db->update_batch('tb_skor', $skor, 'id_skor');
     }
   }
 }
