@@ -557,8 +557,15 @@ class Admin extends CI_Controller
     $data['html_ajax'] = '#detailSoal';
     $data['modal_ajax'] = '#editSoal';
 
+    $data['table_url_ajax'] = base_url('admin/ajax');
+    $data['table_ajax_menu'] = 'get_AllSoal';
+    $data['table_id_ajax'] = 'id_ujian';
+    $data['table_html_ajax'] = '#table-data';
+    $data['table_ajax_dom'] = '#ujian';
+
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
     $data['soal'] = $this->Soal_model->getAllSoal();
+    $data['ujian'] = $this->Ujian_model->getAllUjian();
     // var_dump($data['soal']);
     // die;
 
@@ -1252,6 +1259,18 @@ class Admin extends CI_Controller
         $data['nilai'] = $this->Nilai_model->getNilaiByType('id_ujian', $id_ujian);
       }
       $this->load->view('admin/ajax/ajax_tableNilai', $data);
+    }
+
+    // ajax view Soal
+    if ($ajax_menu == 'get_AllSoal') {
+      $id_ujian = $this->input->post('id_ujian', true);
+      if ($id_ujian == null) {
+        $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+      } else {
+        $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+        $data['Soal'] = $this->Soal_model->getSoalByType('id_ujian', $id_ujian);
+      }
+      $this->load->view('admin/ajax/ajax_tableSoal', $data);
     }
 
     // ajax edit Ujian
