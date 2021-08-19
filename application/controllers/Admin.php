@@ -197,6 +197,61 @@ class Admin extends CI_Controller
     $this->load->view('templates/admin_footer');
   }
 
+  public function koreksi($id_ujian = 1, $id_siswa = 1)
+  {
+    // Input skor soal Uraian
+    // fitur koreksi manual
+    $data['tittle'] = 'Koreksi Soal';
+    $data['subtittle'] = 'Koreksi Soal Uraian';
+
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+    $data['soal_uo'] = $this->Soal_model->getSoalByType('id_ujian_uo', $id_ujian);
+    $data['uo'] = $this->Jawaban_model->getJawabanByType('id_ujian_siswa_uo', $id_ujian, $id_siswa);
+    $data['siswa'] = $this->Siswa_model->getSiswaByType('id_siswa', $id_siswa);
+
+    for ($i = 1; $i <= $data['ujian']['jml_soaluo']; $i++) {
+      $data['soal_uo'][$i - 1]['jawaban'] = $data['uo']["no_$i"];
+      $this->form_validation->set_rules("no_$i", 'Jawaban', 'required|trim', [
+        'required' => 'silahkan isi jawaban anda dengan benar'
+      ]);
+      $skoruo["no_$i"] = htmlspecialchars($this->input->post("no_$i", true));
+    }
+    // var_dump($data['soal_uo']);
+    // die;
+
+    if ($this->form_validation->run() == false) {
+      $this->load->view('templates/admin_header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('admin/Koreksi');
+      $this->load->view('templates/admin_footer');
+    } else {
+      $data_skoruo = [
+        'id_ujian' => $id_ujian,
+        'id_siswa' => $id_siswa,
+        'jenis_soal' => 'URAIAN',
+      ];
+      $uploaduo = $data_skoruo + $skoruo;
+      // var_dump($uploaduo);
+      // die;
+      if ($this->db->insert('tb_skor', $uploaduo)) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Berhasil Menginputkan Data Skor siswa bernama ' . $data['siswa']['nm_siswa'] . '</div>'
+        );
+        redirect('admin/koreksi');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Gagal Menginputkan Data Skor siswa </div>'
+        );
+        redirect('admin/koreksi');
+      }
+    }
+  }
+
   public function distJawaban()
   {
     // Read distribusi jawaban siswa dan kunci jawaban

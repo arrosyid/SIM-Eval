@@ -28,28 +28,28 @@ class Soal_model extends CI_Model
     if ($type == 'id_ujian') {
       $this->db->select('tb_soal.*, tb_ujian.*')
         ->from('tb_soal')
-        ->where(['tb_ujian.id_ujian' => $id])
+        ->where(['tb_soal.id_ujian' => $id])
         ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian')->order_by('nomor_soal', 'ASC');
       return $this->db->get()->result_array();
     }
 
     // berdasarkan id_ujian dan soal pilihan ganda
     if ($type == 'id_ujian_pg') {
-      $this->db->select('tb_soal.*, tb_ujian.*')
+      $this->db->select('tb_soal.*')
         ->from('tb_soal')
-        ->where(['tb_ujian.id_ujian' => $id])
+        ->where(['tb_soal.id_ujian' => $id])
         ->where(['tb_soal.jenis_soal' => 'PILIHAN GANDA'])
-        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian')->order_by('nomor_soal', 'ASC');
+        ->order_by('nomor_soal', 'ASC');
       return $this->db->get()->result_array();
     }
 
     // berdasarkan id_ujian dan soal uraian
     if ($type == 'id_ujian_uo') {
-      $this->db->select('tb_soal.*, tb_ujian.*')
+      $this->db->select('tb_soal.*')
         ->from('tb_soal')
-        ->where(['tb_ujian.id_ujian' => $id])
+        ->where(['tb_soal.id_ujian' => $id])
         ->where(['tb_soal.jenis_soal' => 'URAIAN'])
-        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_soal.id_ujian')->order_by('nomor_soal', 'ASC');
+        ->order_by('nomor_soal', 'ASC');
       return $this->db->get()->result_array();
     }
   }
