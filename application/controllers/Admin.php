@@ -207,6 +207,12 @@ class Admin extends CI_Controller
     $data['ujian'] = $this->Ujian_model->getAllUjian();
     $data['nilai'] = $this->Nilai_model->getAllNilai();
 
+    $data['table_url_ajax'] = base_url('admin/ajax');
+    $data['table_ajax_menu'] = 'get_AllNilai';
+    $data['table_id_ajax'] = 'id_ujian';
+    $data['table_html_ajax'] = '#table-data';
+    $data['table_ajax_dom'] = '#ujian';
+
     $this->load->view('templates/admin_header', $data);
     $this->load->view('templates/sidebar', $data);
     $this->load->view('admin/Nilai');
@@ -1234,6 +1240,18 @@ class Admin extends CI_Controller
         $data['uo'] = $this->Jawaban_model->getJawabanByType('id_ujian_uo', $id_ujian);
       }
       $this->load->view('admin/ajax/ajax_tableDistJawaban', $data);
+    }
+
+    // ajax view Nilai
+    if ($ajax_menu == 'get_AllNilai') {
+      $id_ujian = $this->input->post('id_ujian', true);
+      if ($id_ujian == null) {
+        $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+      } else {
+        $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+        $data['nilai'] = $this->Nilai_model->getNilaiByType('id_ujian', $id_ujian);
+      }
+      $this->load->view('admin/ajax/ajax_tableNilai', $data);
     }
 
     // ajax edit Ujian

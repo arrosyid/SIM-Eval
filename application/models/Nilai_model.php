@@ -31,7 +31,7 @@ class Nilai_model extends CI_Model
         ->where(['tb_dist_nilai.id_ujian' => $id])
         ->join('tb_ujian', 'tb_dist_nilai.id_ujian = tb_ujian.id_ujian')
         ->join('tb_siswa', 'tb_dist_nilai.id_siswa = tb_siswa.id_siswa');
-      return $this->db->get()->row_array();
+      return $this->db->get()->result_array();
     }
     if ($type == 'id_siswa') {
       $this->db->select('tb_dist_nilai.*, tb_ujian.*, tb_siswa.*')

@@ -33,7 +33,7 @@ $tb_nilai = [
               }  ?>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="table-data">
             <?php $i = 1;
             foreach ($nilai as $N) : ?>
               <tr>
