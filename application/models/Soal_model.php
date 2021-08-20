@@ -71,18 +71,4 @@ class Soal_model extends CI_Model
     if ($type == 'id_ujian')
       return $this->db->delete('tb_soal', ['id_ujian' => $id]);
   }
-
-  // pindahkan ke controller tambah kelas
-  // fungsi sudah dapat dipakai
-  // menentukan jumlah kelompok atas dan bawah
-  public function kelAtasBawah($id_kelas)
-  {
-    $kelas = $this->db->get_where('tb_kelas', ['id_kelas' => $id_kelas])->row_array();
-    // $kelas['jml_siswa'] = 47;
-    $AtasBwh['jml_kelAtsBwh'] = (int) round((30 / 100) * $kelas['jml_siswa']);
-    $AtasBwh['jml_kelTengah'] = $kelas['jml_siswa'] - ($AtasBwh['jml_kelAtsBwh'] * 2);
-    // return $AtasBwh; // hapus
-    // cek lagi returnnya
-    return $this->db->update('tb_kelas', $AtasBwh, ['id_kelas' => $id_kelas]);
-  }
 }

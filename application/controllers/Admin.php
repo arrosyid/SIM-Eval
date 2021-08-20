@@ -461,13 +461,18 @@ class Admin extends CI_Controller
       $this->load->view('templates/admin_footer', $data);
     } else {
       $id_kelas = htmlspecialchars($this->input->post('id_kelas', true));
+      $jml_siswa = htmlspecialchars($this->input->post('jml_siswa', true));
+      $atas = (int) round((30 / 100) * $jml_siswa);
+      $tengah = $jml_siswa - ($atas * 2);
       $data_kelas = [
         'id_kelas' => $id_kelas,
         'kelas' => htmlspecialchars($this->input->post('kelas', true)),
         'bidang' => htmlspecialchars($this->input->post('bidang', true)),
         'nomor_kelas' => htmlspecialchars($this->input->post('nomor_kelas', true)),
         'id_guru' => htmlspecialchars($this->input->post('id_guru', true)),
-        'jml_siswa' => htmlspecialchars($this->input->post('jml_siswa', true)),
+        'jml_siswa' => $jml_siswa,
+        'jml_kelAtsBwh' => $atas,
+        'jml_kelTengah' => $tengah,
       ];
       // var_dump($data_kelas);
       // die;
@@ -1208,12 +1213,17 @@ class Admin extends CI_Controller
       $this->load->view('admin/TambahKelas');
       $this->load->view('templates/admin_footer');
     } else {
+      $jml_siswa = htmlspecialchars($this->input->post('jml_siswa', true));
+      $atas = (int) round((30 / 100) * $jml_siswa);
+      $tengah = $jml_siswa - ($atas * 2);
       $data_kelas = [
         'kelas' => htmlspecialchars($this->input->post('kelas', true)),
         'bidang' => htmlspecialchars($this->input->post('bidang', true)),
         'nomor_kelas' => htmlspecialchars($this->input->post('nomor_kelas', true)),
         'id_guru' => htmlspecialchars($this->input->post('id_guru', true)),
-        'jml_siswa' => htmlspecialchars($this->input->post('jml_siswa', true)),
+        'jml_siswa' => $jml_siswa,
+        'jml_kelAtsBwh' => $atas,
+        'jml_kelTengah' => $tengah,
       ];
       if ($this->db->insert('tb_kelas', $data_kelas)) {
         $this->session->set_flashdata(
