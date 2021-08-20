@@ -154,7 +154,6 @@ class Admin extends CI_Controller
         'id_ujian' => $id_ujian,
         'id_siswa' => 1,
         'jenis_soal' => 'PILIHAN GANDA',
-        'status' => 1,
         'jml_skor' => 0,
         'nilai' => 0,
       ];
@@ -171,6 +170,7 @@ class Admin extends CI_Controller
       $data_jawabpg = [
         'id_ujian' => $id_ujian,
         'id_siswa' => 1,
+        'status' => 1,
         'jenis_soal' => 'PILIHAN GANDA',
       ];
       $uploadpg = $data_jawabpg + $jawabpg;
