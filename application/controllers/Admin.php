@@ -1282,6 +1282,19 @@ class Admin extends CI_Controller
       $this->load->view('admin/ajax/ajax_tableNilai', $data);
     }
 
+    // ajax view Nilai
+    if ($ajax_menu == 'get_AllAnalis') {
+      $id_ujian = $this->input->post('id_ujian', true);
+      if ($id_ujian == null) {
+        $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+      } else {
+        $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
+        $data['pg'] = $this->Analispg_model->getAnalispgByType('id_ujian', $id_ujian);
+        $data['uo'] = $this->Analisuo_model->getAnalisuoByType('id_ujian', $id_ujian);
+        $this->load->view('admin/ajax/ajax_tableAnalis', $data);
+      }
+    }
+
     // ajax view Soal
     if ($ajax_menu == 'get_AllSoal') {
       $id_ujian = $this->input->post('id_ujian', true);

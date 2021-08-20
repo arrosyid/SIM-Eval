@@ -26,7 +26,7 @@
               <tr>
                 <th rowspan="2" class="text-center align-middle">No</th>
                 <th rowspan="2" class="text-center align-middle">Nomor Soal</th>
-                <th rowspan="2" class="text-center align-middle">Keterangan Soal</th>
+                <th rowspan="2" class="text-center align-middle">Kriteria Soal</th>
                 <th colspan="5" class="text-center align-middle">Jumlah Jawab</th>
                 <th colspan="2" class="text-center align-middle">Jumlah Benar</th>
                 <th colspan="5" class="text-center align-middle">Pengecoh</th>
@@ -50,7 +50,7 @@
               <tr>
                 <th rowspan="2" class="text-center align-middle">No</th>
                 <th rowspan="2" class="text-center align-middle">Nomor Soal</th>
-                <th rowspan="2" class="text-center align-middle">Keterangan Soal</th>
+                <th rowspan="2" class="text-center align-middle">Kriteria Soal</th>
                 <?php for ($i = 'A'; $i <= 'E'; $i++) {
                   echo "<th>$i</th>";
                 } ?>
@@ -77,7 +77,7 @@
               <tr>
                 <th rowspan="2" class="text-center align-middle">No</th>
                 <th rowspan="2" class="text-center align-middle">Nomor Soal</th>
-                <th rowspan="2" class="text-center align-middle">Keterangan Soal</th>
+                <th rowspan="2" class="text-center align-middle">Kriteria Soal</th>
                 <th colspan="2" class="text-center align-middle">Rata-Rata Skor</th>
                 <th rowspan="2" class="text-center align-middle">Rata-Rata Benar</th>
                 <th rowspan="2" class="text-center align-middle">Tingkat Kesukaran</th>
@@ -94,7 +94,7 @@
               <tr>
                 <th rowspan="2" class="text-center align-middle">No</th>
                 <th rowspan="2" class="text-center align-middle">Nomor Soal</th>
-                <th rowspan="2" class="text-center align-middle">Keterangan Soal</th>
+                <th rowspan="2" class="text-center align-middle">Kriteria Soal</th>
                 <th>Atas</th>
                 <th>Bawah</th>
                 <th rowspan="2" class="text-center align-middle">Rata-Rata Benar</th>
