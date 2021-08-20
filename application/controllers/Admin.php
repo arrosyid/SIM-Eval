@@ -284,7 +284,13 @@ class Admin extends CI_Controller
       $uploaduo = $data_skoruo + $skoruo;
       // var_dump($uploaduo);
       // die;
-      if ($this->db->insert('tb_skor', $uploaduo)) {
+      $status = [
+        'status' => 1
+      ];
+      if (
+        $this->Jawaban_model->upadateJawabanById($data['uo']['id_jawab'], $status) &&
+        $this->db->insert('tb_skor', $uploaduo)
+      ) {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
