@@ -124,6 +124,10 @@ class Admin extends CI_Controller
     $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
     $data['pg'] = $this->Soal_model->getSoalByType('id_ujian_pg', $id_ujian);
     $data['uo'] = $this->Soal_model->getSoalByType('id_ujian_uo', $id_ujian);
+    // untuk koreksi otomatis
+    foreach ($data['pg'] as $K => $value) {
+      $kunci[$K] = $value['kunci'];
+    }
 
     for ($i = 1; $i <= $data['ujian']['jml_soalpg']; $i++) {
       $this->form_validation->set_rules("pg_no_$i", 'Jawaban', 'required|trim', [
@@ -144,6 +148,26 @@ class Admin extends CI_Controller
       $this->load->view('admin/LembarSoal');
       $this->load->view('templates/admin_footer');
     } else {
+      // koreksi otomatis
+      $skorSoal = (int) round($data['ujian']['skor_maxpg'] / $data['ujian']['jml_soalpg']);
+      $skor = [
+        'id_ujian' => $id_ujian,
+        'id_siswa' => 1,
+        'jenis_soal' => 'PILIHAN GANDA',
+        'status' => 1,
+        'jml_skor' => 0,
+        'nilai' => 0,
+      ];
+      for ($j = 1; $j <= $data['ujian']['jml_soalpg']; $j++) {
+        if ($jawabpg["no_$j"] == $kunci[$j - 1]) {
+          $skor["no_$j"] = $skorSoal;
+          $skor['jml_skor'] += $skorSoal;
+        } else {
+          $skor["no_$j"] = 0;
+        }
+      }
+      $skor['nilai'] = (int) round(($skor['jml_skor'] / $data['ujian']['skor_maxpg']) * 100);
+      // data untuk upload
       $data_jawabpg = [
         'id_ujian' => $id_ujian,
         'id_siswa' => 1,
@@ -158,18 +182,22 @@ class Admin extends CI_Controller
       $uploaduo = $data_jawabuo + $jawabuo;
       // var_dump($uploadpg);
       // die;
-      if ($this->db->insert('tb_dist_jwb', $uploadpg) && $this->db->insert('tb_dist_jwb', $uploaduo)) {
+      if (
+        $this->db->insert('tb_dist_jwb', $uploadpg) &&
+        $this->db->insert('tb_dist_jwb', $uploaduo) &&
+        $this->db->insert('tb_skor', $skor)
+      ) {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                          Berhasil Menginputkan Data Jawaban</div>'
+                          Berhasil Menyimpan Data Jawaban</div>'
         );
         redirect('admin/lembarSoal');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                          Gagal Menginputkan Data Jawaban</div>'
+                          Gagal Menyimpan Data Jawaban</div>'
         );
         redirect('admin/lembarSoal');
       }
