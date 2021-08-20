@@ -274,6 +274,27 @@ class Admin extends CI_Controller
     }
   }
 
+  public function analisisSoal()
+  {
+    // Read Hasil Analisis Soal
+    $data['tittle'] = 'Analisis Soal';
+    $data['subtittle'] = 'Analisis Soal';
+
+    $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
+    $data['ujian'] = $this->Ujian_model->getAllUjian();
+
+    $data['table_url_ajax'] = base_url('admin/ajax');
+    $data['table_ajax_menu'] = 'get_AllAnalis';
+    $data['table_id_ajax'] = 'id_ujian';
+    $data['table_html_ajax'] = '#table-data';
+    $data['table_ajax_dom'] = '#ujian';
+
+    $this->load->view('templates/admin_header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('admin/AnalisisSoal');
+    $this->load->view('templates/admin_footer');
+  }
+
   public function distJawaban()
   {
     // Read distribusi jawaban siswa dan kunci jawaban

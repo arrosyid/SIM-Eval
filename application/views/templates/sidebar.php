@@ -64,6 +64,13 @@ if ($user['level'] == 1) {
           </a>
         </li>
         <li class="nav-item">
+          <a href="<?= $href . 'analisisSoal' ?>" class="nav-link 
+                  <?php if ($tittle == 'Analisis Soal') echo 'active'; ?>">
+            <i class="nav-icon fas fa-clipboard-check"></i>
+            <p>Analisis Soal</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="<?= $href . 'distJawaban' ?>" class="nav-link 
                     <?php if ($tittle == 'Distribusi Jawaban' || $tittle == 'Koreksi Soal') echo 'active'; ?>">
             <i class="nav-icon fas fa-spell-check"></i>
