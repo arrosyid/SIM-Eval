@@ -26,11 +26,11 @@ class Analispg_model extends CI_Model
 
     // berdasarkan id_ujian
     if ($type == 'id_ujian') {
-      $this->db->select('tb_analis_soalpg.*, tb_ujian.*')
+      $this->db->select('tb_analis_soalpg.*')
         ->from('tb_analis_soalpg')
         ->where(['tb_analis_soalpg.id_ujian' => $id])
-        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_analis_soalpg.id_ujian');
-      return $this->db->get()->row_array();
+        ->order_by('no_soal', 'ASC');
+      return $this->db->get()->result_array();
     }
   }
 

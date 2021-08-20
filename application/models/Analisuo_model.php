@@ -17,7 +17,7 @@ class Analisuo_model extends CI_Model
   {
     // berdasarkan idAnalisuo
     if ($type == 'id_analisuo') {
-      $this->db->select('tb_analis_soaluo.*, tb_soal.*')
+      $this->db->select('tb_analis_soaluo.*, tb_ujian.*')
         ->from('tb_analis_soaluo')
         ->where(['tb_analis_soaluo.id_analisuo' => $id])
         ->join('tb_ujian', 'tb_ujian.id_ujian = tb_analis_soaluo.id_ujian');
@@ -26,11 +26,11 @@ class Analisuo_model extends CI_Model
 
     // berdasarkan id_ujian
     if ($type == 'id_ujian') {
-      $this->db->select('tb_analis_soaluo.*, tb_soal.*')
+      $this->db->select('tb_analis_soaluo.*')
         ->from('tb_analis_soaluo')
         ->where(['tb_analis_soaluo.id_ujian' => $id])
-        ->join('tb_ujian', 'tb_ujian.id_ujian = tb_analis_soaluo.id_ujian');
-      return $this->db->get()->row_array();
+        ->order_by('no_soal', 'ASC');
+      return $this->db->get()->result_array();
     }
   }
 
