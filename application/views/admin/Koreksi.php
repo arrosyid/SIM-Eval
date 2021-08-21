@@ -21,6 +21,7 @@ $siswa = [
       </div>
       <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
+        <?= $this->session->flashdata('message1'); ?>
         <div class="row mb-4">
           <div class="col-sm-4">
             <?php foreach ($data_ujian as $U => $key) : ?>

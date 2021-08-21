@@ -280,7 +280,13 @@ class Admin extends CI_Controller
         'id_ujian' => $id_ujian,
         'id_siswa' => $id_siswa,
         'jenis_soal' => 'URAIAN',
+        'jml_skor' => 0,
+        'nilai' => 0,
       ];
+      for ($i = 0; $i < $data['ujian']['jml_soaluo']; $i++) {
+        $data_skoruo['jml_skor'] += $skoruo["no_$i"];
+      }
+      $data_skoruo['nilai'] = (int) round(($data_skoruo['jml_skor'] / $data['ujian']['skor_maxuo']) * 100);
       $uploaduo = $data_skoruo + $skoruo;
       // var_dump($uploaduo);
       // die;
@@ -294,16 +300,16 @@ class Admin extends CI_Controller
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                          Berhasil Menginputkan Data Skor siswa bernama ' . $data['siswa']['nm_siswa'] . '</div>'
+                          Berhasil Menginputkan Data Skor Siswa Bernama ' . $data['siswa']['nm_siswa'] . '</div>'
         );
-        redirect('admin/koreksi');
+        redirect('admin/distJawaban');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                          Gagal Menginputkan Data Skor siswa </div>'
+                          Gagal Menginputkan Data Skor Siswa </div>'
         );
-        redirect('admin/koreksi');
+        redirect('admin/distJawaban');
       }
     }
   }
