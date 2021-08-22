@@ -32,6 +32,15 @@ class Guru_model extends CI_Model
         ->join('tb_mapel', 'tb_guru.id_mapel = tb_mapel.id_mapel');
       return $this->db->get()->result_array();
     }
+
+    // berdasarkan id user
+    if ($type == 'id_user') {
+      $this->db->select('tb_guru.*, tb_mapel.*')
+        ->from('tb_guru')
+        ->where(['tb_guru.id_user' => $id])
+        ->join('tb_mapel', 'tb_guru.id_mapel = tb_mapel.id_mapel');
+      return $this->db->get()->row_array();
+    }
   }
 
   // update Guru dari id

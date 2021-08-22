@@ -32,6 +32,15 @@ class Siswa_model extends CI_Model
         ->join('tb_kelas', 'tb_kelas.id_kelas = tb_siswa.id_kelas');
       return $this->db->get()->result_array();
     }
+
+    // berdasarkan id_user
+    if ($type == 'id_user') {
+      $this->db->select('tb_siswa.*, tb_kelas.*')
+        ->from('tb_siswa')
+        ->where(['tb_siswa.id_user' => $id])
+        ->join('tb_kelas', 'tb_kelas.id_kelas = tb_siswa.id_kelas');
+      return $this->db->get()->result_array();
+    }
   }
 
   // update Siswa dari id
