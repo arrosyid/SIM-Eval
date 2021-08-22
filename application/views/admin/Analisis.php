@@ -1,13 +1,13 @@
-<?php 
-  $dataSoal = [
-    ["Mata Pelajaran",  "Bahasa Indonesia"],
-    ["KELAS", "VII 2"],
-    ["KD", "2.3"],
-    ["Jumlah Soal", "20"],
-    ["Tanggal Ujian", "12 02 2021"],
-    ["KKM", "7.5"],
-    ["Jenis Soal", "Pilihan Ganda PTS"],
-  ];
+<?php
+$data_ujian = [
+  ["Mata Pelajaran",  'Bahasa Indonesia'],
+  ["KELAS", "VII 2"],
+  ["KD", "2.3"],
+  ["Jumlah Soal", "20"],
+  ["Tanggal Ujian", "12 02 2021"],
+  ["KKM", "7.5"],
+  ["Jenis Soal", "Pilihan Ganda PTS"],
+];
 ?>
 
 <!-- Main content -->
@@ -19,17 +19,17 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
-              <div class="row">
-                <div class="col-sm-4">Pilih Soal</div>
-                <div class="col-sm-8 text-secondary">
-                  <div class="form-group my-0">
-                    <select class="form-control name="id_mapel" id="id_mapel">
-                      <option value="">PILIH KELAS/JENIS SOAL</option>
-                      <option value="Lainnya">Hola! Adios!</option>
-                    </select>
-                  </div>
+            <div class="row">
+              <div class="col-sm-4">Pilih Soal</div>
+              <div class="col-sm-8 text-secondary">
+                <div class="form-group my-0">
+                  <select class="form-control" name=" id_mapel" id="id_mapel">
+                    <option value="">PILIH KELAS/JENIS SOAL</option>
+                    <option value="Lainnya">Hola! Adios!</option>
+                  </select>
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
@@ -42,19 +42,19 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-header py-3">
-            <h2 class="card-title">Data Soal</h2>
+            <h2 class="card-title">Data Ujian</h2>
           </div>
           <div class="card-body">
             <!-- COLUMN -->
-            <?php for ($i = 0; $i < count($dataSoal); $i++) { ?>  
+            <?php for ($i = 0; $i < count($data_ujian); $i++) { ?>
               <div class="row">
-                <div class="col-sm-4"><?= $dataSoal[$i][0] ?></div>
+                <div class="col-sm-4"><?= $data_ujian[$i][0] ?></div>
                 <div class="col-sm-8 text-secondary">
-                  <?= $dataSoal[$i][1] ?>
+                  <?= $data_ujian[$i][1] ?>
                 </div>
               </div>
 
-              <?php if ($i < count($dataSoal) - 1) {
+              <?php if ($i < count($data_ujian) - 1) {
                 echo "<hr>";
               }
               ?>
@@ -148,7 +148,7 @@
         </div>
       </div>
       <!-- END KELOMPOK ATAS BAWAH TENGAH -->
-      
+
       <!-- NILAI -->
       <div class="col-md-3">
         <div class="card">
@@ -198,17 +198,17 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
-              <div class="row">
-                <div class="col-sm-4">Pilih Distribusi Soal</div>
-                <div class="col-sm-8 text-secondary">
-                  <div class="form-group my-0">
-                    <select class="form-control name="id_mapel" id="id_mapel">
-                      <option value="">PILIH KELAS/JENIS SOAL</option>
-                      <option value="Lainnya">Hola! Adios!</option>
-                    </select>
-                  </div>
+            <div class="row">
+              <div class="col-sm-4">Pilih Distribusi Soal</div>
+              <div class="col-sm-8 text-secondary">
+                <div class="form-group my-0">
+                  <select class="form-control" name="id_mapel" id="id_mapel">
+                    <option value="">PILIH KELAS/JENIS SOAL</option>
+                    <option value="Lainnya">Hola! Adios!</option>
+                  </select>
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
@@ -259,7 +259,7 @@
         </div>
       </div>
       <!-- END KELOMPOK ATAS BAWAH TENGAH -->
-      
+
       <!-- NILAI -->
       <div class="col-md-3">
         <div class="card">
@@ -285,7 +285,7 @@
         </div>
       </div>
       <!-- END KELOMPOK ATAS BAWAH TENGAH -->
-      
+
       <!-- NILAI -->
       <div class="col-md-3">
         <div class="card">

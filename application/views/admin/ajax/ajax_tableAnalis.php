@@ -31,18 +31,18 @@
             <td><?= $j ?></td>
             <td><?= $P['no_soal'] ?></td>
             <td><?= $P['ket_soal'] ?></td>
-            <td><?= $P['jml_jwbA'] ?></td>
-            <td><?= $P['jml_jwbB'] ?></td>
-            <td><?= $P['jml_jwbC'] ?></td>
-            <td><?= $P['jml_jwbD'] ?></td>
-            <td><?= $P['jml_jwbE'] == null ? '' : $P['jml_jwbE'] ?></td>
-            <td><?= $P['jml_BenarAts'] ?></td>
-            <td><?= $P['jml_BenarBwh'] ?></td>
-            <td><?= $P['pengecoh_a'] ?></td>
-            <td><?= $P['pengecoh_b'] ?></td>
-            <td><?= $P['pengecoh_c'] ?></td>
-            <td><?= $P['pengecoh_d'] ?></td>
-            <td><?= $P['pengecoh_e'] == null ? '' : $P['pengecoh_e'] ?></td>
+            <td><?= $P['jml_jwbA'] == 0 ? '-' : $P['jml_jwbA'] ?></td>
+            <td><?= $P['jml_jwbB'] == 0 ? '-' : $P['jml_jwbB'] ?></td>
+            <td><?= $P['jml_jwbC'] == 0 ? '-' : $P['jml_jwbC'] ?></td>
+            <td><?= $P['jml_jwbD'] == 0 ? '-' : $P['jml_jwbD'] ?></td>
+            <td><?= $P['jml_jwbE'] == 0 ? '-' : $P['jml_jwbE'] ?></td>
+            <td><?= $P['jml_BenarAts'] == 0 ? '-' : $P['jml_BenarAts'] ?></td>
+            <td><?= $P['jml_BenarBwh'] == 0 ? '-' : $P['jml_BenarBwh'] ?></td>
+            <td><?= $P['pengecoh_a'] == 0 ? '-' : $P['pengecoh_a'] ?></td>
+            <td><?= $P['pengecoh_b'] == 0 ? '-' : $P['pengecoh_b'] ?></td>
+            <td><?= $P['pengecoh_c'] == 0 ? '-' : $P['pengecoh_c'] ?></td>
+            <td><?= $P['pengecoh_d'] == 0 ? '-' : $P['pengecoh_d'] ?></td>
+            <td><?= $P['pengecoh_e'] == 0 ? '-' : $P['pengecoh_e'] ?></td>
             <td><?= $P['tingkat_kesukaran'] ?></td>
             <td><?= $P['daya_pembeda'] ?></td>
           </tr>
@@ -100,8 +100,8 @@ if (isset($uo)) : ?>
           <tr>
             <td><?= $j ?></td>
             <td><?= $U['no_soal'] ?></td>
-            <td><?= $U['rerata_skor'] ?></td>
             <td><?= $U['ket_soal'] ?></td>
+            <td><?= $U['rerata_skor'] ?></td>
             <td><?= $U['rerata_skorats'] ?></td>
             <td><?= $U['rerata_skorbwh'] ?></td>
             <td><?= $U['tingkat_kesukaran'] ?></td>
