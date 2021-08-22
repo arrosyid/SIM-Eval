@@ -50,25 +50,28 @@ class Analisis extends CI_Controller
       // menentukan kelompok atas tengah bawah
       array_multisort(array_column($skor, 'nilai'), SORT_DESC, $skor);
       if ($count != null) {
+        foreach ($skor as $S => $val) {
+          $nilai[$S] = [
+            'id_skor' => $val['id_skor'],
+            'id_ujian' => $val['id_ujian'],
+            'id_siswa' => $val['id_siswa'],
+            'kelompok' => null,
+          ];
+        }
         for ($a = 0; $a < $count; $a++) {
           for ($b = 0; $b < $atas; $b++) {
-            $skor[$b]['kelompok'] = 'ATS';
+            $nilai[$b]['kelompok'] = 'ATS';
           }
           for ($c = ($count - 1); $c >= ($atas * 2); $c--) {
-            $skor[$c]['kelompok'] = 'BWH';
+            $nilai[$c]['kelompok'] = 'BWH';
           }
-          if ($skor[$a]['kelompok'] == null) {
-            $skor[$a]['kelompok'] = 'TGH';
+          if ($nilai[$a]['kelompok'] == null) {
+            $nilai[$a]['kelompok'] = 'TGH';
           }
         }
       }
-      if ($this->db->update_batch('tb_skor', $skor, 'id_skor')) {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                              Berhasil Menghitung Skor PILIHAN GANDA Siswa</div>'
-        );
-        redirect('admin/distJawaban');
+      if ($this->db->update_batch('tb_skor', $nilai, 'id_skor')) {
+        $this->analisButirSoalPG($id_ujian);
       } else {
         $this->session->set_flashdata(
           'message',
@@ -118,12 +121,7 @@ class Analisis extends CI_Controller
         }
       }
       if ($this->db->update_batch('tb_skor', $skor, 'id_skor')) {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                              Berhasil Menghitung Skor URAIAN Siswa</div>'
-        );
-        redirect('admin/distJawaban');
+        $this->analisButirSoalUO($id_ujian);
       } else {
         $this->session->set_flashdata(
           'message',
@@ -139,16 +137,12 @@ class Analisis extends CI_Controller
   {
     $data_ujian = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
     $data_jwb = $this->Jawaban_model->getJawabanByType('id_ujian_pg', $id_ujian);
-    $data_kelas = $this->Kelas_model->getKelasByType('id_kelas', $data_ujian['id_kelas']);
+    // $data_kelas = $this->Kelas_model->getKelasByType('id_kelas', $data_ujian['id_kelas']);
     $data_soal = $this->Soal_model->getSoalByType('id_ujian_pg', $id_ujian);
     $data_skor = $this->Skor_model->getSkorByType('id_ujian_pg', $id_ujian);
-    foreach ($data_soal as $soal => $S) {
-      $kunci[$soal] = $S['kunci'];
-    }
     $count = count($data_jwb);
-    // var_dump($data_skor);
-    // die;
 
+    array_multisort(array_column($data_soal, 'nomor_soal'), SORT_ASC, $data_soal);
     // fungsi for sudah berhasil dan menampilkan jumlah jawaban persoal
     foreach ($data_soal as $soal => $S) {
       $data_jmlJwb = [
@@ -161,10 +155,11 @@ class Analisis extends CI_Controller
         'jml_BenarAts' => 0,
         'jml_BenarBwh' => 0,
       ];
+      // menghitung jumlah jawaban
       foreach ($data_jwb as $jwb => $J) {
         for ($k = 'A'; $k <= 'E'; $k++) {
-          if ($J['no_' . $jwb + 1] == $k) {
-            if ($kunci[$soal] == "$k") {
+          if ($J['no_' . $S['nomor_soal']] == $k) {
+            if ($S['kunci'] == "$k") {
               $data_jmlJwb['jml_jwbBenar'] += 1;
               if ($data_skor[$jwb]['kelompok'] == 'ATS') {
                 $data_jmlJwb['jml_BenarAts'] += 1;
@@ -175,14 +170,16 @@ class Analisis extends CI_Controller
             $data_jmlJwb["jml_jwb$k"] += 1;
           }
         }
-        $distract = [
-          'pengecoh_a' => round(($data_jmlJwb['jml_jwbA'] * 100 / $count), 2),
-          'pengecoh_b' => round(($data_jmlJwb['jml_jwbB'] * 100 / $count), 2),
-          'pengecoh_c' => round(($data_jmlJwb['jml_jwbC'] * 100 / $count), 2),
-          'pengecoh_d' => round(($data_jmlJwb['jml_jwbD'] * 100 / $count), 2),
-          'pengecoh_e' => round(($data_jmlJwb['jml_jwbE'] * 100 / $count), 2)
-        ];
       }
+      $distract = [
+        'pengecoh_a' => round(($data_jmlJwb['jml_jwbA'] * 100 / $count), 2),
+        'pengecoh_b' => round(($data_jmlJwb['jml_jwbB'] * 100 / $count), 2),
+        'pengecoh_c' => round(($data_jmlJwb['jml_jwbC'] * 100 / $count), 2),
+        'pengecoh_d' => round(($data_jmlJwb['jml_jwbD'] * 100 / $count), 2),
+        'pengecoh_e' => round(($data_jmlJwb['jml_jwbE'] * 100 / $count), 2)
+      ];
+      // var_dump($data_jmlJwb);
+      // die;
       $t_sukar = round(($data_jmlJwb['jml_BenarAts'] + $data_jmlJwb['jml_BenarBwh']) / $count, 2);
       $d_beda = round(($data_jmlJwb['jml_BenarAts'] - $data_jmlJwb['jml_BenarBwh']) / $count, 2);
 
@@ -213,28 +210,58 @@ class Analisis extends CI_Controller
         'ket_soal' => "$kriteriaTK, $kriteriaDP",
         'tingkat_kesukaran' => $t_sukar,
         'daya_pembeda' => $d_beda,
-        'no_soal' => $soal + 1,
+        'no_soal' => $S['nomor_soal'],
       ];
       $hasil[$soal] = $data_jmlJwb + $distract + $kriteria;
     }
     // var_dump($hasil);
     // die;
+    // $cek = $this->analispg_model->getAnalispgByType('id_ujian', $id_ujian);
 
+    // // masih belum di cek
+    // if ($cek == null) {
     if ($this->db->insert_batch('tb_analis_soalpg', $hasil)) {
       $this->session->set_flashdata(
         'message',
         '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Berhasil Menganalisis Soal PILIHAN GANDA Ujian</div>'
+                              Berhasil Menghitung Skor PILIHAN GANDA Siswa</div>'
+      );
+      $this->session->set_flashdata(
+        'message1',
+        '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                              Berhasil Menganalisis Soal PILIHAN GANDA Ujian</div>'
       );
       redirect('admin/distJawaban');
     } else {
       $this->session->set_flashdata(
         'message',
         '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Gagal Menganalisis Soal PILIHAN GANDA Ujian </div>'
+                              Gagal Menganalisis Soal PILIHAN GANDA Ujian </div>'
       );
       redirect('admin/distJawaban');
     }
+    // } else {
+    //   if ($this->db->update_batch('tb_analis_soalpg', $hasil, 'no_soal')) {
+    //     $this->session->set_flashdata(
+    //       'message',
+    //       '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    //                           Berhasil Mengupdate Perhitung Skor PILIHAN GANDA Siswa</div>'
+    //     );
+    //     $this->session->set_flashdata(
+    //       'message1',
+    //       '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    //                           Berhasil Mengupdate Analisis Soal PILIHAN GANDA Ujian</div>'
+    //     );
+    //     redirect('admin/distJawaban');
+    //   } else {
+    //     $this->session->set_flashdata(
+    //       'message',
+    //       '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    //                           Gagal Mengupdate Analisis Soal PILIHAN GANDA Ujian </div>'
+    //     );
+    //     redirect('admin/distJawaban');
+    //   }
+    // }
   }
 
   public function analisButirSoalUO($id_ujian)
@@ -243,6 +270,7 @@ class Analisis extends CI_Controller
     $data_kelas = $this->Kelas_model->getKelasByType('id_kelas', $data_ujian['id_kelas']);
     $data_soal = $this->Soal_model->getSoalByType('id_ujian_uo', $id_ujian);
     $data_skor = $this->Skor_model->getSkorByType('id_ujian_uo', $id_ujian);
+    $count = count($data_skor);
 
     foreach ($data_soal as $soal => $S) {
       $analis_uraian = [
@@ -257,19 +285,20 @@ class Analisis extends CI_Controller
         'rerataBwh' => 0,
       ];
       foreach ($data_skor as $skor => $SK) {
-        $R['rerata'] += $SK['jml_skor'];
+        $R['rerata'] += $SK['no_' . $S['nomor_soal']];
         if ($SK['kelompok'] == 'ATS') {
-          $R['rerataAts'] += $SK['jml_skor'];
+          $R['rerataAts'] += $SK['no_' . $S['nomor_soal']];
         } else if ($SK['kelompok'] == 'BWH') {
-          $R['rerataBwh'] += $SK['jml_skor'];
+          $R['rerataBwh'] += $SK['no_' . $S['nomor_soal']];
         }
       }
       $analis_uraian['rerata_skor'] = round($R['rerata'] / $data_ujian['skor_max_ujian'], 2);
       $analis_uraian['rerata_skorAts'] = round($R['rerataAts'] / $data_ujian['skor_max_ujian'], 2);
       $analis_uraian['rerata_skorBwh'] = round($R['rerataBwh'] / $data_ujian['skor_max_ujian'], 2);
 
-      $t_sukar = round($analis_uraian['rerata_skor'] / $data_kelas['jml_siswa'], 2);
-      $d_beda = round(($analis_uraian['rerata_skorAts'] - $analis_uraian['rerata_skorBwh']) / $data_kelas['jml_siswa'], 2);
+      $t_sukar = round($analis_uraian['rerata_skor'] / $count, 2);
+      $d_beda = round(($analis_uraian['rerata_skorAts'] - $analis_uraian['rerata_skorBwh']) / $count, 4);
+
       // menentukan kriteria Tingkat kesukaran
       if ($t_sukar <= 0.3) {
         $kriteriaTK = 'Sangat Sulit';
@@ -300,9 +329,14 @@ class Analisis extends CI_Controller
       ];
       $hasil[$soal] = $analis_uraian + $kriteria;
     }
-    if ($this->db->insert_batch('tb_analis_soalpg', $hasil)) {
+    if ($this->db->insert_batch('tb_analis_soaluo', $hasil)) {
       $this->session->set_flashdata(
         'message',
+        '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Berhasil Menghitung Skor URAIAN Siswa</div>'
+      );
+      $this->session->set_flashdata(
+        'message1',
         '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             Berhasil Menganalisis Soal URAIAN Ujian</div>'
       );
