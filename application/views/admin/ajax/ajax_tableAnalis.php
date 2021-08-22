@@ -28,23 +28,23 @@
         $j = 1;
         foreach ($pg as $P) : ?>
           <tr>
-            <th><?= $j ?></th>
-            <th><?= $P['no_soal'] ?></th>
-            <th><?= $P['ket_soal'] ?></th>
-            <th><?= $P['jml_jwbA'] ?></th>
-            <th><?= $P['jml_jwbB'] ?></th>
-            <th><?= $P['jml_jwbC'] ?></th>
-            <th><?= $P['jml_jwbD'] ?></th>
-            <th><?= $P['jml_jwbE'] == null ? '' : $P['jml_jwbE'] ?></th>
-            <th><?= $P['jml_BenarAts'] ?></th>
-            <th><?= $P['jml_BenarBwh'] ?></th>
-            <th><?= $P['pengecoh_a'] ?></th>
-            <th><?= $P['pengecoh_b'] ?></th>
-            <th><?= $P['pengecoh_c'] ?></th>
-            <th><?= $P['pengecoh_d'] ?></th>
-            <th><?= $P['pengecoh_e'] == null ? '' : $P['pengecoh_e'] ?></th>
-            <th><?= $P['tingkat_kesukaran'] ?></th>
-            <th><?= $P['daya_pembeda'] ?></th>
+            <td><?= $j ?></td>
+            <td><?= $P['no_soal'] ?></td>
+            <td><?= $P['ket_soal'] ?></td>
+            <td><?= $P['jml_jwbA'] ?></td>
+            <td><?= $P['jml_jwbB'] ?></td>
+            <td><?= $P['jml_jwbC'] ?></td>
+            <td><?= $P['jml_jwbD'] ?></td>
+            <td><?= $P['jml_jwbE'] == null ? '' : $P['jml_jwbE'] ?></td>
+            <td><?= $P['jml_BenarAts'] ?></td>
+            <td><?= $P['jml_BenarBwh'] ?></td>
+            <td><?= $P['pengecoh_a'] ?></td>
+            <td><?= $P['pengecoh_b'] ?></td>
+            <td><?= $P['pengecoh_c'] ?></td>
+            <td><?= $P['pengecoh_d'] ?></td>
+            <td><?= $P['pengecoh_e'] == null ? '' : $P['pengecoh_e'] ?></td>
+            <td><?= $P['tingkat_kesukaran'] ?></td>
+            <td><?= $P['daya_pembeda'] ?></td>
           </tr>
       <?php $j++;
         endforeach;
@@ -100,10 +100,10 @@ if (isset($uo)) : ?>
           <tr>
             <td><?= $j ?></td>
             <td><?= $U['no_soal'] ?></td>
-            <td><?= $U['ket_soal'] ?></td>
             <td><?= $U['rerata_skor'] ?></td>
-            <td><?= $U['rerata_skorAts'] ?></td>
-            <td><?= $U['rerata_skorBwh'] ?></td>
+            <td><?= $U['ket_soal'] ?></td>
+            <td><?= $U['rerata_skorats'] ?></td>
+            <td><?= $U['rerata_skorbwh'] ?></td>
             <td><?= $U['tingkat_kesukaran'] ?></td>
             <td><?= $U['daya_pembeda'] ?></td>
           </tr>
@@ -114,8 +114,8 @@ if (isset($uo)) : ?>
     <tfoot>
       <tr>
         <th rowspan="2" class="text-center align-middle">No</th>
-        <th rowspan="2" class="text-center align-middle">Nomor Soal</th>
         <th rowspan="2" class="text-center align-middle">kriteria Soal</th>
+        <th rowspan="2" class="text-center align-middle">Nomor Soal</th>
         <th>Atas</th>
         <th>Bawah</th>
         <th rowspan="2" class="text-center align-middle">Rata-Rata Benar</th>
