@@ -38,6 +38,9 @@ if ($pg != null && $uo != null) {
                 <th rowspan="2" class="text-center align-middle">No</th>
                 <th rowspan="2" class="text-center align-middle">Nama Siswa</th>
                 <th colspan="<?= $val[1] ?>" class="text-center align-middle">nomor</th>
+                <th rowspan="2" class="text-center align-middle">Jumlah Skor</th>
+                <th rowspan="2" class="text-center align-middle">Kelompok</th>
+                <th rowspan="2" class="text-center align-middle">Nilai</th>
               </tr>
               <tr>
                 <?php for ($i = 1; $i <= $val[1]; $i++) {
@@ -62,6 +65,9 @@ if ($pg != null && $uo != null) {
                       <td><?= $S["no_$k"] ?>
                       </td>
                     <?php endfor; ?>
+                    <td><?= $S['jml_skor'] ?></td>
+                    <td><?= $S['kelompok'] ?></td>
+                    <td><?= $S['nilai'] ?></td>
                   </tr>
               <?php $i++;
                 endforeach;
@@ -74,6 +80,9 @@ if ($pg != null && $uo != null) {
                 <?php for ($i = 1; $i <= $val[1]; $i++) {
                   echo "<th>$i</th>";
                 } ?>
+                <th rowspan="2" class="text-center align-middle">Jumlah Skor</th>
+                <th rowspan="2" class="text-center align-middle">Kelompok</th>
+                <th rowspan="2" class="text-center align-middle">Nilai</th>
               </tr>
               <tr>
                 <th colspan="<?= $val[1] ?>" class="text-center align-middle">nomor</th>
