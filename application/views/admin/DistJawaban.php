@@ -15,6 +15,7 @@ $jenis = [
       </div>
       <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
+        <?= $this->session->flashdata('message1'); ?>
         <div class="row mb-4">
           <div class="col-sm-3">
             <div class="form-grup">

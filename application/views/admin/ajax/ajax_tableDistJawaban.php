@@ -43,16 +43,16 @@ if (isset($pg) || isset($uo)) {
         if ($pg != null || $uo != null || isset($pg) || isset($uo)) :
           if ($val[0] == 'URAIAN') {
             // href kirim id siswa dan id ujian
-            $koreksi = '<a href="' . base_url('admin/koreksi/') . '" class="btn btn-primary float-right">Koreksi jawaban</a>';
             $isi = $uo;
           } elseif ($val[0] == 'PILIHAN GANDA') {
             $isi = $pg;
           }
           $i = 1;
-          foreach ($isi as $S) : ?>
+          foreach ($isi as $S) :
+            $koreksi = '<a href="' . base_url('admin/koreksi/' . $S['id_ujian'] . '/' . $S['id_siswa']) . '" class="btn btn-primary float-right">Koreksi jawaban</a>'; ?>
             <tr>
               <td><?= $i ?></td>
-              <td><?= isset($koreksi) ? $S['nm_siswa'] . $koreksi : $S['nm_siswa'] ?></td>
+              <td><?= $val[0] == 'URAIAN' && $S['status'] == 0 ? $S['nm_siswa'] . $koreksi : $S['nm_siswa'] ?></td>
               <?php for ($k = 1; $k <= $val[1]; $k++) : ?>
                 <td><?= $S["no_$k"] ?>
                 </td>
@@ -83,6 +83,7 @@ if (isset($pg) || isset($uo)) {
         </tr>
       </tfoot>
     </table>
+    <a href="<?= base_url('analisis/hitungSkor/' . $val[0] . '/' . $ujian['id_ujian']) ?>" class="btn btn-primary float-right">Analisis Jawaban</a>
     <br>
 <?php $a++;
   endforeach;
