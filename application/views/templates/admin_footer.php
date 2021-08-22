@@ -18,8 +18,8 @@
 </div>
 <!-- /.wraper -->
 
-<?php if ($tittle == 'dashboard') : ?>
-  <!-- Stylesheet -->
+<!-- Stylesheet -->
+<?php if ($tittle == 'Dashboard') : ?>
   <style>
     /* Dashboard */
     .dashboard-card {
@@ -44,12 +44,6 @@
       background: linear-gradient(113.02deg, rgba(173, 0, 255, 0.63) 1.33%, rgba(207, 76, 209, 0.63) 54.21%, rgba(208, 99, 255, 0.63) 99.2%, rgba(180, 191, 191, 0.63) 99.21%, rgba(19, 223, 236, 0.63) 99.22%, rgba(255, 168, 0, 0.63) 99.23%, rgba(255, 168, 0, 0.63) 99.24%, rgba(237, 42, 241, 0.63) 99.24%);
     }
 
-    /* Jumbotron for ProfileSekolah.php & ProfileAdmin.php */
-    .jumbotron-bg {
-      background: url("https://images.unsplash.com/photo-1553526777-5ffa3b3248d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"), linear-gradient(to bottom, #ADB2B6, #ABAEB3);
-      background-size: cover;
-      background-position: bottom;
-    }
 
     /* Dashbord Activity Monitor */
     .badge {
@@ -64,6 +58,15 @@
 
     .badge-red {
       background-color: #D45151;
+    }
+  </style>
+<?php elseif ($tittle == 'Profile Admin' || $tittle == 'Profile Sekolah') : ?>
+  <style>
+    /* Jumbotron for ProfileSekolah.php & ProfileAdmin.php */
+    .jumbotron-bg {
+      background: url("https://images.unsplash.com/photo-1553526777-5ffa3b3248d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"), linear-gradient(to bottom, #ADB2B6, #ABAEB3);
+      background-size: cover;
+      background-position: bottom;
     }
   </style>
 <?php endif ?>
