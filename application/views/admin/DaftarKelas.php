@@ -17,7 +17,7 @@
               <th>Tahun/Kelas</th>
               <th>Bidang</th>
               <th>Nomor Kelas</th>
-              <th>jml_siswa</th>
+              <th>Jumlah Siswa</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -51,7 +51,7 @@
               <th>Tahun/Kelas</th>
               <th>Bidang</th>
               <th>Nomor Kelas</th>
-              <th>jml_siswa</th>
+              <th>Jumlah Siswa</th>
               <th>Action</th>
             </tr>
           </tfoot>

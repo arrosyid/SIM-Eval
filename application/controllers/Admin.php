@@ -1265,14 +1265,14 @@ class Admin extends CI_Controller
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         Berhasil Menginputkan Data Kelas</div>'
         );
-        redirect('admin/tambahKelas');
+        redirect('admin/daftarKelas');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         Gagal Menginputkan Data Kelas</div>'
         );
-        redirect('admin/tambahKelas');
+        redirect('admin/daftarKelas');
       }
     }
   }
