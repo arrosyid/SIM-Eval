@@ -50,7 +50,7 @@ class Pelajaran_model extends CI_Model
   // update Pelajaran dari id
   public function upadatePelajaranById($idMapel, $data)
   {
-    return $this->db->update('r_pelajaran', $data, ['id_mapel' => $idMapel]);
+    return $this->db->replace('r_pelajaran', $data);
   }
 
   // delete Pelajaran

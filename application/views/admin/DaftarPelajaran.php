@@ -6,6 +6,8 @@
         <h3 class="card-title">Daftar Mata Pelajaran</h3>
       </div>
       <div class="card-body">
+        <?= $this->session->flashdata('message'); ?>
+        <?= $this->session->flashdata('message1'); ?>
         <table id="Tables" class="table table-bordered table-striped">
           <div class="row mb-4">
             <div class="col-sm-3">

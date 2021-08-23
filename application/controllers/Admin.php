@@ -412,29 +412,56 @@ class Admin extends CI_Controller
       $this->load->view('admin/DaftarPelajaran', $data);
       $this->load->view('templates/admin_footer', $data);
     } else {
+      $tambahModal = $this->input->post('tambahPelajaran');
+      $updateModal = $this->input->post('editPelajaran');
+      if ($tambahModal)
+        $id = '';
+      elseif ($updateModal)
+        $id = htmlspecialchars($this->input->post('id_pelajaran', TRUE));
+
       $data_pelajaran = [
-        'id_pelajaran' => htmlspecialchars($this->input->post('id_pelajaran', true)),
+        'id_pelajaran' => $id,
         'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
         'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
         'semester' => htmlspecialchars($this->input->post('semester', true)),
         'thn_pelajaran' => htmlspecialchars($this->input->post('thn_pelajaran', true)),
       ];
-      var_dump($data_pelajaran);
-      die;
-      if ($this->db->insert('r_pelajaran', $data_pelajaran)) {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil Mengubah Data Pelajaran</div>'
-        );
-        redirect('admin/daftarPelajaran');
-      } else {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal Mengubah Data Pelajaran</div>'
-        );
-        redirect('admin/daftarPelajaran');
+      // var_dump($data_pelajaran);
+      // die;
+
+      if ($tambahModal) {
+        if ($this->db->insert('r_pelajaran', $data_pelajaran)) {
+          $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Berhasil Menambah Data Pelajaran</div>'
+          );
+          redirect('admin/daftarPelajaran');
+        } else {
+          $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Gagal Menambah Data Pelajaran</div>'
+          );
+          redirect('admin/daftarPelajaran');
+        }
+      }
+      if ($updateModal) {
+        if ($this->Pelajaran_model->upadatePelajaranById($id, $data_pelajaran)) {
+          $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Berhasil Mengubah Data Pelajaran</div>'
+          );
+          redirect('admin/daftarPelajaran');
+        } else {
+          $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Gagal Mengubah Data Pelajaran</div>'
+          );
+          redirect('admin/daftarPelajaran');
+        }
       }
     }
   }
