@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Agu 2021 pada 14.36
+-- Waktu pembuatan: 23 Agu 2021 pada 09.01
 -- Versi server: 10.4.18-MariaDB
 -- Versi PHP: 8.0.3
 
@@ -109,6 +109,51 @@ CREATE TABLE `tb_analis_soaluo` (
 INSERT INTO `tb_analis_soaluo` (`id_analisuo`, `id_ujian`, `no_soal`, `rerata_skor`, `rerata_skorats`, `rerata_skorbwh`, `tingkat_kesukaran`, `daya_pembeda`, `ket_soal`) VALUES
 (1, 1, 1, 0.88, 0.38, 0.27, 0.29, 0.0367, 'Sangat Sulit, Ditolak'),
 (2, 1, 2, 0.54, 0.1, 0.19, 0.18, -0.03, 'Sangat Sulit, Ditolak');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_dist_jwb`
+--
+
+CREATE TABLE `tb_dist_jwb` (
+  `id_jawab` int(11) NOT NULL,
+  `id_siswa` int(11) NOT NULL,
+  `id_ujian` int(11) NOT NULL,
+  `jenis_soal` varchar(128) NOT NULL,
+  `status` int(1) NOT NULL,
+  `no_1` varchar(255) NOT NULL,
+  `no_2` varchar(255) NOT NULL,
+  `no_3` varchar(255) NOT NULL,
+  `no_4` varchar(255) NOT NULL,
+  `no_5` varchar(255) NOT NULL,
+  `no_6` varchar(255) NOT NULL,
+  `no_7` varchar(255) NOT NULL,
+  `no_8` varchar(255) NOT NULL,
+  `no_9` varchar(255) NOT NULL,
+  `no_10` varchar(255) NOT NULL,
+  `no_11` varchar(255) NOT NULL,
+  `no_12` varchar(255) NOT NULL,
+  `no_13` varchar(255) NOT NULL,
+  `no_14` varchar(255) NOT NULL,
+  `no_15` varchar(255) NOT NULL,
+  `no_16` varchar(255) NOT NULL,
+  `no_17` varchar(255) NOT NULL,
+  `no_18` varchar(255) NOT NULL,
+  `no_19` varchar(255) NOT NULL,
+  `no_20` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_dist_jwb`
+--
+
+INSERT INTO `tb_dist_jwb` (`id_jawab`, `id_siswa`, `id_ujian`, `jenis_soal`, `status`, `no_1`, `no_2`, `no_3`, `no_4`, `no_5`, `no_6`, `no_7`, `no_8`, `no_9`, `no_10`, `no_11`, `no_12`, `no_13`, `no_14`, `no_15`, `no_16`, `no_17`, `no_18`, `no_19`, `no_20`) VALUES
+(2, 2, 1, 'PILIHAN GANDA', 0, 'D', 'B', 'B', 'C', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(3, 1, 1, 'URAIAN', 1, 'sadasd', 'qweqs', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(4, 3, 1, 'PILIHAN GANDA', 0, 'A', 'C', 'D', 'B', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(5, 2, 1, 'URAIAN', 1, 'ini jawaban', 'erwe', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
+(6, 1, 1, 'PILIHAN GANDA', 0, 'A', 'A', 'D', 'C', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -281,6 +326,54 @@ INSERT INTO `tb_siswa` (`id_siswa`, `id_kelas`, `id_user`, `nm_siswa`, `nis`) VA
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tb_skor`
+--
+
+CREATE TABLE `tb_skor` (
+  `id_skor` int(11) NOT NULL,
+  `id_siswa` int(11) NOT NULL,
+  `id_ujian` int(11) NOT NULL,
+  `jenis_soal` varchar(128) NOT NULL,
+  `jml_skor` int(3) NOT NULL,
+  `kelompok` varchar(4) NOT NULL,
+  `nilai` int(3) NOT NULL,
+  `no_1` int(2) NOT NULL,
+  `no_2` int(2) NOT NULL,
+  `no_3` int(2) NOT NULL,
+  `no_4` int(2) NOT NULL,
+  `no_5` int(2) NOT NULL,
+  `no_6` int(2) NOT NULL,
+  `no_7` int(2) NOT NULL,
+  `no_8` int(2) NOT NULL,
+  `no_9` int(2) NOT NULL,
+  `no_10` int(2) NOT NULL,
+  `no_11` int(2) NOT NULL,
+  `no_12` int(2) NOT NULL,
+  `no_13` int(2) NOT NULL,
+  `no_14` int(2) NOT NULL,
+  `no_15` int(2) NOT NULL,
+  `no_16` int(2) NOT NULL,
+  `no_17` int(2) NOT NULL,
+  `no_18` int(2) NOT NULL,
+  `no_19` int(2) NOT NULL,
+  `no_20` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_skor`
+--
+
+INSERT INTO `tb_skor` (`id_skor`, `id_siswa`, `id_ujian`, `jenis_soal`, `jml_skor`, `kelompok`, `nilai`, `no_1`, `no_2`, `no_3`, `no_4`, `no_5`, `no_6`, `no_7`, `no_8`, `no_9`, `no_10`, `no_11`, `no_12`, `no_13`, `no_14`, `no_15`, `no_16`, `no_17`, `no_18`, `no_19`, `no_20`) VALUES
+(3, 2, 1, 'PILIHAN GANDA', 6, 'TGH', 50, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(5, 2, 1, 'URAIAN', 25, 'ATS', 63, 20, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(6, 1, 1, 'URAIAN', 24, 'BWH', 60, 14, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(8, 3, 1, 'URAIAN', 25, 'TGH', 63, 12, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(9, 1, 1, 'PILIHAN GANDA', 9, 'ATS', 75, 3, 3, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(10, 3, 1, 'PILIHAN GANDA', 3, 'BWH', 25, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tb_soal`
 --
 
@@ -324,6 +417,36 @@ CREATE TABLE `tb_token` (
   `email` varchar(255) NOT NULL,
   `date_created` int(11) NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_ujian`
+--
+
+CREATE TABLE `tb_ujian` (
+  `id_ujian` int(11) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `id_pelajaran` int(11) NOT NULL,
+  `jenis_ujian` varchar(255) NOT NULL,
+  `jml_soal_ujian` int(2) NOT NULL,
+  `skor_max_ujian` int(3) NOT NULL,
+  `skor_maxpg` int(3) NOT NULL,
+  `skor_maxuo` int(3) NOT NULL,
+  `jml_soalpg` int(3) NOT NULL,
+  `jml_soaluo` int(3) NOT NULL,
+  `kd` varchar(11) NOT NULL,
+  `kkm` int(3) NOT NULL,
+  `tgl_ujian` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_ujian`
+--
+
+INSERT INTO `tb_ujian` (`id_ujian`, `id_kelas`, `id_pelajaran`, `jenis_ujian`, `jml_soal_ujian`, `skor_max_ujian`, `skor_maxpg`, `skor_maxuo`, `jml_soalpg`, `jml_soaluo`, `kd`, `kkm`, `tgl_ujian`) VALUES
+(1, 4, 3, 'PAS', 6, 52, 12, 40, 4, 2, '3.1', 75, 1629151200),
+(2, 2, 1, 'UH', 10, 100, 60, 40, 6, 4, 'asda', 75, 1626127200);
 
 -- --------------------------------------------------------
 
@@ -381,6 +504,14 @@ ALTER TABLE `tb_analis_soaluo`
   ADD KEY `id_ujian` (`id_ujian`);
 
 --
+-- Indeks untuk tabel `tb_dist_jwb`
+--
+ALTER TABLE `tb_dist_jwb`
+  ADD PRIMARY KEY (`id_jawab`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `id_ujian` (`id_ujian`);
+
+--
 -- Indeks untuk tabel `tb_dist_nilai`
 --
 ALTER TABLE `tb_dist_nilai`
@@ -431,6 +562,14 @@ ALTER TABLE `tb_siswa`
   ADD KEY `id_user` (`id_user`);
 
 --
+-- Indeks untuk tabel `tb_skor`
+--
+ALTER TABLE `tb_skor`
+  ADD PRIMARY KEY (`id_skor`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `id_ujian` (`id_ujian`);
+
+--
 -- Indeks untuk tabel `tb_soal`
 --
 ALTER TABLE `tb_soal`
@@ -442,6 +581,14 @@ ALTER TABLE `tb_soal`
 --
 ALTER TABLE `tb_token`
   ADD PRIMARY KEY (`id_token`);
+
+--
+-- Indeks untuk tabel `tb_ujian`
+--
+ALTER TABLE `tb_ujian`
+  ADD PRIMARY KEY (`id_ujian`),
+  ADD KEY `id_pelajaran` (`id_pelajaran`),
+  ADD KEY `id_kelas` (`id_kelas`);
 
 --
 -- Indeks untuk tabel `tb_user`
@@ -470,6 +617,12 @@ ALTER TABLE `tb_analis_soalpg`
 --
 ALTER TABLE `tb_analis_soaluo`
   MODIFY `id_analisuo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_dist_jwb`
+--
+ALTER TABLE `tb_dist_jwb`
+  MODIFY `id_jawab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_dist_nilai`
@@ -514,6 +667,12 @@ ALTER TABLE `tb_siswa`
   MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT untuk tabel `tb_skor`
+--
+ALTER TABLE `tb_skor`
+  MODIFY `id_skor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT untuk tabel `tb_soal`
 --
 ALTER TABLE `tb_soal`
@@ -524,6 +683,12 @@ ALTER TABLE `tb_soal`
 --
 ALTER TABLE `tb_token`
   MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_ujian`
+--
+ALTER TABLE `tb_ujian`
+  MODIFY `id_ujian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_user`
@@ -553,6 +718,13 @@ ALTER TABLE `tb_analis_soalpg`
 --
 ALTER TABLE `tb_analis_soaluo`
   ADD CONSTRAINT `tb_analis_soaluo_ibfk_1` FOREIGN KEY (`id_ujian`) REFERENCES `tb_ujian` (`id_ujian`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tb_dist_jwb`
+--
+ALTER TABLE `tb_dist_jwb`
+  ADD CONSTRAINT `tb_dist_jwb_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `tb_siswa` (`id_siswa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_dist_jwb_ibfk_2` FOREIGN KEY (`id_ujian`) REFERENCES `tb_ujian` (`id_ujian`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tb_dist_nilai`
@@ -588,10 +760,24 @@ ALTER TABLE `tb_siswa`
   ADD CONSTRAINT `tb_siswa_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `tb_user` (`id_user`);
 
 --
+-- Ketidakleluasaan untuk tabel `tb_skor`
+--
+ALTER TABLE `tb_skor`
+  ADD CONSTRAINT `tb_skor_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `tb_siswa` (`id_siswa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_skor_ibfk_2` FOREIGN KEY (`id_ujian`) REFERENCES `tb_ujian` (`id_ujian`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Ketidakleluasaan untuk tabel `tb_soal`
 --
 ALTER TABLE `tb_soal`
   ADD CONSTRAINT `tb_soal_ibfk_3` FOREIGN KEY (`id_ujian`) REFERENCES `tb_ujian` (`id_ujian`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tb_ujian`
+--
+ALTER TABLE `tb_ujian`
+  ADD CONSTRAINT `tb_ujian_ibfk_1` FOREIGN KEY (`id_pelajaran`) REFERENCES `r_pelajaran` (`id_pelajaran`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_ujian_ibfk_2` FOREIGN KEY (`id_kelas`) REFERENCES `tb_kelas` (`id_kelas`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
