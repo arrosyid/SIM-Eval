@@ -19,7 +19,7 @@
 <!-- /.wraper -->
 
 <!-- Stylesheet -->
-<?php if ($tittle == 'Dashboard') : ?>
+<?php if ($tittle == 'dashboard') : ?>
   <style>
     /* Dashboard */
     .dashboard-card {
