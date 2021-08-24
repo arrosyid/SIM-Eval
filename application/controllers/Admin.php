@@ -971,6 +971,10 @@ class Admin extends CI_Controller
 
     $this->form_validation->set_rules('nm_siswa', 'Nama Siswa', 'required|trim');
     $this->form_validation->set_rules('nis', 'Nomor Induk Siswa', 'required|trim');
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
+      'valid_email' => 'email tidak cocok',
+      'is_unique' => 'email sudah digunakan'
+    ]);
     // $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
 
     if ($this->form_validation->run() == false) {

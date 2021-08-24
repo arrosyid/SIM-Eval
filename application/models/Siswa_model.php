@@ -52,7 +52,6 @@ class Siswa_model extends CI_Model
   // insert Siswa dari id
   public function insertSiswa($data1, $data2)
   {
-    // kemungkinan error
     $this->db->trans_start();
     $this->db->insert('tb_user', $data1);
     $id = $this->db->get_where('tb_user', ['email' => $data1['email']])->row_array();
