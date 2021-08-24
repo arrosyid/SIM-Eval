@@ -979,15 +979,25 @@ class Admin extends CI_Controller
       $this->load->view('admin/DaftarSiswa');
       $this->load->view('templates/admin_footer', $data);
     } else {
+      // mengganti view
       $tambahSiswa = $this->input->post('tambahSiswa');
       $editSiswa = $this->input->post('editSiswa');
-      if ($tambahSiswa)
+      if ($tambahSiswa) {
         $id_siswa = '';
-      else if ($editSiswa)
+        $data_user = [
+          'username' => htmlspecialchars($this->input->post('nm_siswa', true)),
+          'password' => password_hash(htmlspecialchars($this->input->post('nis', true)), PASSWORD_DEFAULT),
+          'email' => htmlspecialchars($this->input->post('email', true)),
+          'level' => 3,
+          'status' => 1,
+          'date_created' => time(),
+        ];
+      } else if ($editSiswa)
         $id_siswa = htmlspecialchars($this->input->post('id_siswa', TRUE));
 
       $data_siswa = [
         'id_siswa' => $id_siswa,
+        'id_user' => htmlspecialchars($this->input->post('nm_siswa', true)),
         'nm_siswa' => htmlspecialchars($this->input->post('nm_siswa', true)),
         'nis' => htmlspecialchars($this->input->post('nis', true)),
         'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
@@ -995,7 +1005,7 @@ class Admin extends CI_Controller
       // var_dump($data_siswa);
       // die;
       if ($tambahSiswa) {
-        if ($this->db->insert('tb_siswa', $data_siswa)) {
+        if ($this->Siswa_model->insertSiswa($data_user, $data_siswa) == true) {
           $this->session->set_flashdata(
             'message',
             '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

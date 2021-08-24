@@ -82,11 +82,22 @@
               </div>
               <div class="row">
                 <div class="col-sm-2">
+                  <label>Email</label>
+                </div>
+                <div class="col-sm-10">
+                  <div class="form-group">
+                    <input type="text" class="form-control <?= form_error('email') != null ? "is-invalid" : "" ?>" name="email" id="email" placeholder="Tambahkan Nomor Induk Siswa" value="<?= set_value('email') ?>">
+                    <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2">
                   <label>NIS</label>
                 </div>
                 <div class="col-sm-10">
                   <div class="form-group">
-                    <input type="text" class="form-control <?= form_error('nis') != null ? "is-invalid" : "" ?>" name="nis" id="nis" placeholder="Tambahkan Nomor Induk Siswa" value="<?= set_value('nis') ?>">
+                    <input type="text" class="form-control <?= form_error('nis') != null ? "is-invalid" : "" ?>" name="nis" id="nis" placeholder="Tambahkan Email Siswa" value="<?= set_value('nis') ?>">
                     <?= form_error('nis', '<small class="text-danger pl-3">', '</small>'); ?>
                   </div>
                 </div>
@@ -118,6 +129,7 @@
                   <input type="submit" name="tambahSiswa" class="btn btn-danger" value="Submit">
                 </div>
               </div>
+              <p>Note : <b>username</b> diisi dengan <b>nama siswa</b> sedangkan <b>Password</b> diisi dengan <b>NIS</b> segera konfirmasi untuk mengganti Password</p>
             </form>
           </div>
         </div>

@@ -49,6 +49,19 @@ class Siswa_model extends CI_Model
     return $this->db->update('tb_siswa', $data, ['id_siswa' => $idSiswa]);
   }
 
+  // insert Siswa dari id
+  public function insertSiswa($data1, $data2)
+  {
+    // kemungkinan error
+    $this->db->trans_start();
+    $this->db->insert('tb_user', $data1);
+    $id = $this->db->get_where('tb_user', ['email' => $data1['email']])->row_array();
+    $data2['id_user'] = $id['id_user'];
+    $this->db->insert('tb_siswa', $data2);
+    $this->db->trans_complete();
+    return $this->db->trans_status();
+  }
+
   // delete Siswa
   public function deleteSiswaByType($type, $id)
   {
