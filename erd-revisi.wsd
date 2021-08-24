@@ -8,7 +8,6 @@ skinparam linetype ortho
 entity "user" as tb_user {
   *id_user : int(11) <<PK>>
   --
-  *id_guru : int(11) <<FK>>
   username : varchar(255)
   password : varchar(255)
   level : int(1)
@@ -28,13 +27,18 @@ entity "token" as tb_token {
 entity "soal" as tb_soal {
   *id_soal : int(11) <<PK>>
   --
-  *id_siswa : int(11) <<FK>>
-  *id_jawab : int(11) <<FK>>
   *id_ujian : int(11) <<FK>>
-kelompok : varchar(4)
   jenis_soal : varchar(125)
-  jml_skor : int(3)
-  nilai : int(3)
+  nomor_soal : int(2)
+  skor_soal : int(3)
+  soal : varchar(1000)
+  kunci : varchar(255)
+  pilihan_a : varchar(255)
+  pilihan_b : varchar(255)
+  pilihan_c : varchar(255)
+  pilihan_d : varchar(255)
+  pilihan_e : varchar(255)
+  status : int(1)
 }
 entity "ujian" as tb_ujian {
   *id_soal : int(11) <<PK>>
@@ -56,6 +60,7 @@ entity "siswa" as tb_siswa{
   *id_siswa : int(11) <<PK>>
   --
   *id_kelas : int(11) <<FK>>
+  *id_user : int(11) <<FK>>
   nm_siswa : varchar(255)
   nis : int(15)
 }
@@ -112,11 +117,12 @@ entity "guru" as tb_guru {
   *id_guru : int(11) <<PK>>
   --
   *id_mapel : int(11) <<FK>>
+  *id_user : int(11) <<FK>>
   nip : varchar(20)
   nm_guru : varchar(255)
 }
 entity "distribusi nilai" as tb_dist_nilai {
-  *id_skor : int(11) <<PK>>
+  *id_nilai : int(11) <<PK>>
   --
   *id_ujian : int(11) <<FK>>
   *id_siswa : int(11) <<FK>>
@@ -134,16 +140,22 @@ entity "distribusi nilai" as tb_dist_nilai {
 entity "distribusi Jawaban" as tb_dist_jwb {
   *id_pg : int(11) <<PK>>
   --
+  *id_siswa : int(11) <<FK>>
   *id_ujian : int(11) <<FK>>
-  kunci : varchar(1)
+  jenis_soal : varchar(128)
+  status : int(1)
   no_1 : varchar(2)
   ...
-  no_50 : varchar(2)
+  no_20 : varchar(2)
 }
-entity "Skor Persoal uraian" as tb_skor_soaluo {
-  *id_skorsoal : int(11) <<PK>>
+entity "Skor Siswa" as tb_skor {
+  *id_skor : int(11) <<PK>>
   --
   *id_ujian : int(11) <<FK>>
+  jenis_soal : varchar(128)
+  jml_skor : int(3)
+  kelompok : varchar(4)
+  nilai : int(3)
   no_1 : int(2)
   ...
   no_20 : int(2)
@@ -183,22 +195,23 @@ entity "analisis soal uraian" as tb_analis_soaluo {
 }
 
 
+tb_user ||--|| tb_guru
+tb_user ||--|| tb_siswa
+tb_record_login }o-up-|| tb_user
 tb_siswa }|--|| tb_kelas
 tb_kelas ||--|| tb_guru
-tb_guru ||--|| tb_mapel
-tb_record_login }o--|| tb_user
-tb_user |o--|| tb_guru
+tb_guru ||-up-|| tb_mapel 
 r_pelajaran }|-up-|| tb_mapel
 r_pelajaran }|--|| tb_kelas
-tb_ujian }|-up-|| r_pelajaran
+tb_ujian }|--|| r_pelajaran
 tb_ujian }|--|| tb_kelas
-tb_ujian ||-up-|| tb_skor_soaluo
+tb_ujian ||--|{ tb_skor
+tb_siswa ||--|{ tb_skor
 tb_soal }|--|| tb_ujian
-tb_soal ||--|| tb_dist_jwb
 tb_dist_nilai ||--|| tb_ujian
 tb_dist_jwb }|--|| tb_ujian
-tb_dist_nilai }|-up-|| tb_siswa
-tb_soal }|-right-|| tb_siswa
-tb_analis_soalpg ||--|| tb_ujian
-tb_analis_soaluo ||--|| tb_ujian
+tb_dist_nilai }|--|| tb_siswa
+tb_dist_jwb }|--|| tb_siswa
+tb_analis_soalpg ||-up-|| tb_ujian
+tb_analis_soaluo ||-up-|| tb_ujian
 @enduml
