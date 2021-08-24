@@ -1060,18 +1060,10 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('nm_guru', 'Nama Guru', 'required|trim');
     $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
     $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
-    if ($akun == 1) {
-      $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
-        'valid_email' => 'email tidak cocok',
-        'is_unique' => 'email sudah digunakan'
-      ]);
-      // dihapus dan harus diganti dengan password default
-      $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|matches[password2]', [
-        'min_length' => 'password terlalu pendek!',
-        'matches' => 'password tidak sama!'
-      ]);
-      $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
-    }
+    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
+      'valid_email' => 'email tidak cocok',
+      'is_unique' => 'email sudah digunakan'
+    ]);
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/admin_header', $data);
@@ -1084,13 +1076,15 @@ class Admin extends CI_Controller
         'nip' => htmlspecialchars($this->input->post('nip', true)),
         'id_mapel' => htmlspecialchars($this->input->post('id_mapel', true)),
       ];
-      $data_akunGuru = [
+      $data_user = [
         'username' => htmlspecialchars($this->input->post('nm_guru', true)),
-        'status' => htmlspecialchars($this->input->post('status', true)),
+        'password' => password_hash(htmlspecialchars($this->input->post('nip', true)), PASSWORD_DEFAULT),
         'email' => htmlspecialchars($this->input->post('email', true)),
-        'password' => htmlspecialchars($this->input->post('password', true)),
+        'level' => 2,
+        'status' => htmlspecialchars($this->input->post('status', true)),
+        'date_created' => time(),
       ];
-      if ($this->db->insert('tb_akun', $data_akunGuru)) {
+      if ($this->Guru_model->insertGuru($data_user, $data_guru)) {
         $this->session->set_flashdata(
           'message1',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

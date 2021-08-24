@@ -53,10 +53,16 @@
               </div>
             </div>
           </div>
-          <!-- jika di centang maka muncul yg dibawahnya -->
-          <div class="icheck-primary">
-            <label for="akun">Buat Akun Guru?</label>
-            <input class="ml-3" type="checkbox" id="akun" name="akun" value="1"> iya
+          <div class="row">
+            <div class="col-sm-2">
+              <label>Email</label>
+            </div>
+            <div class="col-sm-10">
+              <div class="form-group">
+                <input type="text" class="form-control <?= form_error('email') != null ? "is-invalid" : "" ?>" name="email" id="email" placeholder="Isi Email" value="<?= set_value('email') ?>">
+                <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col-sm-2">
@@ -77,39 +83,6 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-2">
-              <label>Email</label>
-            </div>
-            <div class="col-sm-10">
-              <div class="form-group">
-                <input type="text" class="form-control <?= form_error('email') != null ? "is-invalid" : "" ?>" name="email" id="email" placeholder="Isi Email" value="<?= set_value('email') ?>">
-                <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2">
-              <label>Password</label>
-            </div>
-            <div class="col-sm-10">
-              <div class="form-group">
-                <input type="password" class="form-control <?= form_error('password1') != null ? "is-invalid" : "" ?>" name="password1" id="password1" placeholder="Isi Kata Sandi Akun Guru" value="">
-                <?= form_error('password1', '<small class="text-danger pl-3">', '</small>'); ?>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2">
-              <label>Konfirmasi Password</label>
-            </div>
-            <div class="col-sm-10">
-              <div class="form-group">
-                <input type="password" class="form-control <?= form_error('password2') != null ? "is-invalid" : "" ?>" name="password2" id="password2" placeholder="Isi Konfirmasi Kata Sandi Akun Guru" value="">
-                <?= form_error('password2', '<small class="text-danger pl-3">', '</small>'); ?>
-              </div>
-            </div>
-          </div>
-          <div class="row">
             <div class="col-8">
               capthca
             </div>
@@ -119,6 +92,7 @@
             </div>
             <!-- /.col -->
           </div>
+          <p>Note : <b>username</b> diisi dengan <b>Nama Guru</b> sedangkan <b>Password</b> diisi dengan <b>NIP</b> segera konfirmasi untuk mengganti Password</p>
         </form>
       </div>
     </div>

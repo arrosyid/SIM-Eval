@@ -43,6 +43,18 @@ class Guru_model extends CI_Model
     }
   }
 
+  // insert Guru dari id
+  public function insertGuru($data1, $data2)
+  {
+    $this->db->trans_start();
+    $this->db->insert('tb_user', $data1);
+    $id = $this->db->get_where('tb_user', ['email' => $data1['email']])->row_array();
+    $data2['id_user'] = $id['id_user'];
+    $this->db->insert('tb_guru', $data2);
+    $this->db->trans_complete();
+    return $this->db->trans_status();
+  }
+
   // update Guru dari id
   public function upadateGuruById($idGuru, $data)
   {
