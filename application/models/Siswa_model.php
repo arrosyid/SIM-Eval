@@ -54,8 +54,10 @@ class Siswa_model extends CI_Model
   {
     $this->db->trans_start();
     $this->db->insert('tb_user', $data1);
-    $id = $this->db->get_where('tb_user', ['email' => $data1['email']])->row_array();
-    $data2['id_user'] = $id['id_user'];
+    $id = $this->db->insert_id();
+    $data2['id_user'] = $id;
+    // $id = $this->db->get_where('tb_user', ['email' => $data1['email']])->row_array();
+    // $data2['id_user'] = $id['id_user'];
     $this->db->insert('tb_siswa', $data2);
     $this->db->trans_complete();
     return $this->db->trans_status();
