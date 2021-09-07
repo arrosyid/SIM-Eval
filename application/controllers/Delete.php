@@ -25,17 +25,17 @@ class Delete extends CI_Controller
   private function redirect($type)
   {
     if ($this->session->userdata('level') == 1) {
-      echo "admin/$type";
+      return "admin/$type";
     } elseif ($this->session->userdata('level') == 2) {
-      echo "guru/$type";
+      return "guru/$type";
     } elseif ($this->session->userdata('level') == 3) {
-      echo "siswa/$type";
+      return "siswa/$type";
     }
   }
 
   public function user($id)
   {
-    if ($this->User_model->deleteUserById($id)) {
+    if ($this->User_model->deleteUserByType('id_user', $id)) {
       $this->session->set_flashdata(
         'message',
         '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -55,6 +55,7 @@ class Delete extends CI_Controller
   public function guru($id)
   {
     // tabel yang terkait -> kelas
+    $guru = $this->Guru_model->getGuruByType('id_guru', $id);
     if ($this->Guru_model->deleteGuruByType('id_guru', $id)) {
       $this->session->set_flashdata(
         'message',
@@ -68,7 +69,7 @@ class Delete extends CI_Controller
                       Gagal Menghapus Data Guru</div>'
       );
     }
-    if ($this->User_model->deleteUserById($id)) {
+    if ($this->User_model->deleteUserByType('id_user', $guru['id_user'])) {
       $this->session->set_flashdata(
         'message1',
         '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -90,7 +91,6 @@ class Delete extends CI_Controller
     // tabel yang terkait -> guru, pelajaran, eval, pg/uraian, analisis pg/uraian, soal, skor
     if ($this->Mapel_model->deleteMapelById($id)) {
       // $this->Guru_model->deleteGuruByType('id_mapel', $id);
-      // $this->User_model->deleteUserById('id_guru', $id);
       // $this->Pelajaran_model->deletePelajaranByType('id_mapel', $id);
       $this->session->set_flashdata(
         'message',
@@ -110,20 +110,20 @@ class Delete extends CI_Controller
 
   public function pelajaran($id)
   {
-    if ($this->pelajaran_model->deletePelajaranByType('id_pelajaran', $id)) {
+    if ($this->Pelajaran_model->deletePelajaranByType('id_pelajaran', $id)) {
       $this->session->set_flashdata(
         'message',
         '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Berhasil Menghapus Data Pelajaran</div>'
       );
-      redirect($this->redirect('daftarPelajar'));
+      redirect($this->redirect('daftarPelajaran'));
     } else {
       $this->session->set_flashdata(
         'message',
         '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Gagal Menghapus Data Pelajaran</div>'
       );
-      redirect($this->redirect('daftarPelajar'));
+      redirect($this->redirect('daftarPelajaran'));
     }
   }
 
@@ -151,18 +151,35 @@ class Delete extends CI_Controller
   public function siswa($id)
   {
     // tabel terkait -> skor, pg/uraian, eval, analisis pg/uraian
-    if ($this->siswa_model->deleteSiswaByType('id_siswa', $id)) {
+    // gmna kalo di buat transaksi?
+    $siswa = $this->Siswa_model->getSiswaByType('id_siswa', $id);
+    // var_dump($siswa);
+    // die;
+    if ($this->Siswa_model->deleteSiswaByType('id_siswa', $id)) {
       $this->session->set_flashdata(
         'message',
         '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Berhasil Menghapus Data Siswa</div>'
       );
-      redirect($this->redirect('daftarSiswa'));
     } else {
       $this->session->set_flashdata(
         'message',
         '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Gagal Menghapus Data Siswa</div>'
+      );
+    }
+    if ($this->User_model->deleteUserByType('id_user', $siswa['id_user'])) {
+      $this->session->set_flashdata(
+        'message1',
+        '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Berhasil Menghapus Data User Siswa</div>'
+      );
+      redirect($this->redirect('daftarSiswa'));
+    } else {
+      $this->session->set_flashdata(
+        'message1',
+        '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Gagal Menghapus Data User Siswa</div>'
       );
       redirect($this->redirect('daftarSiswa'));
     }
