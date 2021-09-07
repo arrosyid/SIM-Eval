@@ -38,4 +38,6 @@
     <a href="<?= base_url('auth/registrasi') ?>" class="text-center">daftar anggota baru</a>
   </p>
 </div>
+<pre>usernama : admin@mail.com
+password : 12345678</pre>
 <!-- /.card-body -->

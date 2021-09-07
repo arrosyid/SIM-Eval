@@ -72,7 +72,7 @@ if ($user['level'] == 1) {
         </li>
         <li class="nav-item">
           <a href="<?= $href . 'distJawaban' ?>" class="nav-link 
-                    <?php if ($tittle == 'Distribusi Jawaban' || $tittle == 'Koreksi Soal') echo 'active'; ?>">
+                    <?php if ($tittle == 'Distribusi Jawaban' || $tittle == 'Koreksi Soal' || $tittle == 'Skor Soal') echo 'active'; ?>">
             <i class="nav-icon fas fa-spell-check"></i>
             <p>Distribusi Jawaban</p>
           </a>
