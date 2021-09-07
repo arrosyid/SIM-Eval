@@ -7,6 +7,7 @@
       </div>
       <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
+        <?= $this->session->flashdata('message1'); ?>
         <table id="Tables" class="table table-bordered table-striped">
           <button type="button" class="col-2 mb-4 btn btn-primary btn-block" data-toggle="modal" data-target="#tambahSiswa">
             Tambah Siswa</button>

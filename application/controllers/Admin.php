@@ -969,12 +969,16 @@ class Admin extends CI_Controller
     $data['siswa'] = $this->Siswa_model->getAllSiswa();
     $data['kelas'] = $this->Kelas_model->getAllKelas();
 
+    $tambahSiswa = $this->input->post('tambahSiswa');
+    $editSiswa = $this->input->post('editSiswa');
     $this->form_validation->set_rules('nm_siswa', 'Nama Siswa', 'required|trim');
     $this->form_validation->set_rules('nis', 'Nomor Induk Siswa', 'required|trim');
-    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
-      'valid_email' => 'email tidak cocok',
-      'is_unique' => 'email sudah digunakan'
-    ]);
+    if ($tambahSiswa) {
+      $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
+        'valid_email' => 'email tidak cocok',
+        'is_unique' => 'email sudah digunakan'
+      ]);
+    }
     // $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
 
     if ($this->form_validation->run() == false) {
@@ -983,9 +987,6 @@ class Admin extends CI_Controller
       $this->load->view('admin/DaftarSiswa');
       $this->load->view('templates/admin_footer', $data);
     } else {
-      // mengganti view
-      $tambahSiswa = $this->input->post('tambahSiswa');
-      $editSiswa = $this->input->post('editSiswa');
       if ($tambahSiswa) {
         $id_siswa = '';
         $data_user = [
@@ -996,12 +997,12 @@ class Admin extends CI_Controller
           'status' => 1,
           'date_created' => time(),
         ];
-      } else if ($editSiswa)
+      } else if ($editSiswa) {
         $id_siswa = htmlspecialchars($this->input->post('id_siswa', TRUE));
+      }
 
       $data_siswa = [
         'id_siswa' => $id_siswa,
-        'id_user' => htmlspecialchars($this->input->post('nm_siswa', true)),
         'nm_siswa' => htmlspecialchars($this->input->post('nm_siswa', true)),
         'nis' => htmlspecialchars($this->input->post('nis', true)),
         'id_kelas' => htmlspecialchars($this->input->post('id_kelas', true)),
@@ -1009,18 +1010,18 @@ class Admin extends CI_Controller
       // var_dump($data_siswa);
       // die;
       if ($tambahSiswa) {
-        if ($this->Siswa_model->insertSiswa($data_user, $data_siswa) == true) {
+        if ($this->Siswa_model->insertSiswa($data_user, $data_siswa)) {
           $this->session->set_flashdata(
             'message',
             '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                          Berhasil Menambah Data Kelas</div>'
+                          Berhasil Menambah Data Siswa</div>'
           );
           redirect('admin/daftarSiswa');
         } else {
           $this->session->set_flashdata(
             'message',
             '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                          Gagal Menambah Data Kelas</div>'
+                          Gagal Menambah Data Siswa</div>'
           );
           redirect('admin/daftarSiswa');
         }
@@ -1030,14 +1031,14 @@ class Admin extends CI_Controller
           $this->session->set_flashdata(
             'message',
             '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                          Berhasil Mengubah Data Kelas</div>'
+                          Berhasil Mengubah Data Siswa</div>'
           );
           redirect('admin/daftarSiswa');
         } else {
           $this->session->set_flashdata(
             'message',
             '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                          Gagal Mengubah Data Kelas</div>'
+                          Gagal Mengubah Data Siswa</div>'
           );
           redirect('admin/daftarSiswa');
         }
