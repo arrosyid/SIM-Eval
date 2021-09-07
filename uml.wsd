@@ -1,8 +1,9 @@
-@startuml usecase
+@startuml
 left to right direction
 skinparam packageStyle rectangle
-actor admin
-actor guru
+actor admin as UC1
+actor guru as UC2
+actor siswa as UC3
 rectangle SimEval {
   ' (Siswa dan guru)
   ' (Login)
@@ -17,28 +18,39 @@ rectangle SimEval {
   ' (Analisis Hasil)
   ' (Evaluasi)
   ' (Nilai Akhir)
+  ' (lembar soal)
+  ' (koreksi)
 
   package Session{
-  admin --> (Siswa dan guru)
-  admin --> (Login)
-  (Login) <-- guru
+  UC1 --> (Siswa dan guru)
+  UC1 --> (Login)
+  (Login) <-- UC2
   (Siswa dan guru) <. (Login) : <<include>>
   }
-  admin --> (kelas)
-  admin --> (ujian)
-  admin --> (soal)
-  (ujian) .> (soal) : <<include>>
-  (jawaban siswa) <-- guru
-  (skor soal) <-- guru
-  (Nilai Akhir) <-- guru
-  (Evaluasi) <- guru
+  UC1 --> (kelas)
+  UC1 -down-> (ujian)
+  UC1 --> (soal)
+  (ujian) .down.> (soal) : <<include>>
+  (soal) .down.> (lembar soal) : <<include>>
+  (lembar soal) .down.> (koreksi) : <<include>>
+  (koreksi) .down.> (jawaban siswa) : <<include>>
+  (jawaban siswa) <-- UC2
+  (skor soal) <-- UC2
+  (Nilai Akhir) <-- UC2
+  (Evaluasi) <-- UC2
+  UC3 --> (lembar soal) 
+  UC3 -up-> (koreksi)
+  UC3 -up-> (Login)
 
   package Analisis{
-  (jawaban siswa) <.down. (Koreksi Otomatis) : <<include>>
-  (jawaban siswa) <.up. (Analisis Soal) : <<extends>>
-  (jawaban siswa) <.up. (Analisis Siswa) : <<extends>>
-  (Analisis Siswa) .down.> (Analisis Hasil) : <<include>>
-  (Analisis Hasil) <.down. (Evaluasi) : <<include>>
-  (Nilai Akhir) .down.> (Evaluasi) : <<include>>
+  ' (jawaban siswa) <.. (Koreksi Otomatis) : <<include>>
+  ' (jawaban siswa) <.. (Analisis Soal) : <<extends>>
+  ' (jawaban siswa) <.. (Analisis Siswa) : <<extends>>
+  (Koreksi Otomatis) .up.> (jawaban siswa) : <<include>>
+  (Analisis Soal) .up.> (jawaban siswa) : <<include>>
+  (Analisis Siswa) .up.> (jawaban siswa) : <<include>>
+  (Analisis Siswa) .up.> (Analisis Hasil) : <<include>>
+  (Evaluasi) .up.> (Analisis Hasil) : <<include>>
+  (Nilai Akhir) ..> (Evaluasi) : <<include>>
 }
 @enduml
