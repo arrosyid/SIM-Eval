@@ -163,7 +163,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="date" class="form-control <?= form_error('tgl_sk_pendirian') != null ? "is-invalid" : "" ?>" name="tgl_sk_pendirian" id="tgl_sk_pendirian" placeholder="Isi Tanggal SK Pendirian Sekolah" value="<?= set_value('tgl_sk_pendirian') != null ? set_value('tgl_sk_pendirian') : $sekolah['tgl_sk_pendirian'] ?>">
+                <input type="date" class="form-control <?= form_error('tgl_sk_pendirian') != null ? "is-invalid" : "" ?>" name="tgl_sk_pendirian" id="tgl_sk_pendirian" placeholder="Isi Tanggal SK Pendirian Sekolah" value="<?= set_value('tgl_sk_pendirian') != null ? set_value('tgl_sk_pendirian') : date('Y-m-d', $sekolah['tgl_sk_pendirian']) ?>">
                 <?= form_error('tgl_sk_pendirian', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
             </div>
@@ -185,7 +185,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="date" class="form-control <?= form_error('tgl_sk_izin') != null ? "is-invalid" : "" ?>" name="tgl_sk_izin" id="tgl_sk_izin" placeholder="Isi Tanggal SK Izin Operasional Sekolah" value="<?= set_value('tgl_sk_izin') != null ? set_value('tgl_sk_izin') : $sekolah['tgl_sk_izin'] ?>">
+                <input type="date" class="form-control <?= form_error('tgl_sk_izin') != null ? "is-invalid" : "" ?>" name="tgl_sk_izin" id="tgl_sk_izin" placeholder="Isi Tanggal SK Izin Operasional Sekolah" value="<?= set_value('tgl_sk_izin') != null ? set_value('tgl_sk_izin') : date('Y-m-d', $sekolah['tgl_sk_izin']) ?>">
                 <?= form_error('tgl_sk_izin', '<small class="text-danger pl-3">', '</small>'); ?>
               </div>
             </div>

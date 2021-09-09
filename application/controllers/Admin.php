@@ -831,10 +831,6 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
     $this->form_validation->set_rules('id_mapel', 'Mata Pelajaran', 'required|trim');
     $this->form_validation->set_rules('username', 'Username', 'required|trim');
-    $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[tb_user.email]', [
-      'valid_email' => 'email tidak cocok',
-      'is_unique' => 'email sudah digunakan'
-    ]);
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/admin_header', $data);
@@ -849,7 +845,6 @@ class Admin extends CI_Controller
       ];
       $data_akunGuru = [
         'username' => htmlspecialchars($this->input->post('username', true)),
-        'email' => htmlspecialchars($this->input->post('email', true)),
       ];
       if ($this->db->insert('tb_akun', $data_akunGuru)) {
         $this->session->set_flashdata(
@@ -941,12 +936,14 @@ class Admin extends CI_Controller
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Berhasil Mengubah Data Sekolah</div>'
         );
+        redirect('admin/profileSekolah');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Gagal Mengubah Data Sekolah</div>'
         );
+        redirect('admin/profileSekolah');
       }
     }
   }

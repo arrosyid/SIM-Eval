@@ -63,8 +63,7 @@
             </div>
             <div class="col-sm-10">
               <div class="form-group">
-                <input type="text" class="form-control <?= form_error('email') != null ? "is-invalid" : "" ?>" name="email" id="email" placeholder="Isi Email Anda" value="<?= set_value('email') != null ? set_value('email') : $user['email'] ?>">
-                <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                <input type="text" class="form-control" value="<?= $user['email'] ?>" readonly>
               </div>
             </div>
           </div>
