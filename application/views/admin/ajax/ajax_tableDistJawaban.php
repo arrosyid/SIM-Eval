@@ -1,17 +1,33 @@
 <?php
+if (isset($analispg) && $analispg != null) {
+  foreach ($analispg as $P => $analis_pg) {
+    $disableP = 0;
+    if ($analis_pg['status'] == 0) {
+      $disableP = 1;
+    }
+  }
+}
+if (isset($analisuo) && $analisuo != null) {
+  foreach ($analisuo as $U => $analis_uo) {
+    $disableU = 0;
+    if ($analis_uo['status'] == 0) {
+      $disableU = 1;
+    }
+  }
+}
 if (isset($pg) || isset($uo)) {
   if ($pg != null && $uo != null) {
     $jenis = [
-      ['PILIHAN GANDA', $ujian['jml_soalpg']],
-      ['URAIAN', $ujian['jml_soaluo']]
+      ['PILIHAN GANDA', $ujian['jml_soalpg'], $disableP],
+      ['URAIAN', $ujian['jml_soaluo'], $disableU]
     ];
   } elseif ($pg != null) {
     $jenis = [
-      ['PILIHAN GANDA', $ujian['jml_soalpg']],
+      ['PILIHAN GANDA', $ujian['jml_soalpg'], $disableP],
     ];
   } elseif ($uo != null) {
     $jenis = [
-      ['URAIAN', $ujian['jml_soalou']]
+      ['URAIAN', $ujian['jml_soalou'], $disableU]
     ];
   } else {
     $jenis = [
@@ -83,7 +99,11 @@ if (isset($pg) || isset($uo)) {
         </tr>
       </tfoot>
     </table>
-    <a href="<?= base_url('analisis/hitungSkor/' . $val[0] . '/' . $ujian['id_ujian']) ?>" class="btn btn-primary float-right">Analisis Jawaban</a>
+    <?php if ($val[2] == 1) : ?>
+      <a href="<?= base_url('analisis/hitungSkor/' . $val[0] . '/' . $ujian['id_ujian']) ?>" class="btn btn-primary float-right">Analisis Jawaban</a>
+    <?php else : ?>
+      <button class="btn btn-primary float-right" disabled> Analisis Jawaban</button>
+    <?php endif ?>
     <br>
 <?php $a++;
   endforeach;

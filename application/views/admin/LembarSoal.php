@@ -48,6 +48,24 @@ $data_ujian = [
         <hr>
         <!-- isi dari selection -->
         <form action="" method="post">
+          <div class="row">
+            <div class="col-sm-2">
+              <label>Siswa</label>
+            </div>
+            <div class="col-sm-5">
+              <div class="form-group">
+                <select class="form-control <?= form_error('id_siswa') != null ? "is-invalid" : "" ?>" name="id_siswa" id="id_siswa">
+                  <option value="">PILIH SISWA</option>
+                  <?php foreach ($siswa as $S) { ?>
+                    <option <?= set_select('id_siswa', $S['id_siswa']) ?> value="<?= $S['id_siswa'] ?>"><?= $S['nm_siswa'] ?></option>
+                  <?php } ?>
+                </select>
+                <?= form_error('id_siswa', '<small class="text-danger pl-3">', '</small>'); ?>
+                tidak menemukan Siswa? <a href="<?= base_url('admin/tambahSiswa') . "?kelas=" . $ujian['id_kelas'] ?>">Tambahkan Siswa</a>
+              </div>
+            </div>
+          </div>
+
           <h4>PILIHAN GANDA</h4>
           <hr>
           <?php foreach ($pg as $P) : ?>

@@ -124,6 +124,8 @@ class Admin extends CI_Controller
     $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
     $data['pg'] = $this->Soal_model->getSoalByType('id_ujian_pg', $id_ujian);
     $data['uo'] = $this->Soal_model->getSoalByType('id_ujian_uo', $id_ujian);
+    $data['siswa'] = $this->Siswa_model->getSiswaByType('id_kelas', $data['ujian']['id_kelas']);
+
     // untuk koreksi otomatis
     foreach ($data['pg'] as $K => $value) {
       $kunci[$K] = $value['kunci'];
@@ -1348,8 +1350,10 @@ class Admin extends CI_Controller
         $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
         $data['pg'] = $this->Jawaban_model->getJawabanByType('id_ujian_pg', $id_ujian);
         $data['uo'] = $this->Jawaban_model->getJawabanByType('id_ujian_uo', $id_ujian);
+        $data['analispg'] = $this->Soal_model->getSoalByType('id_ujian_pg', $id_ujian);
+        $data['analisuo'] = $this->Soal_model->getSoalByType('id_ujian_uo', $id_ujian);
+        $this->load->view('admin/ajax/ajax_tableDistJawaban', $data);
       }
-      $this->load->view('admin/ajax/ajax_tableDistJawaban', $data);
     }
 
     // ajax view Nilai
