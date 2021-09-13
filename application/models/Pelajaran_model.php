@@ -54,18 +54,25 @@ class Pelajaran_model extends CI_Model
   }
 
   // delete Pelajaran
-  public function deletePelajaranByType($type, $id)
+  public function deletePelajaranById($id)
   {
-    // berdasarkan id pelajaran
-    if ($type == 'id_pelajaran')
-      return $this->db->delete('r_pelajaran', ['id_pelajaran' => $id]);
+    $this->db->trans_start();
+    $ujian = $this->db->get_where('tb_ujian', ['id_pelajaran' => $id])->result_array();
+    if ($ujian != null) {
+      foreach ($ujian as $U => $val) {
+        // data dari tb ujian
+        $this->db->delete('tb_analis_soalpg', ['id_ujian' => $val['id_ujian']]);
+        $this->db->delete('tb_analis_soaluo', ['id_ujian' => $val['id_ujian']]);
+        $this->db->delete('tb_dist_jwb', ['id_ujian' => $val['id_ujian']]);
+        $this->db->delete('tb_dist_nilai', ['id_ujian' => $val['id_ujian']]);
+        $this->db->delete('tb_skor', ['id_ujian' => $val['id_ujian']]);
+        $this->db->delete('tb_soal', ['id_ujian' => $val['id_ujian']]);
+      }
+    }
 
-    // berdasarkan id Mapel
-    if ($type == 'id_mapel')
-      return $this->db->delete('r_pelajaran', ['id_mapel' => $id]);
-
-    // berdasarkan id kelas
-    if ($type == 'id_kelas')
-      return $this->db->delete('r_pelajaran', ['id_kelas' => $id]);
+    $this->db->delete('tb_ujian', ['id_pelajaran' => $id]);
+    $this->db->delete('r_pelajaran', ['id_pelajaran' => $id]);
+    $this->db->trans_complete();
+    return $this->db->trans_status();
   }
 }

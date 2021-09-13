@@ -23,7 +23,7 @@ class Sekolah_model extends CI_Model
   }
 
   // delete Sekolah
-  public function deleteSekolahByType($id)
+  public function deleteSekolahById($id)
   {
     return $this->db->delete('tb_sekolah', ['id_sekolah' => $id]);
   }

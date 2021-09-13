@@ -41,15 +41,9 @@ class Analisuo_model extends CI_Model
   }
 
   // delete Analisuo
-  public function deleteAnalisuoByType($type, $id)
+  public function deleteAnalisuoByid($id)
   {
-    // berdasarkan id pilhan ganda
-    if ($type == 'id_analisuo')
-      return $this->db->delete('tb_analis_soaluo', ['id_analisuo' => $id]);
-
-    // bersasarkan id_ujian
-    if ($type == 'id_ujian')
-      return $this->db->delete('tb_analis_soaluo', ['id_ujian' => $id]);
+    return $this->db->delete('tb_analis_soaluo', ['id_analisuo' => $id]);
   }
 
   public function analisButirSoalUO($id_ujian)

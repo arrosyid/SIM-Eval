@@ -29,21 +29,21 @@ class User_model extends CI_Model
   {
     return $this->db->update('tb_user', ['is_active' => $status], ['email' => $email]);
   }
-  // untuk delete user by email
-  public function deleteUserByEmail($email)
-  {
-    return $this->db->delete('tb_user', ['email' => $email]);
-  }
-  // delete kooperasi by parameter
-  public function deleteUserByType($type = 'id_user', $id = null)
-  {
-    if ($type == 'id_user') {
-      return $this->db->delete('tb_user', ['id_user' => $id]);
-    }
-    if ($type == 'email') {
-      return $this->db->delete('tb_user', ['email' => $id]);
-    }
-  }
+  // // untuk delete user by email
+  // public function deleteUserByEmail($email)
+  // {
+  //   return $this->db->delete('tb_user', ['email' => $email]);
+  // }
+  // // delete user by parameter
+  // public function deleteUserByType($type = 'id_user', $id = null)
+  // {
+  //   if ($type == 'id_user') {
+  //     return $this->db->delete('tb_user', ['id_user' => $id]);
+  //   }
+  //   if ($type == 'email') {
+  //     return $this->db->delete('tb_user', ['email' => $id]);
+  //   }
+  // }
 
   // update user by email
   public function updateUserByEmail($email, $data)

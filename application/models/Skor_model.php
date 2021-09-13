@@ -72,19 +72,9 @@ class Skor_model extends CI_Model
   }
 
   // delete skor
-  public function deleteSkorByType($type, $id)
+  public function deleteSkorById($id)
   {
-    // berdasarkan id skor
-    if ($type == 'id_skor')
-      return $this->db->delete('tb_skor', ['id_skor' => $id]);
-
-    // berdasarkan id_siswa
-    if ($type == 'id_siswa')
-      return $this->db->delete('tb_skor', ['id_siswa' => $id]);
-
-    // berdasarkan id_ujian
-    if ($type == 'id_ujian')
-      return $this->db->delete('tb_skor', ['id_ujian' => $id]);
+    return $this->db->delete('tb_skor', ['id_skor' => $id]);
   }
 
   // koreksi otomatis

@@ -64,14 +64,42 @@ class Guru_model extends CI_Model
   }
 
   // delete Guru
-  public function deleteGuruByType($type, $id)
+  public function deleteGuruById($id)
   {
-    // berdasarkan id Guru
-    if ($type == 'id_guru')
-      return $this->db->delete('tb_guru', ['id_guru' => $id]);
+    $this->db->trans_start();
+    $guru = $this->db->get_where('tb_guru', ['id_guru' => $id])->row_array();
+    $kelas = $this->db->get_where('tb_kelas', ['id_guru' => $id])->row_array();
+    if ($kelas != null) {
+      $ujian = $this->db->get_where('tb_ujian', ['id_kelas' => $kelas['id_kelas']])->result_array();
+      $siswa = $this->db->get_where('tb_siswa', ['id_kelas' => $kelas['id_kelas']])->result_array();
+    }
 
-    // berdasarkan id mapel
-    if ($type == 'id_mapel')
-      return $this->db->delete('tb_guru', ['id_mapel' => $id]);
+    if ($ujian != null) {
+      foreach ($ujian as $U => $val) {
+        // data dari tb_kelas
+        $this->db->delete('tb_analis_soalpg', ['id_ujian' => $val['id_ujian']]);
+        $this->db->delete('tb_analis_soaluo', ['id_ujian' => $val['id_ujian']]);
+        $this->db->delete('tb_skor', ['id_ujian' => $val['id_ujian']]);
+        $this->db->delete('tb_soal', ['id_ujian' => $val['id_ujian']]);
+        $this->db->delete('tb_dist_jwb', ['id_ujian' => $val['id_ujian']]);
+        $this->db->delete('tb_dist_nilai', ['id_ujian' => $val['id_ujian']]);
+      }
+    }
+    if ($kelas != null) {
+      if ($siswa != null) {
+        foreach ($siswa as $S => $sis) {
+          $this->db->delete('tb_siswa', ['id_siswa' => $sis['id_siswa']]);
+          $this->db->delete('tb_user', ['id_user' => $sis['id_user']]);
+        }
+      }
+      $this->db->delete('r_pelajaran', ['id_kelas' => $kelas['id_kelas']]);
+      $this->db->delete('tb_kelas', ['id_kelas' => $kelas['id_kelas']]);
+    }
+
+
+    $this->db->delete('tb_guru', ['id_guru' => $id]);
+    $this->db->delete('tb_user', ['id_user' => $guru['id_user']]);
+    $this->db->trans_complete();
+    return $this->db->trans_status();
   }
 }

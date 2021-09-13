@@ -50,19 +50,9 @@ class Nilai_model extends CI_Model
   }
 
   // delete Skor
-  public function deleteNilaiByType($type, $id)
+  public function deleteNilaiById($id)
   {
-    // berdasarkan id Skor
-    if ($type == 'id_nilai')
-      return $this->db->delete('tb_dist_nilai', ['id_nilai' => $id]);
-
-    // berdasarkan id ujian
-    if ($type == 'id_ujian')
-      return $this->db->delete('tb_dist_nilai', ['id_ujian' => $id]);
-
-    // berdasarkan id siswa
-    if ($type == 'id_siswa')
-      return $this->db->delete('tb_dist_nilai', ['id_siswa' => $id]);
+    return $this->db->delete('tb_dist_nilai', ['id_nilai' => $id]);
   }
 
   // akb 1

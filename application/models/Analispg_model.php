@@ -41,15 +41,9 @@ class Analispg_model extends CI_Model
   }
 
   // delete Analispg
-  public function deleteAnalispgByType($type, $id)
+  public function deleteAnalispgById($id)
   {
-    // berdasarkan id pilhan ganda
-    if ($type == 'id_analispg')
-      return $this->db->delete('tb_analis_soalpg', ['id_analispg' => $id]);
-
-    // bersasarkan id_ujian
-    if ($type == 'id_ujian')
-      return $this->db->delete('tb_analis_soalpg', ['id_ujian' => $id]);
+    return $this->db->delete('tb_analis_soalpg', ['id_analispg' => $id]);
   }
 
   public function analisButirSoalPg($id_ujian)

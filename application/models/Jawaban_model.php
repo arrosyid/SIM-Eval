@@ -90,18 +90,8 @@ class Jawaban_model extends CI_Model
   }
 
   // delete jawaban
-  public function deleteJawabanByType($type, $id)
+  public function deleteJawabanById($id)
   {
-    // berdasarkan id jawab
-    if ($type == 'id_jawab')
-      return $this->db->delete('tb_dist_jwb', ['id_jawab' => $id]);
-
-    // berdasarkan id_siswa
-    if ($type == 'id_siswa')
-      return $this->db->delete('tb_dist_jwb', ['id_siswa' => $id]);
-
-    // berdasarkan id_ujian
-    if ($type == 'id_ujian')
-      return $this->db->delete('tb_dist_jwb', ['id_ujian' => $id]);
+    return $this->db->delete('tb_dist_jwb', ['id_jawab' => $id]);
   }
 }

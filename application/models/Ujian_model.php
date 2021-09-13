@@ -58,18 +58,17 @@ class Ujian_model extends CI_Model
   }
 
   // delete ujian
-  public function deleteUjianByType($type, $id)
+  public function deleteUjianById($id)
   {
-    // berdasarkan id ujian
-    if ($type == 'id_ujian')
-      return $this->db->delete('tb_ujian', ['id_ujian' => $id]);
-
-    // berdasarkan id_pelajaran
-    if ($type == 'id_pelajaran')
-      return $this->db->delete('tb_ujian', ['id_pelajaran' => $id]);
-
-    // berdasarkan id_kelas
-    if ($type == 'id_kelas')
-      return $this->db->delete('tb_ujian', ['id_kelas' => $id]);
+    $this->db->trans_start();
+    $this->db->delete('tb_analis_soalpg', ['id_ujian' => $id]);
+    $this->db->delete('tb_analis_soaluo', ['id_ujian' => $id]);
+    $this->db->delete('tb_dist_jwb', ['id_ujian' => $id]);
+    $this->db->delete('tb_dist_nilai', ['id_ujian' => $id]);
+    $this->db->delete('tb_skor', ['id_ujian' => $id]);
+    $this->db->delete('tb_soal', ['id_ujian' => $id]);
+    $this->db->delete('tb_ujian', ['id_ujian' => $id]);
+    $this->db->trans_complete();
+    return $this->db->trans_status();
   }
 }

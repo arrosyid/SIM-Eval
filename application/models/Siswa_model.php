@@ -64,14 +64,17 @@ class Siswa_model extends CI_Model
   }
 
   // delete Siswa
-  public function deleteSiswaByType($type, $id)
+  public function deleteSiswaById($id)
   {
-    // berdasarkan id Siswa
-    if ($type == 'id_siswa')
-      return $this->db->delete('tb_siswa', ['id_siswa' => $id]);
+    $this->db->trans_start();
+    $siswa = $this->db->get_where('tb_siswa', ['id_siswa' => $id])->row_array();
 
-
-    if ($type == 'id_kelas')
-      return $this->db->delete('tb_siswa', ['id_kelas' => $id]);
+    $this->db->delete('tb_skor', ['id_siswa' => $id]);
+    $this->db->delete('tb_dist_jwb', ['id_siswa' => $id]);
+    $this->db->delete('tb_dist_nilai', ['id_siswa' => $id]);
+    $this->db->delete('tb_siswa', ['id_siswa' => $id]);
+    $this->db->delete('tb_user', ['id_user' => $siswa['id_user']]);
+    $this->db->trans_complete();
+    return $this->db->trans_status();
   }
 }
