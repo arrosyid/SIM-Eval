@@ -657,19 +657,24 @@ class Admin extends CI_Controller
     $data['table_ajax_dom'] = '#ujian';
 
     $data['user'] = $this->User_model->getUserByEmail($this->session->userdata['email']);
-    $data['soal'] = $this->Soal_model->getAllSoal();
+    $data['soalAll'] = $this->Soal_model->getAllSoal();
     $data['ujian'] = $this->Ujian_model->getAllUjian();
-    // var_dump($data['soal']);
+    // var_dump($data['soalAll']);
     // die;
 
-    // dikasih dropdown menurut id_ujian
-    $this->form_validation->set_rules('id_siswa', 'Nama Siswa', 'required|trim');
     $this->form_validation->set_rules('id_ujian', 'Ujian', 'required|trim');
-    $this->form_validation->set_rules('id_jawab', 'Jawab', 'required|trim');
     $this->form_validation->set_rules('jenis_soal', 'Jenis Soal', 'required|trim');
-    $this->form_validation->set_rules('kelompok', 'Kelompok', 'required|trim');
-    $this->form_validation->set_rules('jml_skor', 'Jumlah Skor', 'required|trim');
-    $this->form_validation->set_rules('nilai', 'Nilai', 'required|trim');
+    $this->form_validation->set_rules('nomor_soal', 'Nomor Soal', 'required|trim');
+    $this->form_validation->set_rules('soal', 'Soal', 'required|trim');
+    $this->form_validation->set_rules('skor_soal', 'Skor Soal', 'required|trim');
+    $this->form_validation->set_rules('kunci', 'Kunci Jawaban', 'required|trim');
+    $jenis_soal = htmlspecialchars($this->input->post('jenis_soal', true));
+    if ($jenis_soal == 'PILIHAN GANDA') {
+      $this->form_validation->set_rules('pilihan_a', 'Pilihan A', 'required|trim');
+      $this->form_validation->set_rules('pilihan_b', 'Pilihan B', 'required|trim');
+      $this->form_validation->set_rules('pilihan_c', 'Pilihan C', 'required|trim');
+      $this->form_validation->set_rules('pilihan_d', 'Pilihan D', 'required|trim');
+    }
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/admin_header', $data);
@@ -679,14 +684,21 @@ class Admin extends CI_Controller
     } else {
       $id_soal = htmlspecialchars($this->input->post('id_soal', true));
       $data_soal = [
-        'id_siswa' => $id_soal,
+        'id_soal' => $id_soal,
         'id_ujian' => htmlspecialchars($this->input->post('id_ujian', true)),
-        'id_jawab' => htmlspecialchars($this->input->post('id_jawab', true)),
-        'jenis_soal' => htmlspecialchars($this->input->post('jenis_soal', true)),
-        'kelompok' => htmlspecialchars($this->input->post('kelompok', true)),
-        'jml_skor' => htmlspecialchars($this->input->post('jml_skor', true)),
-        'nilai' => htmlspecialchars($this->input->post('skor_max', true)),
+        'jenis_soal' => $jenis_soal,
+        'nomor_soal' => htmlspecialchars($this->input->post('nomor_soal', true)),
+        'soal' => htmlspecialchars($this->input->post('soal', true)),
+        'skor_soal' => htmlspecialchars($this->input->post('skor_soal', true)),
+        'kunci' => htmlspecialchars($this->input->post('kunci', true)),
+        'pilihan_a' => htmlspecialchars($this->input->post('pilihan_a', true)),
+        'pilihan_b' => htmlspecialchars($this->input->post('pilihan_b', true)),
+        'pilihan_c' => htmlspecialchars($this->input->post('pilihan_c', true)),
+        'pilihan_d' => htmlspecialchars($this->input->post('pilihan_d', true)),
+        'pilihan_d' => htmlspecialchars($this->input->post('pilihan_d', true)),
       ];
+      // var_dump($data_soal);
+      // die;
       if ($this->Soal_model->upadateSoalById($id_soal, $data_soal)) {
         $this->session->set_flashdata(
           'message',
@@ -846,7 +858,7 @@ class Admin extends CI_Controller
       $data_akunGuru = [
         'username' => htmlspecialchars($this->input->post('username', true)),
       ];
-      if ($this->db->insert('tb_akun', $data_akunGuru)) {
+      if ($this->User_model->updateUserById($data_akunGuru, $data['user']['id_user'])) {
         $this->session->set_flashdata(
           'message1',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -859,7 +871,7 @@ class Admin extends CI_Controller
                       Gagal Mengubah Data Akun Anda</div>'
         );
       }
-      if ($this->db->insert('tb_guru', $data_guru)) {
+      if ($this->Guru_model->upadateGuruById($data['guru']['id_guru'], $data_guru)) {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -1088,25 +1100,12 @@ class Admin extends CI_Controller
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Berhasil Menginputkan Data Akun Guru</div>'
         );
+        redirect('admin/tambahGuru');
       } else {
         $this->session->set_flashdata(
           'message1',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Gagal Menginputkan Data Akun Guru</div>'
-        );
-      }
-      if ($this->db->insert('tb_guru', $data_guru)) {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Berhasil Menginputkan Data Guru</div>'
-        );
-        redirect('admin/tambahGuru');
-      } else {
-        $this->session->set_flashdata(
-          'message',
-          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                      Gagal Menginputkan Data Guru</div>'
         );
         redirect('admin/tambahGuru');
       }
@@ -1308,7 +1307,6 @@ class Admin extends CI_Controller
     if ($ajax_menu == 'get_soal') {
       $id_soal = $this->input->post('id_soal', true);
       $data['soal'] = $this->Soal_model->getSoalByType('id_soal', $id_soal);
-      $data['siswa'] = $this->Siswa_model->getAllSiswa();
       $data['ujian'] = $this->Ujian_model->getAllUjian();
       $this->load->view('admin/ajax/ajax_editSoal', $data);
     }
@@ -1386,7 +1384,7 @@ class Admin extends CI_Controller
         $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
       } else {
         $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
-        $data['Soal'] = $this->Soal_model->getSoalByType('id_ujian', $id_ujian);
+        $data['soalAll'] = $this->Soal_model->getSoalByType('id_ujian', $id_ujian);
       }
       $this->load->view('admin/ajax/ajax_tableSoal', $data);
     }

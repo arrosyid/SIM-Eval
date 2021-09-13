@@ -1,7 +1,7 @@
 <?php
-if (isset($soal)) {
+if (isset($soalAll)) {
   $i = 1;
-  foreach ($soal as $S) : ?>
+  foreach ($soalAll as $S) : ?>
     <tr>
       <td><?= $i; ?></td>
       <td><?= $S['soal'] ?></td>
