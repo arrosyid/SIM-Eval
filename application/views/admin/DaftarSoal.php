@@ -8,7 +8,7 @@
       <div class="card-body">
         <?= $this->session->flashdata('message'); ?>
         <div class="row mb-4">
-          <div class="col-sm-3">
+          <div class="col-sm-4">
             <div class="form-grup">
               <select class="form-control" name="ujian" id="ujian">
                 <option value="">PILIH UJIAN</option>
@@ -17,6 +17,7 @@
                 <?php endforeach ?>
               </select>
             </div>
+            <p>Pilih untuk memfilter daftar soal berdasarkan ujian</p>
           </div>
         </div>
         <table id="Tables" class="table table-bordered table-striped">

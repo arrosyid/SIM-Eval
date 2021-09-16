@@ -26,6 +26,7 @@ $jenis = [
                 <?php endforeach ?>
               </select>
             </div>
+            <p>Pilih untuk memfilter jawaban siswa berdasarkan ujian</p>
           </div>
         </div>
         <div id="table-data">

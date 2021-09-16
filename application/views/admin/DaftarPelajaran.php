@@ -24,6 +24,7 @@
                   <?php endforeach ?>
                 </select>
               </div>
+              <p>Pilih untuk memfilter Pelajaran berdasarkan Kelas</p>
             </div>
           </div>
           <thead>

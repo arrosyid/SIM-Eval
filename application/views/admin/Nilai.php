@@ -23,6 +23,7 @@ $tb_nilai = [
                 <?php endforeach ?>
               </select>
             </div>
+            <p>Pilih untuk memfilter nilai siswa berdasarkan ujian</p>
           </div>
         </div>
         <table id="Tables" class="table table-bordered table-striped">

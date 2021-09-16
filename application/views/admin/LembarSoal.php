@@ -30,15 +30,17 @@ $data_ujian = [
               <hr>
             <?php endforeach ?>
           </div>
-          <div class="col-sm-8">
+          <div class="col-sm-4">
+
+          </div>
+          <div class="col-sm-4">
             <div class="d-flex flex-row-reverse">
               <div class="card card-danger">
                 <div class="card-header">
                   <h3 class="card-title text-bold"><i class="fas fa-exclamation-triangle"></i>&nbsp;PERHATIAN!! </h3>
                 </div>
                 <div class="card-body">
-                  <p>Dilarang mengakses tab lain jika tidak ingin halaman ini</p>
-                  <p>memuat secara otomatis dan semua jawaban anda hilang </p>
+                  <p>Dilarang mengakses tab lain jika tidak ingin halaman ini memuat secara otomatis dan semua jawaban anda hilang </p>
                 </div>
               </div>
             </div>
