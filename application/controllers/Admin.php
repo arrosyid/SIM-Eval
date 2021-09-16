@@ -124,8 +124,46 @@ class Admin extends CI_Controller
     $data['ujian'] = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
     $data['pg'] = $this->Soal_model->getSoalByType('id_ujian_pg', $id_ujian);
     $data['uo'] = $this->Soal_model->getSoalByType('id_ujian_uo', $id_ujian);
-    $data['siswa'] = $this->Siswa_model->getSiswaByType('id_kelas', $data['ujian']['id_kelas']);
+    $data['siswa'] = $this->Siswa_model->getAllSiswa();
+    // $data['siswa'] = $this->Siswa_model->getSiswaByType('id_kelas', $data['ujian']['id_kelas']);
 
+    $countPG = count($data['pg']);
+    $countUO = count($data['uo']);
+    $soalPG = $data['ujian']['jml_soalpg'] - $countPG;
+    $soalUO = $data['ujian']['jml_soaluo'] - $countUO;
+    if ($countPG != $data['ujian']['jml_soalpg']) {
+      if ($soalPG < 0) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Tidak Bisa mengerjakan Soal karena Jumlah Soal Pilihan Ganda Lebih ' . abs($soalPG) . ' soal</div>'
+        );
+        redirect('admin/daftarUjian');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Tidak Bisa mengerjakan Soal karena Jumlah Soal Pilihan Ganda kurang ' . $soalPG . ' soal</div>'
+        );
+        redirect('admin/daftarUjian');
+      }
+    } elseif ($countUO != $data['ujian']['jml_soaluo']) {
+      if ($soalUO < 0) {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Tidak Bisa mengerjakan Soal karena Jumlah Soal Uraian Lebih ' . abs($soalUO) . ' soal</div>'
+        );
+        redirect('admin/daftarUjian');
+      } else {
+        $this->session->set_flashdata(
+          'message',
+          '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          Tidak Bisa mengerjakan Soal karena Jumlah Soal Uraian kurang ' . $soalUO . ' soal</div>'
+        );
+        redirect('admin/daftarUjian');
+      }
+    }
     // untuk koreksi otomatis
     foreach ($data['pg'] as $K => $value) {
       $kunci[$K] = $value['kunci'];
@@ -154,7 +192,7 @@ class Admin extends CI_Controller
       $skorSoal = (int) round($data['ujian']['skor_maxpg'] / $data['ujian']['jml_soalpg']);
       $skor = [
         'id_ujian' => $id_ujian,
-        'id_siswa' => 1,
+        'id_siswa' => htmlspecialchars($this->input->post('id_siswa', true)),
         'jenis_soal' => 'PILIHAN GANDA',
         'jml_skor' => 0,
         'nilai' => 0,
@@ -171,14 +209,14 @@ class Admin extends CI_Controller
       // data untuk upload
       $data_jawabpg = [
         'id_ujian' => $id_ujian,
-        'id_siswa' => 1,
+        'id_siswa' => htmlspecialchars($this->input->post('id_siswa', true)),
         'status' => 1,
         'jenis_soal' => 'PILIHAN GANDA',
       ];
       $uploadpg = $data_jawabpg + $jawabpg;
       $data_jawabuo = [
         'id_ujian' => $id_ujian,
-        'id_siswa' => 1,
+        'id_siswa' => htmlspecialchars($this->input->post('id_siswa', true)),
         'jenis_soal' => 'URAIAN',
       ];
       $uploaduo = $data_jawabuo + $jawabuo;
@@ -1352,6 +1390,7 @@ class Admin extends CI_Controller
         $data['uo'] = $this->Jawaban_model->getJawabanByType('id_ujian_uo', $id_ujian);
         $data['analispg'] = $this->Soal_model->getSoalByType('id_ujian_pg', $id_ujian);
         $data['analisuo'] = $this->Soal_model->getSoalByType('id_ujian_uo', $id_ujian);
+        $data['skor'] = $this->Skor_model->getSkorByType('id_ujian', $id_ujian);
         $this->load->view('admin/ajax/ajax_tableDistJawaban', $data);
       }
     }

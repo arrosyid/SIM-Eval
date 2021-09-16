@@ -39,6 +39,8 @@
             <h3 class="card-title"><i class="fas fa-user mr-1"></i>Profil</h3>
           </div>
           <div class="card-body">
+            <?= $this->session->flashdata('message') ?>
+            <?= $this->session->flashdata('message1') ?>
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Nama</h6>
@@ -78,8 +80,6 @@
 
 
 
-    <?= $this->session->flashdata('message') ?>
-    <?= $this->session->flashdata('message1') ?>
     <div class="row">
       <!-- tambah modal  -->
       <div class="modal fade" id="editPass" tabindex="-1" aria-labelledby="edit_SiswaLabel" aria-hidden="true">
