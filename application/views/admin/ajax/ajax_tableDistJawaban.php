@@ -1,19 +1,29 @@
 <?php
 if (isset($analispg) && $analispg != null) {
+  $disableP = 0;
   foreach ($analispg as $P => $analis_pg) {
-    $disableP = 0;
     if ($analis_pg['status'] == 0) {
       $disableP = 1;
     }
   }
 }
 if (isset($analisuo) && $analisuo != null) {
+  $disableU = 0;
   foreach ($analisuo as $U => $analis_uo) {
-    $disableU = 0;
     if ($analis_uo['status'] == 0) {
       $disableU = 1;
     }
   }
+}
+if (isset($skor)) {
+  $disableN = 0;
+  foreach ($skor as $SK => $SKo) {
+    if ($SKo['status'] == 0) {
+      $disableN = 1;
+    }
+  }
+  // var_dump($disableN);
+  // die;
 }
 if (isset($pg) || isset($uo)) {
   if ($pg != null && $uo != null) {
@@ -64,6 +74,7 @@ if (isset($pg) || isset($uo)) {
             $isi = $pg;
           }
           $i = 1;
+          $disableA = 0;
           foreach ($isi as $S) :
             $koreksi = '<a href="' . base_url('admin/koreksi/' . $S['id_ujian'] . '/' . $S['id_siswa']) . '" class="btn btn-primary float-right">Koreksi jawaban</a>'; ?>
             <tr>
@@ -81,7 +92,10 @@ if (isset($pg) || isset($uo)) {
               ?>
               <?= $val[0] == 'URAIAN' ? '<td>' . $status . '</td>' : '' ?>
             </tr>
-        <?php $i++;
+        <?php if ($S['status'] == 0 && $val[0] == 'URAIAN') {
+              $disableA = 1;
+            }
+            $i++;
           endforeach;
         endif; ?>
       </tbody>
@@ -99,12 +113,25 @@ if (isset($pg) || isset($uo)) {
         </tr>
       </tfoot>
     </table>
-    <?php if ($val[2] == 1) : ?>
-      <a href="<?= base_url('analisis/hitungSkor/' . $val[0] . '/' . $ujian['id_ujian']) ?>" class="btn btn-primary float-right">Analisis Jawaban</a>
-    <?php else : ?>
-      <button class="btn btn-primary float-right" disabled> Analisis Jawaban</button>
-    <?php endif ?>
-    <br>
-<?php $a++;
+    <div class="d-flex flex-row-reverse">
+      <?php if ($disableA == 1) : ?>
+        <button class="btn btn-primary float-right" disabled>Jawaban Belum dikoreksi</button>
+      <?php elseif ($val[2] == 1) : ?>
+        <a href="<?= base_url('analisis/hitungSkor/' . $val[0] . '/' . $ujian['id_ujian']) ?>" class="btn btn-primary float-right">Analisis Jawaban</a>
+      <?php else : ?>
+        <button class="btn btn-primary float-right" disabled>Jawaban Sudah dianalisis</button>
+      <?php endif ?>
+      <br>
+    </div>
+  <?php $a++;
   endforeach;
-} ?>
+}
+if ($disableN == 1) : ?>
+  <div class="row pt-1">
+    <a href="<?= base_url('Analisis/analisisHasilBelajar/' . $ujian['id_ujian']) ?>" class="btn btn-primary btn-block">Analisis Hasil Siswa</a>
+  </div>
+<?php else : ?>
+  <div class="row pt-1">
+    <button class="btn btn-primary float-right btn-block" disabled>Hasil Siswa Sudah Dianalisis</button>
+  </div>
+<?php endif ?>
