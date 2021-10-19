@@ -213,6 +213,10 @@ class Analisis extends CI_Controller
         'no_soal' => $S['nomor_soal'],
       ];
       $hasil[$soal] = $data_jmlJwb + $distract + $kriteria;
+      $status[$soal] = [
+        'id_soal' => $S['id_soal'],
+        'status' => 1
+      ];
     }
     // var_dump($hasil);
     // die;
@@ -220,7 +224,10 @@ class Analisis extends CI_Controller
 
     // // masih belum di cek
     // if ($cek == null) {
-    if ($this->db->insert_batch('tb_analis_soalpg', $hasil)) {
+    if (
+      $this->db->insert_batch('tb_analis_soalpg', $hasil) &&
+      $this->db->update_batch('tb_soal', $status, 'id_soal')
+    ) {
       $this->session->set_flashdata(
         'message',
         '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -359,6 +366,7 @@ class Analisis extends CI_Controller
     $data_ujian = $this->Ujian_model->getUjianByType('id_ujian', $id_ujian);
     $pg = $this->Skor_model->getSkorByType('id_ujian_pg', $id_ujian);
     $uraian = $this->Skor_model->getSkorByType('id_ujian_uo', $id_ujian);
+    $skor = $this->Skor_model->getSkorByType('id_ujian', $id_ujian);
 
     foreach ($pg as $P => $val) {
       $analisis = [
@@ -431,6 +439,12 @@ class Analisis extends CI_Controller
       }
       $hasil[$P] = $analisis;
     }
+    foreach ($skor as $S => $SK) {
+      $status[$S] = [
+        'id_skor' => $SK['id_skor'],
+        'status' => 1
+      ];
+    }
 
     array_multisort(array_column($hasil, 'nilai_ujian'), SORT_DESC, $hasil);
     // perankingan dan penentuan kelompok atas bawah
@@ -448,20 +462,23 @@ class Analisis extends CI_Controller
         $hasil[$h]['kelompok'] = 'TGH';
       }
     }
-    if ($this->db->insert_batch('tb_dist_nilai', $hasil)) {
+    if (
+      $this->db->insert_batch('tb_dist_nilai', $hasil) &&
+      $this->db->update_batch('tb_skor', $status, 'id_skor')
+    ) {
       $this->session->set_flashdata(
         'message',
         '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             Berhasil Menganalisis Soal URAIAN Ujian</div>'
       );
-      redirect('admin/nilai');
+      redirect('admin/distJawaban');
     } else {
       $this->session->set_flashdata(
         'message',
         '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             Gagal Menganalisis Soal URAIAN Ujian </div>'
       );
-      redirect('admin/nilai');
+      redirect('admin/distJawaban');
     }
   }
 }

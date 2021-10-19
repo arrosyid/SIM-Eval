@@ -40,50 +40,54 @@ if ($user['level'] == 1) {
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>Dashboard</p>
           </a>
-        <li class="nav-item">
-          <a href="<?= $href . 'analisis' ?>" class="nav-link
+        </li>
+        <?php if ($role != 'Siswa') : ?>
+          <li class="nav-item">
+            <a href="<?= $href . 'analisis' ?>" class="nav-link
                         <?php if ($tittle == 'Hasil Analisis') echo 'active'; ?>">
-            <i class="nav-icon fas fa-chart-line"></i>
-            <p>Hasil Analisis</p>
-          </a>
-        </li>
-        </li>
+              <i class="nav-icon fas fa-chart-line"></i>
+              <p>Hasil Analisis</p>
+            </a>
+          </li>
+        <?php endif ?>
         <li class="nav-header">Soal</li>
         <li class="nav-item">
           <a href="<?= $href . 'daftarUjian' ?>" class="nav-link 
-          <?php if ($tittle == 'Daftar Ujian') echo 'active'; ?>">
+            <?php if ($tittle == 'Daftar Ujian') echo 'active'; ?>">
             <i class="nav-icon far fa-file-alt"></i>
             <p>Daftar Ujian</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="<?= $href . 'daftarSoal' ?>" class="nav-link 
-                  <?php if ($tittle == 'Daftar Soal') echo 'active'; ?>">
-            <i class="nav-icon fas fa-lightbulb"></i>
-            <p>Daftar Soal</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="<?= $href . 'analisisSoal' ?>" class="nav-link 
+        <?php if ($role != 'Siswa') : ?>
+          <li class="nav-item">
+            <a href="<?= $href . 'daftarSoal' ?>" class="nav-link 
+            <?php if ($tittle == 'Daftar Soal') echo 'active'; ?>">
+              <i class="nav-icon fas fa-lightbulb"></i>
+              <p>Daftar Soal</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= $href . 'analisisSoal' ?>" class="nav-link 
                   <?php if ($tittle == 'Analisis Soal') echo 'active'; ?>">
-            <i class="nav-icon fas fa-clipboard-check"></i>
-            <p>Analisis Soal</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="<?= $href . 'distJawaban' ?>" class="nav-link 
+              <i class="nav-icon fas fa-clipboard-check"></i>
+              <p>Analisis Soal</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= $href . 'distJawaban' ?>" class="nav-link 
                     <?php if ($tittle == 'Distribusi Jawaban' || $tittle == 'Koreksi Soal' || $tittle == 'Skor Soal') echo 'active'; ?>">
-            <i class="nav-icon fas fa-spell-check"></i>
-            <p>Distribusi Jawaban</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="<?= $href . 'nilai' ?>" class="nav-link 
+              <i class="nav-icon fas fa-spell-check"></i>
+              <p>Distribusi Jawaban</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= $href . 'nilai' ?>" class="nav-link 
                     <?php if ($tittle == 'Daftar Nilai') echo 'active'; ?>">
-            <i class="nav-icon fas fa-poll-h"></i>
-            <p>Nilai Siswa</p>
-          </a>
-        </li>
+              <i class="nav-icon fas fa-poll-h"></i>
+              <p>Nilai Siswa</p>
+            </a>
+          </li>
+        <?php endif ?>
         <li class="nav-header">Daftar</li>
         <li class="nav-item">
           <a href="<?= $href . 'daftarGuru' ?>" class="nav-link 
@@ -99,27 +103,29 @@ if ($user['level'] == 1) {
             <p>Daftar Siswa</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="<?= $href . 'daftarMapel' ?>" class="nav-link 
+        <?php if ($role != 'Siswa') : ?>
+          <li class="nav-item">
+            <a href="<?= $href . 'daftarMapel' ?>" class="nav-link 
                     <?php if ($tittle == 'Daftar Mapel') echo 'active'; ?>">
-            <i class="nav-icon fas fa-book"></i>
-            <p>Daftar Mapel</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="<?= $href . 'daftarKelas' ?>" class="nav-link 
+              <i class="nav-icon fas fa-book"></i>
+              <p>Daftar Mapel</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= $href . 'daftarKelas' ?>" class="nav-link 
                     <?php if ($tittle == 'Daftar Kelas') echo 'active'; ?>">
-            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-            <p>Daftar Kelas</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="<?= $href . 'daftarPelajaran' ?>" class="nav-link 
+              <i class="nav-icon fas fa-chalkboard-teacher"></i>
+              <p>Daftar Kelas</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= $href . 'daftarPelajaran' ?>" class="nav-link 
                     <?php if ($tittle == 'Daftar Pelajaran') echo 'active'; ?>">
-            <i class="nav-icon fas fa-clipboard-list"></i>
-            <p>Daftar Pelajaran</p>
-          </a>
-        </li>
+              <i class="nav-icon fas fa-clipboard-list"></i>
+              <p>Daftar Pelajaran</p>
+            </a>
+          </li>
+        <?php endif ?>
         <li class="nav-header">Setting</li>
         <li class="nav-item">
           <a href="<?= $href . 'profileAdmin' ?>" class="nav-link
@@ -129,20 +135,20 @@ if ($user['level'] == 1) {
           </a>
         </li>
         <li class="nav-item">
-          <a href="<?= $href . 'profileSekolah' ?>" class="nav-link
-                    <?php if ($tittle == 'Profile Sekolah') echo 'active'; ?>">
-            <i class="nav-icon fas fa-school"></i>
-            <p>Profile sekolah</p>
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="<?= $href . 'editProfile' ?>" class="nav-link
                     <?php if ($tittle == 'Edit Profile Anda') echo 'active'; ?>">
             <i class="nav-icon fas fa-user-edit"></i>
             <p>Edit Profile</p>
           </a>
         </li>
-        <?php if ($user['level'] == 1) { ?>
+        <?php if ($role == 'Admin') : ?>
+          <li class="nav-item">
+            <a href="<?= $href . 'profileSekolah' ?>" class="nav-link
+                    <?php if ($tittle == 'Profile Sekolah') echo 'active'; ?>">
+              <i class="nav-icon fas fa-school"></i>
+              <p>Profile sekolah</p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="<?= base_url('admin/editSekolah') ?>" class="nav-link
                       <?php if ($tittle == 'Edit Profile Sekolah') echo 'active'; ?>">
@@ -150,7 +156,7 @@ if ($user['level'] == 1) {
               <p>Edit Profile Sekolah</p>
             </a>
           </li>
-        <?php } ?>
+        <?php endif ?>
         <li class="nav-item">
           <a href="<?= base_url('auth/logout') ?>" class="nav-link">
             <i class="nav-icon fas fa-sign-out-alt"></i>

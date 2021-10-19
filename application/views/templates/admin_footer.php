@@ -60,7 +60,7 @@
       background-color: #D45151;
     }
   </style>
-<?php elseif ($tittle == 'Profile Admin' || $tittle == 'Profile Sekolah') : ?>
+<?php elseif ($tittle == 'Profile Admin' || $tittle == 'Profile Sekolah' || $tittle == 'Profile Anda') : ?>
   <style>
     /* Jumbotron for ProfileSekolah.php & ProfileAdmin.php */
     .jumbotron-bg {
@@ -162,57 +162,6 @@ if ($tittle != 'dashboard' || $tittle != 'Hasil Analisis') :
   </script>
 <?php endif ?>
 
-<?php if (isset($url_ajax)) : ?>
-  <script>
-    //------------------
-    //- Modal Edit Box -
-    //------------------
-    $(function() {
-      $('.view-data').on('click', function() {
-        var <?= $id_ajax ?> = $(this).attr('id');
-        console.log(<?= $id_ajax ?>);
-
-        $.ajax({
-          url: "<?= $url_ajax ?>",
-          method: "post",
-          data: {
-            ajax_menu: '<?= $data_menu_ajax ?>',
-            <?= $id_ajax ?>: <?= $id_ajax ?>
-          },
-          success: function(data) {
-            $('<?= $html_ajax ?>').html(data);
-            $('<?= $modal_ajax ?>').modal();
-          }
-        });
-      });
-    });
-  </script>
-<?php endif ?>
-
-<?php if (isset($table_url_ajax)) : ?>
-  <script>
-    //------------------
-    //- Modal Edit Box -
-    //------------------
-    $('<?= $table_ajax_dom ?>').on('change', function() {
-      var <?= $table_id_ajax ?> = $('<?= $table_ajax_dom ?>').val();
-      console.log(<?= $table_id_ajax ?>);
-      $.ajax({
-        url: "<?= $table_url_ajax ?>",
-        method: "post",
-        data: {
-          ajax_menu: '<?= $table_ajax_menu ?>',
-          <?= $table_id_ajax ?>: <?= $table_id_ajax ?>
-        },
-        success: function(data) {
-          console.log('editable success');
-          $('<?= $table_html_ajax ?>').html(data);
-        }
-      });
-    });
-  </script>
-<?php endif ?>
-
 <?php if (isset($tittle_sweets)) : ?>
   <!-- Sweet Alert -->
   <script src="<?= base_url() ?>assets/plugins/sweetalert2/sweetalert2.all.min.js"></script>
@@ -252,6 +201,82 @@ if ($tittle != 'dashboard' || $tittle != 'Hasil Analisis') :
     }
   </script>
   <!-- End Sweet Alert -->
+<?php endif ?>
+
+<?php if (isset($table_url_ajax)) : ?>
+  <script>
+    //------------------
+    //- Modal Edit Box -
+    //------------------
+    $('<?= $table_ajax_dom ?>').on('change', function() {
+      var <?= $table_id_ajax ?> = $('<?= $table_ajax_dom ?>').val();
+      console.log(<?= $table_id_ajax ?>);
+      $.ajax({
+        url: "<?= $table_url_ajax ?>",
+        method: "post",
+        data: {
+          ajax_menu: '<?= $table_ajax_menu ?>',
+          <?= $table_id_ajax ?>: <?= $table_id_ajax ?>
+        },
+        success: function(data) {
+          console.log('editable success');
+          $('<?= $table_html_ajax ?>').html(data);
+
+          <?php if (isset($url_ajax)) : ?>
+            for (const btn of deleteButtons) {
+              $(btn).on('click', function(e) {
+                displayAlert($(this).data('url'));
+              });
+            }
+            $('.view-data').on('click', function() {
+              var <?= $id_ajax ?> = $(this).attr('id');
+              console.log(<?= $id_ajax ?>);
+
+              $.ajax({
+                url: "<?= $url_ajax ?>",
+                method: "post",
+                data: {
+                  ajax_menu: '<?= $data_menu_ajax ?>',
+                  <?= $id_ajax ?>: <?= $id_ajax ?>
+                },
+                success: function(data) {
+                  $('<?= $html_ajax ?>').html(data);
+                  $('<?= $modal_ajax ?>').modal();
+                }
+              });
+            });
+          <?php endif; ?>
+        }
+      });
+    });
+  </script>
+<?php endif ?>
+
+<?php if (isset($url_ajax)) : ?>
+  <script>
+    //------------------
+    //- Modal Edit Box -
+    //------------------
+    $(function() {
+      $('.view-data').on('click', function() {
+        var <?= $id_ajax ?> = $(this).attr('id');
+        console.log(<?= $id_ajax ?>);
+
+        $.ajax({
+          url: "<?= $url_ajax ?>",
+          method: "post",
+          data: {
+            ajax_menu: '<?= $data_menu_ajax ?>',
+            <?= $id_ajax ?>: <?= $id_ajax ?>
+          },
+          success: function(data) {
+            $('<?= $html_ajax ?>').html(data);
+            $('<?= $modal_ajax ?>').modal();
+          }
+        });
+      });
+    });
+  </script>
 <?php endif ?>
 
 <!-- Input Lainnya -->
