@@ -128,7 +128,7 @@ if ($user['level'] == 1) {
         <?php endif ?>
         <li class="nav-header">Setting</li>
         <li class="nav-item">
-          <a href="<?= $href . 'profileAdmin' ?>" class="nav-link
+          <a href="<?= $href . 'profile' ?>" class="nav-link
                     <?php if ($tittle == 'Profile Anda' || $tittle == 'Profile Admin') echo 'active'; ?>">
             <i class="nav-icon fas fa-address-card"></i>
             <p>My Profile</p>

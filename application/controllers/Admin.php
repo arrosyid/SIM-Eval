@@ -812,7 +812,7 @@ class Admin extends CI_Controller
     }
   }
 
-  public function profileAdmin()
+  public function profile()
   {
     // read profile guru
     $data['tittle'] = 'Profile Admin';
@@ -845,12 +845,14 @@ class Admin extends CI_Controller
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Berhasil Mengubah Password atau Kata Sandi Anda</div>'
         );
+        redirect('admin/profile');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Gagal Mengubah Password atau Kata Sandi Anda</div>'
         );
+        redirect('admin/profile');
       }
     }
   }
@@ -917,14 +919,14 @@ class Admin extends CI_Controller
           '<div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Berhasil Mengubah Data Anda</div>'
         );
-        redirect('admin/profileAdmin');
+        redirect('admin/profile');
       } else {
         $this->session->set_flashdata(
           'message',
           '<div class="alert alert-danger alert-dismissible"> <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                       Gagal Mengubah Data Anda</div>'
         );
-        redirect('admin/profileAdmin');
+        redirect('admin/profile');
       }
     }
   }
